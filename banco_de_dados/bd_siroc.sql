@@ -11,7 +11,8 @@
 	cli_cep varchar (10),
 	cli_contato varchar (40),
 	cli_email varchar (50),
-	cli_cgc varchar (20)
+	cli_cgc varchar (20),
+	cli_frete decimal(2,1)
 );
 
 create table fornecedores (
