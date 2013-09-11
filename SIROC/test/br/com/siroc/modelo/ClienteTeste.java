@@ -16,6 +16,7 @@ public class ClienteTeste {
         
         Cliente cliente = new Cliente();
         cliente.setNome("Luquinhas");
+        cliente.setEndereco("Cruzeiro");
         
         Transaction tx = session.beginTransaction();
         session.save(cliente);
