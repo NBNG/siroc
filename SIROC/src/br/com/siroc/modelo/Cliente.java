@@ -20,6 +20,7 @@ public class Cliente {
     private String cidade;
     private String estado;
     private String cep;
+    private String contato;
     private String email;
     private String cgc;
     private Double frete;
@@ -114,6 +115,15 @@ public class Cliente {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+    
+    @Column(name = "cli_contato")
+    public String getContato(){
+        return contato;
+    }
+    
+    public void setContato(String contato){
+        this.contato = contato;
     }
 
     @Column(name = "cli_email", nullable = true, length = 50)
