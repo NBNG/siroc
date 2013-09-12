@@ -22,10 +22,13 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
 
     public Cadastro_Clientes() throws ParseException {
         initComponents();
-        MaskFormatter maskData = new MaskFormatter("(##) ####-####");
-        MaskFormatter maskData2 = new MaskFormatter("(##) #####-####");
-        maskData.install(jFTTelefone);
-        maskData2.install(jFTCelular);
+        MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
+        MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");
+        MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
+
+        maskTelefone.install(jFTTelefone);
+        maskCelular.install(jFTCelular);
+        maskCnpj.install(jFTCnpj);
     }
 
     /**
@@ -46,13 +49,12 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jLEstado = new javax.swing.JLabel();
         jLTelefone = new javax.swing.JLabel();
         jLEmail = new javax.swing.JLabel();
-        jLCGC = new javax.swing.JLabel();
+        jLCNPJ = new javax.swing.JLabel();
         jLCEP = new javax.swing.JLabel();
         jLFrete = new javax.swing.JLabel();
         jLContato = new javax.swing.JLabel();
         jTNome = new javax.swing.JTextField();
         jTIE = new javax.swing.JTextField();
-        jTCGC = new javax.swing.JTextField();
         jTEndereco = new javax.swing.JTextField();
         jTContato = new javax.swing.JTextField();
         jTEmail = new javax.swing.JTextField();
@@ -66,6 +68,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jBCadastrar = new javax.swing.JButton();
         jBLimpar = new javax.swing.JButton();
         jTCidade = new javax.swing.JTextField();
+        jFTCnpj = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -96,8 +99,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jLEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLEmail.setText("Email:");
 
-        jLCGC.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLCGC.setText("CGC:");
+        jLCNPJ.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLCNPJ.setText("CNPJ:");
 
         jLCEP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLCEP.setText("CEP:");
@@ -111,8 +114,6 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTIE.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jTCGC.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTEndereco.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -156,6 +157,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
 
         jTCidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
+        jFTCnpj.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,15 +170,15 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                         .addComponent(jLCabecalho))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jL_IE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTIE, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLCGC)
+                                .addComponent(jLCNPJ)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTCGC, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jFTCnpj))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(71, 71, 71)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +229,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                                                 .addComponent(jBLimpar))
                                             .addComponent(jTCidade))))))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
@@ -244,8 +247,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jL_IE)
                     .addComponent(jTIE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTCGC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLCGC))
+                    .addComponent(jLCNPJ)
+                    .addComponent(jFTCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLTelefone)
@@ -284,7 +287,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
@@ -293,7 +296,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         jTBairro.setText("");
         jTCEP.setText("");
-        jTCGC.setText("");
+        jFTCnpj.setText("");
         jTContato.setText("");
         jTEmail.setText("");
         jTEndereco.setText("");
@@ -318,9 +321,9 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         cliente.setEstado(String.valueOf(jCBEstado.getSelectedItem()));
         cliente.setCep(jTCEP.getText());
         cliente.setEmail(jTEmail.getText());
-        cliente.setCgc(jTCGC.getText());
+        cliente.setCnpj(jFTCnpj.getText());
         cliente.setFrete(Double.parseDouble(jTFrete.getText()));
-        //cliente.setContato(jTContato.getText());
+        cliente.setContato(jTContato.getText());
 
         DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
         dao.adicionar(cliente);
@@ -331,10 +334,11 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBLimpar;
     private javax.swing.JComboBox jCBEstado;
     private javax.swing.JFormattedTextField jFTCelular;
+    private javax.swing.JFormattedTextField jFTCnpj;
     private javax.swing.JFormattedTextField jFTTelefone;
     private javax.swing.JLabel jLBairro;
     private javax.swing.JLabel jLCEP;
-    private javax.swing.JLabel jLCGC;
+    private javax.swing.JLabel jLCNPJ;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLCelular;
     private javax.swing.JLabel jLCidade;
@@ -348,7 +352,6 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jL_IE;
     private javax.swing.JTextField jTBairro;
     private javax.swing.JTextField jTCEP;
-    private javax.swing.JTextField jTCGC;
     private javax.swing.JTextField jTCidade;
     private javax.swing.JTextField jTContato;
     private javax.swing.JTextField jTEmail;

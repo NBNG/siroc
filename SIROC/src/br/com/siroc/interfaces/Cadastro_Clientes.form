@@ -30,15 +30,15 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jL_IE" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jTIE" min="-2" pref="185" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLCGC" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLCNPJ" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTCGC" min="-2" pref="188" max="-2" attributes="0"/>
+                              <Component id="jFTCnpj" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
@@ -108,7 +108,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -126,8 +126,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jL_IE" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTIE" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTCGC" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLCGC" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLCNPJ" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jFTCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -175,7 +175,7 @@
                   <Component id="jBCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -253,12 +253,12 @@
         <Property name="text" type="java.lang.String" value="Email:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLCGC">
+    <Component class="javax.swing.JLabel" name="jLCNPJ">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="CGC:"/>
+        <Property name="text" type="java.lang.String" value="CNPJ:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLCEP">
@@ -293,13 +293,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTIE">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="18" style="0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTCGC">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="0"/>
@@ -437,6 +430,13 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTCidade">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="0"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="jFTCnpj">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="0"/>

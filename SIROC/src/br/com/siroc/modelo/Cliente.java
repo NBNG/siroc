@@ -22,7 +22,7 @@ public class Cliente {
     private String cep;
     private String contato;
     private String email;
-    private String cgc;
+    private String cnpj;
     private Double frete;
 
     @Id
@@ -135,13 +135,13 @@ public class Cliente {
         this.email = email;
     }
 
-    @Column(name = "cli_cgc", nullable = false, length = 20)
-    public String getCgc() {
-        return cgc;
+    @Column(name = "cli_cnpj", nullable = false, length = 20)
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setCgc(String cgc) {
-        this.cgc = cgc;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     @Column(name = "cli_frete", nullable = true)

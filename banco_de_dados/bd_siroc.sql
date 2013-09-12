@@ -7,11 +7,11 @@
 	cli_endereco varchar (80),
 	cli_bairro varchar (30),
 	cli_cidade varchar (20),
-	cli_estado char(3),
+	cli_estado char(2),
 	cli_cep varchar (10),
 	cli_contato varchar (40),
 	cli_email varchar (50),
-	cli_cgc varchar (20),
+	cli_cpnj varchar (20),
 	cli_frete decimal(2,1)
 );
 

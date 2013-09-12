@@ -39,6 +39,7 @@ public class Principal extends javax.swing.JFrame {
         jMArquivo = new javax.swing.JMenu();
         jMClente = new javax.swing.JMenu();
         jMICadastro_Clientes = new javax.swing.JMenuItem();
+        jMIListagem_Clientes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,6 +60,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMClente.add(jMICadastro_Clientes);
+
+        jMIListagem_Clientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIListagem_Clientes.setText("Listagem de Clientes");
+        jMIListagem_Clientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIListagem_ClientesActionPerformed(evt);
+            }
+        });
+        jMClente.add(jMIListagem_Clientes);
 
         jMenu.add(jMClente);
 
@@ -87,6 +97,12 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMICadastro_ClientesActionPerformed
+
+    private void jMIListagem_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_ClientesActionPerformed
+            Listagem_Clientes lc = new Listagem_Clientes();
+            jPanel.add(lc);
+            lc.setVisible(true);
+    }//GEN-LAST:event_jMIListagem_ClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,6 +142,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenu jMClente;
     private javax.swing.JMenuItem jMICadastro_Clientes;
+    private javax.swing.JMenuItem jMIListagem_Clientes;
     private javax.swing.JMenuBar jMenu;
     private javax.swing.JDesktopPane jPanel;
     // End of variables declaration//GEN-END:variables
