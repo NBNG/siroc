@@ -8,8 +8,8 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/siroc</property>
         <property name="hibernate.connection.username">postgres</property>
-        <!-- INPE<property name="hibernate.connection.password">agreste03</property> -->
-        <property name="hibernate.connection.password">senha</property>
+        <property name="hibernate.connection.password">agreste03</property> 
+        <!-- <property name="hibernate.connection.password">senha</property> -->
         
         <property name="hibernate.hbm2ddl.auto">update</property>
         

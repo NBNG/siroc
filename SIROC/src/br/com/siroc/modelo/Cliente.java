@@ -54,7 +54,7 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    @Column(name = "cli_inscricao_est", nullable = false, length = 20)
+    @Column(name = "cli_inscricao_est", nullable = false, length = 20, unique = true)
     public String getInscricao_est() {
         return inscricao_est;
     }
@@ -63,7 +63,7 @@ public class Cliente {
         this.inscricao_est = inscricao_est;
     }
 
-    @Column(name = "cli_celular", nullable = true, length = 11)
+    @Column(name = "cli_celular", nullable = true, length = 15)
     public String getCelular() {
         return celular;
     }
@@ -72,7 +72,7 @@ public class Cliente {
         this.celular = celular;
     }
 
-    @Column(name = "cli_telefone", nullable = true, length = 11)
+    @Column(name = "cli_telefone", nullable = true, length = 14)
     public String getTelefone() {
         return telefone;
     }
@@ -135,7 +135,7 @@ public class Cliente {
         this.email = email;
     }
 
-    @Column(name = "cli_cnpj", nullable = false, length = 20)
+    @Column(name = "cli_cnpj", nullable = false, length = 20, unique= true)
     public String getCnpj() {
         return cnpj;
     }
@@ -144,7 +144,7 @@ public class Cliente {
         this.cnpj = cnpj;
     }
 
-    @Column(name = "cli_frete", nullable = true)
+    @Column(name = "cli_frete", nullable = false)
     public Double getFrete() {
         return frete;
     }
