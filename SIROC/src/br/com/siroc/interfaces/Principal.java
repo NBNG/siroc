@@ -5,6 +5,9 @@
 package br.com.siroc.interfaces;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -76,9 +79,13 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMICadastro_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_ClientesActionPerformed
-        Cadastro_Clientes cc = new Cadastro_Clientes();
-        jPanel.add(cc);
-        cc.setVisible(true);
+        try {
+            Cadastro_Clientes cc = new Cadastro_Clientes();
+            jPanel.add(cc);
+            cc.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMICadastro_ClientesActionPerformed
 
     /**

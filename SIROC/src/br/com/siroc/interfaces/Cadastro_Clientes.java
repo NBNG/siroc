@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
 import javax.swing.text.MaskFormatter;
@@ -18,7 +19,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
      * Creates new form Cadastro_Clientes
      */
     Cliente cliente;
-    
+
     public Cadastro_Clientes() throws ParseException {
         initComponents();
         MaskFormatter maskData = new MaskFormatter("(##) ####-####");
@@ -126,6 +127,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jTFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jCBEstado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCBEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         jFTTelefone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -282,7 +284,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -304,6 +306,24 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+        Cliente cliente = new Cliente();
+
+        cliente.setNome(jTNome.getText());
+        cliente.setCelular(jFTCelular.getText());
+        cliente.setTelefone(jFTTelefone.getText());
+        cliente.setInscricao_est(jTIE.getText());
+        cliente.setEndereco(jTEndereco.getText());
+        cliente.setBairro(jTBairro.getText());
+        cliente.setCidade(jTCidade.getText());
+        cliente.setEstado(String.valueOf(jCBEstado.getSelectedItem()));
+        cliente.setCep(jTCEP.getText());
+        cliente.setEmail(jTEmail.getText());
+        cliente.setCgc(jTCGC.getText());
+        cliente.setFrete(Double.parseDouble(jTFrete.getText()));
+        //cliente.setContato(jTContato.getText());
+
+        DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
+        dao.adicionar(cliente);
 
     }//GEN-LAST:event_jBCadastrarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
