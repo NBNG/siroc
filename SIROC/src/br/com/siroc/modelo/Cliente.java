@@ -116,13 +116,13 @@ public class Cliente {
     public void setCep(String cep) {
         this.cep = cep;
     }
-    
+
     @Column(name = "cli_contato")
-    public String getContato(){
+    public String getContato() {
         return contato;
     }
-    
-    public void setContato(String contato){
+
+    public void setContato(String contato) {
         this.contato = contato;
     }
 

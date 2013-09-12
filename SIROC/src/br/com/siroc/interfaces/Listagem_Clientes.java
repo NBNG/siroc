@@ -166,6 +166,8 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAtualizarActionPerformed
+        Atualiza_Clientes ac = new Atualiza_Clientes(null);
+        ac.setVisible(true);
     }//GEN-LAST:event_jBAtualizarActionPerformed
 
     private void jRBNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBNomeActionPerformed

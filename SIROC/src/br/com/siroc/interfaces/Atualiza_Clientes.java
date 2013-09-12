@@ -6,30 +6,21 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
-import java.text.ParseException;
-import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author matt
  */
-public class Cadastro_Clientes extends javax.swing.JInternalFrame {
+public class Atualiza_Clientes extends javax.swing.JFrame {
 
     /**
-     * Creates new form Cadastro_Clientes
+     * Creates new form Pesquisa_Clientes
      */
-    Cliente cliente;
-
-    public Cadastro_Clientes() throws ParseException {
-        super("SIROC - Cadastro de CLientes");
+    public Atualiza_Clientes(Cliente cliente) {
+        super("SIROC - Atualização de Cadastros");
         initComponents();
-        MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
-        MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");
-        MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
-
-        maskTelefone.install(jFTTelefone);
-        maskCelular.install(jFTCelular);
-        maskCnpj.install(jFTCnpj);
+        setLocationRelativeTo(null);
+        //populateFields(cliente);
     }
 
     /**
@@ -41,71 +32,60 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLCabecalho = new javax.swing.JLabel();
-        jLFrete = new javax.swing.JLabel();
-        jBCadastrar = new javax.swing.JButton();
-        jLCNPJ = new javax.swing.JLabel();
-        jLCEP = new javax.swing.JLabel();
+        jTEndereco = new javax.swing.JTextField();
+        jTIE = new javax.swing.JTextField();
+        jTContato = new javax.swing.JTextField();
         jLTelefone = new javax.swing.JLabel();
-        jLEmail = new javax.swing.JLabel();
-        jFTCnpj = new javax.swing.JFormattedTextField();
         jTCidade = new javax.swing.JTextField();
-        jLContato = new javax.swing.JLabel();
+        jLFrete = new javax.swing.JLabel();
+        jLCEP = new javax.swing.JLabel();
+        jLCNPJ = new javax.swing.JLabel();
+        jLEmail = new javax.swing.JLabel();
         jBLimpar = new javax.swing.JButton();
-        jLCidade = new javax.swing.JLabel();
-        jLEstado = new javax.swing.JLabel();
-        jLEndereco = new javax.swing.JLabel();
-        jLBairro = new javax.swing.JLabel();
-        jFTTelefone = new javax.swing.JFormattedTextField();
-        jCBEstado = new javax.swing.JComboBox();
-        jFTCelular = new javax.swing.JFormattedTextField();
-        jTEmail = new javax.swing.JTextField();
-        jLNome = new javax.swing.JLabel();
+        jTNome = new javax.swing.JTextField();
+        jBCadastrar = new javax.swing.JButton();
+        jLContato = new javax.swing.JLabel();
         jTBairro = new javax.swing.JTextField();
+        jTEmail = new javax.swing.JTextField();
         jLCelular = new javax.swing.JLabel();
         jTFrete = new javax.swing.JTextField();
         jL_IE = new javax.swing.JLabel();
         jTCEP = new javax.swing.JTextField();
-        jTIE = new javax.swing.JTextField();
-        jTEndereco = new javax.swing.JTextField();
-        jTContato = new javax.swing.JTextField();
-        jTNome = new javax.swing.JTextField();
+        jLNome = new javax.swing.JLabel();
+        jLCabecalho = new javax.swing.JLabel();
+        jFTCelular = new javax.swing.JFormattedTextField();
+        jFTTelefone = new javax.swing.JFormattedTextField();
+        jCBEstado = new javax.swing.JComboBox();
+        jLBairro = new javax.swing.JLabel();
+        jLEndereco = new javax.swing.JLabel();
+        jLEstado = new javax.swing.JLabel();
+        jLCidade = new javax.swing.JLabel();
+        jFTCnpj = new javax.swing.JFormattedTextField();
 
-        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLCabecalho.setText("Cadastro de Clientes");
+        jTEndereco.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jLFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLFrete.setText("Frete:");
+        jTIE.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jBCadastrar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/salvar.png"))); // NOI18N
-        jBCadastrar.setText("Cadastrar");
-        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCadastrarActionPerformed(evt);
-            }
-        });
-
-        jLCNPJ.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLCNPJ.setText("CNPJ:");
-
-        jLCEP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLCEP.setText("CEP:");
+        jTContato.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLTelefone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLTelefone.setText("Telefone:");
 
-        jLEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLEmail.setText("Email:");
-
-        jFTCnpj.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
         jTCidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jLContato.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLContato.setText("Contato:");
+        jLFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLFrete.setText("Frete:");
+
+        jLCEP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLCEP.setText("CEP:");
+
+        jLCNPJ.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLCNPJ.setText("CNPJ:");
+
+        jLEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLEmail.setText("Email:");
 
         jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
@@ -116,31 +96,23 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
             }
         });
 
-        jLCidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLCidade.setText("Cidade:");
+        jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jLEstado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLEstado.setText("Estado:");
+        jBCadastrar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/salvar.png"))); // NOI18N
+        jBCadastrar.setText("Cadastrar");
+        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCadastrarActionPerformed(evt);
+            }
+        });
 
-        jLEndereco.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLEndereco.setText("Endereço:");
-
-        jLBairro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLBairro.setText("Bairro:");
-
-        jFTTelefone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jCBEstado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCBEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
-
-        jFTCelular.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jTEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jLNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLNome.setText("Nome:");
+        jLContato.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLContato.setText("Contato:");
 
         jTBairro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jTEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLCelular.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLCelular.setText("Celular:");
@@ -152,24 +124,43 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
 
         jTCEP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jTIE.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLNome.setText("Nome:");
 
-        jTEndereco.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLCabecalho.setText("Atualização Clientes");
 
-        jTContato.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jFTCelular.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jFTTelefone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jCBEstado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCBEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+
+        jLBairro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLBairro.setText("Bairro:");
+
+        jLEndereco.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLEndereco.setText("Endereço:");
+
+        jLEstado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLEstado.setText("Estado:");
+
+        jLCidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLCidade.setText("Cidade:");
+
+        jFTCnpj.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLCabecalho)
-                        .addGap(210, 210, 210))
+                        .addGap(215, 215, 215))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -233,12 +224,12 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                                             .addGap(18, 18, 18)
                                             .addComponent(jTBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(30, 30, 30))))
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
                 .addComponent(jLCabecalho)
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -284,15 +275,30 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                     .addComponent(jLCEP)
                     .addComponent(jLFrete)
                     .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
+        jTBairro.setText("");
+        jTCEP.setText("");
+        jFTCnpj.setText("");
+        jTContato.setText("");
+        jTEmail.setText("");
+        jTEndereco.setText("");
+        jTFrete.setText("");
+        jTIE.setText("");
+        jTNome.setText("");
+        jTCidade.setText("");
+        jFTCelular.setText("");
+        jFTTelefone.setText("");
+    }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
         Cliente cliente = new Cliente();
@@ -314,21 +320,6 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
         dao.adicionar(cliente);
     }//GEN-LAST:event_jBCadastrarActionPerformed
-
-    private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        jTBairro.setText("");
-        jTCEP.setText("");
-        jFTCnpj.setText("");
-        jTContato.setText("");
-        jTEmail.setText("");
-        jTEndereco.setText("");
-        jTFrete.setText("");
-        jTIE.setText("");
-        jTNome.setText("");
-        jTCidade.setText("");
-        jFTCelular.setText("");
-        jFTTelefone.setText("");
-    }//GEN-LAST:event_jBLimparActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBLimpar;
@@ -360,4 +351,20 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTIE;
     private javax.swing.JTextField jTNome;
     // End of variables declaration//GEN-END:variables
+//metodos aqui
+
+    public void populateFields(Cliente cliente) {
+        jTNome.setText(cliente.getNome());
+        jTBairro.setText(cliente.getBairro());
+        jTCEP.setText(cliente.getCep());
+        jTCidade.setText(cliente.getCidade());
+        jTContato.setText(cliente.getContato());
+        jTEmail.setText(cliente.getEmail());
+        jTEndereco.setText(cliente.getEndereco());
+        jTFrete.setText(String.valueOf(cliente.getFrete()));
+        jTIE.setText(cliente.getInscricao_est());
+        jFTCelular.setText(cliente.getCelular());
+        jFTTelefone.setText(cliente.getTelefone());
+        jFTCnpj.setText(cliente.getCnpj());
+    }
 }
