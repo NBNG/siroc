@@ -21,8 +21,9 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     /**
      * Creates new form Listagem_Clientes
      */
+    ClienteDAO dao = new ClienteDAO();
+    String endereco;
     List<Cliente> clientes;//List de uma classe do modelo para utilização na tabela;
-    ListSelectionModel lsmCliente;
     DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"});
     //definição das colunas da tabela
 
@@ -174,21 +175,18 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         if (jRBNome.isSelected()) {
             jRBCPF.setSelected(false);
             jFTCnpj.setText("");
-            ClienteDAO dao = new ClienteDAO();
-            String endereco;
 
             while (tmCliente.getRowCount() > 0) {
                 tmCliente.removeRow(0);
             }
 
             clientes = dao.buscaPorNome(jTNome.getText());
-            String[] linha = new String[]{null, null, null, null};
 
             for (int i = 0; i < clientes.size(); i++) {
                 endereco = clientes.get(i).getEndereco() + ", " + clientes.get(i).getBairro() + " - "
                         + clientes.get(i).getCidade() + "/" + clientes.get(i).getEstado() + " - CEP: "
                         + clientes.get(i).getCep();
-                tmCliente.addRow(linha);
+                tmCliente.addRow(new String[]{null, null, null, null});
                 tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
                 tmCliente.setValueAt(clientes.get(i).getInscricao_est(), i, 1);
                 tmCliente.setValueAt(clientes.get(i).getCnpj(), i, 2);
@@ -209,21 +207,18 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         if (jRBNome.isSelected()) {
             jRBCPF.setSelected(false);
             jFTCnpj.setText("");
-            ClienteDAO dao = new ClienteDAO();
-            String endereco;
 
             while (tmCliente.getRowCount() > 0) {
                 tmCliente.removeRow(0);
             }
 
             clientes = dao.buscaPorNome(jTNome.getText());
-            String[] linha = new String[]{null, null, null, null};
 
             for (int i = 0; i < clientes.size(); i++) {
                 endereco = clientes.get(i).getEndereco() + ", " + clientes.get(i).getBairro() + " - "
                         + clientes.get(i).getCidade() + "/" + clientes.get(i).getEstado() + " - CEP: "
                         + clientes.get(i).getCep();
-                tmCliente.addRow(linha);
+                tmCliente.addRow(new String[]{null, null, null, null});
                 tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
                 tmCliente.setValueAt(clientes.get(i).getInscricao_est(), i, 1);
                 tmCliente.setValueAt(clientes.get(i).getCnpj(), i, 2);

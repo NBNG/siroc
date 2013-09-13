@@ -40,6 +40,9 @@ public class Principal extends javax.swing.JFrame {
         jMClente = new javax.swing.JMenu();
         jMICadastro_Clientes = new javax.swing.JMenuItem();
         jMIListagem_Clientes = new javax.swing.JMenuItem();
+        jMFornecedor = new javax.swing.JMenu();
+        jMICadastro_Fornecedor = new javax.swing.JMenuItem();
+        jMIListagem_Fornecedor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +74,30 @@ public class Principal extends javax.swing.JFrame {
         jMClente.add(jMIListagem_Clientes);
 
         jMenu.add(jMClente);
+
+        jMFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/funcionario.png"))); // NOI18N
+        jMFornecedor.setText("Fornecedores");
+        jMFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jMICadastro_Fornecedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMICadastro_Fornecedor.setText("Cadastro de Fornecedores");
+        jMICadastro_Fornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMICadastro_FornecedorActionPerformed(evt);
+            }
+        });
+        jMFornecedor.add(jMICadastro_Fornecedor);
+
+        jMIListagem_Fornecedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIListagem_Fornecedor.setText("Listagem de Fornecedores");
+        jMIListagem_Fornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIListagem_FornecedorActionPerformed(evt);
+            }
+        });
+        jMFornecedor.add(jMIListagem_Fornecedor);
+
+        jMenu.add(jMFornecedor);
 
         setJMenuBar(jMenu);
 
@@ -107,6 +134,18 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMIListagem_ClientesActionPerformed
+
+    private void jMICadastro_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_FornecedorActionPerformed
+        Cadastro_Fornecedor cf = new Cadastro_Fornecedor();
+        jPanel.add(cf);
+        cf.setVisible(true);
+    }//GEN-LAST:event_jMICadastro_FornecedorActionPerformed
+
+    private void jMIListagem_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_FornecedorActionPerformed
+        Listagem_Fornecedores lf = new Listagem_Fornecedores();
+        jPanel.add(lf);
+        lf.setVisible(true);
+    }//GEN-LAST:event_jMIListagem_FornecedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,8 +184,11 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenu jMClente;
+    private javax.swing.JMenu jMFornecedor;
     private javax.swing.JMenuItem jMICadastro_Clientes;
+    private javax.swing.JMenuItem jMICadastro_Fornecedor;
     private javax.swing.JMenuItem jMIListagem_Clientes;
+    private javax.swing.JMenuItem jMIListagem_Fornecedor;
     private javax.swing.JMenuBar jMenu;
     private javax.swing.JDesktopPane jPanel;
     // End of variables declaration//GEN-END:variables
