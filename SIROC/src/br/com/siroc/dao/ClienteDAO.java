@@ -11,6 +11,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 public class ClienteDAO {
 
@@ -44,13 +45,14 @@ public class ClienteDAO {
 
         List<Cliente> clientes = new ArrayList<Cliente>();
 
-        String consulta = "FROM Cliente WHERE cli_nome ilike '%'||:nome||'%'";
+        String consulta = "FROM Cliente WHERE cli_nome like '%'||:nome||'%'";
 
         Query query = session.createQuery(consulta);
         query.setParameter("nome", nome);
 
-
-        clientes = (List) query.list();
+        clientes = (List) session.createCriteria(Cliente.class).add(Restrictions.ilike("nome", "%"+nome+"%")).list();
+        
+        //clientes = (List) query.list();
 
         tx.commit();
 
