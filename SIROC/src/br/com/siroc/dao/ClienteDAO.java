@@ -31,9 +31,9 @@ public class ClienteDAO {
         if (query.list().size() > 0) {
             cliente = (Cliente) query.list().get(0);
         }
-        
+
         tx.commit();
-        
+
         return cliente;
     }
 
@@ -50,9 +50,9 @@ public class ClienteDAO {
         if (query.list().size() > 0) {
             cliente = (Cliente) query.list().get(0);
         }
-        
+
         tx.commit();
-        
+
         return cliente;
     }
 }

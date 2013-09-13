@@ -135,7 +135,7 @@ public class Cliente {
         this.email = email;
     }
 
-    @Column(name = "cli_cnpj", nullable = false, length = 20, unique= true)
+    @Column(name = "cli_cnpj", nullable = false, length = 20, unique = true)
     public String getCnpj() {
         return cnpj;
     }

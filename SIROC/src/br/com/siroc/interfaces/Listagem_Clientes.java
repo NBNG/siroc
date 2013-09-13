@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.dao.ClienteDAO;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
@@ -30,7 +31,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         super("SIROC - Listagem de Clientes");
         initComponents();
         MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
-        maskCnpj.install(jFTCnpj);
+        // maskCnpj.install(jFTCnpj);
     }
 
     /**
@@ -174,10 +175,10 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         if (jRBNome.isSelected()) {
             jRBCPF.setSelected(false);
             jFTCnpj.setText("");
-            DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
+            ClienteDAO dao = new ClienteDAO();
             String endereco;
 
-            clientes = dao.listaTodos();
+            //clientes = dao.buscaPorNome(jTNome.getText());
             String[] linha = new String[]{null, null, null, null};
 
             for (int i = 0; i < clientes.size(); i++) {
@@ -209,6 +210,29 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         if (jRBCPF.isSelected()) {
             jRBNome.setSelected(false);
             jTNome.setText("");
+            ClienteDAO dao = new ClienteDAO();
+            Cliente cliente;
+            String endereco;
+
+            cliente = (Cliente) dao.buscaPorCNPJ(jFTCnpj.getText());
+            String[] linha = new String[]{null, null, null, null};
+
+
+            endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
+                    + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "
+                    + cliente.getCep();
+            //{"Nome", "Inscrição Estadual", "CNPJ", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"});
+            tmCliente.addRow(linha);
+            tmCliente.setValueAt(cliente.getNome(), 0, 0);
+            tmCliente.setValueAt(cliente.getInscricao_est(), 0, 1);
+            tmCliente.setValueAt(cliente.getCnpj(), 0, 2);
+            tmCliente.setValueAt(cliente.getTelefone(), 0, 3);
+            tmCliente.setValueAt(cliente.getContato(), 0, 4);
+            tmCliente.setValueAt(cliente.getEmail(), 0, 5);
+            tmCliente.setValueAt(cliente.getCelular(), 0, 6);
+            tmCliente.setValueAt(endereco, 0, 7);
+            tmCliente.setValueAt(cliente.getFrete(), 0, 8);
+
         }
     }//GEN-LAST:event_jRBCPFActionPerformed
 
