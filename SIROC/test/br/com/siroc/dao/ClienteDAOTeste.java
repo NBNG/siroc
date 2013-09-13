@@ -16,6 +16,6 @@ public class ClienteDAOTeste {
     public void buscaPorNome() {
         ClienteDAO dao = new ClienteDAO();
 
-        assertEquals("Lucas Garofolo Lopes", dao.buscaPorNome("Garofolo").getNome());
+        assertEquals("Lucas Garofolo Lopes", dao.buscaPorNome("Garofolo").get(0).getNome());
     }
 }

@@ -6,6 +6,8 @@ package br.com.siroc.dao;
 
 import br.com.siroc.fabrica.ConnectionFactory;
 import br.com.siroc.modelo.Cliente;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -37,22 +39,21 @@ public class ClienteDAO {
         return cliente;
     }
 
-    public Cliente buscaPorNome(String nome) {
+    public List<Cliente> buscaPorNome(String nome) {
         Transaction tx = session.beginTransaction();
 
-        Cliente cliente = null;
+        List<Cliente> clientes = new ArrayList<Cliente>();
 
         String consulta = "FROM Cliente WHERE cli_nome like '%'||:nome||'%'";
 
         Query query = session.createQuery(consulta);
         query.setParameter("nome", nome);
 
-        if (query.list().size() > 0) {
-            cliente = (Cliente) query.list().get(0);
-        }
+
+        clientes = (List<Cliente>) query.list().get(0);
 
         tx.commit();
 
-        return cliente;
+        return clientes;
     }
 }
