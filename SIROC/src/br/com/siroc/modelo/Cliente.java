@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.Index;
 
 @Entity
 @Table(name = "CLIENTES")
@@ -35,8 +36,10 @@ public class Cliente {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Column(name = "cli_nome", nullable = false, length = 150)
+    
+    
+    @Column(name = "cli_nome", nullable = false, length = 150) 
+    @Index(name = "sk_nome")
     public String getNome() {
         return nome;
     }
@@ -126,7 +129,7 @@ public class Cliente {
         this.contato = contato;
     }
 
-    @Column(name = "cli_email", nullable = true, length = 50)
+    @Column(name = "cli_email", nullable = true, length = 50, unique=true)
     public String getEmail() {
         return email;
     }

@@ -45,4 +45,5 @@ public class DAO<T> {
     public T busca(Long id) {
         return (T) session.load(classe, id);
     }
+   
 }

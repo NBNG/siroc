@@ -44,7 +44,7 @@ public class ClienteDAO {
 
         List<Cliente> clientes = new ArrayList<Cliente>();
 
-        String consulta = "FROM Cliente WHERE cli_nome like '%'||:nome||'%'";
+        String consulta = "FROM Cliente WHERE cli_nome ilike '%'||:nome||'%'";
 
         Query query = session.createQuery(consulta);
         query.setParameter("nome", nome);
@@ -54,6 +54,13 @@ public class ClienteDAO {
 
         tx.commit();
 
+        return clientes;
+    }
+    
+    public List<Cliente> buscaPorLetras(String nome){
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        
+        
         return clientes;
     }
 }
