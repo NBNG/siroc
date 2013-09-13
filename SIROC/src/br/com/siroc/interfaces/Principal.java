@@ -49,7 +49,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu.add(jMArquivo);
 
         jMClente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/cliente.png"))); // NOI18N
-        jMClente.setText("Cliente");
+        jMClente.setText("Clientes");
         jMClente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMICadastro_Clientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

@@ -6,6 +6,7 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,8 +17,11 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     /**
      * Creates new form Pesquisa_Clientes
      */
+    private Long id;
+
     public Atualiza_Clientes(Long id) {
         super("SIROC - Atualização de Cadastros");
+        this.id = id;
         initComponents();
         setLocationRelativeTo(null);
         populateFields(id);
@@ -100,7 +104,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
 
         jBCadastrar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/salvar.png"))); // NOI18N
-        jBCadastrar.setText("Cadastrar");
+        jBCadastrar.setText("Atualizar");
         jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCadastrarActionPerformed(evt);
@@ -226,6 +230,9 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
                                         .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(31, 31, 31))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -301,24 +308,49 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        Cliente cliente = new Cliente();
-
-        cliente.setNome(jTNome.getText());
-        cliente.setCelular(jFTCelular.getText());
-        cliente.setTelefone(jFTTelefone.getText());
-        cliente.setInscricao_est(jTIE.getText());
-        cliente.setEndereco(jTEndereco.getText());
-        cliente.setBairro(jTBairro.getText());
-        cliente.setCidade(jTCidade.getText());
-        cliente.setEstado(String.valueOf(jCBEstado.getSelectedItem()));
-        cliente.setCep(jTCEP.getText());
-        cliente.setEmail(jTEmail.getText());
-        cliente.setCnpj(jFTCnpj.getText());
-        cliente.setFrete(Double.parseDouble(jTFrete.getText()));
-        cliente.setContato(jTContato.getText());
-
-        DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
-        dao.adicionar(cliente);
+        try {
+            if ((String.valueOf(jCBEstado.getSelectedItem()).equals("AC"))) {
+                JOptionPane.showMessageDialog(null, "Tem certeza do estado escolhido?");
+            } else {
+                if (jTNome.getText().equals("") || (jTIE.getText().equals("") || (jTEndereco.getText().equals("")
+                        || (jTBairro.getText().equals("") || (jTCidade.getText().equals("") || (String.valueOf(jCBEstado.getSelectedItem()).equals("")
+                        || (jTCEP.getText().equals("") || (jFTCnpj.getText().equals("") || (jTFrete.getText().equals("")
+                        || (jTContato.getText().equals(""))))))))))) {
+                    JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
+                    jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
+                    jL_IE.setFont(new java.awt.Font("Tahoma", 1, 18));
+                    jLEndereco.setFont(new java.awt.Font("Tahoma", 1, 18));
+                    jLBairro.setFont(new java.awt.Font("Tahoma", 1, 18));
+                    jLCidade.setFont(new java.awt.Font("Tahoma", 1, 18));
+                    jLEstado.setFont(new java.awt.Font("Tahoma", 1, 18));
+                    jLCEP.setFont(new java.awt.Font("Tahoma", 1, 18));
+                    jLCNPJ.setFont(new java.awt.Font("Tahoma", 1, 18));
+                    jLFrete.setFont(new java.awt.Font("Tahoma", 1, 18));
+                    jLContato.setFont(new java.awt.Font("Tahoma", 1, 18));
+                } else {
+                    Cliente cliente = new Cliente();
+                    cliente.setId(id);
+                    cliente.setNome(jTNome.getText());
+                    cliente.setCelular(jFTCelular.getText());
+                    cliente.setTelefone(jFTTelefone.getText());
+                    cliente.setInscricao_est(jTIE.getText());
+                    cliente.setEndereco(jTEndereco.getText());
+                    cliente.setBairro(jTBairro.getText());
+                    cliente.setCidade(jTCidade.getText());
+                    cliente.setEstado(String.valueOf(jCBEstado.getSelectedItem()));
+                    cliente.setCep(jTCEP.getText());
+                    cliente.setEmail(jTEmail.getText());
+                    cliente.setCnpj(jFTCnpj.getText());
+                    cliente.setFrete(Double.parseDouble(jTFrete.getText()));
+                    cliente.setContato(jTContato.getText());
+                    DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
+                    dao.atualiza(cliente);
+                    JOptionPane.showMessageDialog(null, "Cliente atualizado com Sucesso!");
+                }
+            }
+        } catch (Error er) {
+            JOptionPane.showMessageDialog(null, "Erro: \n" + er);
+        }
     }//GEN-LAST:event_jBCadastrarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;

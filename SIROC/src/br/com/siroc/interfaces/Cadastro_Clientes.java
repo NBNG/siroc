@@ -6,7 +6,9 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
+import java.sql.SQLException;
 import java.text.ParseException;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -235,6 +237,9 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                                         .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(30, 30, 30))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -288,33 +293,52 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        Cliente cliente = new Cliente();
-
-        cliente.setNome(jTNome.getText());
-        cliente.setCelular(jFTCelular.getText());
-        cliente.setTelefone(jFTTelefone.getText());
-        cliente.setInscricao_est(jTIE.getText());
-        cliente.setEndereco(jTEndereco.getText());
-        cliente.setBairro(jTBairro.getText());
-        cliente.setCidade(jTCidade.getText());
-        cliente.setEstado(String.valueOf(jCBEstado.getSelectedItem()));
-        cliente.setCep(jTCEP.getText());
-        cliente.setEmail(jTEmail.getText());
-        cliente.setCnpj(jFTCnpj.getText());
-        cliente.setFrete(Double.parseDouble(jTFrete.getText()));
-        cliente.setContato(jTContato.getText());
-
-        DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
-        dao.adicionar(cliente);
+        try {
+            if (jTNome.getText().equals("") || (jTIE.getText().equals("") || (jTEndereco.getText().equals("")
+                    || (jTBairro.getText().equals("") || (jTCidade.getText().equals("") || (String.valueOf(jCBEstado.getSelectedItem()).equals("")
+                    || (jTCEP.getText().equals("") || (jFTCnpj.getText().equals("") || (jTFrete.getText().equals("")
+                    || (jTContato.getText().equals(""))))))))))) {
+                JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
+                jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
+                jL_IE.setFont(new java.awt.Font("Tahoma", 1, 18));
+                jLEndereco.setFont(new java.awt.Font("Tahoma", 1, 18));
+                jLBairro.setFont(new java.awt.Font("Tahoma", 1, 18));
+                jLCidade.setFont(new java.awt.Font("Tahoma", 1, 18));
+                jLEstado.setFont(new java.awt.Font("Tahoma", 1, 18));
+                jLCEP.setFont(new java.awt.Font("Tahoma", 1, 18));
+                jLCNPJ.setFont(new java.awt.Font("Tahoma", 1, 18));
+                jLFrete.setFont(new java.awt.Font("Tahoma", 1, 18));
+                jLContato.setFont(new java.awt.Font("Tahoma", 1, 18));
+            } else {
+                Cliente cliente = new Cliente();
+                cliente.setNome(jTNome.getText());
+                cliente.setCelular(jFTCelular.getText());
+                cliente.setTelefone(jFTTelefone.getText());
+                cliente.setInscricao_est(jTIE.getText());
+                cliente.setEndereco(jTEndereco.getText());
+                cliente.setBairro(jTBairro.getText());
+                cliente.setCidade(jTCidade.getText());
+                cliente.setEstado(String.valueOf(jCBEstado.getSelectedItem()));
+                cliente.setCep(jTCEP.getText());
+                cliente.setEmail(jTEmail.getText());
+                cliente.setCnpj(jFTCnpj.getText());
+                cliente.setFrete(Double.parseDouble(jTFrete.getText()));
+                cliente.setContato(jTContato.getText());
+                DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
+                dao.adicionar(cliente);
+                JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
+            }
+        } catch (Error er) {
+            JOptionPane.showMessageDialog(null, "Erro: \n" + er);
+        }
     }//GEN-LAST:event_jBCadastrarActionPerformed
-
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         jTBairro.setText("");
         jTCEP.setText("");
