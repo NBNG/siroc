@@ -50,7 +50,7 @@ public class ClienteDAO {
         query.setParameter("nome", nome);
 
 
-        clientes = (List<Cliente>) query.list().get(0);
+        clientes = (List) query.list();
 
         tx.commit();
 
