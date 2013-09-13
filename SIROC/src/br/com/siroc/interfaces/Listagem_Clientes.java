@@ -167,7 +167,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAtualizarActionPerformed
-        Atualiza_Clientes ac = new Atualiza_Clientes(null);
+        Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow()).getId());
         ac.setVisible(true);
     }//GEN-LAST:event_jBAtualizarActionPerformed
 
@@ -226,7 +226,6 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             tmCliente.setValueAt(cliente.getCelular(), 0, 6);
             tmCliente.setValueAt(endereco, 0, 7);
             tmCliente.setValueAt(cliente.getFrete(), 0, 8);
-
         }
     }//GEN-LAST:event_jRBCPFActionPerformed
 

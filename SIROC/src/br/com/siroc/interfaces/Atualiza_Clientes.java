@@ -16,7 +16,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     /**
      * Creates new form Pesquisa_Clientes
      */
-    public Atualiza_Clientes(Cliente cliente) {
+    public Atualiza_Clientes(Long id) {
         super("SIROC - Atualização de Cadastros");
         initComponents();
         setLocationRelativeTo(null);
@@ -353,7 +353,9 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 //metodos aqui
 
-    public void populateFields(Cliente cliente) {
+    public void populateFields(Long id) {
+        DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
+        Cliente cliente = (Cliente) dao.busca(id);
         jTNome.setText(cliente.getNome());
         jTBairro.setText(cliente.getBairro());
         jTCEP.setText(cliente.getCep());
