@@ -31,7 +31,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         super("SIROC - Listagem de Clientes");
         initComponents();
         MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
-        // maskCnpj.install(jFTCnpj);
+        maskCnpj.install(jFTCnpj);
     }
 
     /**
@@ -185,7 +185,6 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                 endereco = clientes.get(i).getEndereco() + ", " + clientes.get(i).getBairro() + " - "
                         + clientes.get(i).getCidade() + "/" + clientes.get(i).getEstado() + " - CEP: "
                         + clientes.get(i).getCep();
-                //{"Nome", "Inscrição Estadual", "CNPJ", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"});
                 tmCliente.addRow(linha);
                 tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
                 tmCliente.setValueAt(clientes.get(i).getInscricao_est(), i, 1);
@@ -210,19 +209,14 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         if (jRBCPF.isSelected()) {
             jRBNome.setSelected(false);
             jTNome.setText("");
+            
             ClienteDAO dao = new ClienteDAO();
-            Cliente cliente;
-            String endereco;
-
-            cliente = (Cliente) dao.buscaPorCNPJ(jFTCnpj.getText());
-            String[] linha = new String[]{null, null, null, null};
-
-
-            endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
+            Cliente cliente = (Cliente) dao.buscaPorCNPJ(jFTCnpj.getText());
+            
+            String endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
                     + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "
                     + cliente.getCep();
-            //{"Nome", "Inscrição Estadual", "CNPJ", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"});
-            tmCliente.addRow(linha);
+            tmCliente.addRow(new String[]{null, null, null, null});
             tmCliente.setValueAt(cliente.getNome(), 0, 0);
             tmCliente.setValueAt(cliente.getInscricao_est(), 0, 1);
             tmCliente.setValueAt(cliente.getCnpj(), 0, 2);

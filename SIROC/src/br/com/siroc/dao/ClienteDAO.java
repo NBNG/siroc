@@ -24,7 +24,7 @@ public class ClienteDAO {
         Cliente cliente = null;
 
         String consulta = "FROM Cliente WHERE cli_cnpj = :cnpj";
-
+        System.out.println(consulta);
         Query query = session.createQuery(consulta);
         query.setParameter("cnpj", cnpj);
 
