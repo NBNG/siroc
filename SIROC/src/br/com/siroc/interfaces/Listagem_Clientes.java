@@ -5,7 +5,6 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.ClienteDAO;
-import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
 import java.util.List;
@@ -178,7 +177,11 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             ClienteDAO dao = new ClienteDAO();
             String endereco;
 
-            //clientes = dao.buscaPorNome(jTNome.getText());
+            while (tmCliente.getRowCount() > 0) {
+                tmCliente.removeRow(0);
+            }
+
+            clientes = dao.buscaPorNome(jTNome.getText());
             String[] linha = new String[]{null, null, null, null};
 
             for (int i = 0; i < clientes.size(); i++) {
@@ -203,16 +206,48 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTNomeActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
-    }//GEN-LAST:event_jTNomeKeyTyped
+        if (jRBNome.isSelected()) {
+            jRBCPF.setSelected(false);
+            jFTCnpj.setText("");
+            ClienteDAO dao = new ClienteDAO();
+            String endereco;
+
+            while (tmCliente.getRowCount() > 0) {
+                tmCliente.removeRow(0);
+            }
+
+            clientes = dao.buscaPorNome(jTNome.getText());
+            String[] linha = new String[]{null, null, null, null};
+
+            for (int i = 0; i < clientes.size(); i++) {
+                endereco = clientes.get(i).getEndereco() + ", " + clientes.get(i).getBairro() + " - "
+                        + clientes.get(i).getCidade() + "/" + clientes.get(i).getEstado() + " - CEP: "
+                        + clientes.get(i).getCep();
+                tmCliente.addRow(linha);
+                tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
+                tmCliente.setValueAt(clientes.get(i).getInscricao_est(), i, 1);
+                tmCliente.setValueAt(clientes.get(i).getCnpj(), i, 2);
+                tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 3);
+                tmCliente.setValueAt(clientes.get(i).getContato(), i, 4);
+                tmCliente.setValueAt(clientes.get(i).getEmail(), i, 5);
+                tmCliente.setValueAt(clientes.get(i).getCelular(), i, 6);
+                tmCliente.setValueAt(endereco, i, 7);
+                tmCliente.setValueAt(clientes.get(i).getFrete(), i, 8);
+            }
+        }    }//GEN-LAST:event_jTNomeKeyTyped
 
     private void jRBCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBCPFActionPerformed
         if (jRBCPF.isSelected()) {
             jRBNome.setSelected(false);
             jTNome.setText("");
-            
+
+            while (tmCliente.getRowCount() > 0) {
+                tmCliente.removeRow(0);
+            }
+
             ClienteDAO dao = new ClienteDAO();
             Cliente cliente = (Cliente) dao.buscaPorCNPJ(jFTCnpj.getText());
-            
+
             String endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
                     + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "
                     + cliente.getCep();

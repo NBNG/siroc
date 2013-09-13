@@ -20,7 +20,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
         super("SIROC - Atualização de Cadastros");
         initComponents();
         setLocationRelativeTo(null);
-        //populateFields(cliente);
+        populateFields(id);
     }
 
     /**
