@@ -25,7 +25,6 @@ create table fornecedores (
 create table produtos (
 	id_produto serial primary key,
 	pro_nome varchar (50),
-	pro_qnt smallint,
 	pro_peso decimal (5,3),
 	pro_valor_saida decimal (9,2),
 	pro_valor_entrada decimal (9,2),
@@ -39,6 +38,7 @@ create table pedidos (
 	ped_pagamento varchar (8),
 	ped_data date,
 	ped_valor_frete decimal (9,2),
+	ped_tipo char(2),
 	id_cliente int,
 	constraint fk_cliente foreign key (id_cliente) references clientes (id_cliente)
 	on update cascade on delete restrict
