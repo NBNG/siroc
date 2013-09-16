@@ -6,7 +6,6 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
-import java.sql.SQLException;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -23,7 +22,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     Cliente cliente;
 
     public Cadastro_Clientes() throws ParseException {
-        super("SIROC - Cadastro de CLientes");
+        super("SIROC - Cadastro de Clientes");
         initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
         MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");

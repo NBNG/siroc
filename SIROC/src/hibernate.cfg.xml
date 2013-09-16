@@ -17,5 +17,6 @@
         <property name="hibernate.format_sql">true</property>
 
         <mapping class="br.com.siroc.modelo.Cliente" />
+        <mapping class="br.com.siroc.modelo.Fornecedor" />
     </session-factory>
 </hibernate-configuration>

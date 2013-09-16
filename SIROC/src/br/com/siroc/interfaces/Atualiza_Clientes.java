@@ -20,7 +20,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     private Long id;
 
     public Atualiza_Clientes(Long id) {
-        super("SIROC - Atualização de Cadastros");
+        super("SIROC - Atualização de Clientes");
         this.id = id;
         initComponents();
         setLocationRelativeTo(null);

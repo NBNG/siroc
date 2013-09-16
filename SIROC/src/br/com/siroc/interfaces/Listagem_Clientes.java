@@ -8,7 +8,6 @@ import br.com.siroc.dao.ClienteDAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
 import java.util.List;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 

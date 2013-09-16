@@ -4,7 +4,11 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.dao.DAO;
+import br.com.siroc.modelo.Fornecedor;
+import java.text.ParseException;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -15,8 +19,13 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
     /**
      * Creates new form Cadastro_Fornecedor
      */
-    public Cadastro_Fornecedor() {
+    DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
+
+    public Cadastro_Fornecedor() throws ParseException {
+        super("SIROC - Cadastro de Fornecedores");
         initComponents();
+        MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
+        maskTelefone.install(jFTTelefone);
     }
 
     /**
@@ -142,6 +151,14 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
             jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
             jLEmail.setFont(new java.awt.Font("Tahoma", 1, 18));
             jLTelefone.setFont(new java.awt.Font("Tahoma", 1, 18));
+        } else {
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setNome(jTNome.getText());
+            fornecedor.setEmail(jTEmail.getText());
+            fornecedor.setTelefone(jFTTelefone.getText());
+
+            dao.adicionar(fornecedor);
+            JOptionPane.showMessageDialog(null, "Distribuidor adicionado com Sucesso!");
         }
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
 

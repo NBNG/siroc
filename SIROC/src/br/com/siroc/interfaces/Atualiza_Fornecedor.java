@@ -4,7 +4,11 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.dao.DAO;
+import br.com.siroc.modelo.Fornecedor;
+import java.text.ParseException;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -15,9 +19,17 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
     /**
      * Creates new form Atualiza_Fornecedor
      */
-    public Atualiza_Fornecedor() {
+    Long id;
+    DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
+
+    public Atualiza_Fornecedor(Long id) throws ParseException {
+        super("SIROC - Atualização de Fornecedores");
+        this.id = id;
         initComponents();
+        MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
+        maskTelefone.install(jFTTelefone);
         setLocationRelativeTo(null);
+        populateFields(id);
     }
 
     /**
@@ -146,43 +158,16 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
             jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
             jLEmail.setFont(new java.awt.Font("Tahoma", 1, 18));
             jLTelefone.setFont(new java.awt.Font("Tahoma", 1, 18));
+        } else {
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setNome(jTNome.getText());
+            fornecedor.setEmail(jTEmail.getText());
+            fornecedor.setTelefone(jFTTelefone.getText());
+            fornecedor.setId(id);
+            dao.atualiza(fornecedor);
+            JOptionPane.showMessageDialog(null, "Distribuidor alterado com Sucesso!");
         }
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Atualiza_Fornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Atualiza_Fornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Atualiza_Fornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Atualiza_Fornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Atualiza_Fornecedor().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar2;
     private javax.swing.JButton jBLimpar;
@@ -194,4 +179,12 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTEmail;
     private javax.swing.JTextField jTNome;
     // End of variables declaration//GEN-END:variables
+
+    private void populateFields(Long id) {
+        DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
+        Fornecedor fornecedor = (Fornecedor) dao.busca(id);
+        jTNome.setText(fornecedor.getNome());
+        jTEmail.setText(fornecedor.getEmail());
+        jFTTelefone.setText(fornecedor.getTelefone());
+    }
 }

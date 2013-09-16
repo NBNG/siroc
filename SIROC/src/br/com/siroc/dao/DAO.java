@@ -4,7 +4,6 @@ import br.com.siroc.fabrica.ConnectionFactory;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
 
 @SuppressWarnings("uncheked")
 public class DAO<T> {
@@ -45,5 +44,4 @@ public class DAO<T> {
     public T busca(Long id) {
         return (T) session.load(classe, id);
     }
-   
 }

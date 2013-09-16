@@ -50,19 +50,19 @@ public class ClienteDAO {
         Query query = session.createQuery(consulta);
         query.setParameter("nome", nome);
 
-        clientes = (List) session.createCriteria(Cliente.class).add(Restrictions.ilike("nome", "%"+nome+"%")).list();
-        
+        clientes = (List) session.createCriteria(Cliente.class).add(Restrictions.ilike("nome", "%" + nome + "%")).list();
+
         //clientes = (List) query.list();
 
         tx.commit();
 
         return clientes;
     }
-    
-    public List<Cliente> buscaPorLetras(String nome){
+
+    public List<Cliente> buscaPorLetras(String nome) {
         List<Cliente> clientes = new ArrayList<Cliente>();
-        
-        
+
+
         return clientes;
     }
 }
