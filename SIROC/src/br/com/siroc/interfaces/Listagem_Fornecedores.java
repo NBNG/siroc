@@ -2,7 +2,7 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.interfaces.Atualiza_Fornecedor;
 
- 
+
 
 import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.modelo.Fornecedor;
@@ -189,11 +189,11 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
         jTNome.setText("");
 
         fornecedores = null;
-        
+
         while (tmFornecedor.getRowCount() > 0) {
             tmFornecedor.removeRow(0);
         }
-        
+
         tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
     }//GEN-LAST:event_jBLimparActionPerformed
 

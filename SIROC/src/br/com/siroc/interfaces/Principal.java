@@ -45,6 +45,7 @@ public class Principal extends javax.swing.JFrame {
         jMIListagem_Fornecedor = new javax.swing.JMenuItem();
         jMProdutos = new javax.swing.JMenu();
         jMICadastro_Produtos = new javax.swing.JMenuItem();
+        jMIListagem_Produtos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +114,15 @@ public class Principal extends javax.swing.JFrame {
         });
         jMProdutos.add(jMICadastro_Produtos);
 
+        jMIListagem_Produtos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIListagem_Produtos.setText("Listagem de Produtos");
+        jMIListagem_Produtos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIListagem_ProdutosActionPerformed(evt);
+            }
+        });
+        jMProdutos.add(jMIListagem_Produtos);
+
         jMenu.add(jMProdutos);
 
         setJMenuBar(jMenu);
@@ -173,8 +183,14 @@ public class Principal extends javax.swing.JFrame {
         Cadastro_Produtos cp = new Cadastro_Produtos();
         jPanel.add(cp);
         cp.setVisible(true);
-        
+
     }//GEN-LAST:event_jMICadastro_ProdutosActionPerformed
+
+    private void jMIListagem_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_ProdutosActionPerformed
+        Listagem_Produtos lp = new Listagem_Produtos();
+        jPanel.add(lp);
+        lp.setVisible(true);
+    }//GEN-LAST:event_jMIListagem_ProdutosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,6 +235,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMICadastro_Produtos;
     private javax.swing.JMenuItem jMIListagem_Clientes;
     private javax.swing.JMenuItem jMIListagem_Fornecedor;
+    private javax.swing.JMenuItem jMIListagem_Produtos;
     private javax.swing.JMenu jMProdutos;
     private javax.swing.JMenuBar jMenu;
     private javax.swing.JDesktopPane jPanel;
