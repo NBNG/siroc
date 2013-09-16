@@ -1,8 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.siroc.interfaces;
+
+import br.com.siroc.interfaces.Atualiza_Fornecedor;
+
+ 
 
 import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.modelo.Fornecedor;
@@ -52,11 +52,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
         setClosable(true);
 
         jRBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-<<<<<<< HEAD
-        jRBPesquisar.setText("Pesquisar");
-=======
         jRBPesquisar.setText("Nome");
->>>>>>> 1.5
         jRBPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBPesquisarActionPerformed(evt);
@@ -104,33 +100,27 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jRBPesquisar)
                         .addGap(18, 18, 18)
                         .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLCabecalho))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1)
-                            .addComponent(jBLimpar))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                            .addComponent(jBLimpar)))
+                    .addComponent(jLCabecalho))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-<<<<<<< HEAD
-                .addContainerGap(50, Short.MAX_VALUE)
-=======
-                .addContainerGap(54, Short.MAX_VALUE)
->>>>>>> 1.5
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addComponent(jLCabecalho)
-                .addGap(33, 33, 33)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRBPesquisar)
                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -141,7 +131,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
                         .addComponent(jButton1)
                         .addGap(29, 29, 29)
                         .addComponent(jBLimpar)))
-                .addGap(23, 23, 23))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
