@@ -146,7 +146,7 @@ public class Cliente {
         this.cnpj = cnpj;
     }
 
-    @Column(name = "cli_frete", nullable = false)
+    @Column(name = "cli_frete", nullable = true)
     public Double getFrete() {
         return frete;
     }
