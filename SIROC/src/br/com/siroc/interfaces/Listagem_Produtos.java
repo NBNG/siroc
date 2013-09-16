@@ -33,21 +33,23 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jRBPesquisar = new javax.swing.JRadioButton();
+        jRBNome = new javax.swing.JRadioButton();
         jLCabecalho = new javax.swing.JLabel();
         jBLimpar = new javax.swing.JButton();
         jBAlterar = new javax.swing.JButton();
         jTNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
+        jRBFornecedor = new javax.swing.JRadioButton();
+        jTFornecedor = new javax.swing.JTextField();
 
         setClosable(true);
 
-        jRBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRBPesquisar.setText("Nome");
-        jRBPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        jRBNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRBNome.setText("Nome");
+        jRBNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRBPesquisarActionPerformed(evt);
+                jRBNomeActionPerformed(evt);
             }
         });
 
@@ -87,6 +89,26 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         tabela.setModel(tmProduto);
         jScrollPane1.setViewportView(tabela);
 
+        jRBFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRBFornecedor.setText("Fornecedor:");
+        jRBFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBFornecedorActionPerformed(evt);
+            }
+        });
+
+        jTFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFornecedorActionPerformed(evt);
+            }
+        });
+        jTFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFornecedorKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,50 +117,63 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBAlterar)
+                            .addComponent(jBLimpar))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBPesquisar)
+                                .addComponent(jRBFornecedor)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRBNome)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLCabecalho))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 584, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBAlterar)
-                            .addComponent(jBLimpar))))
-                .addGap(20, 20, 20))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLCabecalho)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBPesquisar)
+                    .addComponent(jRBNome)
                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRBFornecedor)
+                    .addComponent(jTFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBAlterar)
                         .addGap(29, 29, 29)
-                        .addComponent(jBLimpar)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addComponent(jBLimpar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBPesquisarActionPerformed
-    }//GEN-LAST:event_jRBPesquisarActionPerformed
+    private void jRBNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBNomeActionPerformed
+    }//GEN-LAST:event_jRBNomeActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        Long parm = 5L;
+        Atualiza_Produto ap = new Atualiza_Produto(parm);
+        ap.setVisible(true);
+
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
@@ -147,12 +182,27 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
     }//GEN-LAST:event_jTNomeKeyTyped
+
+    private void jRBFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRBFornecedorActionPerformed
+
+    private void jTFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFornecedorActionPerformed
+
+    private void jTFornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFornecedorKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFornecedorKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JLabel jLCabecalho;
-    private javax.swing.JRadioButton jRBPesquisar;
+    private javax.swing.JRadioButton jRBFornecedor;
+    private javax.swing.JRadioButton jRBNome;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFornecedor;
     private javax.swing.JTextField jTNome;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables

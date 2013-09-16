@@ -4,9 +4,12 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.modelo.Fornecedor;
+import br.com.siroc.modelo.Produto;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,7 +21,10 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     /**
      * Creates new form Cadastro_Produtos
      */
+    Fornecedor fornecedor = new Fornecedor();
+    Produto produto = new Produto();
     List<Fornecedor> fornecedores;
+    DAO<Produto> dao = new DAO<Produto>(Produto.class);
     //definição das colunas da tabela
     DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
     FornecedorDAO fdao = new FornecedorDAO();
@@ -91,6 +97,11 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         jBCadastrar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/salvar.png"))); // NOI18N
         jBCadastrar.setText("Cadastrar");
+        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCadastrarActionPerformed(evt);
+            }
+        });
 
         jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
@@ -134,7 +145,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLQuantidade)
                         .addGap(18, 18, 18)
-                        .addComponent(jTQnt, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTQnt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLV_Venda)
                         .addGap(18, 18, 18)
@@ -156,7 +167,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTV_Compra, jTV_Saida});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTQnt, jTV_Compra, jTV_Saida});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
 
@@ -191,7 +202,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addGap(37, 37, 37))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -234,6 +245,17 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         fornecedores = null;
 
     }//GEN-LAST:event_jBLimparActionPerformed
+
+    private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+        fornecedor.setId(fornecedores.get(tabela.getSelectedRow()).getId());
+        produto.setFornecedor(fornecedor);
+        produto.setNome(jTNome_Produto.getText());
+        produto.setPeso(Double.parseDouble(jTQnt.getText()));
+        produto.setValor_entrada(Double.parseDouble(jTV_Compra.getText()));
+        produto.setValor_saida(Double.parseDouble(jTV_Saida.getText()));
+        dao.adicionar(produto);
+        JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
+    }//GEN-LAST:event_jBCadastrarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBLimpar;

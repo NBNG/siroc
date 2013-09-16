@@ -18,5 +18,6 @@
 
         <mapping class="br.com.siroc.modelo.Cliente" />
         <mapping class="br.com.siroc.modelo.Fornecedor" />
+        <mapping class="br.com.siroc.modelo.Produto" />
     </session-factory>
 </hibernate-configuration>
