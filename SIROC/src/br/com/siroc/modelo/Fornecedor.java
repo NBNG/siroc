@@ -1,9 +1,11 @@
 package br.com.siroc.modelo;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,7 +16,8 @@ public class Fornecedor {
     private String nome;
     private String telefone;
     private String email;
-
+    private List<Produto> produtos;
+    
     @Id
     @GeneratedValue
     @Column(name = "for_id")
@@ -51,5 +54,14 @@ public class Fornecedor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    @OneToMany
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

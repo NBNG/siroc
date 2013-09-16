@@ -1,0 +1,79 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.siroc.modelo;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+/**
+ *
+ * @author Proclima
+ */
+@Entity
+@Table(name = "PRODUTOS")
+public class Produto {
+       
+    private Long id;
+    private String nome;
+    private Double peso;
+    private Double valor_saida;
+    private Double valor_entrada;
+    private Fornecedor fornecedor;
+    
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public Double getValor_saida() {
+        return valor_saida;
+    }
+
+    public void setValor_saida(Double valor_saida) {
+        this.valor_saida = valor_saida;
+    }
+
+    public Double getValor_entrada() {
+        return valor_entrada;
+    }
+
+    public void setValor_entrada(Double valor_entrada) {
+        this.valor_entrada = valor_entrada;
+    }
+    
+    @ManyToOne
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+    
+}
