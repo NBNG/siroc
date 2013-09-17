@@ -5,7 +5,6 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
-import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.dao.ProdutoDAO;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
@@ -236,9 +235,14 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 tmProduto.removeRow(0);
             }
 
+<<<<<<< HEAD
             Fornecedor fornecedor = fdao.buscaPorNome(jTFornecedor.getText()).get(0);
 
             for (int i = 0; i < fornecedor.getProdutos().size(); i++) {
+=======
+           // produtos =  dao.buscaPorNome(jTFornecedor.getText()).getProduto();
+            for (int i = 0; i < produtos.size(); i++) {
+>>>>>>> 1.5.8
                 tmProduto.addRow(new String[]{null, null, null, null});
                 tmProduto.setValueAt(fornecedor.getProdutos().get(i).getNome(), i, 0);
                 tmProduto.setValueAt(fornecedor.getProdutos().get(i).getQuantidade(), i, 1);
