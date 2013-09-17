@@ -45,8 +45,8 @@ public class DAO<T> {
     public T busca(Long id) {
         return (T) session.load(classe, id);
     }
-    
-    public List<T> buscaPorNome(String nome){
+
+    public List<T> buscaPorNome(String nome) {
         return session.createCriteria(classe).add(Restrictions.ilike("nome", "%" + nome + "%")).list();
     }
 }

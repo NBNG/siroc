@@ -4,6 +4,11 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.dao.DAO;
+import br.com.siroc.dao.FornecedorDAO;
+import br.com.siroc.dao.ProdutoDAO;
+import br.com.siroc.modelo.Produto;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,7 +20,9 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     /**
      * Creates new form Listagem_Produtos
      */
-    // List<Fornecedor> fornecedores;
+    List<Produto> produtos;
+    DAO<Produto> dao = new DAO<Produto>(Produto.class);
+    ProdutoDAO pdao = new ProdutoDAO();
     //definição das colunas da tabela
     DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
 
@@ -164,14 +171,32 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRBNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBNomeActionPerformed
+        if (jRBNome.isSelected()) {
+            jRBFornecedor.setSelected(false);
+            jTFornecedor.setText("");
+
+            while (tmProduto.getRowCount() > 0) {
+                tmProduto.removeRow(0);
+            }
+
+            produtos = dao.buscaPorNome(jTNome.getText());
+            for (int i = 0; i < produtos.size(); i++) {
+                tmProduto.addRow(new String[]{null, null, null, null});
+                tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
+                tmProduto.setValueAt(produtos.get(i).getQuantidade(), i, 1);
+                tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
+                tmProduto.setValueAt(produtos.get(i).getValor_entrada(), i, 3);
+                tmProduto.setValueAt(produtos.get(i).getValor_saida(), i, 4);
+            }
+        }
     }//GEN-LAST:event_jRBNomeActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-        Long parm = 5L;
-        Atualiza_Produto ap = new Atualiza_Produto(parm);
+
+        Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()).getId(), produtos.get(tabela.getSelectedRow()).getFornecedor().getId());
         ap.setVisible(true);
 
     }//GEN-LAST:event_jBAlterarActionPerformed
@@ -181,20 +206,71 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTNomeActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
+        if (jRBNome.isSelected()) {
+            jRBFornecedor.setSelected(false);
+            jTFornecedor.setText("");
+
+            while (tmProduto.getRowCount() > 0) {
+                tmProduto.removeRow(0);
+            }
+
+            produtos = dao.buscaPorNome(jTNome.getText());
+            for (int i = 0; i < produtos.size(); i++) {
+                tmProduto.addRow(new String[]{null, null, null, null});
+                tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
+                tmProduto.setValueAt(produtos.get(i).getQuantidade(), i, 1);
+                tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
+                tmProduto.setValueAt(produtos.get(i).getValor_entrada(), i, 3);
+                tmProduto.setValueAt(produtos.get(i).getValor_saida(), i, 4);
+            }
+        }
     }//GEN-LAST:event_jTNomeKeyTyped
 
     private void jRBFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFornecedorActionPerformed
-        // TODO add your handling code here:
+        if (jRBFornecedor.isSelected()) {
+            jRBNome.setSelected(false);
+            jTNome.setText("");
+
+            while (tmProduto.getRowCount() > 0) {
+                tmProduto.removeRow(0);
+            }
+
+            // produtos = dao.buscaPorFornecedor(jTFornecedor.getText());
+            for (int i = 0; i < produtos.size(); i++) {
+                tmProduto.addRow(new String[]{null, null, null, null});
+                tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
+                tmProduto.setValueAt(produtos.get(i).getQuantidade(), i, 1);
+                tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
+                tmProduto.setValueAt(produtos.get(i).getValor_entrada(), i, 3);
+                tmProduto.setValueAt(produtos.get(i).getValor_saida(), i, 4);
+            }
+        }
     }//GEN-LAST:event_jRBFornecedorActionPerformed
 
     private void jTFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFornecedorActionPerformed
-        // TODO add your handling code here:
+        if (jRBNome.isSelected()) {
+            jRBFornecedor.setSelected(false);
+            jTFornecedor.setText("");
+
+            while (tmProduto.getRowCount() > 0) {
+                tmProduto.removeRow(0);
+            }
+
+            produtos = dao.buscaPorNome(jTNome.getText());
+            for (int i = 0; i < produtos.size(); i++) {
+                tmProduto.addRow(new String[]{null, null, null, null});
+                tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
+                tmProduto.setValueAt(produtos.get(i).getQuantidade(), i, 1);
+                tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
+                tmProduto.setValueAt(produtos.get(i).getValor_entrada(), i, 3);
+                tmProduto.setValueAt(produtos.get(i).getValor_saida(), i, 4);
+            }
+        }
     }//GEN-LAST:event_jTFornecedorActionPerformed
 
     private void jTFornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFornecedorKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFornecedorKeyTyped
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBLimpar;

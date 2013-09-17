@@ -5,6 +5,7 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.ClienteDAO;
+import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
 import java.util.List;
@@ -20,11 +21,13 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     /**
      * Creates new form Listagem_Clientes
      */
-    ClienteDAO dao = new ClienteDAO();
+    DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
+    ClienteDAO cdao = new ClienteDAO();
     String endereco;
     List<Cliente> clientes;//List de uma classe do modelo para utilização na tabela;
     DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"});
     //definição das colunas da tabela
+    Cliente cliente;
 
     public Listagem_Clientes() throws ParseException {
         super("SIROC - Listagem de Clientes");
@@ -239,8 +242,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                 tmCliente.removeRow(0);
             }
 
-            ClienteDAO dao = new ClienteDAO();
-            Cliente cliente = (Cliente) dao.buscaPorCNPJ(jFTCnpj.getText());
+            cliente = (Cliente) cdao.buscaPorCNPJ(jFTCnpj.getText());
 
             String endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
                     + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "

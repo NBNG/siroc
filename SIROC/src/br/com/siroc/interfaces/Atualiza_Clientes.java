@@ -17,6 +17,8 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     /**
      * Creates new form Pesquisa_Clientes
      */
+    Cliente cliente = new Cliente();
+    DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
     private Long id;
 
     public Atualiza_Clientes(Long id) {
@@ -328,7 +330,6 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
                     jLFrete.setFont(new java.awt.Font("Tahoma", 1, 18));
                     jLContato.setFont(new java.awt.Font("Tahoma", 1, 18));
                 } else {
-                    Cliente cliente = new Cliente();
                     cliente.setId(id);
                     cliente.setNome(jTNome.getText());
                     cliente.setCelular(jFTCelular.getText());
@@ -343,7 +344,6 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
                     cliente.setCnpj(jFTCnpj.getText());
                     cliente.setFrete(Double.parseDouble(jTFrete.getText()));
                     cliente.setContato(jTContato.getText());
-                    DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
                     dao.atualiza(cliente);
                     JOptionPane.showMessageDialog(null, "Cliente atualizado com Sucesso!");
                 }

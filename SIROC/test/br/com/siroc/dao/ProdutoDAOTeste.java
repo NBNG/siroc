@@ -14,19 +14,18 @@ import static org.junit.Assert.*;
  * @author Administrador
  */
 public class ProdutoDAOTeste {
-    
+
     @Test
-    public void testaBuscaPorNome(){
+    public void testaBuscaPorNome() {
         DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
-        
-        assertEquals(dao.buscaPorNome("OPAOPA").get(0).getProdutos().get(0).getNome(),"Alpiste TOTOSO");
+
+        assertEquals(dao.buscaPorNome("OPAOPA").get(0).getProdutos().get(0).getNome(), "Alpiste TOTOSO");
     }
-    
+
     @Test
-    public void testaBuscaProdutoPorFornecedor(){
+    public void testaBuscaProdutoPorFornecedor() {
         FornecedorDAO dao = new FornecedorDAO();
-        
-        assertEquals(dao.buscaPorNome("OPAOPA").get(0).getProdutos().get(0).getNome(),"Alpiste TOTOSO");
+
+        assertEquals(dao.buscaPorNome("OPAOPA").get(0).getProdutos().get(0).getNome(), "Alpiste TOTOSO");
     }
-    
 }

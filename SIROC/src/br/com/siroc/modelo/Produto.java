@@ -22,17 +22,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PRODUTOS")
 public class Produto {
-       
+
     private Long id;
     private String nome;
     private Double quantidade;
     private Double valor_saida;
     private Double valor_entrada;
     private Fornecedor fornecedor;
-    
+
     @Id
     @GeneratedValue
-    @Column(name="pro_id")
+    @Column(name = "pro_id")
     public Long getId() {
         return id;
     }
@@ -40,8 +40,8 @@ public class Produto {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    @Column(name="pro_nome", length=50, nullable=false)
+
+    @Column(name = "pro_nome", length = 50, nullable = false)
     public String getNome() {
         return nome;
     }
@@ -49,8 +49,8 @@ public class Produto {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    @Column(name="pro_quantidade")
+
+    @Column(name = "pro_quantidade")
     public Double getQuantidade() {
         return quantidade;
     }
@@ -58,8 +58,8 @@ public class Produto {
     public void setQuantidade(Double quantidade) {
         this.quantidade = quantidade;
     }
-    
-    @Column(name="pro_saida")
+
+    @Column(name = "pro_saida")
     public Double getValor_saida() {
         return valor_saida;
     }
@@ -67,8 +67,8 @@ public class Produto {
     public void setValor_saida(Double valor_saida) {
         this.valor_saida = valor_saida;
     }
-    
-    @Column(name="pro_entrada")
+
+    @Column(name = "pro_entrada")
     public Double getValor_entrada() {
         return valor_entrada;
     }
@@ -76,9 +76,9 @@ public class Produto {
     public void setValor_entrada(Double valor_entrada) {
         this.valor_entrada = valor_entrada;
     }
-    
+
     @ManyToOne
-    @JoinColumn(name="fk_fornecedor", nullable=false)
+    @JoinColumn(name = "fk_fornecedor", nullable = false)
     public Fornecedor getFornecedor() {
         return fornecedor;
     }
@@ -86,5 +86,4 @@ public class Produto {
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
-    
 }

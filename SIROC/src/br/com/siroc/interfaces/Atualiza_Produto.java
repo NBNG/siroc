@@ -23,11 +23,12 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     Produto produto = new Produto();
     List<Fornecedor> fornecedores;
     DAO<Produto> dao = new DAO<Produto>(Produto.class);
-    Long id;
+    Long id, fid;
 
-    public Atualiza_Produto(Long id) {
+    public Atualiza_Produto(Long id, Long fid) {
         super("SIROC - Atualização de Produtos");
         this.id = id;
+        this.fid = fid;
         initComponents();
         setLocationRelativeTo(null);
         populateFields(id);
@@ -94,7 +95,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
 
         jBCadastrar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/salvar.png"))); // NOI18N
-        jBCadastrar.setText("Cadastrar");
+        jBCadastrar.setText("Atualizar");
         jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCadastrarActionPerformed(evt);
@@ -138,6 +139,9 @@ public class Atualiza_Produto extends javax.swing.JFrame {
                         .addComponent(jBLimpar)
                         .addGap(24, 24, 24))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -181,14 +185,14 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        fornecedor.setId(id);
+        fornecedor.setId(fid);
         produto.setFornecedor(fornecedor);
         produto.setNome(jTNome_Produto.getText());
         produto.setQuantidade(Double.parseDouble(jTQnt.getText()));
         produto.setValor_entrada(Double.parseDouble(jTV_Compra.getText()));
         produto.setValor_saida(Double.parseDouble(jTV_Saida.getText()));
-        dao.adicionar(produto);
-        JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
+        dao.atualiza(produto);
+        JOptionPane.showMessageDialog(null, "Produto alterado com Sucesso!");
     }//GEN-LAST:event_jBCadastrarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;

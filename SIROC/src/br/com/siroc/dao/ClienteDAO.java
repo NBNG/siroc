@@ -22,13 +22,13 @@ public class ClienteDAO {
     }
 
     public Cliente buscaPorCNPJ(String cnpj) {
-             
+
         Transaction tx = session.beginTransaction();
 
         Cliente cliente = null;
 
         String consulta = "FROM Cliente WHERE cli_cnpj = :cnpj";
-        
+
         Query query = session.createQuery(consulta);
         query.setParameter("cnpj", cnpj);
 

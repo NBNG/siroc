@@ -19,7 +19,7 @@ public class Fornecedor {
     private String telefone;
     private String email;
     private List<Produto> produtos;
-    
+
     @Id
     @GeneratedValue
     @Column(name = "for_id")
@@ -57,8 +57,8 @@ public class Fornecedor {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    @OneToMany(mappedBy="fornecedor", cascade= CascadeType.REFRESH, fetch=FetchType.LAZY)
+
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     public List<Produto> getProdutos() {
         return produtos;
     }

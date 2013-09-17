@@ -19,7 +19,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     /**
      * Creates new form Cadastro_Clientes
      */
-    Cliente cliente;
+    Cliente cliente = new Cliente();
+    DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
 
     public Cadastro_Clientes() throws ParseException {
         super("SIROC - Cadastro de Clientes");
@@ -316,7 +317,6 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 jLFrete.setFont(new java.awt.Font("Tahoma", 1, 18));
                 jLContato.setFont(new java.awt.Font("Tahoma", 1, 18));
             } else {
-                Cliente cliente = new Cliente();
                 cliente.setNome(jTNome.getText());
                 cliente.setCelular(jFTCelular.getText());
                 cliente.setTelefone(jFTTelefone.getText());
@@ -330,7 +330,6 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 cliente.setCnpj(jFTCnpj.getText());
                 cliente.setFrete(Double.parseDouble(jTFrete.getText()));
                 cliente.setContato(jTContato.getText());
-                DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
                 dao.adicionar(cliente);
                 JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
             }

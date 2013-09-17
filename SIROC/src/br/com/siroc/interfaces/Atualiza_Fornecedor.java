@@ -21,6 +21,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
      */
     Long id;
     DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
+    Fornecedor fornecedor = new Fornecedor();
 
     public Atualiza_Fornecedor(Long id) throws ParseException {
         super("SIROC - Atualização de Fornecedores");
@@ -159,7 +160,6 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
             jLEmail.setFont(new java.awt.Font("Tahoma", 1, 18));
             jLTelefone.setFont(new java.awt.Font("Tahoma", 1, 18));
         } else {
-            Fornecedor fornecedor = new Fornecedor();
             fornecedor.setNome(jTNome.getText());
             fornecedor.setEmail(jTEmail.getText());
             fornecedor.setTelefone(jFTTelefone.getText());

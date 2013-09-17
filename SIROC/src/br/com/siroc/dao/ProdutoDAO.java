@@ -12,20 +12,19 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-
 /**
  *
  * @author MyPenis
  */
 public class ProdutoDAO {
-    
+
     private Session session;
-    
-    public ProdutoDAO(){
+
+    public ProdutoDAO() {
         session = new ConnectionFactory().getSession();
     }
-    
-    public List<Produto> buscaPorNome(String nome){
+
+    public List<Produto> buscaPorNome(String nome) {
         Transaction tx = session.beginTransaction();
 
         List<Produto> produtos = new ArrayList<Produto>();
@@ -35,5 +34,5 @@ public class ProdutoDAO {
         tx.commit();
 
         return produtos;
-    } 
+    }
 }

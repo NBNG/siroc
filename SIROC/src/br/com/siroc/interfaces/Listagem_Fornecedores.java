@@ -1,9 +1,6 @@
 package br.com.siroc.interfaces;
 
-import br.com.siroc.interfaces.Atualiza_Fornecedor;
-
-
-
+import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.modelo.Fornecedor;
 import java.text.ParseException;
@@ -22,10 +19,10 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
      * Creates new form Listagem_Fornecedores
      */
     //List de uma classe do modelo para utilização na tabela;
+    DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
     List<Fornecedor> fornecedores;
     //definição das colunas da tabela
     DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
-    FornecedorDAO fdao = new FornecedorDAO();
 
     public Listagem_Fornecedores() {
         super("SIROC - Listagem de Fornecedores");
@@ -154,7 +151,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
                 tmFornecedor.removeRow(0);
             }
 
-            fornecedores = fdao.buscaPorNome(jTNome.getText());
+            fornecedores = dao.buscaPorNome(jTNome.getText());
 
             for (int i = 0; i < fornecedores.size(); i++) {
 
@@ -172,7 +169,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
                 tmFornecedor.removeRow(0);
             }
 
-            fornecedores = fdao.buscaPorNome(jTNome.getText());
+            fornecedores = dao.buscaPorNome(jTNome.getText());
 
             for (int i = 0; i < fornecedores.size(); i++) {
 

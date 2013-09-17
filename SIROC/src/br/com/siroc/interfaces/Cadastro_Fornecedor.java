@@ -20,6 +20,7 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
      * Creates new form Cadastro_Fornecedor
      */
     DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
+    Fornecedor fornecedor = new Fornecedor();
 
     public Cadastro_Fornecedor() throws ParseException {
         super("SIROC - Cadastro de Fornecedores");
@@ -152,7 +153,6 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
             jLEmail.setFont(new java.awt.Font("Tahoma", 1, 18));
             jLTelefone.setFont(new java.awt.Font("Tahoma", 1, 18));
         } else {
-            Fornecedor fornecedor = new Fornecedor();
             fornecedor.setNome(jTNome.getText());
             fornecedor.setEmail(jTEmail.getText());
             fornecedor.setTelefone(jFTTelefone.getText());
