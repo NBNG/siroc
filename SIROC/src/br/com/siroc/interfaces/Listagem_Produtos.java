@@ -7,6 +7,7 @@ package br.com.siroc.interfaces;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.dao.ProdutoDAO;
+import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -21,8 +22,8 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
      * Creates new form Listagem_Produtos
      */
     List<Produto> produtos;
-    DAO<Produto> dao = new DAO<Produto>(Produto.class);
-    ProdutoDAO pdao = new ProdutoDAO();
+    DAO<Produto> pdao = new DAO<Produto>(Produto.class);
+    DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     //definição das colunas da tabela
     DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
 
@@ -179,7 +180,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 tmProduto.removeRow(0);
             }
 
-            produtos = dao.buscaPorNome(jTNome.getText());
+            produtos = pdao.buscaPorNome(jTNome.getText());
             for (int i = 0; i < produtos.size(); i++) {
                 tmProduto.addRow(new String[]{null, null, null, null});
                 tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
@@ -214,7 +215,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 tmProduto.removeRow(0);
             }
 
-            produtos = dao.buscaPorNome(jTNome.getText());
+            produtos = pdao.buscaPorNome(jTNome.getText());
             for (int i = 0; i < produtos.size(); i++) {
                 tmProduto.addRow(new String[]{null, null, null, null});
                 tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
@@ -235,14 +236,15 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 tmProduto.removeRow(0);
             }
 
-            // produtos = dao.buscaPorFornecedor(jTFornecedor.getText());
-            for (int i = 0; i < produtos.size(); i++) {
+            Fornecedor fornecedor = fdao.buscaPorNome(jTFornecedor.getText()).get(0);
+
+            for (int i = 0; i < fornecedor.getProdutos().size(); i++) {
                 tmProduto.addRow(new String[]{null, null, null, null});
-                tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
-                tmProduto.setValueAt(produtos.get(i).getQuantidade(), i, 1);
-                tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
-                tmProduto.setValueAt(produtos.get(i).getValor_entrada(), i, 3);
-                tmProduto.setValueAt(produtos.get(i).getValor_saida(), i, 4);
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getNome(), i, 0);
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getQuantidade(), i, 1);
+                tmProduto.setValueAt(fornecedor.getNome(), i, 2);
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getValor_entrada(), i, 3);
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getValor_saida(), i, 4);
             }
         }
     }//GEN-LAST:event_jRBFornecedorActionPerformed
@@ -256,14 +258,16 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 tmProduto.removeRow(0);
             }
 
-            produtos = dao.buscaPorNome(jTNome.getText());
-            for (int i = 0; i < produtos.size(); i++) {
-                tmProduto.addRow(new String[]{null, null, null, null});
-                tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
-                tmProduto.setValueAt(produtos.get(i).getQuantidade(), i, 1);
-                tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
-                tmProduto.setValueAt(produtos.get(i).getValor_entrada(), i, 3);
-                tmProduto.setValueAt(produtos.get(i).getValor_saida(), i, 4);
+            List<Fornecedor> fornecedores = fdao.buscaPorNome(jTNome.getText());
+            for (int i = 0; i < fornecedores.size(); i++) {
+                for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
+                    tmProduto.addRow(new String[]{null, null, null, null});
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), i, 0);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getQuantidade(), i, 1);
+                    tmProduto.setValueAt(fornecedores.get(i).getNome(),i, 2);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_entrada(), i, 3);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_saida(), i, 4);
+                }
             }
         }
     }//GEN-LAST:event_jTFornecedorActionPerformed
