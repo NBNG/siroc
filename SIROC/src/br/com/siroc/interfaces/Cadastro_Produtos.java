@@ -237,16 +237,19 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         while (tmFornecedor.getRowCount() > 0) {
             tmFornecedor.removeRow(0);
         }
+        produto = new Produto();
+        fornecedores = null;
         jTNome_Produto.setText("");
         jTNome.setText("");
         jTQnt.setText("");
         jTV_Compra.setText("");
         jTV_Saida.setText("");
-        fornecedores = null;
+        
 
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+        produto = new Produto();
         fornecedor.setId(fornecedores.get(tabela.getSelectedRow()).getId());
         produto.setFornecedor(fornecedor);
         produto.setNome(jTNome_Produto.getText());

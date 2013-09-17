@@ -237,10 +237,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
 
             Fornecedor fornecedor = fdao.buscaPorNome(jTFornecedor.getText()).get(0);
 
-
-
-            produtos = pdao.buscaPorNome(jTFornecedor.getText());
-            for (int i = 0; i < produtos.size(); i++) {
+            for (int i = 0; i < fornecedor.getProdutos().size(); i++) {
 
                 tmProduto.addRow(new String[]{null, null, null, null});
                 tmProduto.setValueAt(fornecedor.getProdutos().get(i).getNome(), i, 0);
@@ -270,7 +267,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                     tmProduto.setValueAt(fornecedores.get(i).getNome(), i, 2);
                     tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_entrada(), i, 3);
                     tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_saida(), i, 4);
-                }
+                    }
             }
         }
     }//GEN-LAST:event_jTFornecedorActionPerformed

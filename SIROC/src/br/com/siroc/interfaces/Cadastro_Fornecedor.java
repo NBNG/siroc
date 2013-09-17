@@ -20,7 +20,7 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
      * Creates new form Cadastro_Fornecedor
      */
     DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
-    Fornecedor fornecedor = new Fornecedor();
+    Fornecedor fornecedor;
 
     public Cadastro_Fornecedor() throws ParseException {
         super("SIROC - Cadastro de Fornecedores");
@@ -147,6 +147,7 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrar2ActionPerformed
+        fornecedor = new Fornecedor();
         if (jTNome.getText().equals("") || (jFTTelefone.getText().equals("") || (jTEmail.getText().equals("")))) {
             JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
             jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
@@ -163,6 +164,7 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
+        fornecedor = new Fornecedor();
         jTEmail.setText("");
         jTNome.setText("");
         jFTTelefone.setText("");

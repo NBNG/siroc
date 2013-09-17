@@ -19,7 +19,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     /**
      * Creates new form Cadastro_Clientes
      */
-    Cliente cliente = new Cliente();
+    Cliente cliente;
     DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
 
     public Cadastro_Clientes() throws ParseException {
@@ -300,6 +300,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+        cliente = new Cliente();
         try {
             if (jTNome.getText().equals("") || (jTIE.getText().equals("") || (jTEndereco.getText().equals("")
                     || (jTBairro.getText().equals("") || (jTCidade.getText().equals("") || (String.valueOf(jCBEstado.getSelectedItem()).equals("")
@@ -338,6 +339,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
+        cliente = new Cliente();
         jTBairro.setText("");
         jTCEP.setText("");
         jFTCnpj.setText("");
