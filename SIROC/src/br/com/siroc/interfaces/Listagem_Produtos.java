@@ -235,14 +235,13 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 tmProduto.removeRow(0);
             }
 
-<<<<<<< HEAD
             Fornecedor fornecedor = fdao.buscaPorNome(jTFornecedor.getText()).get(0);
 
-            for (int i = 0; i < fornecedor.getProdutos().size(); i++) {
-=======
-           // produtos =  dao.buscaPorNome(jTFornecedor.getText()).getProduto();
+
+
+            produtos = pdao.buscaPorNome(jTFornecedor.getText());
             for (int i = 0; i < produtos.size(); i++) {
->>>>>>> 1.5.8
+
                 tmProduto.addRow(new String[]{null, null, null, null});
                 tmProduto.setValueAt(fornecedor.getProdutos().get(i).getNome(), i, 0);
                 tmProduto.setValueAt(fornecedor.getProdutos().get(i).getQuantidade(), i, 1);
@@ -268,7 +267,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                     tmProduto.addRow(new String[]{null, null, null, null});
                     tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), i, 0);
                     tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getQuantidade(), i, 1);
-                    tmProduto.setValueAt(fornecedores.get(i).getNome(),i, 2);
+                    tmProduto.setValueAt(fornecedores.get(i).getNome(), i, 2);
                     tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_entrada(), i, 3);
                     tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_saida(), i, 4);
                 }
