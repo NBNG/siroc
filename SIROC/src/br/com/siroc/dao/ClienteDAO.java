@@ -22,12 +22,13 @@ public class ClienteDAO {
     }
 
     public Cliente buscaPorCNPJ(String cnpj) {
+             
         Transaction tx = session.beginTransaction();
 
         Cliente cliente = null;
 
         String consulta = "FROM Cliente WHERE cli_cnpj = :cnpj";
-        System.out.println(consulta);
+        
         Query query = session.createQuery(consulta);
         query.setParameter("cnpj", cnpj);
 
@@ -45,14 +46,7 @@ public class ClienteDAO {
 
         List<Cliente> clientes = new ArrayList<Cliente>();
 
-        String consulta = "FROM Cliente WHERE cli_nome like '%'||:nome||'%'";
-
-        Query query = session.createQuery(consulta);
-        query.setParameter("nome", nome);
-
         clientes = (List) session.createCriteria(Cliente.class).add(Restrictions.ilike("nome", "%" + nome + "%")).list();
-
-        //clientes = (List) query.list();
 
         tx.commit();
 

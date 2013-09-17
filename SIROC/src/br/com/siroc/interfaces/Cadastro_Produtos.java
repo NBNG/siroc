@@ -250,7 +250,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         fornecedor.setId(fornecedores.get(tabela.getSelectedRow()).getId());
         produto.setFornecedor(fornecedor);
         produto.setNome(jTNome_Produto.getText());
-        produto.setPeso(Double.parseDouble(jTQnt.getText()));
+        produto.setQuantidade(Double.parseDouble(jTQnt.getText()));
         produto.setValor_entrada(Double.parseDouble(jTV_Compra.getText()));
         produto.setValor_saida(Double.parseDouble(jTV_Saida.getText()));
         dao.adicionar(produto);

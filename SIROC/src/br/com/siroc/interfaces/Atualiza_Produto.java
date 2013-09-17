@@ -184,7 +184,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         fornecedor.setId(id);
         produto.setFornecedor(fornecedor);
         produto.setNome(jTNome_Produto.getText());
-        produto.setPeso(Double.parseDouble(jTQnt.getText()));
+        produto.setQuantidade(Double.parseDouble(jTQnt.getText()));
         produto.setValor_entrada(Double.parseDouble(jTV_Compra.getText()));
         produto.setValor_saida(Double.parseDouble(jTV_Saida.getText()));
         dao.adicionar(produto);
@@ -209,7 +209,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         DAO<Produto> dao = new DAO<Produto>(Produto.class);
         produto = (Produto) dao.busca(id);
         jTNome_Produto.setText(produto.getNome());
-        jTQnt.setText(String.valueOf(produto.getPeso()));
+        jTQnt.setText(String.valueOf(produto.getQuantidade()));
         jTV_Compra.setText(String.valueOf(produto.getValor_entrada()));
         jTV_Saida.setText(String.valueOf(produto.getValor_saida()));
     }

@@ -1,8 +1,10 @@
 package br.com.siroc.modelo;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -56,7 +58,7 @@ public class Fornecedor {
         this.email = email;
     }
     
-    @OneToMany
+    @OneToMany(mappedBy="fornecedor", cascade= CascadeType.REFRESH, fetch=FetchType.LAZY)
     public List<Produto> getProdutos() {
         return produtos;
     }
