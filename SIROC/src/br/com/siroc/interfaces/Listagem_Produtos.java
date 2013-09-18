@@ -238,13 +238,14 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             Fornecedor fornecedor = fdao.buscaPorNome(jTFornecedor.getText()).get(0);
 
             for (int i = 0; i < fornecedor.getProdutos().size(); i++) {
-
-                tmProduto.addRow(new String[]{null, null, null, null});
-                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getNome(), i, 0);
-                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getQuantidade(), i, 1);
-                tmProduto.setValueAt(fornecedor.getNome(), i, 2);
-                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getValor_entrada(), i, 3);
-                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getValor_saida(), i, 4);
+                for (int j = 0; j < fornecedor.getProdutos().size(); j++) {
+                    tmProduto.addRow(new String[]{null, null, null, null});
+                    tmProduto.setValueAt(fornecedor.getProdutos().get(j).getNome(), i, 0);
+                    tmProduto.setValueAt(fornecedor.getProdutos().get(j).getQuantidade(), i, 1);
+                    tmProduto.setValueAt(fornecedor.getNome(), i, 2);
+                    tmProduto.setValueAt(fornecedor.getProdutos().get(j).getValor_entrada(), i, 3);
+                    tmProduto.setValueAt(fornecedor.getProdutos().get(j).getValor_saida(), i, 4);
+                    }
             }
         }
     }//GEN-LAST:event_jRBFornecedorActionPerformed
