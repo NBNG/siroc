@@ -176,12 +176,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-
-        jTNome_Produto.setText("");
-        jTPeso.setText("");
-        jTV_Compra.setText("");
-        jTV_Saida.setText("");
-        fornecedores = null;
+        limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
@@ -216,5 +211,13 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         jTPeso.setText(String.valueOf(produto.getPeso()));
         jTV_Compra.setText(String.valueOf(produto.getValor_entrada()));
         jTV_Saida.setText(String.valueOf(produto.getValor_saida()));
+    }
+
+    private void limpar() {
+        jTNome_Produto.setText("");
+        jTPeso.setText("");
+        jTV_Compra.setText("");
+        jTV_Saida.setText("");
+        fornecedores = null;
     }
 }

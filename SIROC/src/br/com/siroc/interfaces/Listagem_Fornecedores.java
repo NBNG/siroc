@@ -1,7 +1,6 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
-import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.modelo.Fornecedor;
 import java.text.ParseException;
 import java.util.List;
@@ -182,18 +181,25 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTNomeKeyTyped
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        jRBPesquisar.setSelected(false);
-        jTNome.setText("");
-
-        fornecedores = null;
-
-        while (tmFornecedor.getRowCount() > 0) {
-            tmFornecedor.removeRow(0);
-        }
+        limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
-        // TODO add your handling code here:
+        if (jRBPesquisar.isSelected()) {
+            while (tmFornecedor.getRowCount() > 0) {
+                tmFornecedor.removeRow(0);
+            }
+
+            fornecedores = dao.buscaPorNome(jTNome.getText());
+
+            for (int i = 0; i < fornecedores.size(); i++) {
+
+                tmFornecedor.addRow(new String[]{null, null, null, null});
+                tmFornecedor.setValueAt(fornecedores.get(i).getNome(), i, 0);
+                tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
+                tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
+            }
+        }
     }//GEN-LAST:event_jTNomeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLimpar;
@@ -204,4 +210,15 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTNome;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
+    private void limpar() {
+        jRBPesquisar.setSelected(false);
+        jTNome.setText("");
+
+        fornecedores = null;
+
+        while (tmFornecedor.getRowCount() > 0) {
+            tmFornecedor.removeRow(0);
+        }
+    }
 }

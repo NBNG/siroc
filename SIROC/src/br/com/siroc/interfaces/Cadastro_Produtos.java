@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.classes_auxiliares.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.modelo.Fornecedor;
@@ -249,8 +250,8 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         produto.setFornecedor(fornecedor);
         produto.setNome(jTNome_Produto.getText());
         produto.setPeso(Double.parseDouble(jTPeso.getText()));
-        produto.setValor_entrada(Double.parseDouble(jTV_Compra.getText()));
-        produto.setValor_saida(Double.parseDouble(jTV_Saida.getText()));
+        produto.setValor_entrada(Editor.formataValor(jTV_Compra.getText()));
+        produto.setValor_saida(Editor.formataValor(jTV_Saida.getText()));
         dao.adicionar(produto);
         JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
         limpar();
@@ -259,7 +260,6 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     private void jTPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPesoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTPesoActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBLimpar;
@@ -277,11 +277,11 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTV_Saida;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
     public void limpar() {
         while (tmFornecedor.getRowCount() > 0) {
             tmFornecedor.removeRow(0);
         }
-        produto = new Produto();
         fornecedores = null;
         jTNome_Produto.setText("");
         jTNome.setText("");

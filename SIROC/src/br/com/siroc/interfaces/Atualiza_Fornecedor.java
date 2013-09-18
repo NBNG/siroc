@@ -148,9 +148,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        jTEmail.setText("");
-        jTNome.setText("");
-        jFTTelefone.setText("");
+        limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrar2ActionPerformed
@@ -186,5 +184,11 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
         jTNome.setText(fornecedor.getNome());
         jTEmail.setText(fornecedor.getEmail());
         jFTTelefone.setText(fornecedor.getTelefone());
+    }
+
+    private void limpar() {
+        jTEmail.setText("");
+        jTNome.setText("");
+        jFTTelefone.setText("");
     }
 }

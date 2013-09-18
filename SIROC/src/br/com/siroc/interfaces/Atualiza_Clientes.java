@@ -6,7 +6,6 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -296,18 +295,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        jTBairro.setText("");
-        jTCEP.setText("");
-        jFTCnpj.setText("");
-        jTContato.setText("");
-        jTEmail.setText("");
-        jTEndereco.setText("");
-        jTFrete.setText("");
-        jTIE.setText("");
-        jTNome.setText("");
-        jTCidade.setText("");
-        jFTCelular.setText("");
-        jFTTelefone.setText("");
+        limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
@@ -400,5 +388,20 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
         jFTCelular.setText(cliente.getCelular());
         jFTTelefone.setText(cliente.getTelefone());
         jFTCnpj.setText(cliente.getCnpj());
+    }
+
+    public void limpar() {
+        jTBairro.setText("");
+        jTCEP.setText("");
+        jFTCnpj.setText("");
+        jTContato.setText("");
+        jTEmail.setText("");
+        jTEndereco.setText("");
+        jTFrete.setText("");
+        jTIE.setText("");
+        jTNome.setText("");
+        jTCidade.setText("");
+        jFTCelular.setText("");
+        jFTTelefone.setText("");
     }
 }

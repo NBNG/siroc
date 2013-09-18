@@ -178,8 +178,8 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTEmail;
     private javax.swing.JTextField jTNome;
     // End of variables declaration//GEN-END:variables
+
     public void limpar() {
-        fornecedor = new Fornecedor();
         jTEmail.setText("");
         jTNome.setText("");
         jFTTelefone.setText("");

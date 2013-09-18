@@ -4,7 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
-import br.com.classes_auxiliares.Editor;
+import br.com.siroc.classes_auxiliares.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
@@ -193,6 +193,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRBNomeActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
+        limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
@@ -256,7 +257,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRBFornecedorActionPerformed
 
     private void jTFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFornecedorActionPerformed
-  if (jRBFornecedor.isSelected()) {
+        if (jRBFornecedor.isSelected()) {
             jRBNome.setSelected(false);
             jTNome.setText("");
 
@@ -283,7 +284,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         }    }//GEN-LAST:event_jTFornecedorActionPerformed
 
     private void jTFornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFornecedorKeyTyped
-  if (jRBFornecedor.isSelected()) {
+        if (jRBFornecedor.isSelected()) {
             jRBNome.setSelected(false);
             jTNome.setText("");
 
@@ -319,4 +320,16 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTNome;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
+    private void limpar() {
+        jRBFornecedor.setSelected(false);
+        jRBNome.setSelected(false);
+        jTFornecedor.setText("");
+        jTNome.setText("");
+        produtos = null;
+        fornecedores = null;
+        while (tmProduto.getRowCount() > 0) {
+            tmProduto.removeRow(0);
+        }
+    }
 }

@@ -262,15 +262,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRBCPFActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        jRBCPF.setSelected(false);
-        jRBNome.setSelected(false);
-        jTNome.setText("");
-        jFTCnpj.setText("");
-        clientes = null;
-
-        while (tmCliente.getRowCount() > 0) {
-            tmCliente.removeRow(0);
-        }
+        limpar();
 
     }//GEN-LAST:event_jBLimparActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -284,4 +276,16 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTNome;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
+    private void limpar() {
+        jRBCPF.setSelected(false);
+        jRBNome.setSelected(false);
+        jTNome.setText("");
+        jFTCnpj.setText("");
+        clientes = null;
+
+        while (tmCliente.getRowCount() > 0) {
+            tmCliente.removeRow(0);
+        }
+    }
 }
