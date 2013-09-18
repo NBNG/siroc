@@ -6,6 +6,7 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -310,10 +311,10 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        try {
-            if ((String.valueOf(jCBEstado.getSelectedItem()).equals("AC"))) {
-                JOptionPane.showMessageDialog(null, "Tem certeza do estado escolhido?");
-            } else {
+        if ((String.valueOf(jCBEstado.getSelectedItem()).equals("AC"))) {
+
+            int pergunta = JOptionPane.showConfirmDialog(null, "Tem certeza do estado escolhido?\n");
+            if (pergunta == 0) {//clicou em sim  
                 if (jTNome.getText().equals("") || (jTIE.getText().equals("") || (jTEndereco.getText().equals("")
                         || (jTBairro.getText().equals("") || (jTCidade.getText().equals("") || (String.valueOf(jCBEstado.getSelectedItem()).equals("")
                         || (jTCEP.getText().equals("") || (jFTCnpj.getText().equals("") || (jTFrete.getText().equals("")
@@ -346,10 +347,9 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
                     cliente.setContato(jTContato.getText());
                     dao.atualiza(cliente);
                     JOptionPane.showMessageDialog(null, "Cliente atualizado com Sucesso!");
+
                 }
             }
-        } catch (Error er) {
-            JOptionPane.showMessageDialog(null, "Erro: \n" + er);
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

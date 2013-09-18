@@ -27,11 +27,13 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
         MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");
+        MaskFormatter maskFrete = new MaskFormatter("##");
         MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
 
         maskTelefone.install(jFTTelefone);
         maskCelular.install(jFTCelular);
         maskCnpj.install(jFTCnpj);
+        maskFrete.install(jTFrete);
     }
 
     /**
@@ -65,13 +67,13 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jLNome = new javax.swing.JLabel();
         jTBairro = new javax.swing.JTextField();
         jLCelular = new javax.swing.JLabel();
-        jTFrete = new javax.swing.JTextField();
         jL_IE = new javax.swing.JLabel();
         jTCEP = new javax.swing.JTextField();
         jTIE = new javax.swing.JTextField();
         jTEndereco = new javax.swing.JTextField();
         jTContato = new javax.swing.JTextField();
         jTNome = new javax.swing.JTextField();
+        jTFrete = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -147,8 +149,6 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jLCelular.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLCelular.setText("Celular:");
 
-        jTFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
         jL_IE.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jL_IE.setText("Inscrição Estadual:");
 
@@ -161,6 +161,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jTContato.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jTFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -228,13 +230,15 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                                             .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
                                             .addComponent(jLFrete)))
-                                    .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
                                             .addComponent(jLBairro)
                                             .addGap(18, 18, 18)
                                             .addComponent(jTBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(4, 4, 4)
+                                            .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(30, 30, 30))))
         );
 
@@ -293,7 +297,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -333,25 +337,14 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 cliente.setContato(jTContato.getText());
                 dao.adicionar(cliente);
                 JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
+                limpar();
             }
         } catch (Error er) {
             JOptionPane.showMessageDialog(null, "Erro: \n" + er);
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        cliente = new Cliente();
-        jTBairro.setText("");
-        jTCEP.setText("");
-        jFTCnpj.setText("");
-        jTContato.setText("");
-        jTEmail.setText("");
-        jTEndereco.setText("");
-        jTFrete.setText("");
-        jTIE.setText("");
-        jTNome.setText("");
-        jTCidade.setText("");
-        jFTCelular.setText("");
-        jFTTelefone.setText("");
+        limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
@@ -380,8 +373,23 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTContato;
     private javax.swing.JTextField jTEmail;
     private javax.swing.JTextField jTEndereco;
-    private javax.swing.JTextField jTFrete;
+    private javax.swing.JFormattedTextField jTFrete;
     private javax.swing.JTextField jTIE;
     private javax.swing.JTextField jTNome;
     // End of variables declaration//GEN-END:variables
+
+    public void limpar() {
+        jTBairro.setText("");
+        jTCEP.setText("");
+        jFTCnpj.setText("");
+        jTContato.setText("");
+        jTEmail.setText("");
+        jTEndereco.setText("");
+        jTFrete.setText("");
+        jTIE.setText("");
+        jTNome.setText("");
+        jTCidade.setText("");
+        jFTCelular.setText("");
+        jFTTelefone.setText("");
+    }
 }

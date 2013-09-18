@@ -47,9 +47,9 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         jLFornecedor = new javax.swing.JLabel();
         jTV_Saida = new javax.swing.JTextField();
         jTV_Compra = new javax.swing.JTextField();
-        jTQnt = new javax.swing.JTextField();
+        jTPeso = new javax.swing.JTextField();
         jTNome_Produto = new javax.swing.JTextField();
-        jLQuantidade = new javax.swing.JLabel();
+        jLPeso = new javax.swing.JLabel();
         jLNome = new javax.swing.JLabel();
         jLV_Venda = new javax.swing.JLabel();
         jLV_Compra = new javax.swing.JLabel();
@@ -68,12 +68,12 @@ public class Atualiza_Produto extends javax.swing.JFrame {
 
         jTV_Compra.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jTQnt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTPeso.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTNome_Produto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jLQuantidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLQuantidade.setText("Quantidade:");
+        jLPeso.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLPeso.setText("Peso:");
 
         jLNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLNome.setText("Nome:");
@@ -116,9 +116,9 @@ public class Atualiza_Produto extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLQuantidade)
+                                .addComponent(jLPeso)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTQnt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLV_Venda)
                                 .addGap(18, 18, 18)
@@ -155,8 +155,8 @@ public class Atualiza_Produto extends javax.swing.JFrame {
                     .addComponent(jTNome_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLQuantidade)
-                    .addComponent(jTQnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLPeso)
+                    .addComponent(jTPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLV_Compra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -178,7 +178,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
 
         jTNome_Produto.setText("");
-        jTQnt.setText("");
+        jTPeso.setText("");
         jTV_Compra.setText("");
         jTV_Saida.setText("");
         fornecedores = null;
@@ -188,7 +188,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         fornecedor.setId(fid);
         produto.setFornecedor(fornecedor);
         produto.setNome(jTNome_Produto.getText());
-        produto.setQuantidade(Double.parseDouble(jTQnt.getText()));
+        produto.setPeso(Double.parseDouble(jTPeso.getText()));
         produto.setValor_entrada(Double.parseDouble(jTV_Compra.getText()));
         produto.setValor_saida(Double.parseDouble(jTV_Saida.getText()));
         dao.atualiza(produto);
@@ -200,11 +200,11 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLFornecedor;
     private javax.swing.JLabel jLNome;
-    private javax.swing.JLabel jLQuantidade;
+    private javax.swing.JLabel jLPeso;
     private javax.swing.JLabel jLV_Compra;
     private javax.swing.JLabel jLV_Venda;
     private javax.swing.JTextField jTNome_Produto;
-    private javax.swing.JTextField jTQnt;
+    private javax.swing.JTextField jTPeso;
     private javax.swing.JTextField jTV_Compra;
     private javax.swing.JTextField jTV_Saida;
     // End of variables declaration//GEN-END:variables
@@ -213,7 +213,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         DAO<Produto> dao = new DAO<Produto>(Produto.class);
         produto = (Produto) dao.busca(id);
         jTNome_Produto.setText(produto.getNome());
-        jTQnt.setText(String.valueOf(produto.getQuantidade()));
+        jTPeso.setText(String.valueOf(produto.getPeso()));
         jTV_Compra.setText(String.valueOf(produto.getValor_entrada()));
         jTV_Saida.setText(String.valueOf(produto.getValor_saida()));
     }

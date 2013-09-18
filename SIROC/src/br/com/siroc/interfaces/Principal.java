@@ -78,7 +78,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu.add(jMClente);
 
-        jMFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/funcionario.png"))); // NOI18N
+        jMFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/usuario.png"))); // NOI18N
         jMFornecedor.setText("Fornecedores");
         jMFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -102,6 +102,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu.add(jMFornecedor);
 
+        jMProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/icone_bau.png"))); // NOI18N
         jMProdutos.setText("Produtos");
         jMProdutos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 

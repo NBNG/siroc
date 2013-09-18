@@ -47,12 +47,12 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         jLNome = new javax.swing.JLabel();
-        jLQuantidade = new javax.swing.JLabel();
+        jLPeso = new javax.swing.JLabel();
         jLV_Compra = new javax.swing.JLabel();
         jLV_Venda = new javax.swing.JLabel();
         jTNome_Produto = new javax.swing.JTextField();
         jTV_Compra = new javax.swing.JTextField();
-        jTQnt = new javax.swing.JTextField();
+        jTPeso = new javax.swing.JTextField();
         jTV_Saida = new javax.swing.JTextField();
         jBCadastrar = new javax.swing.JButton();
         jBLimpar = new javax.swing.JButton();
@@ -77,8 +77,8 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         jLNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLNome.setText("Nome:");
 
-        jLQuantidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLQuantidade.setText("Quantidade:");
+        jLPeso.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLPeso.setText("Peso:");
 
         jLV_Compra.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLV_Compra.setText("Valor de Compra:");
@@ -90,7 +90,12 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
 
         jTV_Compra.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jTQnt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTPeso.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTPeso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTPesoActionPerformed(evt);
+            }
+        });
 
         jTV_Saida.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -143,9 +148,9 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLQuantidade)
+                        .addComponent(jLPeso)
                         .addGap(18, 18, 18)
-                        .addComponent(jTQnt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLV_Venda)
                         .addGap(18, 18, 18)
@@ -167,7 +172,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTQnt, jTV_Compra, jTV_Saida});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTPeso, jTV_Compra, jTV_Saida});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
 
@@ -188,8 +193,8 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                     .addComponent(jTNome_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLQuantidade)
-                    .addComponent(jTQnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLPeso)
+                    .addComponent(jTPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLV_Compra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -234,18 +239,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        while (tmFornecedor.getRowCount() > 0) {
-            tmFornecedor.removeRow(0);
-        }
-        produto = new Produto();
-        fornecedores = null;
-        jTNome_Produto.setText("");
-        jTNome.setText("");
-        jTQnt.setText("");
-        jTV_Compra.setText("");
-        jTV_Saida.setText("");
-
-
+        limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
@@ -254,27 +248,45 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         fornecedor.setId(fornecedores.get(tabela.getSelectedRow()).getId());
         produto.setFornecedor(fornecedor);
         produto.setNome(jTNome_Produto.getText());
-        produto.setQuantidade(Double.parseDouble(jTQnt.getText()));
+        produto.setPeso(Double.parseDouble(jTPeso.getText()));
         produto.setValor_entrada(Double.parseDouble(jTV_Compra.getText()));
         produto.setValor_saida(Double.parseDouble(jTV_Saida.getText()));
         dao.adicionar(produto);
         JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
+        limpar();
     }//GEN-LAST:event_jBCadastrarActionPerformed
+
+    private void jTPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPesoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTPesoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLFornecedor;
     private javax.swing.JLabel jLNome;
-    private javax.swing.JLabel jLQuantidade;
+    private javax.swing.JLabel jLPeso;
     private javax.swing.JLabel jLV_Compra;
     private javax.swing.JLabel jLV_Venda;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTNome;
     private javax.swing.JTextField jTNome_Produto;
-    private javax.swing.JTextField jTQnt;
+    private javax.swing.JTextField jTPeso;
     private javax.swing.JTextField jTV_Compra;
     private javax.swing.JTextField jTV_Saida;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+    public void limpar() {
+        while (tmFornecedor.getRowCount() > 0) {
+            tmFornecedor.removeRow(0);
+        }
+        produto = new Produto();
+        fornecedores = null;
+        jTNome_Produto.setText("");
+        jTNome.setText("");
+        jTPeso.setText("");
+        jTV_Compra.setText("");
+        jTV_Saida.setText("");
+    }
 }

@@ -4,8 +4,8 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.classes_auxiliares.Editor;
 import br.com.siroc.dao.DAO;
-import br.com.siroc.dao.ProdutoDAO;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
 import java.util.List;
@@ -54,7 +54,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         setClosable(true);
 
         jRBNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRBNome.setText("Produto:");
+        jRBNome.setText("Produto");
         jRBNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBNomeActionPerformed(evt);
@@ -98,7 +98,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabela);
 
         jRBFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRBFornecedor.setText("Fornecedor:");
+        jRBFornecedor.setText("Fornecedor");
         jRBFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBFornecedorActionPerformed(evt);
@@ -143,7 +143,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTNome))
                             .addComponent(jLCabecalho))
-                        .addContainerGap(456, Short.MAX_VALUE))))
+                        .addContainerGap(462, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +158,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRBFornecedor)
                     .addComponent(jTFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBAlterar)
@@ -184,10 +184,10 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             for (int i = 0; i < produtos.size(); i++) {
                 tmProduto.addRow(new String[]{null, null, null, null});
                 tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
-                tmProduto.setValueAt(produtos.get(i).getQuantidade(), i, 1);
+                tmProduto.setValueAt(produtos.get(i).getPeso() + " kg", i, 1);
                 tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
-                tmProduto.setValueAt(produtos.get(i).getValor_entrada(), i, 3);
-                tmProduto.setValueAt(produtos.get(i).getValor_saida(), i, 4);
+                tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_entrada()), i, 3);
+                tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_saida()), i, 4);
             }
         }
     }//GEN-LAST:event_jRBNomeActionPerformed
@@ -219,10 +219,10 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             for (int i = 0; i < produtos.size(); i++) {
                 tmProduto.addRow(new String[]{null, null, null, null});
                 tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
-                tmProduto.setValueAt(produtos.get(i).getQuantidade(), i, 1);
+                tmProduto.setValueAt(produtos.get(i).getPeso() + " kg", i, 1);
                 tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
-                tmProduto.setValueAt(produtos.get(i).getValor_entrada(), i, 3);
-                tmProduto.setValueAt(produtos.get(i).getValor_saida(), i, 4);
+                tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_entrada()), i, 3);
+                tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_saida()), i, 4);
             }
         }
     }//GEN-LAST:event_jTNomeKeyTyped
@@ -237,18 +237,18 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             }
 
             Integer linha = 0;
-            
+
             List<Fornecedor> fornecedores = fdao.buscaPorNome(jTFornecedor.getText());
 
             for (int i = 0; i < fornecedores.size(); i++) {
                 for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
-                    
+
                     tmProduto.addRow(new String[]{null, null, null, null});
                     tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), linha, 0);
-                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getQuantidade(), linha, 1);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getPeso() + " kg", linha, 1);
                     tmProduto.setValueAt(fornecedores.get(i).getNome(), linha, 2);
-                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_entrada(), linha, 3);
-                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_saida(), linha, 4);
+                    tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_entrada()), linha, 3);
+                    tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_saida()), linha, 4);
                     linha++;
                 }
             }
@@ -256,34 +256,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRBFornecedorActionPerformed
 
     private void jTFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFornecedorActionPerformed
-        if (jRBNome.isSelected()) {
-            jRBFornecedor.setSelected(false);
-            jTFornecedor.setText("");
-
-            while (tmProduto.getRowCount() > 0) {
-                tmProduto.removeRow(0);
-            }
-            
-            List<Fornecedor> fornecedores = fdao.buscaPorNome(jTNome.getText());
-            
-            Integer linha = 0;
-            
-            for (int i = 0; i < fornecedores.size(); i++) {
-                for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
-                    tmProduto.addRow(new String[]{null, null, null, null});
-                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), linha, 0);
-                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getQuantidade(), linha, 1);
-                    tmProduto.setValueAt(fornecedores.get(i).getNome(), linha, 2);
-                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_entrada(), linha, 3);
-                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_saida(), linha, 4);
-                    linha++;
-                }
-            }
-        }
-    }//GEN-LAST:event_jTFornecedorActionPerformed
-
-    private void jTFornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFornecedorKeyTyped
-        if (jRBFornecedor.isSelected()) {
+  if (jRBFornecedor.isSelected()) {
             jRBNome.setSelected(false);
             jTNome.setText("");
 
@@ -291,19 +264,50 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 tmProduto.removeRow(0);
             }
 
-            Fornecedor fornecedor = fdao.buscaPorNome(jTFornecedor.getText()).get(0);
+            Integer linha = 0;
 
-            for (int i = 0; i < fornecedor.getProdutos().size(); i++) {
+            List<Fornecedor> fornecedores = fdao.buscaPorNome(jTFornecedor.getText());
 
-                tmProduto.addRow(new String[]{null, null, null, null});
-                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getNome(), i, 0);
-                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getQuantidade(), i, 1);
-                tmProduto.setValueAt(fornecedor.getNome(), i, 2);
-                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getValor_entrada(), i, 3);
-                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getValor_saida(), i, 4);
+            for (int i = 0; i < fornecedores.size(); i++) {
+                for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
+
+                    tmProduto.addRow(new String[]{null, null, null, null});
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), linha, 0);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getPeso() + " kg", linha, 1);
+                    tmProduto.setValueAt(fornecedores.get(i).getNome(), linha, 2);
+                    tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_entrada()), linha, 3);
+                    tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_saida()), linha, 4);
+                    linha++;
+                }
             }
-        }
-    }//GEN-LAST:event_jTFornecedorKeyTyped
+        }    }//GEN-LAST:event_jTFornecedorActionPerformed
+
+    private void jTFornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFornecedorKeyTyped
+  if (jRBFornecedor.isSelected()) {
+            jRBNome.setSelected(false);
+            jTNome.setText("");
+
+            while (tmProduto.getRowCount() > 0) {
+                tmProduto.removeRow(0);
+            }
+
+            Integer linha = 0;
+
+            List<Fornecedor> fornecedores = fdao.buscaPorNome(jTFornecedor.getText());
+
+            for (int i = 0; i < fornecedores.size(); i++) {
+                for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
+
+                    tmProduto.addRow(new String[]{null, null, null, null});
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), linha, 0);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getPeso() + " kg", linha, 1);
+                    tmProduto.setValueAt(fornecedores.get(i).getNome(), linha, 2);
+                    tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_entrada()), linha, 3);
+                    tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_saida()), linha, 4);
+                    linha++;
+                }
+            }
+        }    }//GEN-LAST:event_jTFornecedorKeyTyped
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBLimpar;

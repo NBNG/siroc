@@ -159,15 +159,13 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
             fornecedor.setTelefone(jFTTelefone.getText());
 
             dao.adicionar(fornecedor);
-            JOptionPane.showMessageDialog(null, "Distribuidor adicionado com Sucesso!");
+            JOptionPane.showMessageDialog(null, "Fornecedor adicionado com Sucesso!");
+            limpar();
         }
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        fornecedor = new Fornecedor();
-        jTEmail.setText("");
-        jTNome.setText("");
-        jFTTelefone.setText("");
+        limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar2;
@@ -180,4 +178,10 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTEmail;
     private javax.swing.JTextField jTNome;
     // End of variables declaration//GEN-END:variables
+    public void limpar() {
+        fornecedor = new Fornecedor();
+        jTEmail.setText("");
+        jTNome.setText("");
+        jFTTelefone.setText("");
+    }
 }

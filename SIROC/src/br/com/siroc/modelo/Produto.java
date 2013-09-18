@@ -4,15 +4,12 @@
  */
 package br.com.siroc.modelo;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -25,7 +22,7 @@ public class Produto {
 
     private Long id;
     private String nome;
-    private Double quantidade;
+    private Double peso;
     private Double valor_saida;
     private Double valor_entrada;
     private Fornecedor fornecedor;
@@ -50,13 +47,13 @@ public class Produto {
         this.nome = nome;
     }
 
-    @Column(name = "pro_quantidade")
-    public Double getQuantidade() {
-        return quantidade;
+    @Column(name = "pro_peso")
+    public Double getPeso() {
+        return peso;
     }
 
-    public void setQuantidade(Double quantidade) {
-        this.quantidade = quantidade;
+    public void setPeso(Double peso) {
+        this.peso = peso;
     }
 
     @Column(name = "pro_saida")

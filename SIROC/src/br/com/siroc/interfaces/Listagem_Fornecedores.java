@@ -190,8 +190,6 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
         while (tmFornecedor.getRowCount() > 0) {
             tmFornecedor.removeRow(0);
         }
-
-        tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed

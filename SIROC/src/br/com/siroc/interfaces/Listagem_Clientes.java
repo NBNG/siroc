@@ -163,7 +163,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                         .addComponent(jBAtualizar)
                         .addGap(27, 27, 27)
                         .addComponent(jBLimpar)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();
@@ -198,7 +198,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                 tmCliente.setValueAt(clientes.get(i).getEmail(), i, 5);
                 tmCliente.setValueAt(clientes.get(i).getCelular(), i, 6);
                 tmCliente.setValueAt(endereco, i, 7);
-                tmCliente.setValueAt(clientes.get(i).getFrete(), i, 8);
+                tmCliente.setValueAt(clientes.get(i).getFrete() + " %", i, 8);
             }
         }
     }//GEN-LAST:event_jRBNomeActionPerformed
@@ -230,7 +230,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                 tmCliente.setValueAt(clientes.get(i).getEmail(), i, 5);
                 tmCliente.setValueAt(clientes.get(i).getCelular(), i, 6);
                 tmCliente.setValueAt(endereco, i, 7);
-                tmCliente.setValueAt(clientes.get(i).getFrete(), i, 8);
+                tmCliente.setValueAt(clientes.get(i).getFrete() + " %", i, 8);
             }
         }    }//GEN-LAST:event_jTNomeKeyTyped
 
@@ -257,7 +257,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             tmCliente.setValueAt(cliente.getEmail(), 0, 5);
             tmCliente.setValueAt(cliente.getCelular(), 0, 6);
             tmCliente.setValueAt(endereco, 0, 7);
-            tmCliente.setValueAt(cliente.getFrete(), 0, 8);
+            tmCliente.setValueAt(cliente.getFrete() + " %", 0, 8);
         }
     }//GEN-LAST:event_jRBCPFActionPerformed
 
