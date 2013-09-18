@@ -236,7 +236,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 tmProduto.removeRow(0);
             }
 
-            fornecedores = (List<Fornecedor>) fdao.buscaPorNome(jTFornecedor.getText()).get(0);
+            fornecedores = fdao.buscaPorNome(jTFornecedor.getText());
 
             for (int i = 0; i < fornecedores.size(); i++) {
                 for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
