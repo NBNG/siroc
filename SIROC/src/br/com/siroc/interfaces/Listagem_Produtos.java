@@ -105,6 +105,16 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         });
 
         jTFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFornecedorActionPerformed(evt);
+            }
+        });
+        jTFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFornecedorKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,7 +157,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRBFornecedor)
                     .addComponent(jTFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBAlterar)
@@ -240,6 +250,51 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jRBFornecedorActionPerformed
 
+    private void jTFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFornecedorActionPerformed
+        if (jRBNome.isSelected()) {
+            jRBFornecedor.setSelected(false);
+            jTFornecedor.setText("");
+
+            while (tmProduto.getRowCount() > 0) {
+                tmProduto.removeRow(0);
+            }
+
+            List<Fornecedor> fornecedores = fdao.buscaPorNome(jTNome.getText());
+            for (int i = 0; i < fornecedores.size(); i++) {
+                for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
+                    tmProduto.addRow(new String[]{null, null, null, null});
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), i, 0);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getQuantidade(), i, 1);
+                    tmProduto.setValueAt(fornecedores.get(i).getNome(), i, 2);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_entrada(), i, 3);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_saida(), i, 4);
+                    }
+            }
+        }
+    }//GEN-LAST:event_jTFornecedorActionPerformed
+
+    private void jTFornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFornecedorKeyTyped
+        if (jRBFornecedor.isSelected()) {
+            jRBNome.setSelected(false);
+            jTNome.setText("");
+
+            while (tmProduto.getRowCount() > 0) {
+                tmProduto.removeRow(0);
+            }
+
+            Fornecedor fornecedor = fdao.buscaPorNome(jTFornecedor.getText()).get(0);
+
+            for (int i = 0; i < fornecedor.getProdutos().size(); i++) {
+
+                tmProduto.addRow(new String[]{null, null, null, null});
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getNome(), i, 0);
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getQuantidade(), i, 1);
+                tmProduto.setValueAt(fornecedor.getNome(), i, 2);
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getValor_entrada(), i, 3);
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getValor_saida(), i, 4);
+            }
+        }
+    }//GEN-LAST:event_jTFornecedorKeyTyped
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBLimpar;
