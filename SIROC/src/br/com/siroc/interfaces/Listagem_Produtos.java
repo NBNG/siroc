@@ -97,7 +97,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabela);
 
         jRBFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRBFornecedor.setText("Fornecedor:");
+        jRBFornecedor.setText("Fornecedor");
         jRBFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBFornecedorActionPerformed(evt);
@@ -157,7 +157,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRBFornecedor)
                     .addComponent(jTFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBAlterar)
@@ -273,7 +273,26 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTFornecedorActionPerformed
 
     private void jTFornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFornecedorKeyTyped
-        // TODO add your handling code here:
+        if (jRBFornecedor.isSelected()) {
+            jRBNome.setSelected(false);
+            jTNome.setText("");
+
+            while (tmProduto.getRowCount() > 0) {
+                tmProduto.removeRow(0);
+            }
+
+            Fornecedor fornecedor = fdao.buscaPorNome(jTFornecedor.getText()).get(0);
+
+            for (int i = 0; i < fornecedor.getProdutos().size(); i++) {
+
+                tmProduto.addRow(new String[]{null, null, null, null});
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getNome(), i, 0);
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getQuantidade(), i, 1);
+                tmProduto.setValueAt(fornecedor.getNome(), i, 2);
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getValor_entrada(), i, 3);
+                tmProduto.setValueAt(fornecedor.getProdutos().get(i).getValor_saida(), i, 4);
+            }
+        }
     }//GEN-LAST:event_jTFornecedorKeyTyped
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;

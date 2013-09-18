@@ -62,7 +62,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
         jBAtualizar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/editar.png"))); // NOI18N
-        jBAtualizar.setText("Atualizar");
+        jBAtualizar.setText("Alterar");
         jBAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBAtualizarActionPerformed(evt);
@@ -73,7 +73,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         jLCabecalho.setText("Listagem de Clientes");
 
         jRBNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRBNome.setText("Nome:");
+        jRBNome.setText("Nome");
         jRBNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBNomeActionPerformed(evt);
@@ -93,7 +93,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         });
 
         jRBCPF.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRBCPF.setText("CNPJ:");
+        jRBCPF.setText("CNPJ");
         jRBCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBCPFActionPerformed(evt);
@@ -118,26 +118,27 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLCabecalho)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLCabecalho)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRBNome)
+                                    .addComponent(jRBCPF))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jFTCnpj)
+                                        .addGap(101, 101, 101)))))
+                        .addContainerGap(734, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 934, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBAtualizar)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jBLimpar)
-                                .addGap(21, 21, 21))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRBNome)
-                            .addComponent(jRBCPF))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jFTCnpj)
-                                .addGap(101, 101, 101)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jBAtualizar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBLimpar, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(24, 24, 24))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBAtualizar, jBLimpar});
@@ -160,9 +161,9 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBAtualizar)
-                        .addGap(28, 28, 28)
+                        .addGap(27, 27, 27)
                         .addComponent(jBLimpar)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         pack();

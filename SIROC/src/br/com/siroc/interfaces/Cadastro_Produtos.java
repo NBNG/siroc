@@ -21,8 +21,8 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     /**
      * Creates new form Cadastro_Produtos
      */
-    Fornecedor fornecedor = new Fornecedor();
-    Produto produto = new Produto();
+    Fornecedor fornecedor;
+    Produto produto;
     List<Fornecedor> fornecedores;
     DAO<Produto> dao = new DAO<Produto>(Produto.class);
     //definição das colunas da tabela
@@ -244,11 +244,12 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         jTQnt.setText("");
         jTV_Compra.setText("");
         jTV_Saida.setText("");
-        
+
 
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+        fornecedor = new Fornecedor();
         produto = new Produto();
         fornecedor.setId(fornecedores.get(tabela.getSelectedRow()).getId());
         produto.setFornecedor(fornecedor);
