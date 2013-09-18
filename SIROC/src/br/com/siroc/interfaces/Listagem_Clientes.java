@@ -70,7 +70,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         });
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLCabecalho.setText("Listagem de Clientes");
+        jLCabecalho.setText("Pesquisa de Clientes");
 
         jRBNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jRBNome.setText("Nome");
@@ -163,7 +163,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                         .addComponent(jBAtualizar)
                         .addGap(27, 27, 27)
                         .addComponent(jBLimpar)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
