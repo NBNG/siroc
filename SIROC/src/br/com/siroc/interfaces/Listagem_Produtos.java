@@ -20,6 +20,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     /**
      * Creates new form Listagem_Produtos
      */
+    List<Fornecedor> fornecedores;
     List<Produto> produtos;
     DAO<Produto> pdao = new DAO<Produto>(Produto.class);
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
@@ -235,17 +236,17 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 tmProduto.removeRow(0);
             }
 
-            Fornecedor fornecedor = fdao.buscaPorNome(jTFornecedor.getText()).get(0);
+            fornecedores = (List<Fornecedor>) fdao.buscaPorNome(jTFornecedor.getText()).get(0);
 
-            for (int i = 0; i < fornecedor.getProdutos().size(); i++) {
-                for (int j = 0; j < fornecedor.getProdutos().size(); j++) {
+            for (int i = 0; i < fornecedores.size(); i++) {
+                for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
                     tmProduto.addRow(new String[]{null, null, null, null});
-                    tmProduto.setValueAt(fornecedor.getProdutos().get(j).getNome(), i, 0);
-                    tmProduto.setValueAt(fornecedor.getProdutos().get(j).getQuantidade(), i, 1);
-                    tmProduto.setValueAt(fornecedor.getNome(), i, 2);
-                    tmProduto.setValueAt(fornecedor.getProdutos().get(j).getValor_entrada(), i, 3);
-                    tmProduto.setValueAt(fornecedor.getProdutos().get(j).getValor_saida(), i, 4);
-                    }
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), i, 0);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getQuantidade(), i, 1);
+                    tmProduto.setValueAt(fornecedores.get(i).getNome(), i, 2);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_entrada(), i, 3);
+                    tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_saida(), i, 4);
+                }
             }
         }
     }//GEN-LAST:event_jRBFornecedorActionPerformed
@@ -268,7 +269,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                     tmProduto.setValueAt(fornecedores.get(i).getNome(), i, 2);
                     tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_entrada(), i, 3);
                     tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getValor_saida(), i, 4);
-                    }
+                }
             }
         }
     }//GEN-LAST:event_jTFornecedorActionPerformed

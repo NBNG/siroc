@@ -9,7 +9,7 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/siroc</property>
         <property name="hibernate.connection.username">postgres</property>
         <!-- <property name="hibernate.connection.password">senha</property> -->
-        <property name="hibernate.connection.password">agreste03</property>
+        <property name="hibernate.connection.password">senha</property>
         
         <property name="hibernate.hbm2ddl.auto">update</property>
         
