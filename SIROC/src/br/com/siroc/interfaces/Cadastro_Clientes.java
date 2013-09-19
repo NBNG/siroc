@@ -342,6 +342,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         } catch (Error er) {
             JOptionPane.showMessageDialog(null, "Erro: \n" + er);
         }
+        
     }//GEN-LAST:event_jBCadastrarActionPerformed
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         limpar();
