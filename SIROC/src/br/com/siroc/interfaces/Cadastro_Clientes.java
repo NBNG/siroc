@@ -307,20 +307,39 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+
+
+        try {
+            System.out.println("Cadastro Cliente: "+jTFrete.getText());
+            cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
+                    .setCidade(jTCidade.getText()).setCnpj(jFTCnpj.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
+                    setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
+                    .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
+
+            dao.adicionar(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
+            limpar();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios (negritos) vazios e/ou Informação inválida!");
+            jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
+            jL_IE.setFont(new java.awt.Font("Tahoma", 1, 18));
+            jLEndereco.setFont(new java.awt.Font("Tahoma", 1, 18));
+            jLBairro.setFont(new java.awt.Font("Tahoma", 1, 18));
+            jLCidade.setFont(new java.awt.Font("Tahoma", 1, 18));
+            jLEstado.setFont(new java.awt.Font("Tahoma", 1, 18));
+            jLCEP.setFont(new java.awt.Font("Tahoma", 1, 18));
+            jLCNPJ.setFont(new java.awt.Font("Tahoma", 1, 18));
+            //jLFrete.setFont(new java.awt.Font("Tahoma", 1, 18));
+            jLContato.setFont(new java.awt.Font("Tahoma", 1, 18));
+        }
         /*
-         * Lucas Firmozeira - Código em teste
          try {
-         cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
-         .setCidade(jTCidade.getText()).setCnpj(jFTCnpj.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
-         setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(Double.parseDouble(jTFrete.getText()))
-         .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
-
-         dao.adicionar(cliente);
-         JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
-         limpar();
-
-         } catch (Exception e) {
-         JOptionPane.showMessageDialog(null, "Campos obrigatórios (negritos) vazios e/ou Informação inválida!");
+         if (jTNome.getText().equals("") || (jTIE.getText().equals("") || (jTEndereco.getText().equals("")
+         || (jTBairro.getText().equals("") || (jTCidade.getText().equals("") || (String.valueOf(jCBEstado.getSelectedItem()).equals("")
+         || (jTCEP.getText().equals("") || (jFTCnpj.getText().equals("") || (jTFrete.getText().equals("")
+         || (jTContato.getText().equals(""))))))))))) {
+         JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
          jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
          jL_IE.setFont(new java.awt.Font("Tahoma", 1, 18));
          jLEndereco.setFont(new java.awt.Font("Tahoma", 1, 18));
@@ -329,48 +348,30 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
          jLEstado.setFont(new java.awt.Font("Tahoma", 1, 18));
          jLCEP.setFont(new java.awt.Font("Tahoma", 1, 18));
          jLCNPJ.setFont(new java.awt.Font("Tahoma", 1, 18));
-         //jLFrete.setFont(new java.awt.Font("Tahoma", 1, 18));
+         jLFrete.setFont(new java.awt.Font("Tahoma", 1, 18));
          jLContato.setFont(new java.awt.Font("Tahoma", 1, 18));
+         } else {
+         cliente.setNome(jTNome.getText());
+         cliente.setCelular(jFTCelular.getText());
+         cliente.setTelefone(jFTTelefone.getText());
+         cliente.setInscricao_est(jTIE.getText());
+         cliente.setEndereco(jTEndereco.getText());
+         cliente.setBairro(jTBairro.getText());
+         cliente.setCidade(jTCidade.getText());
+         cliente.setEstado(String.valueOf(jCBEstado.getSelectedItem()));
+         cliente.setCep(jTCEP.getText());
+         cliente.setEmail(jTEmail.getText());
+         cliente.setCnpj(jFTCnpj.getText());
+         cliente.setFrete(Double.parseDouble(jTFrete.getText()));
+         cliente.setContato(jTContato.getText());
+         dao.adicionar(cliente);
+         JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
+         limpar();
+         }
+         } catch (Error er) {
+         JOptionPane.showMessageDialog(null, "Erro: \n" + er);
          }
          */
-        try {
-            if (jTNome.getText().equals("") || (jTIE.getText().equals("") || (jTEndereco.getText().equals("")
-                    || (jTBairro.getText().equals("") || (jTCidade.getText().equals("") || (String.valueOf(jCBEstado.getSelectedItem()).equals("")
-                    || (jTCEP.getText().equals("") || (jFTCnpj.getText().equals("") || (jTFrete.getText().equals("")
-                    || (jTContato.getText().equals(""))))))))))) {
-                JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
-                jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
-                jL_IE.setFont(new java.awt.Font("Tahoma", 1, 18));
-                jLEndereco.setFont(new java.awt.Font("Tahoma", 1, 18));
-                jLBairro.setFont(new java.awt.Font("Tahoma", 1, 18));
-                jLCidade.setFont(new java.awt.Font("Tahoma", 1, 18));
-                jLEstado.setFont(new java.awt.Font("Tahoma", 1, 18));
-                jLCEP.setFont(new java.awt.Font("Tahoma", 1, 18));
-                jLCNPJ.setFont(new java.awt.Font("Tahoma", 1, 18));
-                jLFrete.setFont(new java.awt.Font("Tahoma", 1, 18));
-                jLContato.setFont(new java.awt.Font("Tahoma", 1, 18));
-            } else {
-                cliente.setNome(jTNome.getText());
-                cliente.setCelular(jFTCelular.getText());
-                cliente.setTelefone(jFTTelefone.getText());
-                cliente.setInscricao_est(jTIE.getText());
-                cliente.setEndereco(jTEndereco.getText());
-                cliente.setBairro(jTBairro.getText());
-                cliente.setCidade(jTCidade.getText());
-                cliente.setEstado(String.valueOf(jCBEstado.getSelectedItem()));
-                cliente.setCep(jTCEP.getText());
-                cliente.setEmail(jTEmail.getText());
-                cliente.setCnpj(jFTCnpj.getText());
-                cliente.setFrete(Double.parseDouble(jTFrete.getText()));
-                cliente.setContato(jTContato.getText());
-                dao.adicionar(cliente);
-                JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
-                limpar();
-            }
-        } catch (Error er) {
-            JOptionPane.showMessageDialog(null, "Erro: \n" + er);
-        }
-
     }//GEN-LAST:event_jBCadastrarActionPerformed
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         limpar();

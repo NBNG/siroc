@@ -36,7 +36,7 @@ public class ClienteBuilder {
     }
 
     public Cliente getCliente(){
-        if(count < 10) { throw new IllegalArgumentException(); } 
+        if(count < 9) { throw new IllegalArgumentException(); } 
         return new Cliente( nome,  inscricao_est,  celular,  telefone, 
             endereco, bairro,cidade, estado,cep,contato,email,cnpj,frete);
     }
@@ -97,8 +97,10 @@ public class ClienteBuilder {
         return this;
     }
 
-    public ClienteBuilder setFrete(Double frete) {
-        this.frete = frete;
+    public ClienteBuilder setFrete(String frete) {
+        System.out.println("Frete:" + frete);
+        if(frete.equals("") ) { this.frete = 0.; System.out.println("Frete IF:" + this.frete); }
+        else { this.frete = Double.parseDouble(frete); System.out.println("Frete ELSE:" + this.frete); }
         return this;
     }
 
