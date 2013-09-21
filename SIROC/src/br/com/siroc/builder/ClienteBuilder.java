@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
  */
 public class ClienteBuilder {
 
-    private Long id;
     private String nome;
     private String inscricao_est;
     private String celular;
@@ -36,7 +35,14 @@ public class ClienteBuilder {
         count = 0;
     }
 
+    public Cliente getCliente(){
+        if(count < 10) { throw new IllegalArgumentException(); } 
+        return new Cliente( nome,  inscricao_est,  celular,  telefone, 
+            endereco, bairro,cidade, estado,cep,contato,email,cnpj,frete);
+    }
+    
     public ClienteBuilder setBairro(String bairro) {
+        if(temNumeros(bairro)) { throw new IllegalArgumentException(); }
         this.bairro = bairro;
         count++;
         return this;
@@ -49,6 +55,7 @@ public class ClienteBuilder {
 
     public ClienteBuilder setCep(String cep) {
         this.cep = cep;
+        count++;
         return this;
     }
 
@@ -60,6 +67,7 @@ public class ClienteBuilder {
     }
 
     public ClienteBuilder setCnpj(String cnpj) {
+        count++;
         this.cnpj = cnpj;
         return this;
     }
@@ -74,17 +82,18 @@ public class ClienteBuilder {
     public ClienteBuilder setEmail(String email) {
         if(!isValidEmail(email)) { throw new IllegalArgumentException(); }
         this.email = email;
-        count++;
         return this;
     }
 
     public ClienteBuilder setEndereco(String endereco) {
         this.endereco = endereco;
+        count++;
         return this;
     }
 
     public ClienteBuilder setEstado(String estado) {
         this.estado = estado;
+        count++;
         return this;
     }
 
@@ -93,13 +102,9 @@ public class ClienteBuilder {
         return this;
     }
 
-    public ClienteBuilder setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
     public ClienteBuilder setInscricao_est(String inscricao_est) {
         this.inscricao_est = inscricao_est;
+        count++;
         return this;
     }
 

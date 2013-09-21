@@ -22,4 +22,8 @@ public class ClienteTeste {
         new ClienteBuilder().setNome("Lavrinhas 138281");
     }
     
+    public void geraCliente(){
+        new ClienteBuilder();
+    }
+    
 }
