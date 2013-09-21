@@ -27,7 +27,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
         MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");
-        MaskFormatter maskFrete = new MaskFormatter("##");
+        MaskFormatter maskFrete = new MaskFormatter("##,#");
         MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
         MaskFormatter maskCep = new MaskFormatter("#####-###");
 

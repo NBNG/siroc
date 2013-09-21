@@ -4,7 +4,10 @@
  */
 package br.com.siroc.builder;
 
+import br.com.caelum.stella.validation.ie.AbstractIEValidator;
+import br.com.caelum.stella.validation.ie.IESaoPauloValidator;
 import br.com.siroc.modelo.Cliente;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,11 +53,8 @@ public class ClienteBuilder {
     }
 
     public ClienteBuilder setCidade(String cidade) {
-        if(!temNumeros(cidade)) {
-            new JOptionPane.showMessageDialog(null,"Cidade com números");
-        }
-            
-        
+        if(temNumeros(cidade)) { throw new IllegalArgumentException(); }
+        count++;
         this.cidade = cidade;
         return this;
     }
@@ -65,12 +65,16 @@ public class ClienteBuilder {
     }
 
     public ClienteBuilder setContato(String contato) {
+        if(temNumeros(contato)) { throw new IllegalArgumentException(); }
+        count++;
         this.contato = contato;
         return this;
     }
 
     public ClienteBuilder setEmail(String email) {
+        if(!isValidEmail(email)) { throw new IllegalArgumentException(); }
         this.email = email;
+        count++;
         return this;
     }
 
@@ -100,7 +104,9 @@ public class ClienteBuilder {
     }
 
     public ClienteBuilder setNome(String nome) {
+        if(temNumeros(nome)) { throw new IllegalArgumentException(); }
         this.nome = nome;
+        count++;
         return this;
     }
 
@@ -109,6 +115,15 @@ public class ClienteBuilder {
         return this;
     }
 
+    private boolean temLetra(String texto) {
+        for (int i = 0; i < texto.length(); i++) {
+            if (Character.isDigit(texto.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private boolean temNumeros(String texto) {
         for (int i = 0; i < texto.length(); i++) {
             if (Character.isDigit(texto.charAt(i))) {
@@ -116,5 +131,9 @@ public class ClienteBuilder {
             }
         }
         return false;
+    }
+    
+    private boolean isValidEmail(String email) {
+        return email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
     }
 }

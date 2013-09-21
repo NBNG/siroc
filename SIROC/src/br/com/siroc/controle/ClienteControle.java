@@ -12,19 +12,12 @@ import br.com.siroc.modelo.Cliente;
  */
 public class ClienteControle {
     
-    public boolean adicionar(Cliente cliente){
-        boolean status = true;
-        if(!isValidEmail(cliente.getEmail())) status = false;
+    public void adicionar(Cliente cliente){
         
-           
-        return status;        
     }
     
     
     
     
-    private boolean isValidEmail(String email) {
-        return email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
-    }
     
 }
