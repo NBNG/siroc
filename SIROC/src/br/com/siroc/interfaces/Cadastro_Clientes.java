@@ -310,8 +310,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
             dao.adicionar(cliente);
             JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
             limpar();
-
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou Informação inválida!");
             sublinha();
         }

@@ -4,11 +4,8 @@
  */
 package br.com.siroc.builder;
 
-import br.com.caelum.stella.validation.ie.AbstractIEValidator;
-import br.com.caelum.stella.validation.ie.IESaoPauloValidator;
+
 import br.com.siroc.modelo.Cliente;
-import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
 
 /**
  *
