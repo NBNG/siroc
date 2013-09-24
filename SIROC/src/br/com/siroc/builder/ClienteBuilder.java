@@ -35,14 +35,18 @@ public class ClienteBuilder {
         count = 0;
     }
 
-    public Cliente getCliente(){
-        if(count < 9) { throw new IllegalArgumentException(); } 
-        return new Cliente( nome,  inscricao_est,  celular,  telefone, 
-            endereco, bairro,cidade, estado,cep,contato,email,cnpj,frete);
+    public Cliente getCliente() {
+        if (count < 9) {
+            throw new IllegalArgumentException();
+        }
+        return new Cliente(nome, inscricao_est, celular, telefone,
+                endereco, bairro, cidade, estado, cep, contato, email, cnpj, frete);
     }
-    
+
     public ClienteBuilder setBairro(String bairro) {
-        if(temNumeros(bairro)) { throw new IllegalArgumentException(); }
+        if (temNumeros(bairro)) {
+            throw new IllegalArgumentException();
+        }
         this.bairro = bairro;
         count++;
         return this;
@@ -60,7 +64,9 @@ public class ClienteBuilder {
     }
 
     public ClienteBuilder setCidade(String cidade) {
-        if(temNumeros(cidade)) { throw new IllegalArgumentException(); }
+        if (temNumeros(cidade)) {
+            throw new IllegalArgumentException();
+        }
         count++;
         this.cidade = cidade;
         return this;
@@ -73,15 +79,21 @@ public class ClienteBuilder {
     }
 
     public ClienteBuilder setContato(String contato) {
-        if(temNumeros(contato)) { throw new IllegalArgumentException(); }
+        if (temNumeros(contato)) {
+            throw new IllegalArgumentException();
+        }
         count++;
         this.contato = contato;
         return this;
     }
 
     public ClienteBuilder setEmail(String email) {
-        if(!isValidEmail(email)) { throw new IllegalArgumentException(); }
         this.email = email;
+        if (this.email.equals("")) {
+            System.out.println("This Email:" + this.email);
+        } else if (!isValidEmail(this.email)) {
+            throw new IllegalArgumentException();
+        }
         return this;
     }
 
@@ -98,20 +110,27 @@ public class ClienteBuilder {
     }
 
     public ClienteBuilder setFrete(String frete) {
-        System.out.println("Frete:" + frete);
-        if(frete.equals("") ) { this.frete = 0.; System.out.println("Frete IF:" + this.frete); }
-        else { this.frete = Double.parseDouble(frete); System.out.println("Frete ELSE:" + this.frete); }
+        if (frete.equals("")) {
+            this.frete = 0.;
+        } else {
+            this.frete = Double.parseDouble(frete);
+        }
         return this;
     }
 
     public ClienteBuilder setInscricao_est(String inscricao_est) {
+        if (!temNumeros(inscricao_est)) {
+            throw new IllegalArgumentException();
+        }
         this.inscricao_est = inscricao_est;
         count++;
         return this;
     }
 
     public ClienteBuilder setNome(String nome) {
-        if(temNumeros(nome)) { throw new IllegalArgumentException(); }
+        if (temNumeros(nome)) {
+            throw new IllegalArgumentException();
+        }
         this.nome = nome;
         count++;
         return this;
@@ -130,7 +149,7 @@ public class ClienteBuilder {
         }
         return false;
     }
-    
+
     private boolean temNumeros(String texto) {
         for (int i = 0; i < texto.length(); i++) {
             if (Character.isDigit(texto.charAt(i))) {
@@ -139,7 +158,7 @@ public class ClienteBuilder {
         }
         return false;
     }
-    
+
     private boolean isValidEmail(String email) {
         return email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
     }

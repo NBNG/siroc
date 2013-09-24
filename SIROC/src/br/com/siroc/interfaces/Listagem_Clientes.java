@@ -9,6 +9,7 @@ import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -170,8 +171,12 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAtualizarActionPerformed
-        Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow()).getId());
-        ac.setVisible(true);
+        if (tabela.getSelectedRowCount() < 1) {
+            JOptionPane.showMessageDialog(null, "Selecione um cadastro a ser alterado.");
+        } else {
+            Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow()).getId());
+            ac.setVisible(true);
+        }
     }//GEN-LAST:event_jBAtualizarActionPerformed
 
     private void jRBNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBNomeActionPerformed
