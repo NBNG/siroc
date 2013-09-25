@@ -52,9 +52,10 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         jLCabecalho = new javax.swing.JLabel();
         jRBNome = new javax.swing.JRadioButton();
         jTNome = new javax.swing.JTextField();
-        jRBCPF = new javax.swing.JRadioButton();
-        jFTCnpj = new javax.swing.JFormattedTextField();
         jBLimpar = new javax.swing.JButton();
+        jLCNPJ = new javax.swing.JLabel();
+        jFTCnpj = new javax.swing.JFormattedTextField();
+        jBPesquisar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -93,22 +94,26 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             }
         });
 
-        jRBCPF.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRBCPF.setText("CNPJ");
-        jRBCPF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRBCPFActionPerformed(evt);
-            }
-        });
-
-        jFTCnpj.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
         jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
         jBLimpar.setText("Limpar");
         jBLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBLimparActionPerformed(evt);
+            }
+        });
+
+        jLCNPJ.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLCNPJ.setText("CNPJ:");
+
+        jFTCnpj.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pesquisar.png"))); // NOI18N
+        jBPesquisar.setText("Pesquisar");
+        jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPesquisarActionPerformed(evt);
             }
         });
 
@@ -125,14 +130,15 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jRBNome)
-                                    .addComponent(jRBCPF))
+                                    .addComponent(jLCNPJ, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jFTCnpj)
-                                        .addGap(101, 101, 101)))))
-                        .addContainerGap(734, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jBPesquisar)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 934, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -151,8 +157,9 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                 .addComponent(jLCabecalho)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBCPF)
-                    .addComponent(jFTCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLCNPJ)
+                    .addComponent(jFTCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRBNome)
@@ -164,7 +171,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                         .addComponent(jBAtualizar)
                         .addGap(27, 27, 27)
                         .addComponent(jBLimpar)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -181,7 +188,6 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
     private void jRBNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBNomeActionPerformed
         if (jRBNome.isSelected()) {
-            jRBCPF.setSelected(false);
             jFTCnpj.setText("");
 
             while (tmCliente.getRowCount() > 0) {
@@ -213,7 +219,6 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
         if (jRBNome.isSelected()) {
-            jRBCPF.setSelected(false);
             jFTCnpj.setText("");
 
             while (tmCliente.getRowCount() > 0) {
@@ -239,43 +244,44 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             }
         }    }//GEN-LAST:event_jTNomeKeyTyped
 
-    private void jRBCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBCPFActionPerformed
-        if (jRBCPF.isSelected()) {
-            jRBNome.setSelected(false);
-            jTNome.setText("");
-
-            while (tmCliente.getRowCount() > 0) {
-                tmCliente.removeRow(0);
-            }
-
-            cliente = (Cliente) cdao.buscaPorCNPJ(jFTCnpj.getText());
-
-            String endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
-                    + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "
-                    + cliente.getCep();
-            tmCliente.addRow(new String[]{null, null, null, null});
-            tmCliente.setValueAt(cliente.getNome(), 0, 0);
-            tmCliente.setValueAt(cliente.getInscricao_est(), 0, 1);
-            tmCliente.setValueAt(cliente.getCnpj(), 0, 2);
-            tmCliente.setValueAt(cliente.getTelefone(), 0, 3);
-            tmCliente.setValueAt(cliente.getContato(), 0, 4);
-            tmCliente.setValueAt(cliente.getEmail(), 0, 5);
-            tmCliente.setValueAt(cliente.getCelular(), 0, 6);
-            tmCliente.setValueAt(endereco, 0, 7);
-            tmCliente.setValueAt(cliente.getFrete() + " %", 0, 8);
-        }
-    }//GEN-LAST:event_jRBCPFActionPerformed
-
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         limpar();
 
     }//GEN-LAST:event_jBLimparActionPerformed
+
+    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
+
+        jRBNome.setSelected(false);
+        jTNome.setText("");
+
+        while (tmCliente.getRowCount() > 0) {
+            tmCliente.removeRow(0);
+        }
+
+        cliente = (Cliente) cdao.buscaPorCNPJ(jFTCnpj.getText());
+
+        String endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
+                + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "
+                + cliente.getCep();
+        tmCliente.addRow(new String[]{null, null, null, null});
+        tmCliente.setValueAt(cliente.getNome(), 0, 0);
+        tmCliente.setValueAt(cliente.getInscricao_est(), 0, 1);
+        tmCliente.setValueAt(cliente.getCnpj(), 0, 2);
+        tmCliente.setValueAt(cliente.getTelefone(), 0, 3);
+        tmCliente.setValueAt(cliente.getContato(), 0, 4);
+        tmCliente.setValueAt(cliente.getEmail(), 0, 5);
+        tmCliente.setValueAt(cliente.getCelular(), 0, 6);
+        tmCliente.setValueAt(endereco, 0, 7);
+        tmCliente.setValueAt(cliente.getFrete() + " %", 0, 8);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBPesquisarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAtualizar;
     private javax.swing.JButton jBLimpar;
+    private javax.swing.JButton jBPesquisar;
     private javax.swing.JFormattedTextField jFTCnpj;
+    private javax.swing.JLabel jLCNPJ;
     private javax.swing.JLabel jLCabecalho;
-    private javax.swing.JRadioButton jRBCPF;
     private javax.swing.JRadioButton jRBNome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTNome;
@@ -283,7 +289,6 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpar() {
-        jRBCPF.setSelected(false);
         jRBNome.setSelected(false);
         jTNome.setText("");
         jFTCnpj.setText("");
