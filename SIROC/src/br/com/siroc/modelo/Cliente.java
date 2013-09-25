@@ -10,7 +10,7 @@ import org.hibernate.annotations.Index;
 @Entity
 @Table(name = "CLIENTES")
 public class Cliente {
-    
+
     private Long id;
     private String nome;
     private String inscricao_est;
@@ -25,13 +25,12 @@ public class Cliente {
     private String email;
     private String cnpj;
     private Double frete;
-    
-    public Cliente(){
-        
+
+    public Cliente() {
     }
-    
-    public Cliente(String nome, String inscricao_est, String celular, String telefone, 
-            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj, Double frete){
+
+    public Cliente(String nome, String inscricao_est, String celular, String telefone,
+            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj, Double frete) {
         this.nome = nome;
         this.inscricao_est = inscricao_est;
         this.celular = celular;
@@ -46,7 +45,7 @@ public class Cliente {
         this.cnpj = cnpj;
         this.frete = frete;
     }
-    
+
     @Id
     @GeneratedValue
     @Column(name = "cli_id")

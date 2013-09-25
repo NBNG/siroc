@@ -4,7 +4,6 @@
  */
 package br.com.siroc.builder;
 
-
 import br.com.siroc.modelo.Cliente;
 
 /**
