@@ -11,6 +11,7 @@ import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -313,6 +314,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou Informação inválida!");
             sublinha();
+        } catch (ConstraintViolationException e){
+            JOptionPane.showMessageDialog(null, "CNPJ, E-mail e/ou Inscrição Estadual já cadastrado(s)!");
         }
         /*
          try {
