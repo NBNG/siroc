@@ -50,12 +50,12 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         tabela = new javax.swing.JTable();
         jBAtualizar = new javax.swing.JButton();
         jLCabecalho = new javax.swing.JLabel();
-        jRBNome = new javax.swing.JRadioButton();
         jTNome = new javax.swing.JTextField();
         jBLimpar = new javax.swing.JButton();
         jLCNPJ = new javax.swing.JLabel();
         jFTCnpj = new javax.swing.JFormattedTextField();
         jBPesquisar = new javax.swing.JButton();
+        jLNome = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -73,14 +73,6 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLCabecalho.setText("Pesquisa de Clientes");
-
-        jRBNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRBNome.setText("Nome");
-        jRBNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRBNomeActionPerformed(evt);
-            }
-        });
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTNome.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +109,9 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             }
         });
 
+        jLNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLNome.setText("Nome:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,9 +123,10 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLCabecalho)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRBNome)
-                                    .addComponent(jLCNPJ, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLCNPJ)
+                                    .addComponent(jLNome))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,8 +158,8 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                     .addComponent(jBPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBNome)
-                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLNome))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,7 +167,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                         .addComponent(jBAtualizar)
                         .addGap(27, 27, 27)
                         .addComponent(jBLimpar)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -186,62 +182,34 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBAtualizarActionPerformed
 
-    private void jRBNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBNomeActionPerformed
-        if (jRBNome.isSelected()) {
-            jFTCnpj.setText("");
-
-            while (tmCliente.getRowCount() > 0) {
-                tmCliente.removeRow(0);
-            }
-
-            clientes = dao.buscaPorNome(jTNome.getText());
-
-            for (int i = 0; i < clientes.size(); i++) {
-                endereco = clientes.get(i).getEndereco() + ", " + clientes.get(i).getBairro() + " - "
-                        + clientes.get(i).getCidade() + "/" + clientes.get(i).getEstado() + " - CEP: "
-                        + clientes.get(i).getCep();
-                tmCliente.addRow(new String[]{null, null, null, null});
-                tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
-                tmCliente.setValueAt(clientes.get(i).getInscricao_est(), i, 1);
-                tmCliente.setValueAt(clientes.get(i).getCnpj(), i, 2);
-                tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 3);
-                tmCliente.setValueAt(clientes.get(i).getContato(), i, 4);
-                tmCliente.setValueAt(clientes.get(i).getEmail(), i, 5);
-                tmCliente.setValueAt(clientes.get(i).getCelular(), i, 6);
-                tmCliente.setValueAt(endereco, i, 7);
-                tmCliente.setValueAt(clientes.get(i).getFrete() + " %", i, 8);
-            }
-        }
-    }//GEN-LAST:event_jRBNomeActionPerformed
-
     private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
     }//GEN-LAST:event_jTNomeActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
-        if (jRBNome.isSelected()) {
-            jFTCnpj.setText("");
 
-            while (tmCliente.getRowCount() > 0) {
-                tmCliente.removeRow(0);
-            }
+        jFTCnpj.setText("");
 
-            clientes = dao.buscaPorNome(jTNome.getText());
+        while (tmCliente.getRowCount() > 0) {
+            tmCliente.removeRow(0);
+        }
 
-            for (int i = 0; i < clientes.size(); i++) {
-                endereco = clientes.get(i).getEndereco() + ", " + clientes.get(i).getBairro() + " - "
-                        + clientes.get(i).getCidade() + "/" + clientes.get(i).getEstado() + " - CEP: "
-                        + clientes.get(i).getCep();
-                tmCliente.addRow(new String[]{null, null, null, null});
-                tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
-                tmCliente.setValueAt(clientes.get(i).getInscricao_est(), i, 1);
-                tmCliente.setValueAt(clientes.get(i).getCnpj(), i, 2);
-                tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 3);
-                tmCliente.setValueAt(clientes.get(i).getContato(), i, 4);
-                tmCliente.setValueAt(clientes.get(i).getEmail(), i, 5);
-                tmCliente.setValueAt(clientes.get(i).getCelular(), i, 6);
-                tmCliente.setValueAt(endereco, i, 7);
-                tmCliente.setValueAt(clientes.get(i).getFrete() + " %", i, 8);
-            }
+        clientes = dao.buscaPorNome(jTNome.getText());
+
+        for (int i = 0; i < clientes.size(); i++) {
+            endereco = clientes.get(i).getEndereco() + ", " + clientes.get(i).getBairro() + " - "
+                    + clientes.get(i).getCidade() + "/" + clientes.get(i).getEstado() + " - CEP: "
+                    + clientes.get(i).getCep();
+            tmCliente.addRow(new String[]{null, null, null, null});
+            tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
+            tmCliente.setValueAt(clientes.get(i).getInscricao_est(), i, 1);
+            tmCliente.setValueAt(clientes.get(i).getCnpj(), i, 2);
+            tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 3);
+            tmCliente.setValueAt(clientes.get(i).getContato(), i, 4);
+            tmCliente.setValueAt(clientes.get(i).getEmail(), i, 5);
+            tmCliente.setValueAt(clientes.get(i).getCelular(), i, 6);
+            tmCliente.setValueAt(endereco, i, 7);
+            tmCliente.setValueAt(clientes.get(i).getFrete() + " %", i, 8);
+
         }    }//GEN-LAST:event_jTNomeKeyTyped
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
@@ -251,7 +219,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
 
-        jRBNome.setSelected(false);
+
         jTNome.setText("");
 
         while (tmCliente.getRowCount() > 0) {
@@ -282,14 +250,13 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jFTCnpj;
     private javax.swing.JLabel jLCNPJ;
     private javax.swing.JLabel jLCabecalho;
-    private javax.swing.JRadioButton jRBNome;
+    private javax.swing.JLabel jLNome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTNome;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 
     private void limpar() {
-        jRBNome.setSelected(false);
         jTNome.setText("");
         jFTCnpj.setText("");
         clientes = null;

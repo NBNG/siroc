@@ -37,23 +37,15 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jRBPesquisar = new javax.swing.JRadioButton();
         jTNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLCabecalho = new javax.swing.JLabel();
         jBLimpar = new javax.swing.JButton();
+        jLNome = new javax.swing.JLabel();
 
         setClosable(true);
-
-        jRBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRBPesquisar.setText("Nome");
-        jRBPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRBPesquisarActionPerformed(evt);
-            }
-        });
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTNome.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +83,9 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
             }
         });
 
+        jLNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLNome.setText("Nome:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,16 +94,17 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRBPesquisar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1)
                             .addComponent(jBLimpar)))
-                    .addComponent(jLCabecalho))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLNome)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTNome))
+                        .addComponent(jLCabecalho, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -116,10 +112,10 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLCabecalho)
-                .addGap(30, 30, 30)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBPesquisar)
-                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLNome))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -127,7 +123,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
                         .addComponent(jButton1)
                         .addGap(29, 29, 29)
                         .addComponent(jBLimpar)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,40 +140,22 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jRBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBPesquisarActionPerformed
-        if (jRBPesquisar.isSelected()) {
-            while (tmFornecedor.getRowCount() > 0) {
-                tmFornecedor.removeRow(0);
-            }
-
-            fornecedores = dao.buscaPorNome(jTNome.getText());
-
-            for (int i = 0; i < fornecedores.size(); i++) {
-
-                tmFornecedor.addRow(new String[]{null, null, null, null});
-                tmFornecedor.setValueAt(fornecedores.get(i).getNome(), i, 0);
-                tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
-                tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
-            }
-        }
-    }//GEN-LAST:event_jRBPesquisarActionPerformed
-
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
-        if (jRBPesquisar.isSelected()) {
-            while (tmFornecedor.getRowCount() > 0) {
-                tmFornecedor.removeRow(0);
-            }
 
-            fornecedores = dao.buscaPorNome(jTNome.getText());
-
-            for (int i = 0; i < fornecedores.size(); i++) {
-
-                tmFornecedor.addRow(new String[]{null, null, null, null});
-                tmFornecedor.setValueAt(fornecedores.get(i).getNome(), i, 0);
-                tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
-                tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
-            }
+        while (tmFornecedor.getRowCount() > 0) {
+            tmFornecedor.removeRow(0);
         }
+
+        fornecedores = dao.buscaPorNome(jTNome.getText());
+
+        for (int i = 0; i < fornecedores.size(); i++) {
+
+            tmFornecedor.addRow(new String[]{null, null, null, null});
+            tmFornecedor.setValueAt(fornecedores.get(i).getNome(), i, 0);
+            tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
+            tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
+        }
+
     }//GEN-LAST:event_jTNomeKeyTyped
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
@@ -185,34 +163,33 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
-        if (jRBPesquisar.isSelected()) {
-            while (tmFornecedor.getRowCount() > 0) {
-                tmFornecedor.removeRow(0);
-            }
 
-            fornecedores = dao.buscaPorNome(jTNome.getText());
-
-            for (int i = 0; i < fornecedores.size(); i++) {
-
-                tmFornecedor.addRow(new String[]{null, null, null, null});
-                tmFornecedor.setValueAt(fornecedores.get(i).getNome(), i, 0);
-                tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
-                tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
-            }
+        while (tmFornecedor.getRowCount() > 0) {
+            tmFornecedor.removeRow(0);
         }
+
+        fornecedores = dao.buscaPorNome(jTNome.getText());
+
+        for (int i = 0; i < fornecedores.size(); i++) {
+
+            tmFornecedor.addRow(new String[]{null, null, null, null});
+            tmFornecedor.setValueAt(fornecedores.get(i).getNome(), i, 0);
+            tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
+            tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
+        }
+
     }//GEN-LAST:event_jTNomeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLimpar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLCabecalho;
-    private javax.swing.JRadioButton jRBPesquisar;
+    private javax.swing.JLabel jLNome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTNome;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 
     private void limpar() {
-        jRBPesquisar.setSelected(false);
         jTNome.setText("");
 
         fornecedores = null;
