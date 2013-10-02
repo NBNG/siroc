@@ -25,7 +25,6 @@ public class DAO<T> {
     }
 
     public void atualiza(T t) {
-
         Transaction tx = session.beginTransaction();
         session.update(t);
         tx.commit();

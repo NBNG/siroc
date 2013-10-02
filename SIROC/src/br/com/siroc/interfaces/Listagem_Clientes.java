@@ -177,7 +177,9 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         if (tabela.getSelectedRowCount() < 1) {
             JOptionPane.showMessageDialog(null, "Selecione um cadastro a ser alterado.");
         } else {
-            Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow()).getId());
+            
+            //Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow()).getId()); Antigo pegando o ID
+            Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
             ac.setVisible(true);
         }
     }//GEN-LAST:event_jBAtualizarActionPerformed

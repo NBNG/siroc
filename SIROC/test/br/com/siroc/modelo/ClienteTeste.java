@@ -36,4 +36,9 @@ public class ClienteTeste {
     public void testaInscricaoEstadual() {
         new ClienteBuilder().setInscricao_est("");
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testaTelefone(){
+        new ClienteBuilder().setTelefone("(  )    -    ");
+    }
 }

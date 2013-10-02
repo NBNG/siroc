@@ -4,7 +4,6 @@
  */
 package br.com.siroc.interfaces;
 
-import br.com.caelum.argentum.CandleBuilder;
 import br.com.siroc.builder.ClienteBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;

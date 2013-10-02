@@ -11,7 +11,8 @@ import br.com.siroc.modelo.Cliente;
  * @author Administrador
  */
 public class ClienteBuilder {
-
+    
+    private Long id;
     private String nome;
     private String inscricao_est;
     private String celular;
@@ -30,15 +31,20 @@ public class ClienteBuilder {
     public ClienteBuilder() {
         count = 0;
     }
-
+     
     public Cliente getCliente() {
         if (count < 9) {
             throw new IllegalArgumentException();
         }
-        return new Cliente(nome, inscricao_est, celular, telefone,
+        return new Cliente(id,nome, inscricao_est, celular, telefone,
                 endereco, bairro, cidade, estado, cep, contato, email, cnpj, frete);
     }
-
+    
+    public ClienteBuilder setId(Long id){
+        this.id = id;
+        return this;
+    }
+    
     public ClienteBuilder setBairro(String bairro) {
         if (temNumeros(bairro)) {
             throw new IllegalArgumentException();
