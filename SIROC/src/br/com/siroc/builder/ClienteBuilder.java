@@ -115,7 +115,7 @@ public class ClienteBuilder {
         if (frete.equals("")) {
             this.frete = 0.;
         } else {
-            this.frete = Double.parseDouble(frete);
+            this.frete = Double.parseDouble(frete.replace(",", "."));;
         }
         return this;
     }
