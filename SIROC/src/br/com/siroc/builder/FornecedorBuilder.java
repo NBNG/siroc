@@ -20,11 +20,11 @@ public class FornecedorBuilder {
     private String email;
     private List<Produto> produtos;
     int count;
-    
-    public FornecedorBuilder(){
-        count =0;
+
+    public FornecedorBuilder() {
+        count = 0;
     }
-    
+
     public FornecedorBuilder setEmail(String email) {
         this.email = email;
         if (this.email.equals("")) {
@@ -42,8 +42,9 @@ public class FornecedorBuilder {
     }
 
     public FornecedorBuilder setNome(String nome) {
-        if(nome.equals(""))
+        if (nome.equals("")) {
             throw new NullPointerException();
+        }
         this.nome = nome;
         count++;
         return this;
@@ -59,17 +60,16 @@ public class FornecedorBuilder {
         count++;
         return this;
     }
-    
-    public Fornecedor getFornecedor(){
+
+    public Fornecedor getFornecedor() {
         if (count < 3) {
             throw new IllegalArgumentException();
         }
-        
-        return new Fornecedor(id,nome,telefone,email,produtos);
+
+        return new Fornecedor(id, nome, telefone, email, produtos);
     }
-    
+
     private boolean isValidEmail(String email) {
         return email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
     }
-    
 }

@@ -26,8 +26,8 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
 
     public Cadastro_Fornecedor() throws ParseException {
         super("SIROC - Cadastro de Fornecedores");
-        
-        initComponents(); 
+
+        initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
         maskTelefone.install(jFTTelefone);
     }
@@ -102,22 +102,24 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
                         .addComponent(jBLimpar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLNome)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLTelefone)
-                            .addGap(18, 18, 18)
-                            .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jLEmail)
                             .addGap(18, 18, 18)
-                            .addComponent(jTEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLNome)
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(0, 46, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLCabecalho)
                 .addGap(133, 133, 133))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLTelefone)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar2, jBLimpar});
@@ -143,41 +145,41 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar2)
                     .addComponent(jBLimpar))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrar2ActionPerformed
-          try{
+        try {
             fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getFornecedor();
             dao.adicionar(fornecedor);
             JOptionPane.showMessageDialog(null, "Fornecedor adicionado com Sucesso!");
             limpar();
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Campos obrigatórios com informações inválidas!");
-            //sublinha();
-        }catch(ConstraintViolationException e){
+            sublinha();
+        } catch (ConstraintViolationException e) {
             JOptionPane.showMessageDialog(null, "E-mail já cadastrado!");
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Campos obrigatórios nulos!");
         }
         /*    if (jTNome.getText().equals("") || (jFTTelefone.getText().equals("") || (jTEmail.getText().equals("")))) {
-            JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
-            jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
-            jLEmail.setFont(new java.awt.Font("Tahoma", 1, 18));
-            jLTelefone.setFont(new java.awt.Font("Tahoma", 1, 18));
-        } else {
-            fornecedor.setNome(jTNome.getText());
-            fornecedor.setEmail(jTEmail.getText());
-            fornecedor.setTelefone(jFTTelefone.getText());
+         JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
+         jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
+         jLEmail.setFont(new java.awt.Font("Tahoma", 1, 18));
+         jLTelefone.setFont(new java.awt.Font("Tahoma", 1, 18));
+         } else {
+         fornecedor.setNome(jTNome.getText());
+         fornecedor.setEmail(jTEmail.getText());
+         fornecedor.setTelefone(jFTTelefone.getText());
 
-            dao.adicionar(fornecedor);
-            JOptionPane.showMessageDialog(null, "Fornecedor adicionado com Sucesso!");
-            limpar();
-        }
-        */
+         dao.adicionar(fornecedor);
+         JOptionPane.showMessageDialog(null, "Fornecedor adicionado com Sucesso!");
+         limpar();
+         }
+         */
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
@@ -199,5 +201,11 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
         jTEmail.setText("");
         jTNome.setText("");
         jFTTelefone.setText("");
+    }
+
+    private void sublinha() {
+        jLNome.setText("<html><u>Nome:</u></html>");
+        jLTelefone.setText("<html><u>Telefone:</u></html>");
+        jLEmail.setText("<html><u>Email:</u></html>");
     }
 }

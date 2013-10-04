@@ -19,20 +19,18 @@ public class Fornecedor {
     private String telefone;
     private String email;
     private List<Produto> produtos;
-    
-    public Fornecedor(){
-        
+
+    public Fornecedor() {
     }
-   
-    public Fornecedor(Long id, String nome, String telefone, String email, List<Produto> produtos){
+
+    public Fornecedor(Long id, String nome, String telefone, String email, List<Produto> produtos) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.produtos = produtos;
     }
-    
-    
+
     @Id
     @GeneratedValue
     @Column(name = "for_id")

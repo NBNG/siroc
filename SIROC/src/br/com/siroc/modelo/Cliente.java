@@ -28,8 +28,8 @@ public class Cliente {
 
     public Cliente() {
     }
-    
-    public Cliente(Long id,String nome, String inscricao_est, String celular, String telefone,
+
+    public Cliente(Long id, String nome, String inscricao_est, String celular, String telefone,
             String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj, Double frete) {
         this.id = id;
         this.nome = nome;
