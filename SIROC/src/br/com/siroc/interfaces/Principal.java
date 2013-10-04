@@ -35,6 +35,7 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
         jMenu = new javax.swing.JMenuBar();
         jMArquivo = new javax.swing.JMenu();
         jMClente = new javax.swing.JMenu();
@@ -48,6 +49,12 @@ public class Principal extends javax.swing.JFrame {
         jMIListagem_Produtos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/fundo.png"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(1400, 900));
+        jLabel1.setMinimumSize(new java.awt.Dimension(1200, 800));
+        jLabel1.setBounds(0, 0, 1150, 800);
+        jPanel.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMArquivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/arquivo.png"))); // NOI18N
         jMArquivo.setText("Arquivo");
@@ -153,13 +160,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMICadastro_ClientesActionPerformed
 
     private void jMIListagem_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_ClientesActionPerformed
-        try {
-            Listagem_Clientes lc = new Listagem_Clientes();
-            jPanel.add(lc);
-            lc.setVisible(true);
-        } catch (ParseException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        Listagem_Clientes lc = new Listagem_Clientes();
+        jPanel.add(lc);
+        lc.setVisible(true);
+
     }//GEN-LAST:event_jMIListagem_ClientesActionPerformed
 
     private void jMICadastro_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_FornecedorActionPerformed
@@ -228,6 +233,7 @@ public class Principal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenu jMClente;
     private javax.swing.JMenu jMFornecedor;

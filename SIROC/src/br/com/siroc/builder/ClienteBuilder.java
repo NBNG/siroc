@@ -92,7 +92,7 @@ public class ClienteBuilder {
     public ClienteBuilder setEmail(String email) {
         this.email = email;
         if (this.email.equals("")) {
-            System.out.println("This Email:" + this.email);
+            this.email = null;
         } else if (!isValidEmail(this.email)) {
             throw new IllegalArgumentException();
         }

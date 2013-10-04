@@ -4,11 +4,15 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.builder.FornecedorBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -19,18 +23,24 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
     /**
      * Creates new form Atualiza_Fornecedor
      */
-    Long id;
     DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
-    Fornecedor fornecedor = new Fornecedor();
-
-    public Atualiza_Fornecedor(Long id) throws ParseException {
+    Fornecedor fornecedor;
+    
+    public Atualiza_Fornecedor(Fornecedor fornecedor){
         super("SIROC - Atualização de Fornecedores");
-        this.id = id;
+        this.fornecedor = fornecedor;
+        
         initComponents();
-        MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
-        maskTelefone.install(jFTTelefone);
+        
+        try {
+            MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
+            maskTelefone.install(jFTTelefone);
+        } catch (ParseException ex) {
+            Logger.getLogger(Atualiza_Fornecedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         setLocationRelativeTo(null);
-        populateFields(id);
+        populateFields(this.fornecedor);
     }
 
     /**
@@ -150,21 +160,25 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
-
+    
     private void jBCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrar2ActionPerformed
-        if (jTNome.getText().equals("") || (jFTTelefone.getText().equals("") || (jTEmail.getText().equals("")))) {
-            JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
-            jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
-            jLEmail.setFont(new java.awt.Font("Tahoma", 1, 18));
-            jLTelefone.setFont(new java.awt.Font("Tahoma", 1, 18));
-        } else {
-            fornecedor.setNome(jTNome.getText());
-            fornecedor.setEmail(jTEmail.getText());
-            fornecedor.setTelefone(jFTTelefone.getText());
-            fornecedor.setId(id);
+        try {
+            
+            fornecedor = new FornecedorBuilder().setId(fornecedor.getId()).setEmail(jTEmail.getText())
+                    .setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getFornecedor();
+            
             dao.atualiza(fornecedor);
-            JOptionPane.showMessageDialog(null, "Distribuidor alterado com Sucesso!");
+            JOptionPane.showMessageDialog(null, "Fornecedor alterado com Sucesso!");
+            limpar();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios com informações inválidas!");
+            //sublinha();
+        } catch (ConstraintViolationException e) {
+            JOptionPane.showMessageDialog(null, "E-mail já cadastrado!");
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios nulos!");
         }
+        
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar2;
@@ -178,14 +192,12 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTNome;
     // End of variables declaration//GEN-END:variables
 
-    private void populateFields(Long id) {
-        DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
-        Fornecedor fornecedor = (Fornecedor) dao.busca(id);
+    private void populateFields(Fornecedor fornecedor) {
         jTNome.setText(fornecedor.getNome());
         jTEmail.setText(fornecedor.getEmail());
         jFTTelefone.setText(fornecedor.getTelefone());
     }
-
+    
     private void limpar() {
         jTEmail.setText("");
         jTNome.setText("");

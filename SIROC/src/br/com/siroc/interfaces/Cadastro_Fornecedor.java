@@ -4,11 +4,13 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.builder.FornecedorBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -24,7 +26,8 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
 
     public Cadastro_Fornecedor() throws ParseException {
         super("SIROC - Cadastro de Fornecedores");
-        initComponents();
+        
+        initComponents(); 
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
         maskTelefone.install(jFTTelefone);
     }
@@ -147,8 +150,20 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrar2ActionPerformed
-        fornecedor = new Fornecedor();
-        if (jTNome.getText().equals("") || (jFTTelefone.getText().equals("") || (jTEmail.getText().equals("")))) {
+          try{
+            fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getFornecedor();
+            dao.adicionar(fornecedor);
+            JOptionPane.showMessageDialog(null, "Fornecedor adicionado com Sucesso!");
+            limpar();
+        }catch(IllegalArgumentException e){
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios com informações inválidas!");
+            //sublinha();
+        }catch(ConstraintViolationException e){
+            JOptionPane.showMessageDialog(null, "E-mail já cadastrado!");
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios nulos!");
+        }
+        /*    if (jTNome.getText().equals("") || (jFTTelefone.getText().equals("") || (jTEmail.getText().equals("")))) {
             JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
             jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
             jLEmail.setFont(new java.awt.Font("Tahoma", 1, 18));
@@ -162,6 +177,7 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Fornecedor adicionado com Sucesso!");
             limpar();
         }
+        */
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed

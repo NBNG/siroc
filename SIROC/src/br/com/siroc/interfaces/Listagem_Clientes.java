@@ -9,6 +9,8 @@ import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -30,11 +32,17 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     //definição das colunas da tabela
     Cliente cliente;
 
-    public Listagem_Clientes() throws ParseException {
+    public Listagem_Clientes() {
         super("SIROC - Listagem de Clientes");
         initComponents();
-        MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
-        maskCnpj.install(jFTCnpj);
+
+        try {
+            MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
+            maskCnpj.install(jFTCnpj);
+        } catch (ParseException ex) {
+            Logger.getLogger(Listagem_Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -177,10 +185,16 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         if (tabela.getSelectedRowCount() < 1) {
             JOptionPane.showMessageDialog(null, "Selecione um cadastro a ser alterado.");
         } else {
-            
+
             //Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow()).getId()); Antigo pegando o ID
+
+
             Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
             ac.setVisible(true);
+
+
+
+
         }
     }//GEN-LAST:event_jBAtualizarActionPerformed
 

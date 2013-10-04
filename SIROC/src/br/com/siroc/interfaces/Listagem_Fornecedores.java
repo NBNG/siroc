@@ -6,7 +6,9 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -130,13 +132,22 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (tabela.getSelectedRowCount() < 1) {
+            JOptionPane.showMessageDialog(null, "Selecione um cadastro a ser alterado.");
+        } else {
 
-        try {
-            Atualiza_Fornecedor af = new Atualiza_Fornecedor(fornecedores.get(tabela.getSelectedRow()).getId());
+            Atualiza_Fornecedor af = new Atualiza_Fornecedor(fornecedores.get(tabela.getSelectedRow()));
             af.setVisible(true);
-        } catch (ParseException ex) {
-            Logger.getLogger(Listagem_Fornecedores.class.getName()).log(Level.SEVERE, null, ex);
+
         }
+
+
+        /*try {
+         Atualiza_Fornecedor af = new Atualiza_Fornecedor(fornecedores.get(tabela.getSelectedRow()).getId());
+         af.setVisible(true);
+         } catch (ParseException ex) {
+         Logger.getLogger(Listagem_Fornecedores.class.getName()).log(Level.SEVERE, null, ex);
+         }*/
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

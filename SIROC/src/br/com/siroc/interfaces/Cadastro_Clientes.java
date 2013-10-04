@@ -5,7 +5,6 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.builder.ClienteBuilder;
-import br.com.siroc.classes_auxiliares.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
@@ -302,7 +301,6 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
         try {
-            System.out.println("Cadastro Cliente: " + jTFrete.getText());
             cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
                     .setCidade(jTCidade.getText()).setCnpj(jFTCnpj.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
                     setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
@@ -312,7 +310,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
             limpar();
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou Informação inválida!");
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
             sublinha();
         } catch (ConstraintViolationException e) {
             JOptionPane.showMessageDialog(null, "CNPJ, E-mail e/ou Inscrição Estadual já cadastrado(s)!");

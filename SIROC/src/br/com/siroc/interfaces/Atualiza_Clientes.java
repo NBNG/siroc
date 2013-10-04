@@ -7,7 +7,11 @@ package br.com.siroc.interfaces;
 import br.com.siroc.builder.ClienteBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 import org.hibernate.exception.ConstraintViolationException;
 
 /**
@@ -22,10 +26,27 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     Cliente cliente = new Cliente();
     DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
 
-   public Atualiza_Clientes(Cliente cliente) {
+    public Atualiza_Clientes(Cliente cliente) {
         super("SIROC - Atualização de Clientes");
         this.cliente = cliente;
         initComponents();
+
+        try {
+            MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
+            MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");
+            //MaskFormatter maskFrete = new MaskFormatter("##,#");
+            MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
+            MaskFormatter maskCep = new MaskFormatter("#####-###");
+
+            maskTelefone.install(jFTTelefone);
+            maskCelular.install(jFTCelular);
+            maskCnpj.install(jFTCnpj);
+            //maskFrete.install(jTFrete);
+            maskCep.install(jTCEP);
+        } catch (ParseException ex) {
+            Logger.getLogger(Atualiza_Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         setLocationRelativeTo(null);
         populateFields(this.cliente);
     }
@@ -52,7 +73,6 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
         jLCelular = new javax.swing.JLabel();
         jTFrete = new javax.swing.JTextField();
         jL_IE = new javax.swing.JLabel();
-        jTCEP = new javax.swing.JTextField();
         jLNome = new javax.swing.JLabel();
         jLCabecalho = new javax.swing.JLabel();
         jFTCelular = new javax.swing.JFormattedTextField();
@@ -63,6 +83,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
         jLEstado = new javax.swing.JLabel();
         jLCidade = new javax.swing.JLabel();
         jFTCnpj = new javax.swing.JFormattedTextField();
+        jTCEP = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -124,8 +145,6 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
         jL_IE.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jL_IE.setText("Inscrição Estadual:");
 
-        jTCEP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
         jLNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLNome.setText("Nome:");
 
@@ -153,12 +172,14 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
 
         jFTCnpj.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
+        jTCEP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLCabecalho)
@@ -215,9 +236,9 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
                                             .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLCEP)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jLFrete)))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,10 +297,10 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
                     .addComponent(jTCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLCEP)
                     .addComponent(jLFrete)
-                    .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
@@ -296,13 +317,13 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
         try {
-            
+
             System.out.println(cliente.getId());
             cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
                     .setCidade(jTCidade.getText()).setCnpj(jFTCnpj.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
                     setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
                     .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).setId(cliente.getId()).getCliente();
-            
+
             dao.atualiza(cliente);
             JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso com Sucesso!");
             limpar();
@@ -338,7 +359,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLTelefone;
     private javax.swing.JLabel jL_IE;
     private javax.swing.JTextField jTBairro;
-    private javax.swing.JTextField jTCEP;
+    private javax.swing.JFormattedTextField jTCEP;
     private javax.swing.JTextField jTCidade;
     private javax.swing.JTextField jTContato;
     private javax.swing.JTextField jTEmail;
