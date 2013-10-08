@@ -26,7 +26,20 @@ public class Produto {
     private Double valor_saida;
     private Double valor_entrada;
     private Fornecedor fornecedor;
-
+        
+    public Produto(){
+        
+    }
+        
+    public Produto(Long id, String nome, Double peso, Double valor_saida, Double valor_entrada, Fornecedor fornecedor){
+        this.id = id;
+        this.nome = nome;
+        this.peso = peso;
+        this.valor_saida = valor_saida;
+        this.valor_entrada = valor_entrada;
+        this.fornecedor = fornecedor;
+    }
+    
     @Id
     @GeneratedValue
     @Column(name = "pro_id")

@@ -9,6 +9,7 @@ import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -171,10 +172,12 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-
-        Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()).getId(), produtos.get(tabela.getSelectedRow()).getFornecedor().getId());
-        ap.setVisible(true);
-
+        if (tabela.getSelectedRowCount() < 1) {
+            JOptionPane.showMessageDialog(null, "Selecione um produto a ser alterado.");
+        } else {
+            Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()));
+            ap.setVisible(true);
+        }
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed

@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.builder.ProdutoBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
@@ -19,19 +20,17 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     /**
      * Creates new form Atualiza_Produto
      */
-    Fornecedor fornecedor = new Fornecedor();
+    
     Produto produto = new Produto();
-    List<Fornecedor> fornecedores;
     DAO<Produto> dao = new DAO<Produto>(Produto.class);
     Long id, fid;
 
-    public Atualiza_Produto(Long id, Long fid) {
+    public Atualiza_Produto(Produto produto) {
         super("SIROC - Atualização de Produtos");
-        this.id = id;
-        this.fid = fid;
         initComponents();
         setLocationRelativeTo(null);
-        populateFields(id);
+        this.produto = produto;
+        populateFields(this.produto);
     }
 
     /**
@@ -180,14 +179,29 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        fornecedor.setId(fid);
+        try{
+            produto = new ProdutoBuilder().setId(produto.getId()).setFornecedor(produto.getFornecedor())
+                    .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
+                    setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
+            
+            dao.atualiza(produto);
+            JOptionPane.showMessageDialog(null, "Produto atualizado com Sucesso!");
+            limpar();
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
+            //sublinha();
+        }catch(IllegalArgumentException e){
+            JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
+        }
+        
+        /*fornecedor.setId(fid);
         produto.setFornecedor(fornecedor);
         produto.setNome(jTNome_Produto.getText());
         produto.setPeso(Double.parseDouble(jTPeso.getText()));
         produto.setValor_entrada(Double.parseDouble(jTV_Compra.getText()));
         produto.setValor_saida(Double.parseDouble(jTV_Saida.getText()));
         dao.atualiza(produto);
-        JOptionPane.showMessageDialog(null, "Produto alterado com Sucesso!");
+        JOptionPane.showMessageDialog(null, "Produto alterado com Sucesso!");*/
     }//GEN-LAST:event_jBCadastrarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
@@ -204,9 +218,8 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     private javax.swing.JTextField jTV_Saida;
     // End of variables declaration//GEN-END:variables
 
-    private void populateFields(Long id) {
-        DAO<Produto> dao = new DAO<Produto>(Produto.class);
-        produto = (Produto) dao.busca(id);
+    private void populateFields(Produto produto) {
+        
         jTNome_Produto.setText(produto.getNome());
         jTPeso.setText(String.valueOf(produto.getPeso()));
         jTV_Compra.setText(String.valueOf(produto.getValor_entrada()));
@@ -218,6 +231,5 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         jTPeso.setText("");
         jTV_Compra.setText("");
         jTV_Saida.setText("");
-        fornecedores = null;
     }
 }

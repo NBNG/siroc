@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.builder.ProdutoBuilder;
 import br.com.siroc.classes_auxiliares.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.FornecedorDAO;
@@ -244,7 +245,22 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        fornecedor = new Fornecedor();
+        try{
+            System.out.println(fornecedores.get(tabela.getSelectedRow()).getId() + "+" + fornecedores.get(tabela.getSelectedRow()).getNome());
+            produto = new ProdutoBuilder().setFornecedor(fornecedores.get(tabela.getSelectedRow()))
+                    .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
+                    setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
+            
+            dao.adicionar(produto);
+            JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
+            limpar();
+        }catch(IllegalArgumentException e){
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
+            //sublinha();
+        }catch(IllegalStateException e){
+            JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
+        }
+        /*fornecedor = new Fornecedor();
         produto = new Produto();
         fornecedor.setId(fornecedores.get(tabela.getSelectedRow()).getId());
         produto.setFornecedor(fornecedor);
@@ -254,7 +270,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         produto.setValor_saida(Editor.formataValor(jTV_Saida.getText()));
         dao.adicionar(produto);
         JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
-        limpar();
+        limpar();*/
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     private void jTPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPesoActionPerformed
@@ -289,4 +305,6 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         jTV_Compra.setText("");
         jTV_Saida.setText("");
     }
+    
+    
 }
