@@ -5,7 +5,6 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.builder.ProdutoBuilder;
-import br.com.siroc.classes_auxiliares.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.modelo.Fornecedor;
@@ -245,32 +244,32 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        try{
+        try {
             System.out.println(fornecedores.get(tabela.getSelectedRow()).getId() + "+" + fornecedores.get(tabela.getSelectedRow()).getNome());
             produto = new ProdutoBuilder().setFornecedor(fornecedores.get(tabela.getSelectedRow()))
                     .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
                     setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
-            
+
             dao.adicionar(produto);
             JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
             limpar();
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
-            //sublinha();
-        }catch(IllegalStateException e){
+            sublinha();
+        } catch (IllegalStateException e) {
             JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
         }
         /*fornecedor = new Fornecedor();
-        produto = new Produto();
-        fornecedor.setId(fornecedores.get(tabela.getSelectedRow()).getId());
-        produto.setFornecedor(fornecedor);
-        produto.setNome(jTNome_Produto.getText());
-        produto.setPeso(Double.parseDouble(jTPeso.getText()));
-        produto.setValor_entrada(Editor.formataValor(jTV_Compra.getText()));
-        produto.setValor_saida(Editor.formataValor(jTV_Saida.getText()));
-        dao.adicionar(produto);
-        JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
-        limpar();*/
+         produto = new Produto();
+         fornecedor.setId(fornecedores.get(tabela.getSelectedRow()).getId());
+         produto.setFornecedor(fornecedor);
+         produto.setNome(jTNome_Produto.getText());
+         produto.setPeso(Double.parseDouble(jTPeso.getText()));
+         produto.setValor_entrada(Editor.formataValor(jTV_Compra.getText()));
+         produto.setValor_saida(Editor.formataValor(jTV_Saida.getText()));
+         dao.adicionar(produto);
+         JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
+         limpar();*/
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     private void jTPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPesoActionPerformed
@@ -304,7 +303,16 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         jTPeso.setText("");
         jTV_Compra.setText("");
         jTV_Saida.setText("");
+        fornecedor = null;
+        fornecedores = null;
+        produto = null;
     }
-    
-    
+
+    public void sublinha() {
+        jLNome.setText("<html><u>Nome:</u></html>");
+        jLFornecedor.setText("<html><u>Fornecedor:</u></html>");
+        jLPeso.setText("<html><u>Peso:</u></html>");
+        jLV_Compra.setText("<html><u>Valor de Compra:</u></html>");
+        jLV_Venda.setText("<html><u>Valor de Saída:</u></html>");
+    }
 }

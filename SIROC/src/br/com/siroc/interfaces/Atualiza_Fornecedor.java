@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.siroc.interfaces;
 
 import br.com.siroc.builder.FornecedorBuilder;
@@ -208,6 +204,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
         jTEmail.setText("");
         jTNome.setText("");
         jFTTelefone.setText("");
+        fornecedor = null;
     }
 
     private void sublinha() {

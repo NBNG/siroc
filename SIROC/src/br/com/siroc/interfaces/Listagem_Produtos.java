@@ -76,11 +76,6 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         });
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTNomeActionPerformed(evt);
-            }
-        });
         jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTNomeKeyTyped(evt);
@@ -91,11 +86,6 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabela);
 
         jTFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFornecedorActionPerformed(evt);
-            }
-        });
         jTFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTFornecedorKeyTyped(evt);
@@ -158,7 +148,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                         .addComponent(jBAlterar)
                         .addGap(18, 18, 18)
                         .addComponent(jBLimpar)
-                        .addContainerGap(324, Short.MAX_VALUE))
+                        .addContainerGap(336, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(43, 43, 43))))
@@ -175,14 +165,15 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         if (tabela.getSelectedRowCount() < 1) {
             JOptionPane.showMessageDialog(null, "Selecione um produto a ser alterado.");
         } else {
-            Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()));
-            ap.setVisible(true);
+            if (produtos == null) {
+                Atualiza_Produto ap = new Atualiza_Produto(fornecedores.get(tabela.getSelectedRow()).getProdutos().get(tabela.getSelectedRow()));
+                ap.setVisible(true);
+            } else {
+                Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()));
+                ap.setVisible(true);
+            }
         }
     }//GEN-LAST:event_jBAlterarActionPerformed
-
-    private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTNomeActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
 
@@ -204,43 +195,14 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jTNomeKeyTyped
 
-    private void jTFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFornecedorActionPerformed
-
-        jTNome.setText("");
-
-        while (tmProduto.getRowCount() > 0) {
-            tmProduto.removeRow(0);
-        }
-
-        Integer linha = 0;
-
-        List<Fornecedor> fornecedores = fdao.buscaPorNome(jTFornecedor.getText());
-
-        for (int i = 0; i < fornecedores.size(); i++) {
-            for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
-
-                tmProduto.addRow(new String[]{null, null, null, null});
-                tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), linha, 0);
-                tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getPeso() + " kg", linha, 1);
-                tmProduto.setValueAt(fornecedores.get(i).getNome(), linha, 2);
-                tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_entrada()), linha, 3);
-                tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_saida()), linha, 4);
-                linha++;
-            }
-
-        }    }//GEN-LAST:event_jTFornecedorActionPerformed
-
     private void jTFornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFornecedorKeyTyped
-
         jTNome.setText("");
-
         while (tmProduto.getRowCount() > 0) {
             tmProduto.removeRow(0);
         }
 
         Integer linha = 0;
-
-        List<Fornecedor> fornecedores = fdao.buscaPorNome(jTFornecedor.getText());
+        fornecedores = fdao.buscaPorNome(jTFornecedor.getText());
 
         for (int i = 0; i < fornecedores.size(); i++) {
             for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
@@ -253,7 +215,6 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                 tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_saida()), linha, 4);
                 linha++;
             }
-
         }    }//GEN-LAST:event_jTFornecedorKeyTyped
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
@@ -275,5 +236,6 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         while (tmProduto.getRowCount() > 0) {
             tmProduto.removeRow(0);
         }
+        tabela = null;
     }
 }

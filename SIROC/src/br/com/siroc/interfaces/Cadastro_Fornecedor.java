@@ -201,6 +201,7 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
         jTEmail.setText("");
         jTNome.setText("");
         jFTTelefone.setText("");
+        fornecedor = null;
     }
 
     private void sublinha() {

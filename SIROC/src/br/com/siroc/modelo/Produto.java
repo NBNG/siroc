@@ -26,12 +26,11 @@ public class Produto {
     private Double valor_saida;
     private Double valor_entrada;
     private Fornecedor fornecedor;
-        
-    public Produto(){
-        
+
+    public Produto() {
     }
-        
-    public Produto(Long id, String nome, Double peso, Double valor_saida, Double valor_entrada, Fornecedor fornecedor){
+
+    public Produto(Long id, String nome, Double peso, Double valor_saida, Double valor_entrada, Fornecedor fornecedor) {
         this.id = id;
         this.nome = nome;
         this.peso = peso;
@@ -39,7 +38,7 @@ public class Produto {
         this.valor_entrada = valor_entrada;
         this.fornecedor = fornecedor;
     }
-    
+
     @Id
     @GeneratedValue
     @Column(name = "pro_id")

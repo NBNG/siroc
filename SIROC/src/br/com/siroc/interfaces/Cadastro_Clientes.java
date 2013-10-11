@@ -403,6 +403,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jTCidade.setText("");
         jFTCelular.setText("");
         jFTTelefone.setText("");
+        cliente = null;
     }
 
     private void sublinha() {
