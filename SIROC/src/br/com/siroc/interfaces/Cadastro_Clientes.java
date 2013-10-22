@@ -23,19 +23,19 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
      */
     Cliente cliente;
     DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
-
+    MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
+    MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
+    
     public Cadastro_Clientes() throws ParseException {
         super("SIROC - Cadastro de Clientes");
         initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
         MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");
         //MaskFormatter maskFrete = new MaskFormatter("##,#");
-        MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
         MaskFormatter maskCep = new MaskFormatter("#####-###");
-
+        
         maskTelefone.install(jFTTelefone);
         maskCelular.install(jFTCelular);
-        maskCnpj.install(jFTCnpj);
         //maskFrete.install(jTFrete);
         maskCep.install(jTCEP);
     }
@@ -56,7 +56,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jLCEP = new javax.swing.JLabel();
         jLTelefone = new javax.swing.JLabel();
         jLEmail = new javax.swing.JLabel();
-        jFTCnpj = new javax.swing.JFormattedTextField();
+        jFTCnpj_Cpf = new javax.swing.JFormattedTextField();
         jTCidade = new javax.swing.JTextField();
         jLContato = new javax.swing.JLabel();
         jBLimpar = new javax.swing.JButton();
@@ -78,6 +78,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jTNome = new javax.swing.JTextField();
         jTFrete = new javax.swing.JFormattedTextField();
         jTCEP = new javax.swing.JFormattedTextField();
+        jRBFisica = new javax.swing.JRadioButton();
+        jRBJuridica = new javax.swing.JRadioButton();
 
         setClosable(true);
 
@@ -97,7 +99,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         });
 
         jLCNPJ.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLCNPJ.setText("CNPJ:");
+        jLCNPJ.setText("CNPJ/CPF:");
 
         jLCEP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLCEP.setText("CEP:");
@@ -108,7 +110,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jLEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLEmail.setText("Email:");
 
-        jFTCnpj.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jFTCnpj_Cpf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTCidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -168,26 +170,55 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
 
         jTCEP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
+        jRBFisica.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRBFisica.setText("Pessoa Física");
+        jRBFisica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBFisicaActionPerformed(evt);
+            }
+        });
+
+        jRBJuridica.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRBJuridica.setText("Pessoa Jurídica");
+        jRBJuridica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBJuridicaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRBFisica)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRBJuridica))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLNome)
                         .addGap(18, 18, 18)
-                        .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLTelefone)
-                        .addGap(18, 18, 18)
-                        .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTNome))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jBCadastrar)
+                            .addGap(18, 18, 18)
+                            .addComponent(jBLimpar))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jL_IE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTIE, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(jLCNPJ)
+                            .addGap(18, 18, 18)
+                            .addComponent(jFTCnpj_Cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLCabecalho)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLContato)
                         .addGap(18, 18, 18)
-                        .addComponent(jTContato, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTContato))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLEstado)
                         .addGap(18, 18, 18)
@@ -196,47 +227,35 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                         .addComponent(jLCEP)
                         .addGap(18, 18, 18)
                         .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addGap(18, 18, 18)
                         .addComponent(jLFrete)
                         .addGap(18, 18, 18)
                         .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jBCadastrar)
-                            .addGap(18, 18, 18)
-                            .addComponent(jBLimpar))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLBairro)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLCidade)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jL_IE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTIE, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLCelular)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jFTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLCNPJ)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jFTCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLEmail)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLEndereco)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLTelefone)
+                        .addGap(18, 18, 18)
+                        .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLCelular)
+                        .addGap(18, 18, 18)
+                        .addComponent(jFTCelular))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLEmail)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTEmail))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLEndereco)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTEndereco))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLBairro)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(jLCidade)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTCidade)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
@@ -246,7 +265,11 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLCabecalho)
-                .addGap(39, 39, 39)
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRBFisica)
+                    .addComponent(jRBJuridica))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLNome)
                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -255,8 +278,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                     .addComponent(jL_IE)
                     .addComponent(jTIE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLCNPJ)
-                    .addComponent(jFTCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jFTCnpj_Cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLTelefone)
                     .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,96 +297,76 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLEndereco))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLCidade)
                     .addComponent(jTCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLBairro)
                     .addComponent(jTBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLEstado)
                     .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLCEP)
                         .addComponent(jLFrete)
-                        .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLCEP)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addGap(40, 40, 40))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        try {
-            cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
-                    .setCidade(jTCidade.getText()).setCnpj(jFTCnpj.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
-                    setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
-                    .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
-
-            dao.adicionar(cliente);
-            JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
-            limpar();
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
-            sublinha();
-        } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(null, "CNPJ, E-mail e/ou Inscrição Estadual já cadastrado(s)!");
+        String caracteres = "0987654321";
+        if (!confereFrete(jTFrete.getText())) {
+            try {
+                cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
+                        .setCidade(jTCidade.getText()).setCnpj(jFTCnpj_Cpf.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
+                        setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
+                        .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
+                
+                dao.adicionar(cliente);
+                JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
+                limpar();
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
+                sublinha();
+            } catch (ConstraintViolationException e) {
+                JOptionPane.showMessageDialog(null, "CNPJ, E-mail e/ou Inscrição Estadual já cadastrado(s)!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Frete aceita apenas valores numéricos!");
         }
-        /*
-         try {
-         if (jTNome.getText().equals("") || (jTIE.getText().equals("") || (jTEndereco.getText().equals("")
-         || (jTBairro.getText().equals("") || (jTCidade.getText().equals("") || (String.valueOf(jCBEstado.getSelectedItem()).equals("")
-         || (jTCEP.getText().equals("") || (jFTCnpj.getText().equals("") || (jTFrete.getText().equals("")
-         || (jTContato.getText().equals(""))))))))))) {
-         JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
-         jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jL_IE.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jLEndereco.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jLBairro.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jLCidade.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jLEstado.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jLCEP.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jLCNPJ.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jLFrete.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jLContato.setFont(new java.awt.Font("Tahoma", 1, 18));
-         } else {
-         cliente.setNome(jTNome.getText());
-         cliente.setCelular(jFTCelular.getText());
-         cliente.setTelefone(jFTTelefone.getText());
-         cliente.setInscricao_est(jTIE.getText());
-         cliente.setEndereco(jTEndereco.getText());
-         cliente.setBairro(jTBairro.getText());
-         cliente.setCidade(jTCidade.getText());
-         cliente.setEstado(String.valueOf(jCBEstado.getSelectedItem()));
-         cliente.setCep(jTCEP.getText());
-         cliente.setEmail(jTEmail.getText());
-         cliente.setCnpj(jFTCnpj.getText());
-         cliente.setFrete(Double.parseDouble(jTFrete.getText()));
-         cliente.setContato(jTContato.getText());
-         dao.adicionar(cliente);
-         JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
-         limpar();
-         }
-         } catch (Error er) {
-         JOptionPane.showMessageDialog(null, "Erro: \n" + er);
-         }
-         */
     }//GEN-LAST:event_jBCadastrarActionPerformed
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
+    
+    private void jRBFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFisicaActionPerformed
+        if (jRBFisica.isSelected()) {
+            jRBJuridica.setSelected(false);
+            maskCPF.install(jFTCnpj_Cpf);
+        }
+    }//GEN-LAST:event_jRBFisicaActionPerformed
+    
+    private void jRBJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBJuridicaActionPerformed
+        if (jRBJuridica.isSelected()) {
+            jRBFisica.setSelected(false);
+            maskCnpj.install(jFTCnpj_Cpf);
+        }
+    }//GEN-LAST:event_jRBJuridicaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JComboBox jCBEstado;
     private javax.swing.JFormattedTextField jFTCelular;
-    private javax.swing.JFormattedTextField jFTCnpj;
+    private javax.swing.JFormattedTextField jFTCnpj_Cpf;
     private javax.swing.JFormattedTextField jFTTelefone;
     private javax.swing.JLabel jLBairro;
     private javax.swing.JLabel jLCEP;
@@ -379,6 +382,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLNome;
     private javax.swing.JLabel jLTelefone;
     private javax.swing.JLabel jL_IE;
+    private javax.swing.JRadioButton jRBFisica;
+    private javax.swing.JRadioButton jRBJuridica;
     private javax.swing.JTextField jTBairro;
     private javax.swing.JFormattedTextField jTCEP;
     private javax.swing.JTextField jTCidade;
@@ -393,7 +398,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     public void limpar() {
         jTBairro.setText("");
         jTCEP.setText("");
-        jFTCnpj.setText("");
+        jFTCnpj_Cpf.setText("");
         jTContato.setText("");
         jTEmail.setText("");
         jTEndereco.setText("");
@@ -405,7 +410,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jFTTelefone.setText("");
         cliente = null;
     }
-
+    
     private void sublinha() {
         jLNome.setText("<html><u>Nome:</u></html>");
         jL_IE.setText("<html><u>Inscrição Estadual:</u></html>");
@@ -414,8 +419,20 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jLCidade.setText("<html><u>Cidade:</u></html>");
         jLEstado.setText("<html><u>Estado:</u></html>");
         jLCEP.setText("<html><u>CEP:</u></html>");
-        jLCNPJ.setText("<html><u>CNPJ:</u></html>");
+        jLCNPJ.setText("<html><u>CNPJ/CPF:</u></html>");
         jLFrete.setText("<html><u>Frete:</u></html>");
         jLContato.setText("<html><u>Contato:</u></html>");
+    }
+    
+    public boolean confereFrete(String frete) {
+        boolean status = false;
+        for (int i = 0; i < frete.length(); i++) {
+            if (Character.isDigit(frete.charAt(i))) {
+                status = false;
+            } else {
+                status = true;
+            }
+        }
+        return status;
     }
 }
