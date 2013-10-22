@@ -28,7 +28,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     ClienteDAO cdao = new ClienteDAO();
     String endereco;
     List<Cliente> clientes;//List de uma classe do modelo para utilização na tabela;
-    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"});
+    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ/CPF", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"});
     //definição das colunas da tabela
     Cliente cliente;
 
@@ -67,6 +67,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
         setClosable(true);
 
+        tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela.setModel(tmCliente);
         jScrollPane1.setViewportView(tabela);
 
@@ -142,10 +143,10 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                                         .addComponent(jFTCnpj)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jBPesquisar)))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(951, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 934, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBAtualizar, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jBLimpar, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -175,7 +176,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                         .addComponent(jBAtualizar)
                         .addGap(27, 27, 27)
                         .addComponent(jBLimpar)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
@@ -218,7 +219,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             tmCliente.addRow(new String[]{null, null, null, null});
             tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
             tmCliente.setValueAt(clientes.get(i).getInscricao_est(), i, 1);
-            tmCliente.setValueAt(clientes.get(i).getCnpj(), i, 2);
+            tmCliente.setValueAt(clientes.get(i).getCnpj_cpf(), i, 2);
             tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 3);
             tmCliente.setValueAt(clientes.get(i).getContato(), i, 4);
             tmCliente.setValueAt(clientes.get(i).getEmail(), i, 5);
@@ -250,7 +251,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         tmCliente.addRow(new String[]{null, null, null, null});
         tmCliente.setValueAt(cliente.getNome(), 0, 0);
         tmCliente.setValueAt(cliente.getInscricao_est(), 0, 1);
-        tmCliente.setValueAt(cliente.getCnpj(), 0, 2);
+        tmCliente.setValueAt(cliente.getCnpj_cpf(), 0, 2);
         tmCliente.setValueAt(cliente.getTelefone(), 0, 3);
         tmCliente.setValueAt(cliente.getContato(), 0, 4);
         tmCliente.setValueAt(cliente.getEmail(), 0, 5);

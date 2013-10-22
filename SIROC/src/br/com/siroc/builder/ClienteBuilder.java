@@ -24,7 +24,7 @@ public class ClienteBuilder {
     private String cep;
     private String contato;
     private String email;
-    private String cnpj;
+    private String cnpj_cpf;
     private Double frete;
     private int count;
 
@@ -37,7 +37,7 @@ public class ClienteBuilder {
             throw new IllegalArgumentException();
         }
         return new Cliente(id, nome, inscricao_est, celular, telefone,
-                endereco, bairro, cidade, estado, cep, contato, email, cnpj, frete);
+                endereco, bairro, cidade, estado, cep, contato, email, cnpj_cpf, frete);
     }
 
     public ClienteBuilder setId(Long id) {
@@ -74,9 +74,9 @@ public class ClienteBuilder {
         return this;
     }
 
-    public ClienteBuilder setCnpj(String cnpj) {
+    public ClienteBuilder setCnpj_cpf(String cnpj_cpf) {
         count++;
-        this.cnpj = cnpj;
+        this.cnpj_cpf = cnpj_cpf;
         return this;
     }
 

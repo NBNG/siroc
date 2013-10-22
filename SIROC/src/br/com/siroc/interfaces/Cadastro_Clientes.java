@@ -25,7 +25,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
     MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
-    
+
     public Cadastro_Clientes() throws ParseException {
         super("SIROC - Cadastro de Clientes");
         initComponents();
@@ -33,7 +33,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");
         //MaskFormatter maskFrete = new MaskFormatter("##,#");
         MaskFormatter maskCep = new MaskFormatter("#####-###");
-        
+
         maskTelefone.install(jFTTelefone);
         maskCelular.install(jFTCelular);
         //maskFrete.install(jTFrete);
@@ -191,7 +191,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jRBFisica)
@@ -254,8 +254,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                         .addGap(13, 13, 13)
                         .addComponent(jLCidade)
                         .addGap(18, 18, 18)
-                        .addComponent(jTCidade)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(jTCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
@@ -316,45 +316,40 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        String caracteres = "0987654321";
-        if (!confereFrete(jTFrete.getText())) {
-            try {
-                cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
-                        .setCidade(jTCidade.getText()).setCnpj(jFTCnpj_Cpf.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
-                        setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
-                        .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
-                
-                dao.adicionar(cliente);
-                JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
-                limpar();
-            } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
-                sublinha();
-            } catch (ConstraintViolationException e) {
-                JOptionPane.showMessageDialog(null, "CNPJ, E-mail e/ou Inscrição Estadual já cadastrado(s)!");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Frete aceita apenas valores numéricos!");
+        try {
+            cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
+                    .setCidade(jTCidade.getText()).setCnpj_cpf(jFTCnpj_Cpf.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
+                    setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
+                    .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
+
+            dao.adicionar(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
+            limpar();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios (Asterístico) vazios e/ou informação inválida!");
+            sublinha2();
+        } catch (ConstraintViolationException e) {
+            JOptionPane.showMessageDialog(null, "CNPJ, E-mail e/ou Inscrição Estadual já cadastrado(s)!");
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
-    
+
     private void jRBFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFisicaActionPerformed
         if (jRBFisica.isSelected()) {
             jRBJuridica.setSelected(false);
             maskCPF.install(jFTCnpj_Cpf);
         }
     }//GEN-LAST:event_jRBFisicaActionPerformed
-    
+
     private void jRBJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBJuridicaActionPerformed
         if (jRBJuridica.isSelected()) {
             jRBFisica.setSelected(false);
@@ -410,7 +405,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jFTTelefone.setText("");
         cliente = null;
     }
-    
+
     private void sublinha() {
         jLNome.setText("<html><u>Nome:</u></html>");
         jL_IE.setText("<html><u>Inscrição Estadual:</u></html>");
@@ -423,16 +418,17 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jLFrete.setText("<html><u>Frete:</u></html>");
         jLContato.setText("<html><u>Contato:</u></html>");
     }
-    
-    public boolean confereFrete(String frete) {
-        boolean status = false;
-        for (int i = 0; i < frete.length(); i++) {
-            if (Character.isDigit(frete.charAt(i))) {
-                status = false;
-            } else {
-                status = true;
-            }
-        }
-        return status;
+
+    private void sublinha2() {
+        jLNome.setText("Nome:*");
+        jL_IE.setText("Inscrição Estadual:*");
+        jLEndereco.setText("Endereço:*");
+        jLBairro.setText("Bairro:*");
+        jLCidade.setText("Cidade:*");
+        jLEstado.setText("Estado:*");
+        jLCEP.setText("CEP:*");
+        jLCNPJ.setText("CNPJ/CPF:*");
+        jLFrete.setText("Frete:*");
+        jLContato.setText("Contato:*");
     }
 }
