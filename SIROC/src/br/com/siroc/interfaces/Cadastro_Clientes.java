@@ -9,6 +9,7 @@ import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -346,14 +347,18 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     private void jRBFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFisicaActionPerformed
         if (jRBFisica.isSelected()) {
             jRBJuridica.setSelected(false);
+            jFTCnpj_Cpf.setValue(null);
             maskCPF.install(jFTCnpj_Cpf);
+            jFTCnpj_Cpf.setFormatterFactory(new DefaultFormatterFactory(maskCPF));
         }
     }//GEN-LAST:event_jRBFisicaActionPerformed
 
     private void jRBJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBJuridicaActionPerformed
         if (jRBJuridica.isSelected()) {
             jRBFisica.setSelected(false);
+            jFTCnpj_Cpf.setValue(null);
             maskCnpj.install(jFTCnpj_Cpf);
+            jFTCnpj_Cpf.setFormatterFactory(new DefaultFormatterFactory(maskCnpj));
         }
     }//GEN-LAST:event_jRBJuridicaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
