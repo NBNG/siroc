@@ -216,29 +216,24 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        try {
-            produto = new ProdutoBuilder().setId(produto.getId()).setFornecedor(fornecedores.get(tabela_fornecedor.getSelectedRow()))
-                    .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
-                    setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
+        if (tabela_fornecedor.getSelectedRowCount() < 1) {
+            JOptionPane.showMessageDialog(null, "Selecione um fornecedor na tabela.");
+        } else {
+            try {
+                produto = new ProdutoBuilder().setId(produto.getId()).setFornecedor(fornecedores.get(tabela_fornecedor.getSelectedRow()))
+                        .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
+                        setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
 
-            dao.atualiza(produto);
-            JOptionPane.showMessageDialog(null, "Produto atualizado com Sucesso!");
-            limpar();
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
-            sublinha();
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
+                dao.atualiza(produto);
+                JOptionPane.showMessageDialog(null, "Produto atualizado com Sucesso!");
+                limpar();
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
+                sublinha();
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
+            }
         }
-
-        /*fornecedor.setId(fid);
-         produto.setFornecedor(fornecedor);
-         produto.setNome(jTNome_Produto.getText());
-         produto.setPeso(Double.parseDouble(jTPeso.getText()));
-         produto.setValor_entrada(Double.parseDouble(jTV_Compra.getText()));
-         produto.setValor_saida(Double.parseDouble(jTV_Saida.getText()));
-         dao.atualiza(produto);
-         JOptionPane.showMessageDialog(null, "Produto alterado com Sucesso!");*/
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
@@ -288,6 +283,23 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         jTV_Compra.setText(String.valueOf(produto.getValor_entrada()));
         jTV_Saida.setText(String.valueOf(produto.getValor_saida()));
         jTNome.setText(produto.getFornecedor().getNome());
+        populaTabela();
+    }
+
+    private void populaTabela() {
+        while (tmFornecedor.getRowCount() > 0) {
+            tmFornecedor.removeRow(0);
+        }
+
+        fornecedores = fdao.buscaPorNome(jTNome.getText());
+
+        for (int i = 0; i < fornecedores.size(); i++) {
+
+            tmFornecedor.addRow(new String[]{null, null, null, null});
+            tmFornecedor.setValueAt(fornecedores.get(i).getNome(), i, 0);
+            tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
+            tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
+        }
     }
 
     private void limpar() {
