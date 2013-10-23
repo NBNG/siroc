@@ -203,7 +203,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
 
         Integer linha = 0;
         fornecedores = fdao.buscaPorNome(jTFornecedor.getText());
-
+        //produtos = fdao.buscaPorNome(jTFornecedor.getText()).get(0).getProdutos();
         for (int i = 0; i < fornecedores.size(); i++) {
             for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
 

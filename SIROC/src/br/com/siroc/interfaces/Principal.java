@@ -155,11 +155,14 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMICadastro_ClientesActionPerformed
 
     private void jMIListagem_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_ClientesActionPerformed
-
-        Listagem_Clientes lc = new Listagem_Clientes();
-        jPanel.add(lc);
-        lc.setVisible(true);
-
+        Listagem_Clientes lc;
+        try {
+            lc = new Listagem_Clientes();
+            jPanel.add(lc);
+            lc.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMIListagem_ClientesActionPerformed
 
     private void jMICadastro_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_FornecedorActionPerformed
