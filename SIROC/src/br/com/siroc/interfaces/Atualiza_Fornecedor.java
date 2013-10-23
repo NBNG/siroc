@@ -179,6 +179,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "E-mail já cadastrado!");
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Campos obrigatórios nulos!");
+            sublinha();
         }
 
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
@@ -208,8 +209,8 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
     }
 
     private void sublinha() {
-        jLNome.setText("<html><u>Nome:</u></html>");
-        jLTelefone.setText("<html><u>Telefone:</u></html>");
-        jLEmail.setText("<html><u>Email:</u></html>");
+        jLNome.setText("Nome:*");
+        jLTelefone.setText("Telefone:*");
+        jLEmail.setText("Email:*");
     }
 }

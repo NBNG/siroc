@@ -82,6 +82,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             }
         });
 
+        tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela.setModel(tmProduto);
         jScrollPane1.setViewportView(tabela);
 
@@ -148,7 +149,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
                         .addComponent(jBAlterar)
                         .addGap(18, 18, 18)
                         .addComponent(jBLimpar)
-                        .addContainerGap(336, Short.MAX_VALUE))
+                        .addContainerGap(348, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(43, 43, 43))))

@@ -121,6 +121,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         jLFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLFornecedor.setText("Fornecedor:");
 
+        tabela_fornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela_fornecedor.setModel(tmFornecedor);
         tabela_fornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -317,10 +318,10 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     }
 
     public void sublinha() {
-        jLNome.setText("<html><u>Nome:</u></html>");
-        jLFornecedor.setText("<html><u>Fornecedor:</u></html>");
-        jLPeso.setText("<html><u>Peso:</u></html>");
-        jLV_Compra.setText("<html><u>Valor de Compra:</u></html>");
-        jLV_Venda.setText("<html><u>Valor de Saída:</u></html>");
+        jLNome.setText("Nome:*");
+        jLFornecedor.setText("Fornecedor:*");
+        jLPeso.setText("Peso:*");
+        jLV_Compra.setText("Valor de Compra:*");
+        jLV_Venda.setText("Valor de Saída:*");
     }
 }

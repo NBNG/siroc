@@ -67,6 +67,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         jLFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLFornecedor.setText("Fornecedor:");
 
+        tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela.setModel(tmFornecedor);
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -134,20 +135,17 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(228, 228, 228)
-                        .addComponent(jLCabecalho))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLFornecedor)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLFornecedor)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTNome))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(199, 199, 199)
+                        .addComponent(jLCabecalho))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLPeso)
                         .addGap(18, 18, 18)
@@ -160,7 +158,6 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                         .addComponent(jLV_Compra)
                         .addGap(18, 18, 18)
                         .addComponent(jTV_Compra, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jBCadastrar)
@@ -169,8 +166,9 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jTNome_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(jBLimpar)))
-                .addGap(19, 19, 19))
+                        .addComponent(jBLimpar))
+                    .addComponent(jScrollPane1))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTPeso, jTV_Compra, jTV_Saida});
@@ -182,13 +180,13 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLCabecalho)
-                .addGap(32, 32, 32)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLFornecedor)
                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLNome)
                     .addComponent(jTNome_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -244,32 +242,26 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        try {
-            System.out.println(fornecedores.get(tabela.getSelectedRow()).getId() + "+" + fornecedores.get(tabela.getSelectedRow()).getNome());
-            produto = new ProdutoBuilder().setFornecedor(fornecedores.get(tabela.getSelectedRow()))
-                    .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
-                    setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
+        if (tabela.getSelectedRowCount() < 1) {
+            JOptionPane.showMessageDialog(null, "Selecione um fornecedor na tabela.");
+        } else {
+            try {
+                System.out.println(fornecedores.get(tabela.getSelectedRow()).getId() + "+" + fornecedores.get(tabela.getSelectedRow()).getNome());
+                produto = new ProdutoBuilder().setFornecedor(fornecedores.get(tabela.getSelectedRow()))
+                        .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
+                        setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
 
-            dao.adicionar(produto);
-            JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
-            limpar();
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
-            sublinha();
-        } catch (IllegalStateException e) {
-            JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
+                dao.adicionar(produto);
+                JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
+                limpar();
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
+                sublinha();
+            } catch (IllegalStateException e) {
+                JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
+            }
         }
-        /*fornecedor = new Fornecedor();
-         produto = new Produto();
-         fornecedor.setId(fornecedores.get(tabela.getSelectedRow()).getId());
-         produto.setFornecedor(fornecedor);
-         produto.setNome(jTNome_Produto.getText());
-         produto.setPeso(Double.parseDouble(jTPeso.getText()));
-         produto.setValor_entrada(Editor.formataValor(jTV_Compra.getText()));
-         produto.setValor_saida(Editor.formataValor(jTV_Saida.getText()));
-         dao.adicionar(produto);
-         JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
-         limpar();*/
+
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     private void jTPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPesoActionPerformed
@@ -309,10 +301,10 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     }
 
     public void sublinha() {
-        jLNome.setText("<html><u>Nome:</u></html>");
-        jLFornecedor.setText("<html><u>Fornecedor:</u></html>");
-        jLPeso.setText("<html><u>Peso:</u></html>");
-        jLV_Compra.setText("<html><u>Valor de Compra:</u></html>");
-        jLV_Venda.setText("<html><u>Valor de Saída:</u></html>");
+        jLNome.setText("Nome:*");
+        jLFornecedor.setText("Fornecedor:*");
+        jLPeso.setText("Peso:*");
+        jLV_Compra.setText("Valor de Compra:*");
+        jLV_Venda.setText("Valor de Saída:*");
     }
 }

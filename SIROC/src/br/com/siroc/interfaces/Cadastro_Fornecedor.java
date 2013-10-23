@@ -164,6 +164,7 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "E-mail já cadastrado!");
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Campos obrigatórios nulos!");
+            sublinha();
         }
         /*    if (jTNome.getText().equals("") || (jFTTelefone.getText().equals("") || (jTEmail.getText().equals("")))) {
          JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
@@ -205,8 +206,8 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
     }
 
     private void sublinha() {
-        jLNome.setText("<html><u>Nome:</u></html>");
-        jLTelefone.setText("<html><u>Telefone:</u></html>");
-        jLEmail.setText("<html><u>Email:</u></html>");
+        jLNome.setText("Nome:*");
+        jLTelefone.setText("Telefone:*");
+        jLEmail.setText("Email:*");
     }
 }

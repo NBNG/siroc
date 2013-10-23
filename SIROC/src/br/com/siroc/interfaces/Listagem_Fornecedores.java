@@ -57,6 +57,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
             }
         });
 
+        tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela.setModel(tmFornecedor);
         jScrollPane1.setViewportView(tabela);
 
@@ -121,7 +122,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
                         .addComponent(jButton1)
                         .addGap(29, 29, 29)
                         .addComponent(jBLimpar)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         pack();
