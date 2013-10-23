@@ -21,16 +21,16 @@ public class ClienteDAO {
         session = new ConnectionFactory().getSession();
     }
 
-    public Cliente buscaPorCNPJ(String cnpj) {
+    public Cliente buscaPorCNPJ(String cnpj_cpf) {
 
         Transaction tx = session.beginTransaction();
 
         Cliente cliente = null;
 
-        String consulta = "FROM Cliente WHERE cli_cnpj = :cnpj";
+        String consulta = "FROM Cliente WHERE cli_cnpj_cpf = :cnpj_cpf";
 
         Query query = session.createQuery(consulta);
-        query.setParameter("cnpj", cnpj);
+        query.setParameter("cnpj_cpf", cnpj_cpf);
 
         if (query.list().size() > 0) {
             cliente = (Cliente) query.list().get(0);

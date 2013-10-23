@@ -23,14 +23,14 @@ public class Cliente {
     private String cep;
     private String contato;
     private String email;
-    private String cnpj;
+    private String cnpj_cpf;
     private Double frete;
 
     public Cliente() {
     }
 
     public Cliente(Long id, String nome, String inscricao_est, String celular, String telefone,
-            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj, Double frete) {
+            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj_cpf, Double frete) {
         this.id = id;
         this.nome = nome;
         this.inscricao_est = inscricao_est;
@@ -43,12 +43,12 @@ public class Cliente {
         this.cep = cep;
         this.contato = contato;
         this.email = email;
-        this.cnpj = cnpj;
+        this.cnpj_cpf = cnpj_cpf;
         this.frete = frete;
     }
 
     public Cliente(String nome, String inscricao_est, String celular, String telefone,
-            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj, Double frete) {
+            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj_cpf, Double frete) {
         this.nome = nome;
         this.inscricao_est = inscricao_est;
         this.celular = celular;
@@ -60,7 +60,7 @@ public class Cliente {
         this.cep = cep;
         this.contato = contato;
         this.email = email;
-        this.cnpj = cnpj;
+        this.cnpj_cpf = cnpj_cpf;
         this.frete = frete;
     }
 
@@ -175,13 +175,13 @@ public class Cliente {
         this.email = email;
     }
 
-    @Column(name = "cli_cnpj", nullable = false, length = 20, unique = true)
-    public String getCnpj() {
-        return cnpj;
+    @Column(name = "cli_cnpj_cpf", nullable = false, length = 20, unique = true)
+    public String getCnpj_cpf() {
+        return cnpj_cpf;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setCnpj_cpf(String cnpj_cpf) {
+        this.cnpj_cpf = cnpj_cpf;
     }
 
     @Column(name = "cli_frete", nullable = true)

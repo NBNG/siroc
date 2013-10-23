@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -28,21 +29,15 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     ClienteDAO cdao = new ClienteDAO();
     String endereco;
     List<Cliente> clientes;//List de uma classe do modelo para utilização na tabela;
-    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"});
+    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ/CPF", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"});
     //definição das colunas da tabela
     Cliente cliente;
+    MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
+    MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
 
-    public Listagem_Clientes() {
+    public Listagem_Clientes() throws ParseException {
         super("SIROC - Listagem de Clientes");
         initComponents();
-
-        try {
-            MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
-            maskCnpj.install(jFTCnpj);
-        } catch (ParseException ex) {
-            Logger.getLogger(Listagem_Clientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
     /**
@@ -60,13 +55,15 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         jLCabecalho = new javax.swing.JLabel();
         jTNome = new javax.swing.JTextField();
         jBLimpar = new javax.swing.JButton();
-        jLCNPJ = new javax.swing.JLabel();
-        jFTCnpj = new javax.swing.JFormattedTextField();
+        jFTCnpj_cpf = new javax.swing.JFormattedTextField();
         jBPesquisar = new javax.swing.JButton();
         jLNome = new javax.swing.JLabel();
+        jRBFisica = new javax.swing.JRadioButton();
+        jRBJuridica = new javax.swing.JRadioButton();
 
         setClosable(true);
 
+        tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela.setModel(tmCliente);
         jScrollPane1.setViewportView(tabela);
 
@@ -103,10 +100,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             }
         });
 
-        jLCNPJ.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLCNPJ.setText("CNPJ:");
-
-        jFTCnpj.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jFTCnpj_cpf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pesquisar.png"))); // NOI18N
@@ -120,6 +114,22 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         jLNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLNome.setText("Nome:");
 
+        jRBFisica.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRBFisica.setText("Pessoa Física");
+        jRBFisica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBFisicaActionPerformed(evt);
+            }
+        });
+
+        jRBJuridica.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRBJuridica.setText("Pessoa Jurídica");
+        jRBJuridica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBJuridicaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,29 +137,28 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLCabecalho)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLCabecalho)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLCNPJ)
-                                    .addComponent(jLNome))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jFTCnpj)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jBPesquisar)))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLNome)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRBFisica)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRBJuridica)
+                                .addGap(16, 16, 16)
+                                .addComponent(jFTCnpj_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jBPesquisar))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 934, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBAtualizar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBLimpar, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(24, 24, 24))))
+                            .addComponent(jBLimpar, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBAtualizar, jBLimpar});
@@ -161,9 +170,10 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                 .addComponent(jLCabecalho)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLCNPJ)
-                    .addComponent(jFTCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBPesquisar))
+                    .addComponent(jFTCnpj_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBPesquisar)
+                    .addComponent(jRBFisica)
+                    .addComponent(jRBJuridica))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,7 +185,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                         .addComponent(jBAtualizar)
                         .addGap(27, 27, 27)
                         .addComponent(jBLimpar)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,7 +213,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
 
-        jFTCnpj.setText("");
+        jFTCnpj_cpf.setText("");
 
         while (tmCliente.getRowCount() > 0) {
             tmCliente.removeRow(0);
@@ -218,7 +228,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             tmCliente.addRow(new String[]{null, null, null, null});
             tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
             tmCliente.setValueAt(clientes.get(i).getInscricao_est(), i, 1);
-            tmCliente.setValueAt(clientes.get(i).getCnpj(), i, 2);
+            tmCliente.setValueAt(clientes.get(i).getCnpj_cpf(), i, 2);
             tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 3);
             tmCliente.setValueAt(clientes.get(i).getContato(), i, 4);
             tmCliente.setValueAt(clientes.get(i).getEmail(), i, 5);
@@ -242,7 +252,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             tmCliente.removeRow(0);
         }
 
-        cliente = (Cliente) cdao.buscaPorCNPJ(jFTCnpj.getText());
+        cliente = (Cliente) cdao.buscaPorCNPJ(jFTCnpj_cpf.getText());
 
         String endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
                 + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "
@@ -250,7 +260,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         tmCliente.addRow(new String[]{null, null, null, null});
         tmCliente.setValueAt(cliente.getNome(), 0, 0);
         tmCliente.setValueAt(cliente.getInscricao_est(), 0, 1);
-        tmCliente.setValueAt(cliente.getCnpj(), 0, 2);
+        tmCliente.setValueAt(cliente.getCnpj_cpf(), 0, 2);
         tmCliente.setValueAt(cliente.getTelefone(), 0, 3);
         tmCliente.setValueAt(cliente.getContato(), 0, 4);
         tmCliente.setValueAt(cliente.getEmail(), 0, 5);
@@ -259,14 +269,33 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         tmCliente.setValueAt(cliente.getFrete() + " %", 0, 8);
         // TODO add your handling code here:
     }//GEN-LAST:event_jBPesquisarActionPerformed
+
+    private void jRBFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFisicaActionPerformed
+        if (jRBFisica.isSelected()) {
+            jRBJuridica.setSelected(false);
+            jFTCnpj_cpf.setValue(null);
+            maskCPF.install(jFTCnpj_cpf);
+            jFTCnpj_cpf.setFormatterFactory(new DefaultFormatterFactory(maskCPF));
+        }
+    }//GEN-LAST:event_jRBFisicaActionPerformed
+
+    private void jRBJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBJuridicaActionPerformed
+        if (jRBJuridica.isSelected()) {
+            jRBFisica.setSelected(false);
+            jFTCnpj_cpf.setValue(null);
+            maskCnpj.install(jFTCnpj_cpf);
+            jFTCnpj_cpf.setFormatterFactory(new DefaultFormatterFactory(maskCnpj));
+        }
+    }//GEN-LAST:event_jRBJuridicaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAtualizar;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JButton jBPesquisar;
-    private javax.swing.JFormattedTextField jFTCnpj;
-    private javax.swing.JLabel jLCNPJ;
+    private javax.swing.JFormattedTextField jFTCnpj_cpf;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLNome;
+    private javax.swing.JRadioButton jRBFisica;
+    private javax.swing.JRadioButton jRBJuridica;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTNome;
     private javax.swing.JTable tabela;
@@ -274,7 +303,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
     private void limpar() {
         jTNome.setText("");
-        jFTCnpj.setText("");
+        jFTCnpj_cpf.setText("");
         clientes = null;
 
         while (tmCliente.getRowCount() > 0) {
