@@ -335,7 +335,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
             limpar();
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Campos obrigatórios (Asterístico) vazios e/ou informação inválida!");
-            sublinha2();
+            sublinha();
         } catch (ConstraintViolationException e) {
             JOptionPane.showMessageDialog(null, "CNPJ, E-mail e/ou Inscrição Estadual já cadastrado(s)!");
         }
@@ -412,19 +412,6 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     }
 
     private void sublinha() {
-        jLNome.setText("<html><u>Nome:</u></html>");
-        jL_IE.setText("<html><u>Inscrição Estadual:</u></html>");
-        jLEndereco.setText("<html><u>Endereço:</u></html>");
-        jLBairro.setText("<html><u>Bairro:</u></html>");
-        jLCidade.setText("<html><u>Cidade:</u></html>");
-        jLEstado.setText("<html><u>Estado:</u></html>");
-        jLCEP.setText("<html><u>CEP:</u></html>");
-        jLCNPJ.setText("<html><u>CNPJ/CPF:</u></html>");
-        jLFrete.setText("<html><u>Frete:</u></html>");
-        jLContato.setText("<html><u>Contato:</u></html>");
-    }
-
-    private void sublinha2() {
         jLNome.setText("Nome:*");
         jL_IE.setText("Inscrição Estadual:*");
         jLEndereco.setText("Endereço:*");
@@ -433,7 +420,6 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jLEstado.setText("Estado:*");
         jLCEP.setText("CEP:*");
         jLCNPJ.setText("CNPJ/CPF:*");
-        jLFrete.setText("Frete:*");
         jLContato.setText("Contato:*");
     }
 }

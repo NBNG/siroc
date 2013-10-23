@@ -33,6 +33,16 @@ create table produtos (
 	on update cascade on delete restrict
 );
 
+create table historico_produtos (
+	id_historico serial primary key,
+	id_produto int,
+	valor_antigo decimal(9,2),
+	valor_novo decimal(9,2),
+	data_atualizacao date,
+	constraint fk_produto_historico foreign key (id_produto) references produtos (pro_id)
+	on update cascade on delete restrict
+);
+
 create table pedidos (
 	id_pedido serial primary key,
 	ped_pagamento varchar (8),
