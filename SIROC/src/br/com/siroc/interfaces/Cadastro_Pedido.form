@@ -282,6 +282,9 @@
               <Connection code="tmProduto_Fornecedor" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TabelaProduto_FornecedorMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

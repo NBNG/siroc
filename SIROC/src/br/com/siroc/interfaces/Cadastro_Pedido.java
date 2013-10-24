@@ -10,6 +10,8 @@ import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,7 +25,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
      */
     DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Email"});
     DefaultTableModel tmProduto_Fornecedor = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
-    DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
+    DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Código", "Nome", "Quantidade", "Valor Alterado"});
     //List de uma classe do modelo para utilização na tabela;
     List<Fornecedor> fornecedores_fornecedor;
     List<Fornecedor> fornecedores_produto;
@@ -31,6 +33,8 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     List<Produto> produtos_pedido;
     DAO<Produto> pdao = new DAO<Produto>(Produto.class);
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
+    Double valor;
+    Integer quantidade;
     //definição das colunas da tabela
 
     public Cadastro_Pedido() {
@@ -122,6 +126,11 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
 
         TabelaProduto_Fornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TabelaProduto_Fornecedor.setModel(tmProduto_Fornecedor);
+        TabelaProduto_Fornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelaProduto_FornecedorMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(TabelaProduto_Fornecedor);
 
         TabelaProduto_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -313,6 +322,20 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
         sublinha();
     }//GEN-LAST:event_jBSalvarActionPerformed
+
+    private void TabelaProduto_FornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaProduto_FornecedorMouseClicked
+        JTextField campo_quantidade = new JTextField();
+        JTextField campo_valor = new JTextField();
+        Object[] message = {
+            "Quantidade:", campo_quantidade,
+            "Valor Alterado:", campo_valor};
+        int option = JOptionPane.showConfirmDialog(null, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            valor = Double.parseDouble(campo_valor.getText());
+            quantidade = Integer.parseInt(campo_quantidade.getText());
+        }
+
+    }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator Separador;
