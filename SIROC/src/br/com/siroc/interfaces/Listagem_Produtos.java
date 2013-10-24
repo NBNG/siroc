@@ -8,6 +8,7 @@ import br.com.siroc.classes_auxiliares.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -166,13 +167,15 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         if (tabela.getSelectedRowCount() < 1) {
             JOptionPane.showMessageDialog(null, "Selecione um produto a ser alterado.");
         } else {
-            if (produtos == null) {
-                Atualiza_Produto ap = new Atualiza_Produto(fornecedores.get(tabela.getSelectedRow()).getProdutos().get(tabela.getSelectedRow()));
-                ap.setVisible(true);
-            } else {
-                Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()));
-                ap.setVisible(true);
-            }
+            /*if (produtos == null) {
+             Atualiza_Produto ap = new Atualiza_Produto(fornecedores.get(tabela.getSelectedRow()).getProdutos().get(tabela.getSelectedRow()));
+             ap.setVisible(true);
+             } else {
+             Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()));
+             ap.setVisible(true);
+             }*/
+            Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()));
+            ap.setVisible(true);
         }
     }//GEN-LAST:event_jBAlterarActionPerformed
 
@@ -202,20 +205,39 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             tmProduto.removeRow(0);
         }
 
-        Integer linha = 0;
+
         fornecedores = fdao.buscaPorNome(jTFornecedor.getText());
-        //produtos = fdao.buscaPorNome(jTFornecedor.getText()).get(0).getProdutos();
+
+        produtos = new ArrayList<Produto>();
+
         for (int i = 0; i < fornecedores.size(); i++) {
             for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
-
-                tmProduto.addRow(new String[]{null, null, null, null});
-                tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), linha, 0);
-                tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getPeso() + " kg", linha, 1);
-                tmProduto.setValueAt(fornecedores.get(i).getNome(), linha, 2);
-                tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_entrada()), linha, 3);
-                tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_saida()), linha, 4);
-                linha++;
+                produtos.add(fornecedores.get(i).getProdutos().get(j));
             }
+        }
+
+        /*produtos = fdao.buscaPorNome(jTFornecedor.getText()).get(0).getProdutos();
+         for (int i = 0; i < fornecedores.size(); i++) {
+         for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
+
+         tmProduto.addRow(new String[]{null, null, null, null});
+         tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), linha, 0);
+         tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getPeso() + " kg", linha, 1);
+         tmProduto.setValueAt(fornecedores.get(i).getNome(), linha, 2);
+         tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_entrada()), linha, 3);
+         tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_saida()), linha, 4);
+         linha++;
+         } */
+        Integer linha = 0;
+        for (int i = 0; i < produtos.size(); i++) {
+            tmProduto.addRow(new String[]{null, null, null, null});
+            tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
+            tmProduto.setValueAt(produtos.get(i).getPeso() + " kg", i, 1);
+            tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
+            tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_entrada()), i, 3);
+            tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_saida()), i, 4);
+
+
         }    }//GEN-LAST:event_jTFornecedorKeyTyped
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
