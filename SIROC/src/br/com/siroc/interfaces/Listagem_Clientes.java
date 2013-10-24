@@ -38,6 +38,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     public Listagem_Clientes() throws ParseException {
         super("SIROC - Listagem de Clientes");
         initComponents();
+        tabela.setRowHeight(23);
     }
 
     /**
@@ -195,16 +196,12 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         if (tabela.getSelectedRowCount() < 1) {
             JOptionPane.showMessageDialog(null, "Selecione um cadastro a ser alterado.");
         } else {
-
-            //Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow()).getId()); Antigo pegando o ID
-
-
-            Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
-            ac.setVisible(true);
-
-
-
-
+            try {
+                Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
+                ac.setVisible(true);
+            } catch (ParseException ex) {
+                Logger.getLogger(Listagem_Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jBAtualizarActionPerformed
 

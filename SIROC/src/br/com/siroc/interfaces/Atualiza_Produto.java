@@ -33,6 +33,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     public Atualiza_Produto(Produto produto) {
         super("SIROC - Atualização de Produtos");
         initComponents();
+        tabela_fornecedor.setRowHeight(23);
         setLocationRelativeTo(null);
         this.produto = produto;
         populateFields(this.produto);

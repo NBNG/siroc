@@ -32,6 +32,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     public Listagem_Produtos() {
         super("SIROC - Listagem de Produtos");
         initComponents();
+        tabela.setRowHeight(23);
     }
 
     /**

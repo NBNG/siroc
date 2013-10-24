@@ -48,6 +48,8 @@ public class Principal extends javax.swing.JFrame {
         jMProdutos = new javax.swing.JMenu();
         jMICadastro_Produtos = new javax.swing.JMenuItem();
         jMIListagem_Produtos = new javax.swing.JMenuItem();
+        jMPedido = new javax.swing.JMenu();
+        jMICadastro_Pedidos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,13 +130,28 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu.add(jMProdutos);
 
+        jMPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/agenda.png"))); // NOI18N
+        jMPedido.setText("Pedidos");
+        jMPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jMICadastro_Pedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMICadastro_Pedidos.setText("Cadastro de Pedidos");
+        jMICadastro_Pedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMICadastro_PedidosActionPerformed(evt);
+            }
+        });
+        jMPedido.add(jMICadastro_Pedidos);
+
+        jMenu.add(jMPedido);
+
         setJMenuBar(jMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+            .addComponent(jPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,6 +213,12 @@ public class Principal extends javax.swing.JFrame {
         lp.setVisible(true);
     }//GEN-LAST:event_jMIListagem_ProdutosActionPerformed
 
+    private void jMICadastro_PedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_PedidosActionPerformed
+        Cadastro_Pedido cp = new Cadastro_Pedido();
+        jPanel.add(cp);
+        cp.setVisible(true);
+    }//GEN-LAST:event_jMICadastro_PedidosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -236,10 +259,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMFornecedor;
     private javax.swing.JMenuItem jMICadastro_Clientes;
     private javax.swing.JMenuItem jMICadastro_Fornecedor;
+    private javax.swing.JMenuItem jMICadastro_Pedidos;
     private javax.swing.JMenuItem jMICadastro_Produtos;
     private javax.swing.JMenuItem jMIListagem_Clientes;
     private javax.swing.JMenuItem jMIListagem_Fornecedor;
     private javax.swing.JMenuItem jMIListagem_Produtos;
+    private javax.swing.JMenu jMPedido;
     private javax.swing.JMenu jMProdutos;
     private javax.swing.JMenuBar jMenu;
     private javax.swing.JDesktopPane jPanel;

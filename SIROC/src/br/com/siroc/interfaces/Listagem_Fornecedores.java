@@ -24,6 +24,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     public Listagem_Fornecedores() {
         super("SIROC - Listagem de Fornecedores");
         initComponents();
+        tabela.setRowHeight(23);
     }
 
     /**
