@@ -36,6 +36,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     List<Produto> produtos_produto;
     List<Produto> produtos_pedido;
     List<Cliente> clientes;
+    List<Item> Itens = new ArrayList<>();
     DAO<Produto> pdao = new DAO<Produto>(Produto.class);
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     DAO<Cliente> cdao = new DAO<Cliente>(Cliente.class);
@@ -67,7 +68,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
         jLTipo_Pedido = new javax.swing.JLabel();
         jLTipo_Pagamento = new javax.swing.JLabel();
         jDCData = new com.toedter.calendar.JDateChooser();
-        jCTipo_Pedido = new javax.swing.JComboBox();
+        jCBTipo_Pedido = new javax.swing.JComboBox();
         jCBTipo_Pagamento = new javax.swing.JComboBox();
         Separador = new javax.swing.JSeparator();
         jLCabecalho = new javax.swing.JLabel();
@@ -122,8 +123,8 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
 
         jDCData.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jCTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCTipo_Pedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NF", "SO" }));
+        jCBTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCBTipo_Pedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NF", "SO" }));
 
         jCBTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCBTipo_Pagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cartão", "Cheque", "Depósito", "Dinheiro" }));
@@ -232,7 +233,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLTipo_Pedido)
                                 .addGap(18, 18, 18)
-                                .addComponent(jCTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLTipo_Pagamento)
                                 .addGap(18, 18, 18)
@@ -280,7 +281,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
                                 .addComponent(jCBPago)
                                 .addComponent(jLTipo_Pedido)
                                 .addComponent(jLTipo_Pagamento)
-                                .addComponent(jCTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
@@ -374,6 +375,14 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
         Cliente cliente = new Cliente();
         Item itens = new Item();
 
+        cliente.setId(clientes.get(TabelaCliente.getSelectedRow()).getId());
+        pedido.setCliente(cliente);
+        pedido.setData(jDCData.getDate());
+        if (jCBPago.isSelected()) {
+            pedido.setStatus("Pago");
+        }
+        pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
+        pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
 //        sublinha();
     }//GEN-LAST:event_jBSalvarActionPerformed
 
@@ -388,6 +397,18 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
             valor = Double.parseDouble(campo_valor.getText());
             quantidade = Integer.parseInt(campo_quantidade.getText());
         }
+        Item item = new Item();
+        Pedido pedido = new Pedido();
+        Produto produto = new Produto();
+
+        //pedido.setId(clientes.get(TabelaCliente.getSelectedRow()).getId());
+        produto.setId(produtos_produto.get(TabelaProduto_Fornecedor.getSelectedRow()).getId());
+        item.setPedido(pedido);
+        item.setProduto(produto);
+        item.setQuantidade(quantidade);
+        item.setValor_alterado(valor);
+        Itens.add(item);
+        preencheTabela(item);
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
 
     private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
@@ -434,7 +455,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBSalvar;
     private javax.swing.JCheckBox jCBPago;
     private javax.swing.JComboBox jCBTipo_Pagamento;
-    private javax.swing.JComboBox jCTipo_Pedido;
+    private javax.swing.JComboBox jCBTipo_Pedido;
     private com.toedter.calendar.JDateChooser jDCData;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLCliente;
@@ -458,5 +479,19 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
         jLTipo_Pedido.setText("Tipo de Pedido:*");
         jLTipo_Pagamento.setText("Tipo de Pagamento:*");
         jLTabela_Pedido.setText("Tabela de Produtos do Pedido:*");
+    }
+
+    public void preencheTabela(Item item) {
+        while (tmProduto_Pedido.getRowCount() > 0) {
+            tmProduto_Pedido.removeRow(0);
+        }
+
+        for (int i = 0; i < Itens.size(); i++) {
+            tmProduto_Pedido.addRow(new String[]{null, null, null, null});
+            tmProduto_Pedido.setValueAt(produtos_produto.get(TabelaProduto_Fornecedor.getSelectedRow()).getId(), i, 0);
+            tmProduto_Pedido.setValueAt(produtos_produto.get(TabelaProduto_Fornecedor.getSelectedRow()).getNome(), i, 1);
+            tmProduto_Pedido.setValueAt(item.getQuantidade(), i, 2);
+            tmProduto_Pedido.setValueAt(Editor.format(item.getValor_alterado()), i, 3);
+        }
     }
 }

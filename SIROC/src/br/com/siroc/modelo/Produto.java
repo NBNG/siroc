@@ -23,7 +23,7 @@ import javax.persistence.Table;
  * @author Proclima
  */
 @Entity
-@Table(name = "PRODUTO")
+@Table(name = "PRODUTOS")
 public class Produto {
 
     private Long id;
