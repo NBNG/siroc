@@ -403,12 +403,13 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
 
         //pedido.setId(clientes.get(TabelaCliente.getSelectedRow()).getId());
         produto.setId(produtos_produto.get(TabelaProduto_Fornecedor.getSelectedRow()).getId());
+        produto.setNome(produtos_produto.get(TabelaProduto_Fornecedor.getSelectedRow()).getNome());
         item.setPedido(pedido);
         item.setProduto(produto);
         item.setQuantidade(quantidade);
         item.setValor_alterado(valor);
         Itens.add(item);
-        preencheTabela(item);
+        preencheTabela(Itens);
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
 
     private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
@@ -475,23 +476,23 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
 
     public void sublinha() {
         jLFornecedor.setText("Fornecedor:*");
+        jLCliente.setText("Cliente:*");
         jLData.setText("Data:*");
         jLTipo_Pedido.setText("Tipo de Pedido:*");
         jLTipo_Pagamento.setText("Tipo de Pagamento:*");
         jLTabela_Pedido.setText("Tabela de Produtos do Pedido:*");
     }
 
-    public void preencheTabela(Item item) {
+    public void preencheTabela(List<Item> Itens) {
         while (tmProduto_Pedido.getRowCount() > 0) {
             tmProduto_Pedido.removeRow(0);
         }
-
         for (int i = 0; i < Itens.size(); i++) {
             tmProduto_Pedido.addRow(new String[]{null, null, null, null});
-            tmProduto_Pedido.setValueAt(produtos_produto.get(TabelaProduto_Fornecedor.getSelectedRow()).getId(), i, 0);
-            tmProduto_Pedido.setValueAt(produtos_produto.get(TabelaProduto_Fornecedor.getSelectedRow()).getNome(), i, 1);
-            tmProduto_Pedido.setValueAt(item.getQuantidade(), i, 2);
-            tmProduto_Pedido.setValueAt(Editor.format(item.getValor_alterado()), i, 3);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getId(), i, 0);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getNome(), i, 1);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getQuantidade(), i, 2);
+            tmProduto_Pedido.setValueAt(Editor.format(Itens.get(i).getValor_alterado()), i, 3);
         }
     }
 }
