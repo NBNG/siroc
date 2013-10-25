@@ -387,7 +387,6 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
             valor = Double.parseDouble(campo_valor.getText());
             quantidade = Integer.parseInt(campo_quantidade.getText());
         }
-
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
 
     private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
