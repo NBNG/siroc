@@ -25,5 +25,8 @@
         <mapping class="br.com.siroc.modelo.Cliente" />
         <mapping class="br.com.siroc.modelo.Fornecedor" />
         <mapping class="br.com.siroc.modelo.Produto" />
+        <mapping class="br.com.siroc.modelo.Pedido" />
+        <mapping class="br.com.siroc.modelo.Item" />
+        
     </session-factory>
 </hibernate-configuration>

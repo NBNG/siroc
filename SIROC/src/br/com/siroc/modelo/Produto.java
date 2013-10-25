@@ -4,12 +4,18 @@
  */
 package br.com.siroc.modelo;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +23,7 @@ import javax.persistence.Table;
  * @author Proclima
  */
 @Entity
-@Table(name = "PRODUTOS")
+@Table(name = "PRODUTO")
 public class Produto {
 
     private Long id;
@@ -26,7 +32,8 @@ public class Produto {
     private Double valor_saida;
     private Double valor_entrada;
     private Fornecedor fornecedor;
-
+    private List<Item> itens;
+    
     public Produto() {
     }
 
@@ -95,4 +102,14 @@ public class Produto {
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
+    
+    @OneToMany(mappedBy="produto",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Item> getItens(){
+        return itens;
+    }
+    
+    public void setItens(List<Item> itens){
+        this.itens = itens;
+    }
 }
+

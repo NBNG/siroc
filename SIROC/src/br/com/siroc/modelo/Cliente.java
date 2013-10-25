@@ -1,9 +1,13 @@
 package br.com.siroc.modelo;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Index;
 
@@ -25,7 +29,8 @@ public class Cliente {
     private String email;
     private String cnpj_cpf;
     private Double frete;
-
+    private List<Pedido> pedidos;
+    
     public Cliente() {
     }
 
@@ -191,5 +196,14 @@ public class Cliente {
 
     public void setFrete(Double frete) {
         this.frete = frete;
+    }
+    
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    public List<Pedido> getPedidos(){
+        return pedidos;
+    }
+    
+    public void setPedidos(List<Pedido> pedidos){
+        this.pedidos = pedidos; 
     }
 }
