@@ -14,8 +14,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,7 +24,7 @@ import javax.persistence.Temporal;
  * @author matteus seu rabão
  */
 @Entity
-@Table(name = "PEDIDO") 
+@Table(name = "PEDIDO")
 public class Pedido {
 
     private Long id;
@@ -36,8 +34,7 @@ public class Pedido {
     private String status;
     private Cliente cliente;
     private List<Item> itens;
-    
-    
+
     @Id
     @GeneratedValue
     @Column(name = "ped_id")
@@ -48,10 +45,9 @@ public class Pedido {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(name="ped_data", columnDefinition="date default sql_date", nullable=false)
+    @Column(name = "ped_data", columnDefinition = "date default current_date", nullable = true)
     public Date getData() {
         return data;
     }
@@ -60,7 +56,7 @@ public class Pedido {
         this.data = data;
     }
 
-    @Column(name="ped_pagamento", nullable=false)
+    @Column(name = "ped_pagamento", nullable = false)
     public String getTipo_pagamento() {
         return tipo_pagamento;
     }
@@ -68,8 +64,8 @@ public class Pedido {
     public void setTipo_pagamento(String tipo_pagamento) {
         this.tipo_pagamento = tipo_pagamento;
     }
-    
-    @Column(name="ped_pedido", nullable = false)
+
+    @Column(name = "ped_pedido", nullable = false)
     public String getTipo_pedido() {
         return tipo_pedido;
     }
@@ -78,7 +74,7 @@ public class Pedido {
         this.tipo_pedido = tipo_pedido;
     }
 
-    @Column(name="ped_status",nullable=true)
+    @Column(name = "ped_status", nullable = true)
     public String getStatus() {
         return status;
     }
@@ -86,23 +82,23 @@ public class Pedido {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
     @ManyToOne
     @JoinColumn(name = "fk_cliente", nullable = false)
-    public Cliente getCliente(){
+    public Cliente getCliente() {
         return cliente;
     }
-    
-    public void setCliente(Cliente cliente){
+
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
+
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    public List<Item> getItens(){
+    public List<Item> getItens() {
         return itens;
     }
-    
-    public void setItens(List<Item> itens){
+
+    public void setItens(List<Item> itens) {
         this.itens = itens;
     }
 }

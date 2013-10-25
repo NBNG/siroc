@@ -31,13 +31,10 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     DefaultTableModel tmProduto_Fornecedor = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
     DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Código", "Nome", "Quantidade", "Valor Alterado"});
     //List de uma classe do modelo para utilização na tabela;
-    List<Fornecedor> fornecedores_fornecedor;
-    List<Fornecedor> fornecedores_produto;
-    List<Produto> produtos_produto;
-    List<Produto> produtos_pedido;
+    List<Fornecedor> fornecedores;
+    List<Produto> produtos;
     List<Cliente> clientes;
     List<Item> Itens = new ArrayList<>();
-    DAO<Produto> pdao = new DAO<Produto>(Produto.class);
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     DAO<Cliente> cdao = new DAO<Cliente>(Cliente.class);
     Double valor;
@@ -92,11 +89,6 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
         jLFornecedor.setText("Fornecedor:");
 
         jTNome_Fornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTNome_Fornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTNome_FornecedorActionPerformed(evt);
-            }
-        });
         jTNome_Fornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTNome_FornecedorKeyTyped(evt);
@@ -180,11 +172,6 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
         jLCliente.setText("Cliente:");
 
         jTCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTClienteActionPerformed(evt);
-            }
-        });
         jTCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTClienteKeyTyped(evt);
@@ -275,7 +262,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jCBPago)
@@ -313,63 +300,49 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTNome_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNome_FornecedorActionPerformed
-        while (tmFornecedor.getRowCount() > 0) {
-            tmFornecedor.removeRow(0);
-        }
-
-        fornecedores_fornecedor = fdao.buscaPorNome(jTNome_Fornecedor.getText());
-
-        for (int i = 0; i < fornecedores_fornecedor.size(); i++) {
-
-            tmFornecedor.addRow(new String[]{null, null, null, null});
-            tmFornecedor.setValueAt(fornecedores_fornecedor.get(i).getNome(), i, 0);
-            tmFornecedor.setValueAt(fornecedores_fornecedor.get(i).getEmail(), i, 1);
-        }
-    }//GEN-LAST:event_jTNome_FornecedorActionPerformed
-
     private void jTNome_FornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNome_FornecedorKeyTyped
         while (tmFornecedor.getRowCount() > 0) {
             tmFornecedor.removeRow(0);
         }
 
-        fornecedores_fornecedor = fdao.buscaPorNome(jTNome_Fornecedor.getText());
+        fornecedores = fdao.buscaPorNome(jTNome_Fornecedor.getText());
 
-        for (int i = 0; i < fornecedores_fornecedor.size(); i++) {
+        for (int i = 0; i < fornecedores.size(); i++) {
 
             tmFornecedor.addRow(new String[]{null, null, null, null});
-            tmFornecedor.setValueAt(fornecedores_fornecedor.get(i).getNome(), i, 0);
-            tmFornecedor.setValueAt(fornecedores_fornecedor.get(i).getEmail(), i, 1);
+            tmFornecedor.setValueAt(fornecedores.get(i).getNome(), i, 0);
+            tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 1);
         }
     }//GEN-LAST:event_jTNome_FornecedorKeyTyped
 
     private void TabelaFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaFornecedorMouseClicked
-        jTNome_Fornecedor.setText(fornecedores_fornecedor.get(TabelaFornecedor.getSelectedRow()).getNome());
+        jTNome_Fornecedor.setText(fornecedores.get(TabelaFornecedor.getSelectedRow()).getNome());
         while (tmProduto_Fornecedor.getRowCount() > 0) {
             tmProduto_Fornecedor.removeRow(0);
         }
 
-        fornecedores_produto = fdao.buscaPorNome(jTNome_Fornecedor.getText());
-        produtos_produto = new ArrayList<Produto>();
+        fornecedores = fdao.buscaPorNome(jTNome_Fornecedor.getText());
+        produtos = new ArrayList<Produto>();
 
-        for (int i = 0; i < fornecedores_produto.size(); i++) {
-            for (int j = 0; j < fornecedores_produto.get(i).getProdutos().size(); j++) {
-                produtos_produto.add(fornecedores_produto.get(i).getProdutos().get(j));
+        for (int i = 0; i < fornecedores.size(); i++) {
+            for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
+                produtos.add(fornecedores.get(i).getProdutos().get(j));
             }
         }
 
         Integer linha = 0;
-        for (int i = 0; i < produtos_produto.size(); i++) {
+        for (int i = 0; i < produtos.size(); i++) {
             tmProduto_Fornecedor.addRow(new String[]{null, null, null, null});
-            tmProduto_Fornecedor.setValueAt(produtos_produto.get(i).getNome(), i, 0);
-            tmProduto_Fornecedor.setValueAt(produtos_produto.get(i).getPeso() + " kg", i, 1);
-            tmProduto_Fornecedor.setValueAt(produtos_produto.get(i).getFornecedor().getNome(), i, 2);
-            tmProduto_Fornecedor.setValueAt(Editor.format(produtos_produto.get(i).getValor_entrada()), i, 3);
-            tmProduto_Fornecedor.setValueAt(Editor.format(produtos_produto.get(i).getValor_saida()), i, 4);
+            tmProduto_Fornecedor.setValueAt(produtos.get(i).getNome(), i, 0);
+            tmProduto_Fornecedor.setValueAt(produtos.get(i).getPeso() + " kg", i, 1);
+            tmProduto_Fornecedor.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
+            tmProduto_Fornecedor.setValueAt(Editor.format(produtos.get(i).getValor_entrada()), i, 3);
+            tmProduto_Fornecedor.setValueAt(Editor.format(produtos.get(i).getValor_saida()), i, 4);
         }
     }//GEN-LAST:event_TabelaFornecedorMouseClicked
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
+        DAO<Pedido> peddao = new DAO<Pedido>(Pedido.class);
         Pedido pedido = new Pedido();
         Produto produto = new Produto();
         Cliente cliente = new Cliente();
@@ -377,12 +350,15 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
 
         cliente.setId(clientes.get(TabelaCliente.getSelectedRow()).getId());
         pedido.setCliente(cliente);
-        pedido.setData(jDCData.getDate());
+        if (jDCData.getDate() != null) {
+            pedido.setData(jDCData.getDate());
+        }
         if (jCBPago.isSelected()) {
             pedido.setStatus("Pago");
         }
         pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
         pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
+        peddao.adicionar(pedido);
 //        sublinha();
     }//GEN-LAST:event_jBSalvarActionPerformed
 
@@ -394,42 +370,32 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
             "Valor Alterado:", campo_valor};
         int option = JOptionPane.showConfirmDialog(null, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
-            valor = Double.parseDouble(campo_valor.getText());
+            if (valor == null) {
+                valor = produtos.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida();
+            } else {
+                valor = Double.parseDouble(campo_valor.getText());
+            }
             quantidade = Integer.parseInt(campo_quantidade.getText());
-        }
-        Item item = new Item();
-        Pedido pedido = new Pedido();
-        Produto produto = new Produto();
+            Item item = new Item();
+            Pedido pedido = new Pedido();
+            Produto produto = new Produto();
 
-        //pedido.setId(clientes.get(TabelaCliente.getSelectedRow()).getId());
-        produto.setId(produtos_produto.get(TabelaProduto_Fornecedor.getSelectedRow()).getId());
-        produto.setNome(produtos_produto.get(TabelaProduto_Fornecedor.getSelectedRow()).getNome());
-        item.setPedido(pedido);
-        item.setProduto(produto);
-        item.setQuantidade(quantidade);
-        item.setValor_alterado(valor);
-        Itens.add(item);
-        preencheTabela(Itens);
+            //pedido.setId(clientes.get(TabelaCliente.getSelectedRow()).getId());
+            produto.setId(produtos.get(TabelaProduto_Fornecedor.getSelectedRow()).getId());
+            produto.setNome(produtos.get(TabelaProduto_Fornecedor.getSelectedRow()).getNome());
+            item.setPedido(pedido);
+            item.setProduto(produto);
+            item.setQuantidade(quantidade);
+            item.setValor_alterado(valor);
+            Itens.add(item);
+            preencheTabela(Itens);
+        }
+
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
 
     private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
         jTCliente.setText(clientes.get(TabelaCliente.getSelectedRow()).getNome());
     }//GEN-LAST:event_TabelaClienteMouseClicked
-
-    private void jTClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTClienteActionPerformed
-        while (tmCliente.getRowCount() > 0) {
-            tmCliente.removeRow(0);
-        }
-
-        clientes = cdao.buscaPorNome(jTCliente.getText());
-
-        for (int i = 0; i < clientes.size(); i++) {
-            tmCliente.addRow(new String[]{null, null, null, null});
-            tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
-            tmCliente.setValueAt(clientes.get(i).getCnpj_cpf(), i, 1);
-            tmCliente.setValueAt(clientes.get(i).getContato(), i, 2);
-        }
-    }//GEN-LAST:event_jTClienteActionPerformed
 
     private void jTClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyTyped
         while (tmCliente.getRowCount() > 0) {
@@ -445,7 +411,6 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
             tmCliente.setValueAt(clientes.get(i).getContato(), i, 2);
         }
     }//GEN-LAST:event_jTClienteKeyTyped
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator Separador;
     private javax.swing.JTable TabelaCliente;
