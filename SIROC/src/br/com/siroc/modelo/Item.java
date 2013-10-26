@@ -17,10 +17,8 @@ import javax.persistence.Table;
  *
  * @author matteus bibola
  */
-
-
 @Entity
-@Table(name="ITEM")
+@Table(name = "ITEMS")
 public class Item {
 
     private Long id;
@@ -28,10 +26,10 @@ public class Item {
     private Pedido pedido;
     private Integer quantidade;
     private Double valor_alterado;
-    
+
     @Id
     @GeneratedValue
-    @Column(name="item_id")
+    @Column(name = "item_id")
     public Long getId() {
         return id;
     }
@@ -39,12 +37,13 @@ public class Item {
     public void setId(Long id) {
         this.id = id;
     }
+
     @ManyToOne
-    @JoinColumn(name = "fk_produto", nullable=false)
+    @JoinColumn(name = "fk_produto", nullable = false)
     public Produto getProduto() {
         return produto;
     }
-    
+
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
@@ -58,8 +57,8 @@ public class Item {
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
-    
-    @Column(name="item_quantidade", nullable = false)
+
+    @Column(name = "item_quantidade", nullable = false)
     public Integer getQuantidade() {
         return quantidade;
     }
@@ -67,8 +66,8 @@ public class Item {
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
-    
-    @Column(name="item_valor", nullable = false)
+
+    @Column(name = "item_valor", nullable = false)
     public Double getValor_alterado() {
         return valor_alterado;
     }

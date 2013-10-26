@@ -334,8 +334,8 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
             limpar();
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (Asterístico) vazios e/ou informação inválida!");
-            sublinha();
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou informação inválida!");
+            marca();
         } catch (ConstraintViolationException e) {
             JOptionPane.showMessageDialog(null, "CNPJ, E-mail e/ou Inscrição Estadual já cadastrado(s)!");
         }
@@ -409,9 +409,10 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         jFTCelular.setText("");
         jFTTelefone.setText("");
         cliente = null;
+        dao = new DAO<Cliente>(Cliente.class);
     }
 
-    private void sublinha() {
+    private void marca() {
         jLNome.setText("Nome:*");
         jL_IE.setText("Inscrição Estadual:*");
         jLEndereco.setText("Endereço:*");

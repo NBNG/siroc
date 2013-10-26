@@ -29,7 +29,6 @@ public class FornecedorDAO {
 
         fornecedores = (List) session.createCriteria(Fornecedor.class).add(Restrictions.ilike("nome", "%" + nome + "%")).list();
 
-
         tx.commit();
         return fornecedores;
     }

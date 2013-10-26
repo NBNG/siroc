@@ -49,7 +49,6 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
     private void initComponents() {
 
         jLCabecalho = new javax.swing.JLabel();
-        jBLimpar = new javax.swing.JButton();
         jBCadastrar2 = new javax.swing.JButton();
         jLNome = new javax.swing.JLabel();
         jTNome = new javax.swing.JTextField();
@@ -62,15 +61,6 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLCabecalho.setText("Atualização de Fornecedores");
-
-        jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
-        jBLimpar.setText("Limpar");
-        jBLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLimparActionPerformed(evt);
-            }
-        });
 
         jBCadastrar2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBCadastrar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/salvar.png"))); // NOI18N
@@ -107,9 +97,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBCadastrar2)
-                .addGap(18, 18, 18)
-                .addComponent(jBLimpar)
-                .addGap(20, 20, 20))
+                .addGap(23, 23, 23))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(17, 17, 17)
@@ -135,11 +123,9 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jLCabecalho)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBCadastrar2)
-                    .addComponent(jBLimpar))
-                .addGap(34, 34, 34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addComponent(jBCadastrar2)
+                .addGap(26, 26, 26))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(99, 99, 99)
@@ -160,10 +146,6 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        limpar();
-    }//GEN-LAST:event_jBLimparActionPerformed
-
     private void jBCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrar2ActionPerformed
         try {
             fornecedor = new FornecedorBuilder().setId(fornecedor.getId()).setEmail(jTEmail.getText())
@@ -171,21 +153,20 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
 
             dao.atualiza(fornecedor);
             JOptionPane.showMessageDialog(null, "Fornecedor alterado com Sucesso!");
-            limpar();
+            populateFields(fornecedor);
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios com informações inválidas!");
-            sublinha();
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou Informação inválida!");
+            marca();
         } catch (ConstraintViolationException e) {
             JOptionPane.showMessageDialog(null, "E-mail já cadastrado!");
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios nulos!");
-            sublinha();
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou informação inválida!");
+            marca();
         }
 
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar2;
-    private javax.swing.JButton jBLimpar;
     private javax.swing.JFormattedTextField jFTTelefone;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLEmail;
@@ -201,14 +182,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
         jFTTelefone.setText(fornecedor.getTelefone());
     }
 
-    private void limpar() {
-        jTEmail.setText("");
-        jTNome.setText("");
-        jFTTelefone.setText("");
-        fornecedor = null;
-    }
-
-    private void sublinha() {
+    private void marca() {
         jLNome.setText("Nome:*");
         jLTelefone.setText("Telefone:*");
         jLEmail.setText("Email:*");

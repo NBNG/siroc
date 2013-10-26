@@ -146,7 +146,6 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
          } catch (ParseException ex) {
          Logger.getLogger(Listagem_Fornecedores.class.getName()).log(Level.SEVERE, null, ex);
          }*/
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
@@ -206,5 +205,6 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
         while (tmFornecedor.getRowCount() > 0) {
             tmFornecedor.removeRow(0);
         }
+        dao = new DAO<Fornecedor>(Fornecedor.class);
     }
 }

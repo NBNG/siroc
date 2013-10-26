@@ -57,7 +57,6 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         jLNome = new javax.swing.JLabel();
         jLV_Venda = new javax.swing.JLabel();
         jLV_Compra = new javax.swing.JLabel();
-        jBLimpar = new javax.swing.JButton();
         jBCadastrar = new javax.swing.JButton();
         jTNome = new javax.swing.JTextField();
         jLFornecedor = new javax.swing.JLabel();
@@ -88,15 +87,6 @@ public class Atualiza_Produto extends javax.swing.JFrame {
 
         jLV_Compra.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLV_Compra.setText("Valor de Compra:");
-
-        jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
-        jBLimpar.setText("Limpar");
-        jBLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLimparActionPerformed(evt);
-            }
-        });
 
         jBCadastrar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/salvar.png"))); // NOI18N
@@ -138,10 +128,8 @@ public class Atualiza_Produto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(396, 396, 396)
-                        .addComponent(jBCadastrar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBLimpar))
+                        .addContainerGap()
+                        .addComponent(jLCabecalho))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,16 +154,10 @@ public class Atualiza_Produto extends javax.swing.JFrame {
                                     .addComponent(jLFornecedor)
                                     .addGap(18, 18, 18)
                                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLCabecalho)
-                        .addGap(188, 188, 188)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBCadastrar, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -204,18 +186,12 @@ public class Atualiza_Produto extends javax.swing.JFrame {
                     .addComponent(jLV_Venda)
                     .addComponent(jTV_Saida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBCadastrar)
-                    .addComponent(jBLimpar))
+                .addComponent(jBCadastrar)
                 .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        limpar();
-    }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
         if (tabela_fornecedor.getSelectedRowCount() < 1) {
@@ -228,10 +204,10 @@ public class Atualiza_Produto extends javax.swing.JFrame {
 
                 dao.atualiza(produto);
                 JOptionPane.showMessageDialog(null, "Produto atualizado com Sucesso!");
-                limpar();
+                populateFields(produto);
             } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
-                sublinha();
+                JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou informação inválida!");
+                marca();
             } catch (IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
             }
@@ -263,7 +239,6 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     }//GEN-LAST:event_tabela_fornecedorMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
-    private javax.swing.JButton jBLimpar;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLFornecedor;
     private javax.swing.JLabel jLNome;
@@ -304,21 +279,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         }
     }
 
-    private void limpar() {
-        jTNome_Produto.setText("");
-        jTPeso.setText("");
-        jTV_Compra.setText("");
-        jTV_Saida.setText("");
-        jTNome.setText("");
-        while (tmFornecedor.getRowCount() > 0) {
-            tmFornecedor.removeRow(0);
-        }
-        fornecedor = null;
-        fornecedores = null;
-        produto = null;
-    }
-
-    public void sublinha() {
+    public void marca() {
         jLNome.setText("Nome:*");
         jLFornecedor.setText("Fornecedor:*");
         jLPeso.setText("Peso:*");

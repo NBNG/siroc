@@ -242,7 +242,6 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
 
-
         jTNome.setText("");
 
         while (tmCliente.getRowCount() > 0) {
@@ -306,5 +305,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         while (tmCliente.getRowCount() > 0) {
             tmCliente.removeRow(0);
         }
+        dao = new DAO<Cliente>(Cliente.class);
+        cdao = new ClienteDAO();
     }
 }

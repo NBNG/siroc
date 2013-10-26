@@ -255,8 +255,8 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
                 limpar();
             } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(null, "Campos obrigatórios (sublinhados) vazios e/ou informação inválida!");
-                sublinha();
+                JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou Informação inválida!");
+                marca();
             } catch (IllegalStateException e) {
                 JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
             }
@@ -300,7 +300,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         produto = null;
     }
 
-    public void sublinha() {
+    public void marca() {
         jLNome.setText("Nome:*");
         jLFornecedor.setText("Fornecedor:*");
         jLPeso.setText("Peso:*");

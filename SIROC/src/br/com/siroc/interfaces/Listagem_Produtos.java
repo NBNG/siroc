@@ -206,7 +206,6 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             tmProduto.removeRow(0);
         }
 
-
         fornecedores = fdao.buscaPorNome(jTFornecedor.getText());
 
         produtos = new ArrayList<Produto>();
@@ -238,7 +237,6 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_entrada()), i, 3);
             tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_saida()), i, 4);
 
-
         }    }//GEN-LAST:event_jTFornecedorKeyTyped
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
@@ -260,6 +258,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
         while (tmProduto.getRowCount() > 0) {
             tmProduto.removeRow(0);
         }
-        tabela = null;
+        pdao = new DAO<Produto>(Produto.class);
+        fdao = new DAO<Fornecedor>(Fornecedor.class);
     }
 }

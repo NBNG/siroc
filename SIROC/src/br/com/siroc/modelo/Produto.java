@@ -33,7 +33,7 @@ public class Produto {
     private Double valor_entrada;
     private Fornecedor fornecedor;
     private List<Item> itens;
-    
+
     public Produto() {
     }
 
@@ -102,14 +102,13 @@ public class Produto {
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
-    
-    @OneToMany(mappedBy="produto",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Item> getItens(){
+
+    @OneToMany(mappedBy = "produto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Item> getItens() {
         return itens;
     }
-    
-    public void setItens(List<Item> itens){
+
+    public void setItens(List<Item> itens) {
         this.itens = itens;
     }
 }
-

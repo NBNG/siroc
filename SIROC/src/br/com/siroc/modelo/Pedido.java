@@ -24,7 +24,8 @@ import javax.persistence.Temporal;
  * @author matteus seu rabão
  */
 @Entity
-@Table(name = "PEDIDO")
+@Table(name = "PEDIDOS")
+@org.hibernate.annotations.Entity(dynamicInsert = true)
 public class Pedido {
 
     private Long id;

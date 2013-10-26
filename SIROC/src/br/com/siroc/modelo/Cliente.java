@@ -30,7 +30,7 @@ public class Cliente {
     private String cnpj_cpf;
     private Double frete;
     private List<Pedido> pedidos;
-    
+
     public Cliente() {
     }
 
@@ -197,13 +197,13 @@ public class Cliente {
     public void setFrete(Double frete) {
         this.frete = frete;
     }
-    
+
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    public List<Pedido> getPedidos(){
+    public List<Pedido> getPedidos() {
         return pedidos;
     }
-    
-    public void setPedidos(List<Pedido> pedidos){
-        this.pedidos = pedidos; 
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }
