@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
@@ -34,11 +35,14 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     Cliente cliente;
     MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
+    JDesktopPane painel;
 
-    public Listagem_Clientes() throws ParseException {
+    public Listagem_Clientes(JDesktopPane painel) throws ParseException {
+
         super("Cella - Listagem de Clientes");
         initComponents();
         tabela.setRowHeight(23);
+        this.painel = painel;
     }
 
     /**
@@ -236,8 +240,15 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         }    }//GEN-LAST:event_jTNomeKeyTyped
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        limpar();
-
+        try {
+            Listagem_Clientes lc = new Listagem_Clientes(painel);
+            //this = new Listagem_Clientes(painel);
+            painel.add(lc);
+            lc.setVisible(true);
+            this.dispose();
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
@@ -304,8 +315,10 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
         while (tmCliente.getRowCount() > 0) {
             tmCliente.removeRow(0);
+
         }
-        dao = new DAO<Cliente>(Cliente.class);
+        dao = new DAO<Cliente>(Cliente.class
+        );
         cdao = new ClienteDAO();
     }
 }

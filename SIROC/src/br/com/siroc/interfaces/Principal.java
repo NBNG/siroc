@@ -183,9 +183,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMICadastro_ClientesActionPerformed
 
     private void jMIListagem_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_ClientesActionPerformed
-        Listagem_Clientes lc;
         try {
-            lc = new Listagem_Clientes();
+            Listagem_Clientes lc = new Listagem_Clientes(jPanel);
             jPanel.add(lc);
             lc.setVisible(true);
         } catch (ParseException ex) {
@@ -194,7 +193,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIListagem_ClientesActionPerformed
 
     private void jMICadastro_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_FornecedorActionPerformed
-        
         try {
             Cadastro_Fornecedor cf = new Cadastro_Fornecedor();
             jPanel.add(cf);
