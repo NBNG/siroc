@@ -28,7 +28,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
 
     public Cadastro_Clientes() throws ParseException {
-        super("SIROC - Cadastro de Clientes");
+        super("Cella - Cadastro de Clientes");
         initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
         MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");

@@ -30,7 +30,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
 
     public Listagem_Produtos() {
-        super("SIROC - Listagem de Produtos");
+        super("Cella - Listagem de Produtos");
         initComponents();
         tabela.setRowHeight(23);
     }
@@ -181,7 +181,6 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
-
         jTFornecedor.setText("");
 
         while (tmProduto.getRowCount() > 0) {
@@ -197,7 +196,6 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_entrada()), i, 3);
             tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_saida()), i, 4);
         }
-
     }//GEN-LAST:event_jTNomeKeyTyped
 
     private void jTFornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFornecedorKeyTyped

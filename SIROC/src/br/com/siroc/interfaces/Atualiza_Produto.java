@@ -31,7 +31,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     FornecedorDAO fdao = new FornecedorDAO();
 
     public Atualiza_Produto(Produto produto) {
-        super("SIROC - Atualização de Produtos");
+        super("Cella - Atualização de Produtos");
         initComponents();
         tabela_fornecedor.setRowHeight(23);
         setLocationRelativeTo(null);

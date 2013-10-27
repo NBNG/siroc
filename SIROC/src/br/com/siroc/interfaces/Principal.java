@@ -7,6 +7,7 @@ package br.com.siroc.interfaces;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Toolkit;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +21,7 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     public Principal() {
-        super("SIROC - Sistema de Pedidos e Romaneios");
+        super("Cella - Sistema de Pedidos e Romaneios");
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
         setLocationRelativeTo(null);
@@ -50,6 +51,7 @@ public class Principal extends javax.swing.JFrame {
         jMIListagem_Produtos = new javax.swing.JMenuItem();
         jMPedido = new javax.swing.JMenu();
         jMICadastro_Pedidos = new javax.swing.JMenuItem();
+        jMIListagem_Pedidos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,6 +145,15 @@ public class Principal extends javax.swing.JFrame {
         });
         jMPedido.add(jMICadastro_Pedidos);
 
+        jMIListagem_Pedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIListagem_Pedidos.setText("Listagem de Pedidos");
+        jMIListagem_Pedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIListagem_PedidosActionPerformed(evt);
+            }
+        });
+        jMPedido.add(jMIListagem_Pedidos);
+
         jMenu.add(jMPedido);
 
         setJMenuBar(jMenu);
@@ -183,7 +194,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIListagem_ClientesActionPerformed
 
     private void jMICadastro_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_FornecedorActionPerformed
-
+        
         try {
             Cadastro_Fornecedor cf = new Cadastro_Fornecedor();
             jPanel.add(cf);
@@ -218,6 +229,12 @@ public class Principal extends javax.swing.JFrame {
         jPanel.add(cp);
         cp.setVisible(true);
     }//GEN-LAST:event_jMICadastro_PedidosActionPerformed
+
+    private void jMIListagem_PedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_PedidosActionPerformed
+        Listagem_Pedidos lp = new Listagem_Pedidos();
+        jPanel.add(lp);
+        lp.setVisible(true);
+    }//GEN-LAST:event_jMIListagem_PedidosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,6 +280,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMICadastro_Produtos;
     private javax.swing.JMenuItem jMIListagem_Clientes;
     private javax.swing.JMenuItem jMIListagem_Fornecedor;
+    private javax.swing.JMenuItem jMIListagem_Pedidos;
     private javax.swing.JMenuItem jMIListagem_Produtos;
     private javax.swing.JMenu jMPedido;
     private javax.swing.JMenu jMProdutos;

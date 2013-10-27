@@ -25,7 +25,7 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
     Fornecedor fornecedor;
 
     public Cadastro_Fornecedor() throws ParseException {
-        super("SIROC - Cadastro de Fornecedores");
+        super("Cella - Cadastro de Fornecedores");
 
         initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");

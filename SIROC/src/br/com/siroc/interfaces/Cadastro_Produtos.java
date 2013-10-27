@@ -31,6 +31,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     FornecedorDAO fdao = new FornecedorDAO();
 
     public Cadastro_Produtos() {
+        super("Cella - Cadastro de Produtos");
         initComponents();
     }
 

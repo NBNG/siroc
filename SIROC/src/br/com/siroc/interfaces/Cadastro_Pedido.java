@@ -32,6 +32,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Código", "Nome", "Quantidade", "Valor Alterado"});
     //List de uma classe do modelo para utilização na tabela;
     List<Fornecedor> fornecedores;
+    List<Fornecedor> fornecedores_produto;
     List<Produto> produtos;
     List<Cliente> clientes;
     List<Item> Itens = new ArrayList<>();
@@ -42,6 +43,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     //definição das colunas da tabela
 
     public Cadastro_Pedido() {
+        super("Cella - Cadastro de Pedidos");
         initComponents();
         TabelaFornecedor.setRowHeight(23);
         TabelaProduto_Fornecedor.setRowHeight(23);
@@ -321,12 +323,12 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
             tmProduto_Fornecedor.removeRow(0);
         }
 
-        fornecedores = fdao.buscaPorNome(jTNome_Fornecedor.getText());
+        fornecedores_produto = fdao.buscaPorNome(jTNome_Fornecedor.getText());
         produtos = new ArrayList<Produto>();
 
-        for (int i = 0; i < fornecedores.size(); i++) {
-            for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
-                produtos.add(fornecedores.get(i).getProdutos().get(j));
+        for (int i = 0; i < fornecedores_produto.size(); i++) {
+            for (int j = 0; j < fornecedores_produto.get(i).getProdutos().size(); j++) {
+                produtos.add(fornecedores_produto.get(i).getProdutos().get(j));
             }
         }
 

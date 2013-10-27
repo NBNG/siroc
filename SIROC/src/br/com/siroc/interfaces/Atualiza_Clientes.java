@@ -30,7 +30,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
 
     public Atualiza_Clientes(Cliente cliente) throws ParseException {
-        super("SIROC - Atualização de Clientes");
+        super("Cella - Atualização de Clientes");
         this.cliente = cliente;
         initComponents();
 

@@ -23,7 +23,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
     Fornecedor fornecedor;
 
     public Atualiza_Fornecedor(Fornecedor fornecedor) {
-        super("SIROC - Atualização de Fornecedores");
+        super("Cella - Atualização de Fornecedores");
         this.fornecedor = fornecedor;
 
         initComponents();

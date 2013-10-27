@@ -2,8 +2,10 @@ package br.com.siroc.dao;
 
 import br.com.siroc.fabrica.ConnectionFactory;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 @SuppressWarnings("uncheked")

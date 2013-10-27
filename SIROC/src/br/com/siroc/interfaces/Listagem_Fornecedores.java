@@ -22,7 +22,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
 
     public Listagem_Fornecedores() {
-        super("SIROC - Listagem de Fornecedores");
+        super("Cella - Listagem de Fornecedores");
         initComponents();
         tabela.setRowHeight(23);
     }

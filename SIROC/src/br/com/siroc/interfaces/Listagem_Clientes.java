@@ -36,7 +36,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
 
     public Listagem_Clientes() throws ParseException {
-        super("SIROC - Listagem de Clientes");
+        super("Cella - Listagem de Clientes");
         initComponents();
         tabela.setRowHeight(23);
     }
