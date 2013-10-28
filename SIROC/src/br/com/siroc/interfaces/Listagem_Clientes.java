@@ -317,8 +317,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             tmCliente.removeRow(0);
 
         }
-        dao = new DAO<Cliente>(Cliente.class
-        );
+        dao = new DAO<Cliente>(Cliente.class);
         cdao = new ClienteDAO();
     }
 }

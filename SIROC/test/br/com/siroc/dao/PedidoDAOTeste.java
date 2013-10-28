@@ -10,5 +10,4 @@ package br.com.siroc.dao;
  * @author matteus
  */
 public class PedidoDAOTeste {
-
 }

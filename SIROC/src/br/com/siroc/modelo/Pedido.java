@@ -19,7 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
-
 /**
  *
  * @author matteus seu rabão
@@ -49,7 +48,7 @@ public class Pedido {
     }
 
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(name = "ped_data", columnDefinition = "date default current_date", nullable = false, insertable=true)
+    @Column(name = "ped_data", columnDefinition = "date default current_date", nullable = false, insertable = true)
     public Date getData() {
         return data;
     }

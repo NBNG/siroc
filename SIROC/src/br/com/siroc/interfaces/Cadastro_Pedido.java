@@ -26,23 +26,22 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     /**
      * Creates new form Cadastro_Pedido
      */
+    //modelos para tabelas
     DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Email"});
     DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "CNPJ/CPF", "Contato"});
     DefaultTableModel tmProduto_Fornecedor = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
     DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Código", "Nome", "Quantidade", "Valor Alterado"});
-    //List de uma classe do modelo para utilização na tabela;
+    //listas para serem utilizadas nas tabelas
     List<Fornecedor> fornecedores;
-    List<Fornecedor> fornecedores_produto;
     List<Produto> produtos;
     List<Cliente> clientes;
+    List<Item> Itens;
     Cliente cliente;
-    List<Item> Itens = new ArrayList<>();
+    Pedido pedido;
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     DAO<Cliente> cdao = new DAO<Cliente>(Cliente.class);
-    Pedido pedido;
     Double valor;
     Integer quantidade;
-    //definição das colunas da tabela
 
     public Cadastro_Pedido() {
         super("Cella - Cadastro de Pedidos");
@@ -322,32 +321,19 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTNome_FornecedorKeyTyped
 
     private void TabelaFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaFornecedorMouseClicked
-        //jTNome_Fornecedor.setText(fornecedores.get(TabelaFornecedor.getSelectedRow()).getNome()); // comentado por lucas
+        //coloca o nome inteiro do fornecedor no campo, com isso o usuario confirma a "clicada" na escolha
+        jTNome_Fornecedor.setText(fornecedores.get(TabelaFornecedor.getSelectedRow()).getNome());
 
         while (tmProduto_Fornecedor.getRowCount() > 0) {
             tmProduto_Fornecedor.removeRow(0);
         }
 
-        //fornecedores_produto = fdao.buscaPorNome(jTNome_Fornecedor.getText()); //comentado por lucas
 
         //inicializa array produtos
         produtos = new ArrayList<>();
-        
-        /*
-         * ao invés de uma nova busca no banco, 
-         * usa-se a list fornecedores preenchida no método jTNome_FornecedorKeyTyped 
-         * utilizando a linha selecionada para pegar os produtos referentes aquele fornecedor 
-         */
+        //popula a list de produtos com os produtos presentes na lista de fornecedores pesquisada pelo FornecedorKeyTyped
         produtos = fornecedores.get(TabelaFornecedor.getSelectedRow()).getProdutos();
 
-        //comentado por lucas
-        //for (int i = 0; i < fornecedores_produto.size(); i++) { 
-        //  for (int j = 0; j < fornecedores_produto.get(i).getProdutos().size(); j++) {
-        //    produtos.add(fornecedores_produto.get(i).getProdutos().get(j));
-        // }
-        //}
-
-        Integer linha = 0;
         for (int i = 0; i < produtos.size(); i++) {
             tmProduto_Fornecedor.addRow(new String[]{null, null, null, null});
             tmProduto_Fornecedor.setValueAt(produtos.get(i).getNome(), i, 0);
@@ -360,10 +346,8 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
         DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
-       
-        if (jDCData.getDate() != null) {
-            pedido.setData(jDCData.getDate());
-        }
+
+        pedido.setData(jDCData.getDate());
         if (jCBPago.isSelected()) {
             pedido.setStatus("Pago");
         }
@@ -372,44 +356,43 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
         pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
         pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
         pdao.adicionar(pedido);
-//        sublinha();
+//        marca();
         pedido = new Pedido();
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     private void TabelaProduto_FornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaProduto_FornecedorMouseClicked
         JTextField campo_quantidade = new JTextField();
         JTextField campo_valor = new JTextField();
+        Item item = new Item();
+        Itens = new ArrayList<>();
 
         Object[] message = {
-            "Quantidade:", campo_quantidade,
-            "Valor Alterado:", campo_valor};
+            "Quantidade: ", campo_quantidade,
+            "Valor Alterado: ", campo_valor};
 
         int option = JOptionPane.showConfirmDialog(null, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION);
-
         if (option == JOptionPane.OK_OPTION) {
             if (valor == null) {
                 valor = produtos.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida();
             } else {
                 valor = Double.parseDouble(campo_valor.getText());
             }
-            
+
             quantidade = Integer.parseInt(campo_quantidade.getText());
-            
-            Item item = new Item();
-            
+
             Produto produto = new Produto();
             produto = produtos.get(TabelaProduto_Fornecedor.getSelectedRow());
-            
+
             item.setProduto(produto);
             item.setQuantidade(quantidade);
             item.setValor_alterado(valor);
             Itens.add(item);
             preencheTabela(Itens);
         }
-
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
 
     private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
+        jTCliente.setText(clientes.get(TabelaCliente.getSelectedRow()).getNome());
         cliente = clientes.get(TabelaCliente.getSelectedRow());
     }//GEN-LAST:event_TabelaClienteMouseClicked
 
@@ -455,7 +438,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTNome_Fornecedor;
     // End of variables declaration//GEN-END:variables
 
-    public void sublinha() {
+    public void marca() {
         jLFornecedor.setText("Fornecedor:*");
         jLCliente.setText("Cliente:*");
         jLData.setText("Data:*");

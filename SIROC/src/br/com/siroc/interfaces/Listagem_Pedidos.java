@@ -24,6 +24,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     List<Pedido> pedidos;
 
     public Listagem_Pedidos() {
+        super("Cella - Listagem de Produtos");
         initComponents();
         populateFields();
     }
@@ -377,8 +378,6 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
             jRBValor.setSelected(false);
         }
     }//GEN-LAST:event_jTBSelecionaActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBLimpar;
@@ -422,7 +421,6 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     private void populateFields() {
         pedidos = peddao.listaTodos();
-        System.out.println(pedidos.size());
         int i = 0;
         while (i < pedidos.size()) {
             jCBCliente.addItem(pedidos.get(i).getCliente().getNome());
