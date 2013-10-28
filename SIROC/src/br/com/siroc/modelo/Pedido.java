@@ -19,13 +19,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
+
 /**
  *
  * @author matteus seu rabão
  */
 @Entity
 @Table(name = "PEDIDOS")
-@org.hibernate.annotations.Entity(dynamicInsert = true)
+//@org.hibernate.annotations.Entity(dynamicInsert = true)
 public class Pedido {
 
     private Long id;
@@ -48,7 +49,7 @@ public class Pedido {
     }
 
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(name = "ped_data", columnDefinition = "date default current_date", nullable = true)
+    @Column(name = "ped_data", columnDefinition = "date default current_date", nullable = false, insertable=true)
     public Date getData() {
         return data;
     }

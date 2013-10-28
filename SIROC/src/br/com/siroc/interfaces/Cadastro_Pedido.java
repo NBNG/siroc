@@ -35,9 +35,11 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     List<Fornecedor> fornecedores_produto;
     List<Produto> produtos;
     List<Cliente> clientes;
+    Cliente cliente;
     List<Item> Itens = new ArrayList<>();
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     DAO<Cliente> cdao = new DAO<Cliente>(Cliente.class);
+    Pedido pedido;
     Double valor;
     Integer quantidade;
     //definição das colunas da tabela
@@ -307,8 +309,10 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
             tmFornecedor.removeRow(0);
         }
 
+        //pesquisa fornecedor por nome e preenche a ListFornecedores
         fornecedores = fdao.buscaPorNome(jTNome_Fornecedor.getText());
 
+        //preenche tabela de fornecedores
         for (int i = 0; i < fornecedores.size(); i++) {
 
             tmFornecedor.addRow(new String[]{null, null, null, null});
@@ -318,19 +322,30 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTNome_FornecedorKeyTyped
 
     private void TabelaFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaFornecedorMouseClicked
-        jTNome_Fornecedor.setText(fornecedores.get(TabelaFornecedor.getSelectedRow()).getNome());
+        //jTNome_Fornecedor.setText(fornecedores.get(TabelaFornecedor.getSelectedRow()).getNome()); // comentado por lucas
+
         while (tmProduto_Fornecedor.getRowCount() > 0) {
             tmProduto_Fornecedor.removeRow(0);
         }
 
-        fornecedores_produto = fdao.buscaPorNome(jTNome_Fornecedor.getText());
-        produtos = new ArrayList<Produto>();
+        //fornecedores_produto = fdao.buscaPorNome(jTNome_Fornecedor.getText()); //comentado por lucas
 
-        for (int i = 0; i < fornecedores_produto.size(); i++) {
-            for (int j = 0; j < fornecedores_produto.get(i).getProdutos().size(); j++) {
-                produtos.add(fornecedores_produto.get(i).getProdutos().get(j));
-            }
-        }
+        //inicializa array produtos
+        produtos = new ArrayList<>();
+        
+        /*
+         * ao invés de uma nova busca no banco, 
+         * usa-se a list fornecedores preenchida no método jTNome_FornecedorKeyTyped 
+         * utilizando a linha selecionada para pegar os produtos referentes aquele fornecedor 
+         */
+        produtos = fornecedores.get(TabelaFornecedor.getSelectedRow()).getProdutos();
+
+        //comentado por lucas
+        //for (int i = 0; i < fornecedores_produto.size(); i++) { 
+        //  for (int j = 0; j < fornecedores_produto.get(i).getProdutos().size(); j++) {
+        //    produtos.add(fornecedores_produto.get(i).getProdutos().get(j));
+        // }
+        //}
 
         Integer linha = 0;
         for (int i = 0; i < produtos.size(); i++) {
@@ -344,48 +359,47 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TabelaFornecedorMouseClicked
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
-        DAO<Pedido> peddao = new DAO<Pedido>(Pedido.class);
-        Pedido pedido = new Pedido();
-        Produto produto = new Produto();
-        Cliente cliente = new Cliente();
-        Item itens = new Item();
-
-        cliente.setId(clientes.get(TabelaCliente.getSelectedRow()).getId());
-        pedido.setCliente(cliente);
+        DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
+       
         if (jDCData.getDate() != null) {
             pedido.setData(jDCData.getDate());
         }
         if (jCBPago.isSelected()) {
             pedido.setStatus("Pago");
         }
+        pedido.setCliente(cliente);
+        pedido.setItens(Itens);
         pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
         pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
-        peddao.adicionar(pedido);
+        pdao.adicionar(pedido);
 //        sublinha();
+        pedido = new Pedido();
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     private void TabelaProduto_FornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaProduto_FornecedorMouseClicked
         JTextField campo_quantidade = new JTextField();
         JTextField campo_valor = new JTextField();
+
         Object[] message = {
             "Quantidade:", campo_quantidade,
             "Valor Alterado:", campo_valor};
+
         int option = JOptionPane.showConfirmDialog(null, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION);
+
         if (option == JOptionPane.OK_OPTION) {
             if (valor == null) {
                 valor = produtos.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida();
             } else {
                 valor = Double.parseDouble(campo_valor.getText());
             }
+            
             quantidade = Integer.parseInt(campo_quantidade.getText());
+            
             Item item = new Item();
-            Pedido pedido = new Pedido();
+            
             Produto produto = new Produto();
-
-            //pedido.setId(clientes.get(TabelaCliente.getSelectedRow()).getId());
-            produto.setId(produtos.get(TabelaProduto_Fornecedor.getSelectedRow()).getId());
-            produto.setNome(produtos.get(TabelaProduto_Fornecedor.getSelectedRow()).getNome());
-            item.setPedido(pedido);
+            produto = produtos.get(TabelaProduto_Fornecedor.getSelectedRow());
+            
             item.setProduto(produto);
             item.setQuantidade(quantidade);
             item.setValor_alterado(valor);
@@ -396,7 +410,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
 
     private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
-        jTCliente.setText(clientes.get(TabelaCliente.getSelectedRow()).getNome());
+        cliente = clientes.get(TabelaCliente.getSelectedRow());
     }//GEN-LAST:event_TabelaClienteMouseClicked
 
     private void jTClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyTyped
