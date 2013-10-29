@@ -51,7 +51,6 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
         TabelaProduto_Fornecedor.setRowHeight(23);
         TabelaProduto_Pedido.setRowHeight(23);
 
-
     }
 
     /**
@@ -349,15 +348,14 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
         DAO<Pedido> pdao = new DAO<>(Pedido.class);
 
-
-
-        if (jCBPago.isSelected())
+        if (jCBPago.isSelected()) {
             pedido.setStatus("Pago");
-        
-        if (jDCData.getDate() != null)
-            pedido.setData(jDCData.getDate());
+        }
 
-        pedido.setData(jDCData.getDate());
+        if (jDCData.getDate() != null) {
+            pedido.setData(jDCData.getDate());
+        }
+
         pedido.setCliente(cliente);
         pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
         pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
