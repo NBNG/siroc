@@ -5,6 +5,8 @@
 package br.com.siroc.builder;
 
 import br.com.siroc.modelo.Cliente;
+import br.com.siroc.modelo.Pedido;
+import java.util.List;
 
 /**
  *
@@ -26,6 +28,8 @@ public class ClienteBuilder {
     private String email;
     private String cnpj_cpf;
     private Double frete;
+    private List<Pedido> pedidos;
+            
     private int count;
 
     public ClienteBuilder() {
@@ -37,7 +41,7 @@ public class ClienteBuilder {
             throw new IllegalArgumentException();
         }
         return new Cliente(id, nome, inscricao_est, celular, telefone,
-                endereco, bairro, cidade, estado, cep, contato, email, cnpj_cpf, frete);
+                endereco, bairro, cidade, estado, cep, contato, email, cnpj_cpf, frete,pedidos);
     }
 
     public ClienteBuilder setId(Long id) {
@@ -140,6 +144,11 @@ public class ClienteBuilder {
 
     public ClienteBuilder setTelefone(String telefone) {
         this.telefone = telefone;
+        return this;
+    }
+    
+     public ClienteBuilder setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
         return this;
     }
 

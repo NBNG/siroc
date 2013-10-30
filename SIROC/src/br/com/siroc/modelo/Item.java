@@ -27,6 +27,18 @@ public class Item {
     private Integer quantidade;
     private Double valor_alterado;
 
+    public Item(Long id, Produto produto, Pedido pedido, Integer quantidade, Double valor_alterado) {
+        this.id = id;
+        this.produto = produto;
+        this.pedido = pedido;
+        this.quantidade = quantidade;
+        this.valor_alterado = valor_alterado;
+    }
+    
+    public Item(){
+        
+    }
+    
     @Id
     @GeneratedValue
     @Column(name = "item_id")

@@ -5,7 +5,9 @@
 package br.com.siroc.builder;
 
 import br.com.siroc.modelo.Fornecedor;
+import br.com.siroc.modelo.Item;
 import br.com.siroc.modelo.Produto;
+import java.util.List;
 
 /**
  *
@@ -19,6 +21,7 @@ public class ProdutoBuilder {
     private Double valor_saida;
     private Double valor_entrada;
     private Fornecedor fornecedor;
+    private List<Item> itens;
     private int count;
 
     public ProdutoBuilder() {
@@ -30,7 +33,7 @@ public class ProdutoBuilder {
             throw new IllegalArgumentException();
         }
 
-        return new Produto(id, nome, peso, valor_saida, valor_entrada, fornecedor);
+        return new Produto(id, nome, peso, valor_saida, valor_entrada, fornecedor,itens);
     }
 
     public ProdutoBuilder setFornecedor(Fornecedor fornecedor) {
@@ -93,6 +96,11 @@ public class ProdutoBuilder {
         return this;
     }
 
+    public ProdutoBuilder setItens(List<Item> itens) {
+        this.itens = itens;
+        return this;
+    }
+    
     private boolean temNumeros(String texto) {
         for (int i = 0; i < texto.length(); i++) {
             if (Character.isDigit(texto.charAt(i))) {
