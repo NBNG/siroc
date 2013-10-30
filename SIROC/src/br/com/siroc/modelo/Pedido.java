@@ -94,7 +94,7 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Item> getItens() {
         return itens;
     }

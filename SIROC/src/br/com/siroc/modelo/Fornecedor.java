@@ -69,7 +69,7 @@ public class Fornecedor {
         this.email = email;
     }
 
-    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Produto> getProdutos() {
         return produtos;
     }

@@ -347,7 +347,8 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
         DAO<Pedido> pdao = new DAO<>(Pedido.class);
-
+        pedido = new Pedido();
+        
         if (jCBPago.isSelected()) {
             pedido.setStatus("Pago");
         }
@@ -356,17 +357,19 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
             pedido.setData(jDCData.getDate());
         }
 
-        pedido.setCliente(cliente);
+        pedido.setCliente(listCliente.get(TabelaCliente.getSelectedRow()));
         pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
         pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
 
         for (int i = 0; i < listItem.size(); i++) {
             listItem.get(i).setPedido(pedido);
+            System.out.println(listItem.get(i).getPedido().getCliente().getNome());
+            System.out.println(listItem.get(i).getProduto().getNome());
         }
         pedido.setItens(listItem);
 
         pdao.adicionar(pedido);
-//        marca();
+        //marca();
         pedido = new Pedido();
     }//GEN-LAST:event_jBSalvarActionPerformed
 
@@ -397,7 +400,8 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
 
     private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
         jTCliente.setText(listCliente.get(TabelaCliente.getSelectedRow()).getNome());
-        cliente = listCliente.get(TabelaCliente.getSelectedRow());
+        cliente = new Cliente();
+        //cliente = listCliente.get(TabelaCliente.getSelectedRow());
     }//GEN-LAST:event_TabelaClienteMouseClicked
 
     private void jTClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyTyped
