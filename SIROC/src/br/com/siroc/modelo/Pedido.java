@@ -35,7 +35,21 @@ public class Pedido {
     private String status;
     private Cliente cliente;
     private List<Item> itens;
-
+    
+    public Pedido(Long id, Date data, String tipo_pagamento, String tipo_pedido, String status, Cliente cliente, List<Item> itens){
+        this.id = id;
+        this.data = data;
+        this.tipo_pagamento = tipo_pagamento;
+        this.tipo_pedido = tipo_pedido;
+        this.status = status;
+        this.cliente = cliente;
+        this.itens = itens;
+    }
+    
+    public Pedido(){
+        
+    }
+    
     @Id
     @GeneratedValue
     @Column(name = "ped_id")

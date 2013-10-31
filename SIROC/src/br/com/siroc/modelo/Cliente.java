@@ -35,7 +35,7 @@ public class Cliente {
     }
 
     public Cliente(Long id, String nome, String inscricao_est, String celular, String telefone,
-            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj_cpf, Double frete) {
+            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj_cpf, Double frete, List<Pedido> pedidos) {
         this.id = id;
         this.nome = nome;
         this.inscricao_est = inscricao_est;
@@ -50,23 +50,7 @@ public class Cliente {
         this.email = email;
         this.cnpj_cpf = cnpj_cpf;
         this.frete = frete;
-    }
-
-    public Cliente(String nome, String inscricao_est, String celular, String telefone,
-            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj_cpf, Double frete) {
-        this.nome = nome;
-        this.inscricao_est = inscricao_est;
-        this.celular = celular;
-        this.telefone = telefone;
-        this.endereco = endereco;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.cep = cep;
-        this.contato = contato;
-        this.email = email;
-        this.cnpj_cpf = cnpj_cpf;
-        this.frete = frete;
+        this.pedidos = pedidos;
     }
 
     @Id

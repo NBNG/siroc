@@ -367,7 +367,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
             System.out.println(listItem.get(i).getProduto().getNome());
         }
         pedido.setItens(listItem);
-
+        
         pdao.adicionar(pedido);
         //marca();
         pedido = new Pedido();
