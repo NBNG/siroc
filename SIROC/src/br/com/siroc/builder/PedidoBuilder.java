@@ -15,7 +15,7 @@ import java.util.List;
  * @author Administrador
  */
 public class PedidoBuilder {
-    
+
     private Long id;
     private Date data;
     private String tipo_pagamento;
@@ -24,25 +24,27 @@ public class PedidoBuilder {
     private Cliente cliente;
     private List<Item> itens;
     private int count;
-    
-    public PedidoBuilder(){
+
+    public PedidoBuilder() {
         count = 0;
     }
 
-    public Pedido getPedido(){
-        if(count < 2)
+    public Pedido getPedido() {
+        if (count < 2) {
             throw new IllegalStateException();
-        
-        return new Pedido(id,data,tipo_pagamento,tipo_pedido,status,cliente,itens);
+        }
+
+        return new Pedido(id, data, tipo_pagamento, tipo_pedido, status, cliente, itens);
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public PedidoBuilder setCliente(Cliente cliente) {
-        if(cliente.getId() == null)
+        if (cliente.getId() == null) {
             throw new NullPointerException();
+        }
         this.cliente = cliente;
         count++;
         return this;
@@ -54,8 +56,9 @@ public class PedidoBuilder {
     }
 
     public PedidoBuilder setItens(List<Item> itens) {
-        if(itens.size() == 0)
+        if (itens.size() == 0) {
             throw new NullPointerException();
+        }
         this.itens = itens;
         count++;
         return this;
@@ -75,6 +78,5 @@ public class PedidoBuilder {
         this.tipo_pedido = tipo_pedido;
         return this;
     }
-    
-    
+
 }

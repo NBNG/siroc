@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author matteus
  */
-public class Cadastro_Pedido extends javax.swing.JInternalFrame {
+public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Cadastro_Pedido
@@ -44,7 +44,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     Double valor;
     Integer quantidade;
 
-    public Cadastro_Pedido() {
+    public Cadastro_Pedidos() {
         super("Cella - Cadastro de Pedidos");
         initComponents();
         TabelaFornecedor.setRowHeight(23);
@@ -267,7 +267,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jCBPago)
@@ -348,7 +348,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
         DAO<Pedido> pdao = new DAO<>(Pedido.class);
         pedido = new Pedido();
-        
+
         if (jCBPago.isSelected()) {
             pedido.setStatus("Pago");
         }
@@ -367,8 +367,9 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
             System.out.println(listItem.get(i).getProduto().getNome());
         }
         pedido.setItens(listItem);
-        
+
         pdao.adicionar(pedido);
+        JOptionPane.showMessageDialog(null, "Pedido cadastrado com Sucesso.");
         //marca();
         pedido = new Pedido();
     }//GEN-LAST:event_jBSalvarActionPerformed
@@ -384,7 +385,7 @@ public class Cadastro_Pedido extends javax.swing.JInternalFrame {
 
         if (JOptionPane.showConfirmDialog(null, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
-            if (campo_valor == null) {
+            if (campo_valor.getText().equals("")) {
                 item.setValor_alterado(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida());
             } else {
                 item.setValor_alterado(Double.parseDouble(campo_valor.getText()));

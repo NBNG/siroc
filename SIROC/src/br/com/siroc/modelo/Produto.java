@@ -37,7 +37,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Long id, String nome, Double peso, Double valor_saida, Double valor_entrada, Fornecedor fornecedor,List<Item> itens) {
+    public Produto(Long id, String nome, Double peso, Double valor_saida, Double valor_entrada, Fornecedor fornecedor, List<Item> itens) {
         this.id = id;
         this.nome = nome;
         this.peso = peso;

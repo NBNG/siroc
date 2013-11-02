@@ -33,7 +33,7 @@ public class ProdutoBuilder {
             throw new IllegalArgumentException();
         }
 
-        return new Produto(id, nome, peso, valor_saida, valor_entrada, fornecedor,itens);
+        return new Produto(id, nome, peso, valor_saida, valor_entrada, fornecedor, itens);
     }
 
     public ProdutoBuilder setFornecedor(Fornecedor fornecedor) {
@@ -100,7 +100,7 @@ public class ProdutoBuilder {
         this.itens = itens;
         return this;
     }
-    
+
     private boolean temNumeros(String texto) {
         for (int i = 0; i < texto.length(); i++) {
             if (Character.isDigit(texto.charAt(i))) {
