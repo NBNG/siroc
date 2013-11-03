@@ -76,6 +76,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
         jBCancelar = new javax.swing.JButton();
         jBPesquisar = new javax.swing.JButton();
         jBLimpar = new javax.swing.JButton();
+        jBImprimir = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -173,6 +174,11 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
         jBCancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/excluir.gif"))); // NOI18N
         jBCancelar.setText("Cancelar Pedido");
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarActionPerformed(evt);
+            }
+        });
 
         jBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pesquisar.png"))); // NOI18N
@@ -181,6 +187,20 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
         jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
         jBLimpar.setText("Limpar");
+        jBLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimparActionPerformed(evt);
+            }
+        });
+
+        jBImprimir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/imprimir.png"))); // NOI18N
+        jBImprimir.setText("Imprimir");
+        jBImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -253,6 +273,8 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBImprimir)
+                        .addGap(36, 36, 36)
                         .addComponent(jBLimpar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jRBData)
@@ -297,7 +319,6 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                                 .addComponent(jLInicio))
                             .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLFim))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
@@ -347,9 +368,10 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBCancelar)
-                            .addComponent(jBLimpar)))
+                            .addComponent(jBLimpar)
+                            .addComponent(jBImprimir)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -378,8 +400,22 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
             jRBValor.setSelected(false);
         }
     }//GEN-LAST:event_jTBSelecionaActionPerformed
+
+    private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBLimparActionPerformed
+
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBImprimirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCancelar;
+    private javax.swing.JButton jBImprimir;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JComboBox jCBCidade;
