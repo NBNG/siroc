@@ -49,6 +49,7 @@ public class Principal extends javax.swing.JFrame {
         jMProdutos = new javax.swing.JMenu();
         jMICadastro_Produtos = new javax.swing.JMenuItem();
         jMIListagem_Produtos = new javax.swing.JMenuItem();
+        jMI_Historico = new javax.swing.JMenuItem();
         jMPedido = new javax.swing.JMenu();
         jMICadastro_Pedidos = new javax.swing.JMenuItem();
         jMIListagem_Pedidos = new javax.swing.JMenuItem();
@@ -129,6 +130,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMProdutos.add(jMIListagem_Produtos);
+
+        jMI_Historico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMI_Historico.setText("Histórico de Valores");
+        jMI_Historico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMI_HistoricoActionPerformed(evt);
+            }
+        });
+        jMProdutos.add(jMI_Historico);
 
         jMenu.add(jMProdutos);
 
@@ -234,6 +244,12 @@ public class Principal extends javax.swing.JFrame {
         lp.setVisible(true);
     }//GEN-LAST:event_jMIListagem_PedidosActionPerformed
 
+    private void jMI_HistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMI_HistoricoActionPerformed
+        Historico_Preco hp = new Historico_Preco();
+        jPanel.add(hp);
+        hp.setVisible(true);
+    }//GEN-LAST:event_jMI_HistoricoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -280,6 +296,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMIListagem_Fornecedor;
     private javax.swing.JMenuItem jMIListagem_Pedidos;
     private javax.swing.JMenuItem jMIListagem_Produtos;
+    private javax.swing.JMenuItem jMI_Historico;
     private javax.swing.JMenu jMPedido;
     private javax.swing.JMenu jMProdutos;
     private javax.swing.JMenuBar jMenu;
