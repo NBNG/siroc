@@ -7,7 +7,12 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Pedido;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -458,12 +463,20 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     private void populateFields() {
         pedidos = peddao.listaTodos();
         int i = 0;
-        while (i < pedidos.size()) {
-            jCBCliente.addItem(pedidos.get(i).getCliente().getNome());
+        Collection clientes = new ArrayList();
+        for (int k = 0;k<pedidos.size();k++) {
+            clientes.add(pedidos.get(k).getCliente().getNome());
+        }
+        clientes = Collections.singleton(new HashSet(clientes));
+        for (Object obj : clientes) {
+            jCBCliente.addItem(clientes.toString());
+        }
+        /*while (i < pedidos.size()) {
+            
             //jCBFornecedor.addItem(pedidos.get(i).getItens().get(i).getProduto().getFornecedor().getNome());
             jCBEstado.addItem(pedidos.get(i).getCliente().getEstado());
             jCBCidade.addItem(pedidos.get(i).getCliente().getCidade());
             i++;
-        }
+        }*/
     }
 }
