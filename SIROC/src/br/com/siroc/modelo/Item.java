@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * @author matteus bibola
  */
 @Entity
-@Table(name = "ITEMS")
+@Table(name = "ITENS")
 public class Item {
 
     private Long id;
@@ -34,11 +34,11 @@ public class Item {
         this.quantidade = quantidade;
         this.valor_alterado = valor_alterado;
     }
-    
-    public Item(){
-        
+
+    public Item() {
+
     }
-    
+
     @Id
     @GeneratedValue
     @Column(name = "item_id")

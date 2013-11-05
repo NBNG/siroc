@@ -29,7 +29,7 @@ public class ClienteBuilder {
     private String cnpj_cpf;
     private Double frete;
     private List<Pedido> pedidos;
-            
+
     private int count;
 
     public ClienteBuilder() {
@@ -41,7 +41,7 @@ public class ClienteBuilder {
             throw new IllegalArgumentException();
         }
         return new Cliente(id, nome, inscricao_est, celular, telefone,
-                endereco, bairro, cidade, estado, cep, contato, email, cnpj_cpf, frete,pedidos);
+                endereco, bairro, cidade, estado, cep, contato, email, cnpj_cpf, frete, pedidos);
     }
 
     public ClienteBuilder setId(Long id) {
@@ -146,8 +146,8 @@ public class ClienteBuilder {
         this.telefone = telefone;
         return this;
     }
-    
-     public ClienteBuilder setPedidos(List<Pedido> pedidos) {
+
+    public ClienteBuilder setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
         return this;
     }

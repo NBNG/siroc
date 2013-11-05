@@ -15,12 +15,12 @@ import org.junit.Test;
  * @author Administrador
  */
 public class PedidoTeste {
-    
+
     @Test(expected = NullPointerException.class)
     public void testaCliente() {
         new PedidoBuilder().setCliente(null);
     }
-    
+
     @Test(expected = NullPointerException.class)
     public void testaItens() {
         List<Item> itens = new ArrayList();

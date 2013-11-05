@@ -7,14 +7,14 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/siroc</property>
         <property name="hibernate.connection.username">postgres</property>
-        <!--<property name="hibernate.connection.password">senha</property>-->
+        <property name="hibernate.connection.password">senha</property>
                 
         <property name="hibernate.c3p0.min_size">2</property>
         <property name="hibernate.c3p0.max_size">5</property>
         <property name="hibernate.c3p0.timeout">1800</property>
         <property name="hibernate.c3p0.max_statements">50</property>
         <property name="hibernate.c3p0.timeout">1800</property>
-        <property name="hibernate.connection.password">agreste03</property>
+        <!--<property name="hibernate.connection.password">agreste03</property>-->
         
         <property name="hibernate.hbm2ddl.auto">update</property>
         
@@ -26,6 +26,7 @@
         <mapping class="br.com.siroc.modelo.Produto" />
         <mapping class="br.com.siroc.modelo.Pedido" />
         <mapping class="br.com.siroc.modelo.Item" />
+        <mapping class="br.com.siroc.modelo.Historico" />
         
     </session-factory>
 </hibernate-configuration>

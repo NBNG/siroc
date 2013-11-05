@@ -223,7 +223,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIListagem_ProdutosActionPerformed
 
     private void jMICadastro_PedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_PedidosActionPerformed
-        Cadastro_Pedido cp = new Cadastro_Pedido();
+        Cadastro_Pedidos cp = new Cadastro_Pedidos();
         jPanel.add(cp);
         cp.setVisible(true);
     }//GEN-LAST:event_jMICadastro_PedidosActionPerformed

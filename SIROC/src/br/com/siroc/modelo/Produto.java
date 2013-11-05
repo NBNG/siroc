@@ -12,8 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,11 +31,12 @@ public class Produto {
     private Double valor_entrada;
     private Fornecedor fornecedor;
     private List<Item> itens;
+    private List<Historico> historico;
 
     public Produto() {
     }
 
-    public Produto(Long id, String nome, Double peso, Double valor_saida, Double valor_entrada, Fornecedor fornecedor,List<Item> itens) {
+    public Produto(Long id, String nome, Double peso, Double valor_saida, Double valor_entrada, Fornecedor fornecedor, List<Item> itens) {
         this.id = id;
         this.nome = nome;
         this.peso = peso;
@@ -110,5 +109,14 @@ public class Produto {
 
     public void setItens(List<Item> itens) {
         this.itens = itens;
+    }
+
+    @OneToMany(mappedBy = "historico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Historico> getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(List<Historico> historico) {
+        this.historico = historico;
     }
 }
