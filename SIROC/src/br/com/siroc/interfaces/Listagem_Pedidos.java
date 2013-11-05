@@ -7,10 +7,6 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Pedido;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
@@ -324,6 +320,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                                 .addComponent(jLInicio))
                             .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLFim))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
@@ -376,7 +373,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                             .addComponent(jBLimpar)
                             .addComponent(jBImprimir)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -462,21 +459,26 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     private void populateFields() {
         pedidos = peddao.listaTodos();
-        int i = 0;
-        Collection clientes = new ArrayList();
-        for (int k = 0;k<pedidos.size();k++) {
-            clientes.add(pedidos.get(k).getCliente().getNome());
-        }
-        clientes = Collections.singleton(new HashSet(clientes));
-        for (Object obj : clientes) {
-            jCBCliente.addItem(clientes.toString());
-        }
-        /*while (i < pedidos.size()) {
-            
-            //jCBFornecedor.addItem(pedidos.get(i).getItens().get(i).getProduto().getFornecedor().getNome());
-            jCBEstado.addItem(pedidos.get(i).getCliente().getEstado());
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            jCBCliente.addItem(pedidos.get(i).getCliente().getNome());
             jCBCidade.addItem(pedidos.get(i).getCliente().getCidade());
-            i++;
-        }*/
+            jCBEstado.addItem(pedidos.get(i).getCliente().getEstado());
+            for (int j = 0; j < pedidos.get(i).getItens().size(); j++) {
+                jCBFornecedor.addItem(pedidos.get(i).getItens().get(j).getProduto().getFornecedor().getNome());
+            }
+        }
+        int aux = jCBCliente.getItemCount();
+
+        JComboBox clientes = jCBCliente;
+        for (int i = 0; i < aux; i++) {
+            for (int j = 0; j < aux; j++) {
+                if (jCBCliente.getItemAt(i).equals(jCBCliente.getItemAt(j))) {
+                    clientes.removeItemAt(j);
+                }
+            }
+        }
+        jCBCliente = clientes;
+
     }
 }

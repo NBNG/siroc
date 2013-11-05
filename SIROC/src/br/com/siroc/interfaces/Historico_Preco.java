@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.siroc.interfaces;
 
+import br.com.siroc.dao.DAO;
+import br.com.siroc.modelo.Produto;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,7 +19,11 @@ public class Historico_Preco extends javax.swing.JInternalFrame {
     /**
      * Creates new form Historico_Preco
      */
+    Produto produto = new Produto();
+    List<Produto> produtos;
+    DAO<Produto> dao = new DAO<Produto>(Produto.class);
     DefaultTableModel tmHistorico = new DefaultTableModel(null, new String[]{"Data", "Valor Antigo", "Valor Atualizado"});
+
     public Historico_Preco() {
         initComponents();
         tabela.setRowHeight(23);
@@ -51,6 +57,11 @@ public class Historico_Preco extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabela);
 
         jTProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTProdutoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,6 +97,21 @@ public class Historico_Preco extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
+        produtos = dao.listaTodos();
+
+        while (tmHistorico.getRowCount() > 0) {
+            tmHistorico.removeRow(0);
+        }
+
+        for (int i = 0; i < produtos.size(); i++) {
+            tmHistorico.addRow(new String[]{null, null, null, null});
+            tmHistorico.setValueAt(produtos.get(i).getNome(), i, 0);
+            //tmHistorico.setValueAt(produtos.get(i).getHistorico().getValor_antigo(), i, 1);
+            //tmHistorico.setValueAt(produtos.get(i).getHistorico().getValor_atualizado(), i, 1);
+        }
+    }//GEN-LAST:event_jTProdutoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
