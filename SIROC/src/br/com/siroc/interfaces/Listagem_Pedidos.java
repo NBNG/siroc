@@ -8,11 +8,9 @@ package br.com.siroc.interfaces;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Pedido;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -324,6 +322,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                                 .addComponent(jLInicio))
                             .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLFim))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
@@ -376,7 +375,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                             .addComponent(jBLimpar)
                             .addComponent(jBImprimir)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -462,5 +461,39 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     private void populateFields() {
         pedidos = peddao.listaTodos();
+        HashSet cCliente = new HashSet();
+        HashSet cEstado = new HashSet();
+        HashSet cCidade = new HashSet();
+        HashSet cFornecedor = new HashSet();
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            cCliente.add(pedidos.get(i).getCliente().getNome());
+            cEstado.add(pedidos.get(i).getCliente().getEstado());
+            cCidade.add(pedidos.get(i).getCliente().getCidade());
+            for (int j = 0; j < pedidos.get(i).getItens().size(); j++) {
+                cFornecedor.add(pedidos.get(i).getItens().get(j).getProduto().getFornecedor().getNome());
+            }
+        }
+
+        Iterator i = cCliente.iterator();
+        while (i.hasNext()) {
+            jCBCliente.addItem(i.next());
+        }
+        i = null;
+        i = cEstado.iterator();
+        while (i.hasNext()) {
+            jCBEstado.addItem(i.next());
+        }
+        i = null;
+        i = cCidade.iterator();
+        while (i.hasNext()) {
+            jCBCidade.addItem(i.next());
+        }
+        i = null;
+        i = cFornecedor.iterator();
+        while (i.hasNext()) {
+            jCBFornecedor.addItem(i.next());
+        }
+
     }
 }
