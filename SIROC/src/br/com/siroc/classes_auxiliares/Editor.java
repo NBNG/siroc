@@ -7,6 +7,7 @@ package br.com.siroc.classes_auxiliares;
 import br.com.siroc.interfaces.Cadastro_Clientes;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
+import java.util.Calendar;
 
 /**
  *
@@ -24,13 +25,25 @@ public class Editor {
         return Double.parseDouble(valor.replace(",", "."));
     }
 
-    public static Object Limpador(Object classe) {
-        classe = cad_cliente;
-        return classe;
-
+    public static String formatData(java.util.Date d) {
+        String aux, aux2 = "";
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        int ano = cal.get(Calendar.YEAR);
+        int mes = cal.get(Calendar.MONTH) + 1;
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+        if (mes < 10) {
+            aux = "0" + String.valueOf(mes);
+        } else {
+            aux = String.valueOf(mes);
+        }
+        if (dia < 10) {
+            aux2 = "0" + String.valueOf(dia);
+        } else {
+            aux2 = String.valueOf(dia);
+        }
+        String sData = aux2 + "/" + aux + "/" + String.valueOf(ano);
+        return sData;
     }
 
-    public Editor() throws ParseException {
-        this.cad_cliente = new Cliente();
-    }
 }

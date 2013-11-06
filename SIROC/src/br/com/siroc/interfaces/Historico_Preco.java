@@ -5,7 +5,9 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.classes_auxiliares.Editor;
 import br.com.siroc.dao.DAO;
+import br.com.siroc.modelo.Historico;
 import br.com.siroc.modelo.Produto;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -20,10 +22,10 @@ public class Historico_Preco extends javax.swing.JInternalFrame {
      * Creates new form Historico_Preco
      */
     Produto produto = new Produto();
-    List<Produto> produtos;
-    DAO<Produto> dao = new DAO<Produto>(Produto.class);
-    DefaultTableModel tmHistorico = new DefaultTableModel(null, new String[]{"Data", "Valor Antigo", "Valor Atualizado"});
-
+    List<Historico> historico;
+    DAO<Historico> dao = new DAO<Historico>(Historico.class);
+    DefaultTableModel tmHistorico = new DefaultTableModel(null, new String[]{"Produto", "Data", "Valor Antigo", "Valor Atualizado"});
+    
     public Historico_Preco() {
         initComponents();
         tabela.setRowHeight(23);
@@ -99,17 +101,17 @@ public class Historico_Preco extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
-        produtos = dao.listaTodos();
-
+        historico = dao.listaTodos();
+        
         while (tmHistorico.getRowCount() > 0) {
             tmHistorico.removeRow(0);
         }
-
-        for (int i = 0; i < produtos.size(); i++) {
+        for (int i = 0; i < historico.size(); i++) {
             tmHistorico.addRow(new String[]{null, null, null, null});
-            tmHistorico.setValueAt(produtos.get(i).getNome(), i, 0);
-            //tmHistorico.setValueAt(produtos.get(i).getHistorico().getValor_antigo(), i, 1);
-            //tmHistorico.setValueAt(produtos.get(i).getHistorico().getValor_atualizado(), i, 1);
+            tmHistorico.setValueAt(historico.get(i).getProduto().getNome(), i, 0);
+            tmHistorico.setValueAt(Editor.formatData(historico.get(i).getData_mudanca()), i, 1);
+            tmHistorico.setValueAt(Editor.format(historico.get(i).getValor_antigo()), i, 2);
+            tmHistorico.setValueAt(Editor.format(historico.get(i).getValor_atualizado()), i, 3);
         }
     }//GEN-LAST:event_jTProdutoKeyTyped
 

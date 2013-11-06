@@ -111,10 +111,10 @@ public class Produto {
         this.itens = itens;
     }
 
-    /*@OneToMany(mappedBy = "historico", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "produto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Historico> getHistorico() {
         return historico;
-    }*/
+    }
 
     public void setHistorico(List<Historico> historico) {
         this.historico = historico;
