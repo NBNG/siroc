@@ -54,13 +54,13 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setQuantidade(String quantidade) {
+        if (quantidade == null) {
+            throw new NullPointerException();
+        }
+        
         if (!temNumeros(quantidade)) {
             throw new IllegalArgumentException();
-        }
-
-        if (quantidade.equals("")) {
-            throw new NullPointerException();
-        } else {
+        }else {
             this.quantidade = Integer.parseInt(quantidade);
         }
 
