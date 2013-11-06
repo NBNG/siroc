@@ -4,6 +4,8 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.builder.ItemBuilder;
+import br.com.siroc.builder.PedidoBuilder;
 import br.com.siroc.classes_auxiliares.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
@@ -43,6 +45,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
     DAO<Cliente> cdao = new DAO<Cliente>(Cliente.class);
     Double valor;
     Integer quantidade;
+    String status;
 
     public Cadastro_Pedidos() {
         super("Cella - Cadastro de Pedidos");
@@ -346,20 +349,27 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TabelaFornecedorMouseClicked
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
-        DAO<Pedido> pdao = new DAO<>(Pedido.class);
-        pedido = new Pedido();
-
         if (jCBPago.isSelected()) {
-            pedido.setStatus("Pago");
+            status = "Pago";
         }
 
-        if (jDCData.getDate() != null) {
-            pedido.setData(jDCData.getDate());
-        }
+        pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
+                setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pagamento.getSelectedItem()))
+                .setItens(listItem).getPedido();
 
-        pedido.setCliente(listCliente.get(TabelaCliente.getSelectedRow()));
-        pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
-        pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
+        DAO<Pedido> pdao = new DAO<>(Pedido.class);
+
+        /*
+         * pedido = new Pedido();
+
+         if (jDCData.getDate() != null) {
+         pedido.setData(jDCData.getDate());
+         }
+
+         pedido.setCliente(listCliente.get(TabelaCliente.getSelectedRow()));
+         pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
+         pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
+         */
 
         for (int i = 0; i < listItem.size(); i++) {
             listItem.get(i).setPedido(pedido);
@@ -375,7 +385,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     private void TabelaProduto_FornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaProduto_FornecedorMouseClicked
-        item = new Item();
+        //item = new Item();
         JTextField campo_quantidade = new JTextField();
         JTextField campo_valor = new JTextField();
 
@@ -385,14 +395,23 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
 
         if (JOptionPane.showConfirmDialog(null, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
-            if (campo_valor.getText().equals("")) {
+            /*if (campo_valor.getText().equals("")) {
                 item.setValor_alterado(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida());
             } else {
                 item.setValor_alterado(Double.parseDouble(campo_valor.getText()));
             }
-
             item.setQuantidade(Integer.parseInt(campo_quantidade.getText()));
             item.setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()));
+           
+           */
+
+            try {
+            item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
+                    setQuantidade(campo_quantidade.getText()).setValor_alterado(campo_valor.getText())
+                    .getItem();
+            }catch(NullPointerException e){
+                
+            }
             listItem.add(item);
 
             preencheTabela(listItem);
