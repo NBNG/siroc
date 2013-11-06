@@ -12,22 +12,22 @@ import org.junit.Test;
  * @author Administrador
  */
 public class ItemTeste {
-    
-    @Test(expected= NullPointerException.class)
-    public void testaProduto(){
-       Produto produto = new Produto();
-       produto.setNome("Lucas");
-       //produto.setId(Long.MIN_VALUE);
-       new ItemBuilder().setProduto(produto);
-    }
-   
+
     @Test(expected = NullPointerException.class)
-    public void testaQuantidadeNula(){
+    public void testaProduto() {
+        Produto produto = new Produto();
+        produto.setNome("Lucas");
+        //produto.setId(Long.MIN_VALUE);
+        new ItemBuilder().setProduto(produto);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testaQuantidadeNula() {
         new ItemBuilder().setQuantidade(null);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
-    public void testaQuantidadeComString(){
+    public void testaQuantidadeComString() {
         new ItemBuilder().setQuantidade("");
     }
 }

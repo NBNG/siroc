@@ -7,19 +7,12 @@ package br.com.siroc.classes_auxiliares;
 
 import br.com.siroc.fabrica.ConnectionFactory;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.Session;
 
 /**
@@ -48,10 +41,7 @@ public class Jasper_Reports {
         //PreparedStatement pstmt = this.session.prepareStatement(query);
         //ResultSet rs = pstmt.executeQuery();
         //JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
-        HashMap parametros = new HashMap();
-        parametros.put("blablabla", new Double(10));
-
-        //JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
+        //JasperPrint impressao = JasperFillManager.fillReport(relatorio, null, jrRS);
         //JasperViewer.viewReport(impressao);
         //JasperPrintManager.printPage(impressao, 0, true);
     }

@@ -25,7 +25,7 @@ public class Historico_Preco extends javax.swing.JInternalFrame {
     List<Historico> historico;
     DAO<Historico> dao = new DAO<Historico>(Historico.class);
     DefaultTableModel tmHistorico = new DefaultTableModel(null, new String[]{"Produto", "Data", "Valor Antigo", "Valor Atualizado"});
-    
+
     public Historico_Preco() {
         initComponents();
         tabela.setRowHeight(23);
@@ -102,7 +102,7 @@ public class Historico_Preco extends javax.swing.JInternalFrame {
 
     private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
         historico = dao.listaTodos();
-        
+
         while (tmHistorico.getRowCount() > 0) {
             tmHistorico.removeRow(0);
         }
@@ -114,7 +114,6 @@ public class Historico_Preco extends javax.swing.JInternalFrame {
             tmHistorico.setValueAt(Editor.format(historico.get(i).getValor_atualizado()), i, 3);
         }
     }//GEN-LAST:event_jTProdutoKeyTyped
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLProduto;

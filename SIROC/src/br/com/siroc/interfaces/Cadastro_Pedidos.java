@@ -370,7 +370,6 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
          pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
          pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
          */
-
         for (int i = 0; i < listItem.size(); i++) {
             listItem.get(i).setPedido(pedido);
             System.out.println(listItem.get(i).getPedido().getCliente().getNome());
@@ -396,21 +395,20 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
         if (JOptionPane.showConfirmDialog(null, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
             /*if (campo_valor.getText().equals("")) {
-                item.setValor_alterado(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida());
-            } else {
-                item.setValor_alterado(Double.parseDouble(campo_valor.getText()));
-            }
-            item.setQuantidade(Integer.parseInt(campo_quantidade.getText()));
-            item.setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()));
+             item.setValor_alterado(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida());
+             } else {
+             item.setValor_alterado(Double.parseDouble(campo_valor.getText()));
+             }
+             item.setQuantidade(Integer.parseInt(campo_quantidade.getText()));
+             item.setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()));
            
-           */
-
+             */
             try {
-            item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
-                    setQuantidade(campo_quantidade.getText()).setValor_alterado(campo_valor.getText())
-                    .getItem();
-            }catch(NullPointerException e){
-                
+                item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
+                        setQuantidade(campo_quantidade.getText()).setValor_alterado(campo_valor.getText())
+                        .getItem();
+            } catch (NullPointerException e) {
+
             }
             listItem.add(item);
 

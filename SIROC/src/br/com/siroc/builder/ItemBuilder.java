@@ -57,10 +57,10 @@ public class ItemBuilder {
         if (quantidade == null) {
             throw new NullPointerException();
         }
-        
+
         if (!temNumeros(quantidade)) {
             throw new IllegalArgumentException();
-        }else {
+        } else {
             this.quantidade = Integer.parseInt(quantidade);
         }
 

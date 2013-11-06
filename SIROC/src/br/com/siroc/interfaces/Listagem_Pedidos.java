@@ -258,7 +258,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                                 .addComponent(jLTipo_Pedido)
                                 .addGap(18, 18, 18)
                                 .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jRBValor)
                         .addGap(18, 18, 18)
                         .addComponent(jLValor_Inicial)
@@ -374,7 +374,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                             .addComponent(jBLimpar)
                             .addComponent(jBImprimir)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
