@@ -7,7 +7,6 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Pedido;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
