@@ -7,7 +7,11 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Pedido;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
@@ -320,7 +324,6 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                                 .addComponent(jLInicio))
                             .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLFim))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
@@ -459,26 +462,5 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     private void populateFields() {
         pedidos = peddao.listaTodos();
-
-        for (int i = 0; i < pedidos.size(); i++) {
-            jCBCliente.addItem(pedidos.get(i).getCliente().getNome());
-            jCBCidade.addItem(pedidos.get(i).getCliente().getCidade());
-            jCBEstado.addItem(pedidos.get(i).getCliente().getEstado());
-            for (int j = 0; j < pedidos.get(i).getItens().size(); j++) {
-                jCBFornecedor.addItem(pedidos.get(i).getItens().get(j).getProduto().getFornecedor().getNome());
-            }
-        }
-        int aux = jCBCliente.getItemCount();
-
-        JComboBox clientes = jCBCliente;
-        for (int i = 0; i < aux; i++) {
-            for (int j = 0; j < aux; j++) {
-                if (jCBCliente.getItemAt(i).equals(jCBCliente.getItemAt(j))) {
-                    clientes.removeItemAt(j);
-                }
-            }
-        }
-        jCBCliente = clientes;
-
     }
 }
