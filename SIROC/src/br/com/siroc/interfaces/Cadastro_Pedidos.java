@@ -38,11 +38,14 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
     List<Produto> listProduto;
     List<Cliente> listCliente;
     List<Item> listItem;
+    
     Cliente cliente;
     Pedido pedido;
     Item item;
+    
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     DAO<Cliente> cdao = new DAO<Cliente>(Cliente.class);
+    
     Double valor;
     Integer quantidade;
     String status;
@@ -353,9 +356,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
             status = "Pago";
         }
 
-        pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
-                setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pagamento.getSelectedItem()))
-                .setItens(listItem).getPedido();
+        
 
         DAO<Pedido> pdao = new DAO<>(Pedido.class);
 
@@ -375,7 +376,10 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
             System.out.println(listItem.get(i).getPedido().getCliente().getNome());
             System.out.println(listItem.get(i).getProduto().getNome());
         }
-        pedido.setItens(listItem);
+        pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
+                setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pagamento.getSelectedItem()))
+                .setItens(listItem).getPedido();
+        //pedido.setItens(listItem);
 
         pdao.adicionar(pedido);
         JOptionPane.showMessageDialog(null, "Pedido cadastrado com Sucesso.");
