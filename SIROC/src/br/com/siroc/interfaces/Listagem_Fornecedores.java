@@ -110,9 +110,9 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(32, 32, 32)
                 .addComponent(jLCabecalho)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLNome))
@@ -123,7 +123,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
                         .addComponent(jButton1)
                         .addGap(29, 29, 29)
                         .addComponent(jBLimpar)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
         pack();

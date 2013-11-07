@@ -38,14 +38,14 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
     List<Produto> listProduto;
     List<Cliente> listCliente;
     List<Item> listItem;
-    
+
     Cliente cliente;
     Pedido pedido;
     Item item;
-    
+
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     DAO<Cliente> cdao = new DAO<Cliente>(Cliente.class);
-    
+
     Double valor;
     Integer quantidade;
     String status;
@@ -215,12 +215,12 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
                 .addComponent(Separador)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(460, 460, 460)
-                        .addComponent(jLCabecalho))
+                        .addComponent(jLCabecalho)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLData)
@@ -249,8 +249,8 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLCliente)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addGap(36, 36, 36))
+                                        .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(36, 36, 36))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBLimpar, jBSalvar});
@@ -273,7 +273,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jCBPago)
@@ -356,8 +356,6 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
             status = "Pago";
         }
 
-        
-
         DAO<Pedido> pdao = new DAO<>(Pedido.class);
 
         /*
@@ -371,16 +369,15 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
          pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
          pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
          */
-        for (int i = 0; i < listItem.size(); i++) {
-            listItem.get(i).setPedido(pedido);
-            System.out.println(listItem.get(i).getPedido().getCliente().getNome());
-            System.out.println(listItem.get(i).getProduto().getNome());
-        }
         pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
                 setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pagamento.getSelectedItem()))
                 .setItens(listItem).getPedido();
         //pedido.setItens(listItem);
-
+        for (int i = 0; i < listItem.size(); i++) {
+            listItem.get(i).setPedido(pedido);
+            //System.out.println(listItem.get(i).getPedido().getCliente().getNome());
+            //System.out.println(listItem.get(i).getProduto().getNome());
+        }
         pdao.adicionar(pedido);
         JOptionPane.showMessageDialog(null, "Pedido cadastrado com Sucesso.");
         //marca();
