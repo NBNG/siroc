@@ -6,6 +6,9 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
+import br.com.siroc.dao.PedidoDAO;
+import br.com.siroc.modelo.Cliente;
+import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Pedido;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,7 +25,10 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
      * Creates new form Listagem_Pedidos
      */
     DefaultTableModel tmPedido = new DefaultTableModel(null, new String[]{"Data", "Cidade", "Estado", "Cliente", "Fornecedor", "Valor", "Valor Total", "Frete", "Tipo de Pagamento", "Tipo de Pedido", "Pago"});
-    DAO<Pedido> peddao = new DAO<Pedido>(Pedido.class);
+    
+    PedidoDAO peddao = new PedidoDAO();
+    DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
+    
     List<Pedido> pedidos;
 
     public Listagem_Pedidos() {
@@ -185,6 +191,11 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
         jBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pesquisar.png"))); // NOI18N
         jBPesquisar.setText("Pesquisar");
+        jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPesquisarActionPerformed(evt);
+            }
+        });
 
         jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
@@ -321,7 +332,6 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                                 .addComponent(jLInicio))
                             .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLFim))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
@@ -374,7 +384,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                             .addComponent(jBLimpar)
                             .addComponent(jBImprimir)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -415,6 +425,18 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBImprimirActionPerformed
+
+    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
+        String query = "FROM Pedido WHERE 1 = 1 ";
+        if(jRBCliente.isSelected())
+            query += "AND cliente = :Cliente ";
+        if(jRBFornecedor.isSelected())
+            query += "AND fornecedor = :Fornecedor ";
+        
+        System.out.println(query);
+        pedidos = peddao.buscaAvançada(query,(Cliente) jCBCliente.getSelectedItem(), (Fornecedor) jCBFornecedor.getSelectedItem());
+        
+    }//GEN-LAST:event_jBPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCancelar;
@@ -459,7 +481,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void populateFields() {
-        pedidos = peddao.listaTodos();
+        pedidos = pdao.listaTodos();
         HashSet cCliente = new HashSet();
         HashSet cEstado = new HashSet();
         HashSet cCidade = new HashSet();

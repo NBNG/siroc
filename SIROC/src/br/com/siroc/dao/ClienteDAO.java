@@ -53,9 +53,5 @@ public class ClienteDAO {
         return clientes;
     }
 
-    public List<Cliente> buscaPorLetras(String nome) {
-        List<Cliente> clientes = new ArrayList<Cliente>();
-
-        return clientes;
-    }
+    
 }
