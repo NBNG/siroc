@@ -7,12 +7,11 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.PedidoDAO;
-import br.com.siroc.modelo.Cliente;
-import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Pedido;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,10 +24,10 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
      * Creates new form Listagem_Pedidos
      */
     DefaultTableModel tmPedido = new DefaultTableModel(null, new String[]{"Data", "Cidade", "Estado", "Cliente", "Fornecedor", "Valor", "Valor Total", "Frete", "Tipo de Pagamento", "Tipo de Pedido", "Pago"});
-    
+
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
-    
+
     List<Pedido> pedidos;
 
     public Listagem_Pedidos() {
@@ -223,70 +222,26 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(jRBCliente)
-                                    .addComponent(jRBFornecedor))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLCliente)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLFornecedor)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLCliente)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jBCancelar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBImprimir)
+                                    .addGap(36, 36, 36)
+                                    .addComponent(jBLimpar)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRBEstado)
-                                    .addComponent(jRBCidade, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jRBPago, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jRBTipo_Pedido)
-                                    .addComponent(jRBTipo_Pagamento))
+                                .addComponent(jRBFornecedor)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLEstado)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLPago)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLCidade)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLTipo_Pagamento)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLTipo_Pedido)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jRBValor)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLValor_Inicial)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTValor_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLValor_Final)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTValor_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTBSeleciona)
-                                .addGap(18, 18, 18)
-                                .addComponent(jBPesquisar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBImprimir)
-                                .addGap(36, 36, 36)
-                                .addComponent(jBLimpar))
+                                .addComponent(jLFornecedor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jRBData)
                                 .addGap(18, 18, 18)
@@ -296,7 +251,53 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLFim)
                                 .addGap(18, 18, 18)
-                                .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBEstado)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLEstado)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jRBValor)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLValor_Inicial)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTValor_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLValor_Final)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTValor_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jRBCidade)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLCidade)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRBPago)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLPago)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRBTipo_Pagamento)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLTipo_Pagamento)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRBTipo_Pedido)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLTipo_Pedido)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTBSeleciona)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBPesquisar)))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 812, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -320,7 +321,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLCliente)
                                 .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(16, 16, 16)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jRBFornecedor)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -328,12 +329,12 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                                 .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRBData)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jDCData_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLInicio))
-                            .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLFim))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jDCData_Inicial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLFim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jRBData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -387,7 +388,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                             .addComponent(jBLimpar)
                             .addComponent(jBImprimir)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -430,15 +431,18 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBImprimirActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-        String query = "FROM Pedido WHERE 1 = 1 ";
-        if(jRBCliente.isSelected())
-            query += "AND cliente = :Cliente ";
-        if(jRBFornecedor.isSelected())
-            query += "AND fornecedor = :Fornecedor ";
-        
-        System.out.println(query);
-        pedidos = peddao.buscaAvançada(query,(Cliente) jCBCliente.getSelectedItem(), (Fornecedor) jCBFornecedor.getSelectedItem());
-        
+        /*String query = "FROM Pedido WHERE 1 = 1 ";
+         if (jRBCliente.isSelected()) {
+         query += "AND cliente = :Cliente ";
+         }
+         if (jRBFornecedor.isSelected()) {
+         query += "AND fornecedor = :Fornecedor ";
+         }
+
+         System.out.println(query);
+         pedidos = peddao.buscaAvançada(query, (Cliente) jCBCliente.getSelectedItem(), (Fornecedor) jCBFornecedor.getSelectedItem());
+         */
+        System.out.println(montaQuery());
     }//GEN-LAST:event_jBPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -519,5 +523,47 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
             jCBFornecedor.addItem(i.next());
         }
 
+    }
+
+    public String montaQuery() {
+        String query = "FROM Pedido WHERE 1 = 1 ";
+        if (jRBCliente.isSelected()) {
+            query += " cliente =: cliente";
+        }
+        if (jRBCidade.isSelected()) {
+            query += " AND cidade =: cidade";
+        }
+        if (jRBData.isSelected() && jDCData_Inicial.getDate() != null && jDCData_Final.getDate() != null) {
+            //fazer between
+            query += " AND data =: data";
+
+        } else if (jRBData.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
+        }
+
+        if (jRBEstado.isSelected()) {
+            query += " AND estado =: estado";
+        }
+        if (jRBFornecedor.isSelected()) {
+            query += " AND fornecedor =: fornecedor";
+        }
+        if (jRBPago.isSelected()) {
+            query += " AND pago =: pago";
+        }
+        if (jRBTipo_Pagamento.isSelected()) {
+            query += " AND tipo_pagamento =: tipo_pagamento";
+        }
+        if (jRBTipo_Pedido.isSelected()) {
+            query += " AND tipo_pedido =: tipo_pedido";
+        }
+        if (jRBValor.isSelected() && !jTValor_Inicial.getText().equals("") && !jTValor_Final.getText().equals("")) {
+            //fazer between
+            query += " AND valor =: valor";
+
+        } else if (jRBValor.isSelected()) {
+
+            JOptionPane.showMessageDialog(null, "Pesquisa efetuada sem valores(R$). \n Valores(R$) não foram escolhidos");
+        }
+        return query;
     }
 }
