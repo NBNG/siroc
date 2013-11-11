@@ -388,7 +388,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                             .addComponent(jBLimpar)
                             .addComponent(jBImprimir)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -431,15 +431,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBImprimirActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-        /*String query = "FROM Pedido WHERE 1 = 1 ";
-         if (jRBCliente.isSelected()) {
-         query += "AND cliente = :Cliente ";
-         }
-         if (jRBFornecedor.isSelected()) {
-         query += "AND fornecedor = :Fornecedor ";
-         }
-
-         System.out.println(query);
+        /*
          pedidos = peddao.buscaAvançada(query, (Cliente) jCBCliente.getSelectedItem(), (Fornecedor) jCBFornecedor.getSelectedItem());
          */
         System.out.println(montaQuery());
@@ -557,7 +549,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
             query += " AND tipo_pedido =: tipo_pedido";
         }
         if (jRBValor.isSelected() && !jTValor_Inicial.getText().equals("") && !jTValor_Final.getText().equals("")) {
-            //fazer between
+            //fazer sum e between
             query += " AND valor =: valor";
 
         } else if (jRBValor.isSelected()) {
