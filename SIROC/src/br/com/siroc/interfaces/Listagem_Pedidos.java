@@ -520,37 +520,38 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     public String montaQuery() {
         String query = "FROM Pedido WHERE 1 = 1 ";
         if (jRBCliente.isSelected()) {
-            query += " cliente =: cliente";
+            query += " cliente = :cliente";
         }
         if (jRBCidade.isSelected()) {
-            query += " AND cidade =: cidade";
+            query += " AND cidade = :cidade";
         }
         if (jRBData.isSelected() && jDCData_Inicial.getDate() != null && jDCData_Final.getDate() != null) {
             //fazer between
-            query += " AND data =: data";
+            
+            query += " AND data BETWEEN :data_inicial AND :data_final";
 
         } else if (jRBData.isSelected()) {
             JOptionPane.showMessageDialog(null, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
         }
 
         if (jRBEstado.isSelected()) {
-            query += " AND estado =: estado";
+            query += " AND estado = :estado";
         }
         if (jRBFornecedor.isSelected()) {
-            query += " AND fornecedor =: fornecedor";
+            query += " AND fornecedor = :fornecedor";
         }
         if (jRBPago.isSelected()) {
-            query += " AND pago =: pago";
+            query += " AND pago = :pago";
         }
         if (jRBTipo_Pagamento.isSelected()) {
-            query += " AND tipo_pagamento =: tipo_pagamento";
+            query += " AND tipo_pagamento = :tipo_pagamento";
         }
         if (jRBTipo_Pedido.isSelected()) {
-            query += " AND tipo_pedido =: tipo_pedido";
+            query += " AND tipo_pedido = :tipo_pedido";
         }
         if (jRBValor.isSelected() && !jTValor_Inicial.getText().equals("") && !jTValor_Final.getText().equals("")) {
             //fazer sum e between
-            query += " AND valor =: valor";
+            query += " AND valor = :valor";
 
         } else if (jRBValor.isSelected()) {
 
