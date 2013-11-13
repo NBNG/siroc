@@ -7,7 +7,10 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.PedidoDAO;
+import br.com.siroc.modelo.Cliente;
+import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Pedido;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -27,15 +30,21 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
-
+    
     List<Pedido> pedidos;
+    List<Cliente> clientes;
+    List<Fornecedor> fornecedores;
+    
+    HashSet cCliente;
+    HashSet cEstado;
+    HashSet cCidade;
+    HashSet cFornecedor;
 
     public Listagem_Pedidos() {
         super("Cella - Listagem de Produtos");
-        initComponents();
+        initComponents();   
         populateFields();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -431,12 +440,12 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBImprimirActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-        /*
-         pedidos = peddao.buscaAvançada(query, (Cliente) jCBCliente.getSelectedItem(), (Fornecedor) jCBFornecedor.getSelectedItem());
-         */
+        //int posicao = jCBCliente.getSelectedIndex();
+        //System.out.println(posicao);
+        pedidos = peddao.buscaAvançada(clientes.get(jCBCliente.getSelectedIndex()), fornecedores.get(jCBFornecedor.getSelectedIndex())); 
+        System.out.println("ok");
         System.out.println(montaQuery());
     }//GEN-LAST:event_jBPesquisarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBImprimir;
@@ -481,10 +490,10 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     private void populateFields() {
         pedidos = pdao.listaTodos();
-        HashSet cCliente = new HashSet();
-        HashSet cEstado = new HashSet();
-        HashSet cCidade = new HashSet();
-        HashSet cFornecedor = new HashSet();
+        cCliente = new HashSet();
+        cEstado = new HashSet();
+        cCidade = new HashSet();
+        cFornecedor = new HashSet();
 
         for (int i = 0; i < pedidos.size(); i++) {
             cCliente.add(pedidos.get(i).getCliente().getNome());
@@ -494,16 +503,21 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                 cFornecedor.add(pedidos.get(i).getItens().get(j).getProduto().getFornecedor().getNome());
             }
         }
-
+        
+        clientes = new ArrayList<Cliente>(cCliente);
+        fornecedores = new ArrayList<Fornecedor>(cFornecedor);
+        
         Iterator i = cCliente.iterator();
         while (i.hasNext()) {
             jCBCliente.addItem(i.next());
         }
+        
         i = null;
         i = cEstado.iterator();
         while (i.hasNext()) {
             jCBEstado.addItem(i.next());
         }
+        
         i = null;
         i = cCidade.iterator();
         while (i.hasNext()) {
@@ -527,7 +541,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
         }
         if (jRBData.isSelected() && jDCData_Inicial.getDate() != null && jDCData_Final.getDate() != null) {
             //fazer between
-            
+
             query += " AND data BETWEEN :data_inicial AND :data_final";
 
         } else if (jRBData.isSelected()) {

@@ -370,7 +370,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
          pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
          */
         pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
-                setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pagamento.getSelectedItem()))
+                setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()))
                 .setItens(listItem).getPedido();
         //pedido.setItens(listItem);
         for (int i = 0; i < listItem.size(); i++) {
