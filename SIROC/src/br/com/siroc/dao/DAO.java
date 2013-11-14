@@ -19,6 +19,8 @@ public class DAO<T> {
         session = new ConnectionFactory().getSession();
     }
 
+    
+
     public void adicionar(T t) {
 
         Transaction tx = session.beginTransaction();

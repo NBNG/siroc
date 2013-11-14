@@ -10,7 +10,10 @@ import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Pedido;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -28,26 +31,38 @@ public class PedidoDAO {
         session = new ConnectionFactory().getSession();
     }
 
-    public List<Pedido> buscaAvançada(Cliente cliente, Fornecedor fornecedor) //, Date dataInicial, Date dataFinal,
-            //Double valorInicial,Double valorFinal, String estado, String cidade, String status,
-            /*String tipoPagamento, String tipoPedido)*/ {
+    public List<Pedido> buscaAvançada(Cliente cliente, Fornecedor fornecedor, Date dataInicial, Date dataFinal,
+            Double valorInicial,Double valorFinal, String estado, String cidade, String status,
+            String tipoPagamento, String tipoPedido,String consulta) {
         
-        List<Pedido> listPedidos = new ArrayList<Pedido>();
-        
-        String consulta = "FROM Pedido WHERE 1=1 ";
-
-
-        Query query = session.createQuery(consulta);
-        //ifs testando se tem valores no parametros
-        //query.setParameter("Cliente", cliente);
-        //query.setParameter("Fornecedor", fornecedor );
-
-        listPedidos = query.list();
-        for (Pedido pedido : listPedidos) {
-            System.out.println(pedido.getId());
+        System.out.println(consulta);
+        if(cliente != null){
+            
         }
-        query.list();
-
+        if(fornecedor != null){
+            
+        }
+        if(dataInicial != null && dataFinal !=null){
+            
+        }
+        if(valorInicial != null && valorFinal !=null){
+            
+        }
+        if(estado != null){
+            
+        }
+        if(cidade != null){
+            
+        }
+        if(status != null){
+            
+        }
+        if(tipoPagamento != null){
+            
+        }
+        if(tipoPedido != null){
+            
+        }
         return null;
     }
     

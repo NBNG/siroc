@@ -11,6 +11,7 @@ import br.com.siroc.modelo.Cliente;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Pedido;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -26,7 +27,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     /**
      * Creates new form Listagem_Pedidos
      */
-    DefaultTableModel tmPedido = new DefaultTableModel(null, new String[]{"Data", "Cidade", "Estado", "Cliente", "Fornecedor", "Valor", "Valor Total", "Frete", "Tipo de Pagamento", "Tipo de Pedido", "Pago"});
+    DefaultTableModel tmPedido = new DefaultTableModel(null, new String[]{"Data", "Cidade", "Estado", "Cliente", "Fornecedor", "Valor Total", "Frete", "Tipo de Pagamento", "Tipo de Pedido", "Pago"});
 
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
@@ -39,6 +40,8 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     HashSet cEstado;
     HashSet cCidade;
     HashSet cFornecedor;
+    
+    Cliente cliente; Fornecedor fornecedor; Date dataInicial,dataFinal; Double valorInicial,valorFinal; String estado, cidade,pago,tipo_pgto,tipo_ped;
 
     public Listagem_Pedidos() {
         super("Cella - Listagem de Produtos");
@@ -440,9 +443,8 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBImprimirActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-        //int posicao = jCBCliente.getSelectedIndex();
-        //System.out.println(posicao);
-        pedidos = peddao.buscaAvançada(clientes.get(jCBCliente.getSelectedIndex()), fornecedores.get(jCBFornecedor.getSelectedIndex())); 
+        
+        pedidos = peddao.buscaAvançada(cliente,fornecedor,dataInicial, dataFinal,valorInicial,valorFinal,estado,cidade,pago,tipo_pgto,tipo_ped,montaQuery()); 
         System.out.println("ok");
         System.out.println(montaQuery());
     }//GEN-LAST:event_jBPesquisarActionPerformed
@@ -533,40 +535,47 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     public String montaQuery() {
         String query = "FROM Pedido WHERE 1 = 1 ";
+        
         if (jRBCliente.isSelected()) {
-            query += " cliente = :cliente";
+            query += "AND cliente = :cliente ";
+            cliente = new DAO<>(Cliente.class).buscaPorNome(jCBCliente.getSelectedItem().toString()).get(0);
         }
         if (jRBCidade.isSelected()) {
-            query += " AND cidade = :cidade";
+            query += "AND cidade = :cidade ";
+            cidade = jCBCidade.getSelectedItem().toString();
         }
         if (jRBData.isSelected() && jDCData_Inicial.getDate() != null && jDCData_Final.getDate() != null) {
-            //fazer between
-
-            query += " AND data BETWEEN :data_inicial AND :data_final";
+            query += "AND ped_data BETWEEN :data_inicial AND :data_final ";
+            dataInicial = jDCData_Inicial.getDate(); dataFinal = jDCData_Final.getDate(); 
 
         } else if (jRBData.isSelected()) {
             JOptionPane.showMessageDialog(null, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
         }
 
         if (jRBEstado.isSelected()) {
-            query += " AND estado = :estado";
+            query += "AND estado = :estado ";
+            estado = jCBEstado.getSelectedItem().toString();
         }
         if (jRBFornecedor.isSelected()) {
-            query += " AND fornecedor = :fornecedor";
+            query += "AND fornecedor = :fornecedor ";
+            fornecedor = new DAO<>(Fornecedor.class).buscaPorNome(jCBFornecedor.getSelectedItem().toString()).get(0);
         }
         if (jRBPago.isSelected()) {
-            query += " AND pago = :pago";
+            query += "AND pago = :pago ";
+            pago = jCBPago.getSelectedItem().toString();
         }
         if (jRBTipo_Pagamento.isSelected()) {
-            query += " AND tipo_pagamento = :tipo_pagamento";
+            query += "AND tipo_pagamento = :tipo_pagamento ";
+            tipo_pgto = jCBTipo_Pagamento.getSelectedItem().toString();
         }
         if (jRBTipo_Pedido.isSelected()) {
-            query += " AND tipo_pedido = :tipo_pedido";
+            query += "AND tipo_pedido = :tipo_pedido ";
+            tipo_ped = jCBTipo_Pedido.getSelectedItem().toString();
         }
         if (jRBValor.isSelected() && !jTValor_Inicial.getText().equals("") && !jTValor_Final.getText().equals("")) {
             //fazer sum e between
-            query += " AND valor = :valor";
-
+            query += "AND valor = :valor ";
+            valorInicial = Double.parseDouble(jTValor_Inicial.getText()); valorFinal = Double.parseDouble(jTValor_Final.getText());
         } else if (jRBValor.isSelected()) {
 
             JOptionPane.showMessageDialog(null, "Pesquisa efetuada sem valores(R$). \n Valores(R$) não foram escolhidos");
