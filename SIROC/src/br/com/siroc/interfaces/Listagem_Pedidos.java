@@ -443,7 +443,11 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(Listagem_Pedidos.this, "Deseja Realmente excluir o pedido?", "Remove Data", JOptionPane.OK_CANCEL_OPTION);
+        
+        if (resposta == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pedido excluído com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
