@@ -15,6 +15,7 @@ import br.com.siroc.modelo.Pedido;
 import br.com.siroc.modelo.Produto;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -38,25 +39,23 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
     List<Produto> listProduto;
     List<Cliente> listCliente;
     List<Item> listItem;
-
     Cliente cliente;
     Pedido pedido;
     Item item;
-
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     DAO<Cliente> cdao = new DAO<Cliente>(Cliente.class);
-
     Double valor;
     Integer quantidade;
     String status;
+    JDesktopPane painel;
 
-    public Cadastro_Pedidos() {
+    public Cadastro_Pedidos(JDesktopPane painel) {
         super("Cella - Cadastro de Pedidos");
         initComponents();
         TabelaFornecedor.setRowHeight(23);
         TabelaProduto_Fornecedor.setRowHeight(23);
         TabelaProduto_Pedido.setRowHeight(23);
-
+        this.painel = painel;
     }
 
     /**
@@ -166,6 +165,11 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
         jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
         jBLimpar.setText("Limpar");
+        jBLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimparActionPerformed(evt);
+            }
+        });
 
         jCBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCBPago.setText("Pago");
@@ -273,7 +277,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jCBPago)
@@ -358,28 +362,16 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
 
         DAO<Pedido> pdao = new DAO<>(Pedido.class);
 
-        /*
-         * pedido = new Pedido();
-
-         if (jDCData.getDate() != null) {
-         pedido.setData(jDCData.getDate());
-         }
-
-         pedido.setCliente(listCliente.get(TabelaCliente.getSelectedRow()));
-         pedido.setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem()));
-         pedido.setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()));
-         */
         pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
                 setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()))
                 .setItens(listItem).getPedido();
         //pedido.setItens(listItem);
         for (int i = 0; i < listItem.size(); i++) {
             listItem.get(i).setPedido(pedido);
-            //System.out.println(listItem.get(i).getPedido().getCliente().getNome());
-            //System.out.println(listItem.get(i).getProduto().getNome());
         }
+
         pdao.adicionar(pedido);
-        JOptionPane.showMessageDialog(null, "Pedido cadastrado com Sucesso.");
+        JOptionPane.showMessageDialog(Cadastro_Pedidos.this, "Pedido adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
         //marca();
         pedido = new Pedido();
     }//GEN-LAST:event_jBSalvarActionPerformed
@@ -393,7 +385,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
             "Quantidade: ", campo_quantidade,
             "Valor Alterado: ", campo_valor};
 
-        if (JOptionPane.showConfirmDialog(null, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+        if (JOptionPane.showConfirmDialog(Cadastro_Pedidos.this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
             /*if (campo_valor.getText().equals("")) {
              item.setValor_alterado(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida());
@@ -409,10 +401,9 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
                         setQuantidade(campo_quantidade.getText()).setValor_alterado(campo_valor.getText())
                         .getItem();
             } catch (NullPointerException e) {
-
+                JOptionPane.showMessageDialog(Cadastro_Pedidos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             }
             listItem.add(item);
-
             preencheTabela(listItem);
         }
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
@@ -437,6 +428,14 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
             tmCliente.setValueAt(listCliente.get(i).getContato(), i, 2);
         }
     }//GEN-LAST:event_jTClienteKeyTyped
+
+    private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
+        Cadastro_Pedidos cp = new Cadastro_Pedidos(painel);
+        painel.add(cp);
+        cp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBLimparActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator Separador;
     private javax.swing.JTable TabelaCliente;

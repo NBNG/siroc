@@ -10,6 +10,7 @@ import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,11 +29,13 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     //definição das colunas da tabela
     DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
+    JDesktopPane painel;
 
-    public Listagem_Produtos() {
+    public Listagem_Produtos(JDesktopPane painel) {
         super("Cella - Listagem de Produtos");
         initComponents();
         tabela.setRowHeight(23);
+        this.painel = painel;
     }
 
     /**
@@ -162,15 +165,8 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         if (tabela.getSelectedRowCount() < 1) {
-            JOptionPane.showMessageDialog(null, "Selecione um produto a ser alterado.");
+            JOptionPane.showMessageDialog(Listagem_Produtos.this, "Favor, escolher um Produto!", "ERROR 404 - Product not found!", JOptionPane.ERROR_MESSAGE);
         } else {
-            /*if (produtos == null) {
-             Atualiza_Produto ap = new Atualiza_Produto(fornecedores.get(tabela.getSelectedRow()).getProdutos().get(tabela.getSelectedRow()));
-             ap.setVisible(true);
-             } else {
-             Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()));
-             ap.setVisible(true);
-             }*/
             Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()));
             ap.setVisible(true);
         }
@@ -210,19 +206,6 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             }
         }
 
-        /*produtos = fdao.buscaPorNome(jTFornecedor.getText()).get(0).getProdutos();
-         for (int i = 0; i < fornecedores.size(); i++) {
-         for (int j = 0; j < fornecedores.get(i).getProdutos().size(); j++) {
-
-         tmProduto.addRow(new String[]{null, null, null, null});
-         tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getNome(), linha, 0);
-         tmProduto.setValueAt(fornecedores.get(i).getProdutos().get(j).getPeso() + " kg", linha, 1);
-         tmProduto.setValueAt(fornecedores.get(i).getNome(), linha, 2);
-         tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_entrada()), linha, 3);
-         tmProduto.setValueAt(Editor.format(fornecedores.get(i).getProdutos().get(j).getValor_saida()), linha, 4);
-         linha++;
-         } */
-        Integer linha = 0;
         for (int i = 0; i < produtos.size(); i++) {
             tmProduto.addRow(new String[]{null, null, null, null});
             tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
@@ -232,6 +215,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
             tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_saida()), i, 4);
 
         }    }//GEN-LAST:event_jTFornecedorKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBLimpar;
@@ -245,14 +229,9 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpar() {
-        jTFornecedor.setText("");
-        jTNome.setText("");
-        produtos = null;
-        fornecedores = null;
-        while (tmProduto.getRowCount() > 0) {
-            tmProduto.removeRow(0);
-        }
-        pdao = new DAO<Produto>(Produto.class);
-        fdao = new DAO<Fornecedor>(Fornecedor.class);
+        Listagem_Produtos lp = new Listagem_Produtos(painel);
+        painel.add(lp);
+        lp.setVisible(true);
+        this.dispose();
     }
 }

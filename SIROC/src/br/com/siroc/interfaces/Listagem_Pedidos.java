@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,23 +32,30 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
-    
+
     List<Pedido> pedidos;
     List<Cliente> clientes;
     List<Fornecedor> fornecedores;
-    
+
     HashSet cCliente;
     HashSet cEstado;
     HashSet cCidade;
     HashSet cFornecedor;
-    
-    Cliente cliente; Fornecedor fornecedor; Date dataInicial,dataFinal; Double valorInicial,valorFinal; String estado, cidade,pago,tipo_pgto,tipo_ped;
 
-    public Listagem_Pedidos() {
+    Cliente cliente;
+    Fornecedor fornecedor;
+    Date dataInicial, dataFinal;
+    Double valorInicial, valorFinal;
+    String estado, cidade, pago, tipo_pgto, tipo_ped;
+    JDesktopPane painel;
+
+    public Listagem_Pedidos(JDesktopPane painel) {
         super("Cella - Listagem de Produtos");
-        initComponents();   
+        initComponents();
         populateFields();
+        this.painel = painel;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -400,7 +408,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                             .addComponent(jBLimpar)
                             .addComponent(jBImprimir)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -443,8 +451,8 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBImprimirActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-        
-        pedidos = peddao.buscaAvançada(cliente,fornecedor,dataInicial, dataFinal,valorInicial,valorFinal,estado,cidade,pago,tipo_pgto,tipo_ped,montaQuery()); 
+
+        pedidos = peddao.buscaAvançada(cliente, fornecedor, dataInicial, dataFinal, valorInicial, valorFinal, estado, cidade, pago, tipo_pgto, tipo_ped, montaQuery());
         System.out.println("ok");
         System.out.println(montaQuery());
     }//GEN-LAST:event_jBPesquisarActionPerformed
@@ -505,21 +513,21 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                 cFornecedor.add(pedidos.get(i).getItens().get(j).getProduto().getFornecedor().getNome());
             }
         }
-        
+
         clientes = new ArrayList<Cliente>(cCliente);
         fornecedores = new ArrayList<Fornecedor>(cFornecedor);
-        
+
         Iterator i = cCliente.iterator();
         while (i.hasNext()) {
             jCBCliente.addItem(i.next());
         }
-        
+
         i = null;
         i = cEstado.iterator();
         while (i.hasNext()) {
             jCBEstado.addItem(i.next());
         }
-        
+
         i = null;
         i = cCidade.iterator();
         while (i.hasNext()) {
@@ -535,7 +543,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     public String montaQuery() {
         String query = "FROM Pedido WHERE 1 = 1 ";
-        
+
         if (jRBCliente.isSelected()) {
             query += "AND cliente = :cliente ";
             cliente = new DAO<>(Cliente.class).buscaPorNome(jCBCliente.getSelectedItem().toString()).get(0);
@@ -546,10 +554,11 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
         }
         if (jRBData.isSelected() && jDCData_Inicial.getDate() != null && jDCData_Final.getDate() != null) {
             query += "AND ped_data BETWEEN :data_inicial AND :data_final ";
-            dataInicial = jDCData_Inicial.getDate(); dataFinal = jDCData_Final.getDate(); 
+            dataInicial = jDCData_Inicial.getDate();
+            dataFinal = jDCData_Final.getDate();
 
         } else if (jRBData.isSelected()) {
-            JOptionPane.showMessageDialog(null, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
+            JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
         }
 
         if (jRBEstado.isSelected()) {
@@ -575,10 +584,11 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
         if (jRBValor.isSelected() && !jTValor_Inicial.getText().equals("") && !jTValor_Final.getText().equals("")) {
             //fazer sum e between
             query += "AND valor = :valor ";
-            valorInicial = Double.parseDouble(jTValor_Inicial.getText()); valorFinal = Double.parseDouble(jTValor_Final.getText());
+            valorInicial = Double.parseDouble(jTValor_Inicial.getText());
+            valorFinal = Double.parseDouble(jTValor_Final.getText());
         } else if (jRBValor.isSelected()) {
 
-            JOptionPane.showMessageDialog(null, "Pesquisa efetuada sem valores(R$). \n Valores(R$) não foram escolhidos");
+            JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pesquisa efetuada sem valores(R$). \n Valores(R$) não foram escolhidos");
         }
         return query;
     }

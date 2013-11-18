@@ -8,6 +8,7 @@ import br.com.siroc.builder.FornecedorBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import java.text.ParseException;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import org.hibernate.exception.ConstraintViolationException;
@@ -23,13 +24,15 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
      */
     DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
     Fornecedor fornecedor;
+    JDesktopPane painel;
 
-    public Cadastro_Fornecedor() throws ParseException {
+    public Cadastro_Fornecedor(JDesktopPane painel) throws ParseException {
         super("Cella - Cadastro de Fornecedores");
 
         initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
         maskTelefone.install(jFTTelefone);
+        this.painel = painel;
     }
 
     /**
@@ -151,32 +154,17 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
         try {
             fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getFornecedor();
             dao.adicionar(fornecedor);
-            JOptionPane.showMessageDialog(null, "Fornecedor adicionado com Sucesso!");
+            JOptionPane.showMessageDialog(Cadastro_Fornecedor.this, "Fornecedor adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             limpar();
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou Informação inválida!");
+            JOptionPane.showMessageDialog(Cadastro_Fornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(null, "E-mail já cadastrado!");
+            JOptionPane.showMessageDialog(Cadastro_Fornecedor.this, "E-mail já cadastrado!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou Informação inválida!");
+            JOptionPane.showMessageDialog(Cadastro_Fornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         }
-        /*    if (jTNome.getText().equals("") || (jFTTelefone.getText().equals("") || (jTEmail.getText().equals("")))) {
-         JOptionPane.showMessageDialog(null, "Por favor preencher os campos obrigatórios! (em negrito)");
-         jLNome.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jLEmail.setFont(new java.awt.Font("Tahoma", 1, 18));
-         jLTelefone.setFont(new java.awt.Font("Tahoma", 1, 18));
-         } else {
-         fornecedor.setNome(jTNome.getText());
-         fornecedor.setEmail(jTEmail.getText());
-         fornecedor.setTelefone(jFTTelefone.getText());
-
-         dao.adicionar(fornecedor);
-         JOptionPane.showMessageDialog(null, "Fornecedor adicionado com Sucesso!");
-         limpar();
-         }
-         */
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
@@ -195,10 +183,14 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void limpar() {
-        jTEmail.setText("");
-        jTNome.setText("");
-        jFTTelefone.setText("");
-        fornecedor = null;
+        try {
+            Cadastro_Fornecedor cf = new Cadastro_Fornecedor(painel);
+            painel.add(cf);
+            cf.setVisible(true);
+            this.dispose();
+        } catch (ParseException pe) {
+            JOptionPane.showMessageDialog(Cadastro_Fornecedor.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void marca() {

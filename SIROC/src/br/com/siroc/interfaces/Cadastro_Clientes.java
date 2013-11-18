@@ -8,6 +8,7 @@ import br.com.siroc.builder.ClienteBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -26,8 +27,9 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
     MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
+    JDesktopPane painel;
 
-    public Cadastro_Clientes() throws ParseException {
+    public Cadastro_Clientes(JDesktopPane painel) throws ParseException {
         super("Cella - Cadastro de Clientes");
         initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
@@ -39,6 +41,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
         maskCelular.install(jFTCelular);
         //maskFrete.install(jTFrete);
         maskCep.install(jTCEP);
+        this.painel = painel;
     }
 
     /**
@@ -331,13 +334,13 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                     .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
 
             dao.adicionar(cliente);
-            JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
+            JOptionPane.showMessageDialog(Cadastro_Clientes.this, "Cliente adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             limpar();
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou informação inválida!");
+            JOptionPane.showMessageDialog(Cadastro_Clientes.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(null, "CNPJ, E-mail e/ou Inscrição Estadual já cadastrado(s)!");
+            JOptionPane.showMessageDialog(Cadastro_Clientes.this, "CNPJ/CPF, E-mail e/ou Inscrição Estadual já cadastrado(s)!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
@@ -396,20 +399,14 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void limpar() {
-        jTBairro.setText("");
-        jTCEP.setText("");
-        jFTCnpj_Cpf.setText("");
-        jTContato.setText("");
-        jTEmail.setText("");
-        jTEndereco.setText("");
-        jTFrete.setText("");
-        jTIE.setText("");
-        jTNome.setText("");
-        jTCidade.setText("");
-        jFTCelular.setText("");
-        jFTTelefone.setText("");
-        cliente = null;
-        dao = new DAO<Cliente>(Cliente.class);
+        try {
+            Cadastro_Clientes cc = new Cadastro_Clientes(painel);
+            painel.add(cc);
+            cc.setVisible(true);
+            this.dispose();
+        } catch (ParseException pe) {
+            JOptionPane.showMessageDialog(Cadastro_Clientes.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void marca() {

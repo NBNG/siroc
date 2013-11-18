@@ -8,8 +8,6 @@ import br.com.siroc.builder.ClienteBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -45,7 +43,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
             //maskFrete.install(jTFrete);
             maskCep.install(jTCEP);
         } catch (ParseException ex) {
-            Logger.getLogger(Atualiza_Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Atualiza_Clientes.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
 
         setLocationRelativeTo(null);
@@ -326,13 +324,13 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
                     .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).setId(cliente.getId()).getCliente();
 
             dao.atualiza(cliente);
-            JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
+            JOptionPane.showMessageDialog(Atualiza_Clientes.this, "Cliente alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             populateFields(cliente);
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou Informação inválida!");
+            JOptionPane.showMessageDialog(Atualiza_Clientes.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(null, "CNPJ, E-mail e/ou Inscrição Estadual já cadastrado(s)!");
+            JOptionPane.showMessageDialog(Atualiza_Clientes.this, "CNPJ/CPF, E-mail e/ou Inscrição Estadual já cadastrado(s)!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jBCadastrarActionPerformed

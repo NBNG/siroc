@@ -3,6 +3,7 @@ package br.com.siroc.interfaces;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,11 +21,13 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     List<Fornecedor> fornecedores;
     //definição das colunas da tabela
     DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
+    JDesktopPane painel;
 
-    public Listagem_Fornecedores() {
+    public Listagem_Fornecedores(JDesktopPane painel) {
         super("Cella - Listagem de Fornecedores");
         initComponents();
         tabela.setRowHeight(23);
+        this.painel = painel;
     }
 
     /**
@@ -133,23 +136,12 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
         if (tabela.getSelectedRowCount() < 1) {
             JOptionPane.showMessageDialog(null, "Selecione um cadastro a ser alterado.");
         } else {
-
             Atualiza_Fornecedor af = new Atualiza_Fornecedor(fornecedores.get(tabela.getSelectedRow()));
             af.setVisible(true);
-
         }
-
-
-        /*try {
-         Atualiza_Fornecedor af = new Atualiza_Fornecedor(fornecedores.get(tabela.getSelectedRow()).getId());
-         af.setVisible(true);
-         } catch (ParseException ex) {
-         Logger.getLogger(Listagem_Fornecedores.class.getName()).log(Level.SEVERE, null, ex);
-         }*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
-
         while (tmFornecedor.getRowCount() > 0) {
             tmFornecedor.removeRow(0);
         }
@@ -163,7 +155,6 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
             tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
             tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
         }
-
     }//GEN-LAST:event_jTNomeKeyTyped
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
@@ -171,7 +162,6 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
-
         while (tmFornecedor.getRowCount() > 0) {
             tmFornecedor.removeRow(0);
         }
@@ -185,7 +175,6 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
             tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
             tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
         }
-
     }//GEN-LAST:event_jTNomeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLimpar;
@@ -198,13 +187,9 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpar() {
-        jTNome.setText("");
-
-        fornecedores = null;
-
-        while (tmFornecedor.getRowCount() > 0) {
-            tmFornecedor.removeRow(0);
-        }
-        dao = new DAO<Fornecedor>(Fornecedor.class);
+        Listagem_Fornecedores lf = new Listagem_Fornecedores(painel);
+        painel.add(lf);
+        lf.setVisible(true);
+        this.dispose();
     }
 }

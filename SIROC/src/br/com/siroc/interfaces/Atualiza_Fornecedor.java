@@ -4,8 +4,6 @@ import br.com.siroc.builder.FornecedorBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import org.hibernate.exception.ConstraintViolationException;
@@ -32,7 +30,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
             MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
             maskTelefone.install(jFTTelefone);
         } catch (ParseException ex) {
-            Logger.getLogger(Atualiza_Fornecedor.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Atualiza_Fornecedor.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
 
         setLocationRelativeTo(null);
@@ -141,15 +139,15 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
                     .setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getFornecedor();
 
             dao.atualiza(fornecedor);
-            JOptionPane.showMessageDialog(null, "Fornecedor alterado com Sucesso!");
+            JOptionPane.showMessageDialog(Atualiza_Fornecedor.this, "Fornecedor alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             populateFields(fornecedor);
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou Informação inválida!");
+            JOptionPane.showMessageDialog(Atualiza_Fornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(null, "E-mail já cadastrado!");
+            JOptionPane.showMessageDialog(Atualiza_Fornecedor.this, "E-mail já cadastrado!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou informação inválida!");
+            JOptionPane.showMessageDialog(Atualiza_Fornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         }
 

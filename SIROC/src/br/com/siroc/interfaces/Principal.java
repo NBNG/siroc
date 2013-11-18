@@ -7,9 +7,7 @@ package br.com.siroc.interfaces;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Toolkit;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -184,11 +182,11 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMICadastro_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_ClientesActionPerformed
         try {
-            Cadastro_Clientes cc = new Cadastro_Clientes();
+            Cadastro_Clientes cc = new Cadastro_Clientes(jPanel);
             jPanel.add(cc);
             cc.setVisible(true);
         } catch (ParseException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Principal.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMICadastro_ClientesActionPerformed
 
@@ -198,48 +196,47 @@ public class Principal extends javax.swing.JFrame {
             jPanel.add(lc);
             lc.setVisible(true);
         } catch (ParseException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Principal.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMIListagem_ClientesActionPerformed
 
     private void jMICadastro_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_FornecedorActionPerformed
         try {
-            Cadastro_Fornecedor cf = new Cadastro_Fornecedor();
+            Cadastro_Fornecedor cf = new Cadastro_Fornecedor(jPanel);
             jPanel.add(cf);
             cf.setVisible(true);
         } catch (ParseException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Principal.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_jMICadastro_FornecedorActionPerformed
 
     private void jMIListagem_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_FornecedorActionPerformed
-        Listagem_Fornecedores lf = new Listagem_Fornecedores();
+        Listagem_Fornecedores lf = new Listagem_Fornecedores(jPanel);
         jPanel.add(lf);
         lf.setVisible(true);
     }//GEN-LAST:event_jMIListagem_FornecedorActionPerformed
 
     private void jMICadastro_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_ProdutosActionPerformed
-        Cadastro_Produtos cp = new Cadastro_Produtos();
+        Cadastro_Produtos cp = new Cadastro_Produtos(jPanel);
         jPanel.add(cp);
         cp.setVisible(true);
 
     }//GEN-LAST:event_jMICadastro_ProdutosActionPerformed
 
     private void jMIListagem_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_ProdutosActionPerformed
-        Listagem_Produtos lp = new Listagem_Produtos();
+        Listagem_Produtos lp = new Listagem_Produtos(jPanel);
         jPanel.add(lp);
         lp.setVisible(true);
     }//GEN-LAST:event_jMIListagem_ProdutosActionPerformed
 
     private void jMICadastro_PedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_PedidosActionPerformed
-        Cadastro_Pedidos cp = new Cadastro_Pedidos();
+        Cadastro_Pedidos cp = new Cadastro_Pedidos(jPanel);
         jPanel.add(cp);
         cp.setVisible(true);
     }//GEN-LAST:event_jMICadastro_PedidosActionPerformed
 
     private void jMIListagem_PedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_PedidosActionPerformed
-        Listagem_Pedidos lp = new Listagem_Pedidos();
+        Listagem_Pedidos lp = new Listagem_Pedidos(jPanel);
         jPanel.add(lp);
         lp.setVisible(true);
     }//GEN-LAST:event_jMIListagem_PedidosActionPerformed

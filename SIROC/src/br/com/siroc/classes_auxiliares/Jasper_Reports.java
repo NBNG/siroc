@@ -35,7 +35,7 @@ public class Jasper_Reports {
 
     public void gerar(int id) throws JRException, SQLException {
         URL arquivo = getClass().getResource("\\br\\com\\siroc\\Jasper\\pedido_final.jrxml");
-        
+
         String resultado = arquivo.getPath();
         resultado = resultado.replaceAll("%20", " ");
 

@@ -9,8 +9,6 @@ import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -85,11 +83,6 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
         jLCabecalho.setText("Pesquisa de Clientes");
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTNomeActionPerformed(evt);
-            }
-        });
         jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTNomeKeyTyped(evt);
@@ -190,7 +183,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                         .addComponent(jBAtualizar)
                         .addGap(27, 27, 27)
                         .addComponent(jBLimpar)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         pack();
@@ -204,16 +197,12 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
                 Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
                 ac.setVisible(true);
             } catch (ParseException ex) {
-                Logger.getLogger(Listagem_Clientes.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(Listagem_Clientes.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBAtualizarActionPerformed
 
-    private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
-    }//GEN-LAST:event_jTNomeActionPerformed
-
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
-
         jFTCnpj_cpf.setText("");
 
         while (tmCliente.getRowCount() > 0) {
@@ -242,12 +231,11 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         try {
             Listagem_Clientes lc = new Listagem_Clientes(painel);
-            //this = new Listagem_Clientes(painel);
             painel.add(lc);
             lc.setVisible(true);
             this.dispose();
         } catch (ParseException pe) {
-            pe.printStackTrace();
+            JOptionPane.showMessageDialog(Listagem_Clientes.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBLimparActionPerformed
 
@@ -309,15 +297,13 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpar() {
-        jTNome.setText("");
-        jFTCnpj_cpf.setText("");
-        clientes = null;
-
-        while (tmCliente.getRowCount() > 0) {
-            tmCliente.removeRow(0);
-
+        try {
+            Listagem_Clientes lc = new Listagem_Clientes(painel);
+            painel.add(lc);
+            lc.setVisible(true);
+            this.dispose();
+        } catch (ParseException pe) {
+            JOptionPane.showMessageDialog(Listagem_Clientes.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
-        dao = new DAO<Cliente>(Cliente.class);
-        cdao = new ClienteDAO();
     }
 }

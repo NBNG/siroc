@@ -98,11 +98,6 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         });
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTNomeActionPerformed(evt);
-            }
-        });
         jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTNomeKeyTyped(evt);
@@ -169,7 +164,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLNome)
                     .addComponent(jTNome_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLPeso)
                     .addComponent(jTPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -181,7 +176,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLV_Venda)
                     .addComponent(jTV_Saida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(30, 30, 30)
                 .addComponent(jBCadastrar)
                 .addGap(26, 26, 26))
         );
@@ -190,32 +185,24 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        if (tabela_fornecedor.getSelectedRowCount() < 1) {
-            JOptionPane.showMessageDialog(null, "Selecione um fornecedor na tabela.");
-        } else {
-            try {
-                produto = new ProdutoBuilder().setId(produto.getId()).setFornecedor(fornecedores.get(tabela_fornecedor.getSelectedRow()))
-                        .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
-                        setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
+        try {
+            produto = new ProdutoBuilder().setId(produto.getId()).setFornecedor(fornecedores.get(tabela_fornecedor.getSelectedRow()))
+                    .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
+                    setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
 
-                dao.atualiza(produto);
-                JOptionPane.showMessageDialog(null, "Produto atualizado com Sucesso!");
-                populateFields(produto);
-            } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou informação inválida!");
-                marca();
-            } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
-            }
+            dao.atualiza(produto);
+            JOptionPane.showMessageDialog(Atualiza_Produto.this, "Produto alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            populateFields(produto);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(Atualiza_Produto.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            marca();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(Atualiza_Produto.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
+
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
-    private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTNomeActionPerformed
-
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
-
         while (tmFornecedor.getRowCount() > 0) {
             tmFornecedor.removeRow(0);
         }

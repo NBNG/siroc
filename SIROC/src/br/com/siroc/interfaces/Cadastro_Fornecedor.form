@@ -43,8 +43,7 @@
                       </Group>
                       <Component id="jLCabecalho" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                          <EmptySpace min="70" pref="70" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                           <Component id="jFTTelefone" min="-2" pref="180" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLTelefone" alignment="0" min="-2" max="-2" attributes="0"/>

@@ -86,7 +86,7 @@
                   <Component id="jLNome" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTNome_Produto" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLPeso" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTPeso" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -101,7 +101,7 @@
                   <Component id="jLV_Venda" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTV_Saida" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jBCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -202,9 +202,6 @@
           <Font name="Tahoma" size="18" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTPesoActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTV_Saida">
       <Properties>
@@ -248,7 +245,6 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTNomeActionPerformed"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTNomeKeyTyped"/>
       </Events>
     </Component>

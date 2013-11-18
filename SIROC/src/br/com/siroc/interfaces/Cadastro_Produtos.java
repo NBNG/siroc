@@ -10,6 +10,7 @@ import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,10 +30,12 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     //definição das colunas da tabela
     DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
     FornecedorDAO fdao = new FornecedorDAO();
+    JDesktopPane painel;
 
-    public Cadastro_Produtos() {
+    public Cadastro_Produtos(JDesktopPane painel) {
         super("Cella - Cadastro de Produtos");
         initComponents();
+        this.painel = painel;
     }
 
     /**
@@ -94,11 +97,6 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         jTV_Compra.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTPeso.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTPeso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTPesoActionPerformed(evt);
-            }
-        });
 
         jTV_Saida.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -121,11 +119,6 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
         });
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTNomeActionPerformed(evt);
-            }
-        });
         jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTNomeKeyTyped(evt);
@@ -191,7 +184,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLNome)
                     .addComponent(jTNome_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLPeso)
                     .addComponent(jTPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -203,7 +196,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLV_Venda)
                     .addComponent(jTV_Saida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
@@ -212,10 +205,6 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTNomeActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
 
@@ -253,21 +242,17 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                         setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
 
                 dao.adicionar(produto);
-                JOptionPane.showMessageDialog(null, "Produto adicionado com Sucesso!");
+                JOptionPane.showMessageDialog(Cadastro_Produtos.this, "Fornecedor adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
                 limpar();
             } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(null, "Campos obrigatórios (*) vazios e/ou Informação inválida!");
+                JOptionPane.showMessageDialog(Cadastro_Produtos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
                 marca();
             } catch (IllegalStateException e) {
-                JOptionPane.showMessageDialog(null, "Escolha um fornecedor.");
+                JOptionPane.showMessageDialog(Cadastro_Produtos.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
-    private void jTPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPesoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTPesoActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBLimpar;
@@ -287,18 +272,10 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void limpar() {
-        while (tmFornecedor.getRowCount() > 0) {
-            tmFornecedor.removeRow(0);
-        }
-        fornecedores = null;
-        jTNome_Produto.setText("");
-        jTNome.setText("");
-        jTPeso.setText("");
-        jTV_Compra.setText("");
-        jTV_Saida.setText("");
-        fornecedor = null;
-        fornecedores = null;
-        produto = null;
+        Cadastro_Produtos cp = new Cadastro_Produtos(painel);
+        painel.add(cp);
+        cp.setVisible(true);
+        this.dispose();
     }
 
     public void marca() {
