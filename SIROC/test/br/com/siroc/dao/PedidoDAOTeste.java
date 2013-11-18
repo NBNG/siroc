@@ -5,9 +5,16 @@
  */
 package br.com.siroc.dao;
 
+import org.junit.Test;
+
 /**
  *
  * @author matteus
  */
 public class PedidoDAOTeste {
+    
+    @Test
+    public void testaConsulta(){
+        
+    }
 }
