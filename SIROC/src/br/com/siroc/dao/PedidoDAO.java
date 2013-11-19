@@ -10,6 +10,7 @@ import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Pedido;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -57,6 +58,15 @@ public class PedidoDAO {
 
         }
         return null;
+    }
+    
+    public List<Pedido> buscaAvançada(String consulta) {
+
+        
+        
+        //Query query = session.createQuery(consulta);
+        
+        return session.createQuery(consulta).list();
     }
 
 }

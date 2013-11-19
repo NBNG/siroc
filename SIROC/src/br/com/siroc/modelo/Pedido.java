@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  *
@@ -35,6 +36,7 @@ public class Pedido {
     private String status;
     private Cliente cliente;
     private List<Item> itens;
+    private Double valorTotal;
 
     public Pedido(Long id, Date data, String tipo_pagamento, String tipo_pedido, String status, Cliente cliente, List<Item> itens) {
         this.id = id;
@@ -115,5 +117,14 @@ public class Pedido {
 
     public void setItens(List<Item> itens) {
         this.itens = itens;
+    }
+    
+    @Transient
+    public Double getValorTotal(){
+        return valorTotal;
+    }
+    
+    public void setValorTotal(Double valorTotal){
+        this.valorTotal = valorTotal;
     }
 }
