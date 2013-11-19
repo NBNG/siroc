@@ -4,7 +4,6 @@
  */
 package br.com.siroc.modelo;
 
-import br.com.siroc.builder.ClienteBuilder;
 import br.com.siroc.builder.PedidoBuilder;
 import java.util.ArrayList;
 import java.util.List;
