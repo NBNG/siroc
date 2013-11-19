@@ -34,12 +34,11 @@ public class Jasper_Reports {
     }
 
     public void gerar(int id) throws JRException, SQLException {
-        URL arquivo = getClass().getResource("\\br\\com\\siroc\\Jasper\\pedido_final.jrxml");
-
+        URL arquivo = getClass().getResource("/br/com/siroc/Jasper/pedido_final.jrxml");
+        
         String resultado = arquivo.getPath();
         resultado = resultado.replaceAll("%20", " ");
 
-        //WHERE cli_cnpj_cpf = :cnpj_cpf
         JasperDesign desenho = JRXmlLoader.load(resultado);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String consulta = "select clientes.cli_nome,clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,\n"
@@ -55,7 +54,7 @@ public class Jasper_Reports {
                 + " from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = :id), 'R$99G999D99') as total from\n"
                 + " pedidos inner join clientes on clientes.cli_id = pedidos.fk_cliente inner join itens on pedidos.ped_id = itens.fk_pedido inner join produtos on\n"
                 + " produtos.pro_id = itens.fk_produto where pedidos.ped_id = :id";
-
+        
         Query query = session.createQuery(consulta);
         query.setParameter("id", id);
         //PreparedStatement pstmt = this.session.prepareStatement(query);

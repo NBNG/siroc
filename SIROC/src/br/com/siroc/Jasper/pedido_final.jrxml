@@ -3,21 +3,6 @@
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
-    <queryString language="SQL">
-		<![CDATA[select clientes.cli_nome,clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,
-clientes.cli_telefone, clientes.cli_cep,clientes.cli_cnpj_cpf,clientes.cli_inscricao_est,
-to_char(((select sum(itens.item_valor * itens.item_quantidade)
- from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id inner join clientes on pedidos.fk_cliente = clientes.cli_id
- where pedidos.ped_id = 35)*clientes.cli_frete)/100,'R$99G999D99' ) as cli_frete,produtos.pro_id,itens.item_quantidade,
-produtos.pro_nome || ' - ' || produtos.pro_peso|| ' Kg' as produto, to_char(itens.item_valor, 'R$99G999D99') as item_valor,
- to_char((itens.item_valor * itens.item_quantidade), 'R$99G999D99') as total_parcial, to_char((select sum((itens.item_valor - produtos.pro_saida)
-  * itens.item_quantidade) from itens inner join produtos on itens.fk_produto = produtos.pro_id inner join pedidos on
-   itens.fk_pedido = pedidos.ped_id inner join clientes on pedidos.fk_cliente = clientes.cli_id where pedidos.ped_id = 35), 'R$99G999D99')as saldo,
-   pedidos.ped_pagamento,pedidos.ped_pedido,pedidos.ped_status, to_char((select sum(itens.item_valor * itens.item_quantidade)
-   from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = 35), 'R$99G999D99') as total from
-   pedidos inner join clientes on clientes.cli_id = pedidos.fk_cliente inner join itens on pedidos.ped_id = itens.fk_pedido inner join produtos on
-    produtos.pro_id = itens.fk_produto where pedidos.ped_id = 35]]>
-    </queryString>
     <field name="cli_nome" class="java.lang.String"/>
     <field name="endereco" class="java.lang.String"/>
     <field name="cli_telefone" class="java.lang.String"/>
