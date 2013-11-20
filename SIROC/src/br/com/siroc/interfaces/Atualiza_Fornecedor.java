@@ -3,6 +3,7 @@ package br.com.siroc.interfaces;
 import br.com.siroc.builder.FornecedorBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
+import java.awt.Toolkit;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -35,6 +36,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
 
         setLocationRelativeTo(null);
         populateFields(this.fornecedor);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
     }
 
     /**

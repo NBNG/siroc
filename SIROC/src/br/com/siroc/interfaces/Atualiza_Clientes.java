@@ -7,6 +7,7 @@ package br.com.siroc.interfaces;
 import br.com.siroc.builder.ClienteBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
+import java.awt.Toolkit;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
@@ -48,6 +49,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
 
         setLocationRelativeTo(null);
         populateFields(this.cliente);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
     }
 
     @SuppressWarnings("unchecked")

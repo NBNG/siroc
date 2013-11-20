@@ -9,6 +9,7 @@ import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.FornecedorDAO;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -37,6 +38,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.produto = produto;
         populateFields(this.produto);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
     }
 
     /**
