@@ -42,8 +42,8 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     HashSet cCidade;
     HashSet cFornecedor;
 
-    Cliente cliente;
-    Fornecedor fornecedor;
+    String cliente;
+    String fornecedor;
     Date dataInicial, dataFinal;
     Double valorInicial, valorFinal;
     String estado, cidade, pago, tipo_pgto, tipo_ped;
@@ -455,7 +455,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
 
-        pedidos = peddao.buscaAvançada(cliente, fornecedor, dataInicial, dataFinal, valorInicial, valorFinal, estado, cidade, pago, tipo_pgto, tipo_ped, montaQuery());
+        //pedidos = peddao.buscaAvançada(cliente, fornecedor, dataInicial, dataFinal, valorInicial, valorFinal, estado, cidade, pago, tipo_pgto, tipo_ped, montaQuery());
         System.out.println("ok");
         System.out.println(montaQuery());
     }//GEN-LAST:event_jBPesquisarActionPerformed
@@ -545,50 +545,71 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     }
 
     public String montaQuery() {
-        String query = "FROM Pedido WHERE 1 = 1 ";
+        String query = "SELECT pedido.id,cliente.cidade,cliente.estado,cliente.nome,"
+                + "fornecedor.nome,sum(item.valor_alterado*item.quantidade) as valor_total,pedido.status,"
+                + "pedido.tipo_pagamento,pedido.tipo_pedido,(sum(item.valor_alterado*item.quantidade)*cliente.frete)/100 as frete "
+                + "FROM Pedido pedido "
+                + "INNER JOIN pedido.cliente as cliente "
+                + "INNER JOIN pedido.itens as item "
+                + "INNER JOIN item.produto as produto "
+                + "INNER JOIN produto.fornecedor as fornecedor "
+                + "WHERE 1=1 ";
 
+//        "AND lower(fornecedor.nome) like lower('%a%') "
+//                + "AND pedido.data BETWEEN '2013-01-01' AND '2013-12-30' "
+//                + "AND lower(cliente.estado) like lower('%s%') "
+//                + "AND lower(cliente.cidade) like lower('%c%') "
+//                + "AND lower(pedido.status) like lower('%') "
+//                + "AND lower(pedido.tipo_pagamento) like lower('%') "
+//                + "AND lower(pedido.tipo_pedido) like lower('%') "
+//                + "GROUP BY pedido.id,cliente.cidade,cliente.estado,cliente.nome, "
+//                + "fornecedor.nome, cliente.frete HAVING SUM(item.valor_alterado*item.quantidade) BETWEEN 1 AND 100";
+        
+        
         if (jRBCliente.isSelected()) {
-            query += "AND cliente = :cliente ";
-            cliente = new DAO<>(Cliente.class).buscaPorNome(jCBCliente.getSelectedItem().toString()).get(0);
+            cliente = jCBCliente.getSelectedItem().toString();
+            query += "AND lower(cliente.nome) like lower('%"+cliente+"%') ";
+        }
+        if(jRBFornecedor.isSelected()){
+            fornecedor = jCBFornecedor.getSelectedItem().toString(); 
+            query+= "AND lower(fornecedor.nome) like lower('%"+fornecedor+"%')";
         }
         if (jRBCidade.isSelected()) {
-            query += "AND cidade = :cidade ";
             cidade = jCBCidade.getSelectedItem().toString();
+            query += "AND lower(cliente.cidade) like lower('%"+cidade+"%') ";
         }
         if (jRBData.isSelected() && jDCData_Inicial.getDate() != null && jDCData_Final.getDate() != null) {
-            query += "AND ped_data BETWEEN :data_inicial AND :data_final ";
             dataInicial = jDCData_Inicial.getDate();
             dataFinal = jDCData_Final.getDate();
-
+            query += "AND pedido.data BETWEEN "+dataInicial+" AND "+dataFinal+" ";
         } else if (jRBData.isSelected()) {
             JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
         }
 
         if (jRBEstado.isSelected()) {
-            query += "AND estado = :estado ";
             estado = jCBEstado.getSelectedItem().toString();
+            query += "AND lower(cliente.estado) like lower('"+estado+"') ";
         }
-        if (jRBFornecedor.isSelected()) {
-            query += "AND fornecedor = :fornecedor ";
-            fornecedor = new DAO<>(Fornecedor.class).buscaPorNome(jCBFornecedor.getSelectedItem().toString()).get(0);
-        }
+        
         if (jRBPago.isSelected()) {
-            query += "AND pago = :pago ";
             pago = jCBPago.getSelectedItem().toString();
+            query += "AND lower(cliente.pago) like lower('"+pago+"')";
         }
         if (jRBTipo_Pagamento.isSelected()) {
-            query += "AND tipo_pagamento = :tipo_pagamento ";
             tipo_pgto = jCBTipo_Pagamento.getSelectedItem().toString();
+            query += "AND lower(cliente.tipo_pagamento) like lower('"+tipo_pgto+"') ";
         }
         if (jRBTipo_Pedido.isSelected()) {
-            query += "AND tipo_pedido = :tipo_pedido ";
             tipo_ped = jCBTipo_Pedido.getSelectedItem().toString();
+            query += "AND lower(cliente.tipo_pedido) like lower('"+tipo_ped+"') ";
         }
+        query += "GROUP BY pedido.id,cliente.cidade,cliente.estado,cliente.nome, fornecedor.nome, cliente.frete ";
         if (jRBValor.isSelected() && !jTValor_Inicial.getText().equals("") && !jTValor_Final.getText().equals("")) {
             //fazer sum e between
-            query += "AND valor = :valor ";
             valorInicial = Double.parseDouble(jTValor_Inicial.getText());
             valorFinal = Double.parseDouble(jTValor_Final.getText());
+            query += " HAVING SUM(item.valor_alterado*item.quantidade) BETWEEN "+valorInicial+" AND "+valorFinal+" ";
+            
         } else if (jRBValor.isSelected()) {
 
             JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pesquisa efetuada sem valores(R$). \n Valores(R$) não foram escolhidos");
