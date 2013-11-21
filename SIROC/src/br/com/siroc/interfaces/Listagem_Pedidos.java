@@ -29,19 +29,15 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
      * Creates new form Listagem_Pedidos
      */
     DefaultTableModel tmPedido = new DefaultTableModel(null, new String[]{"Data", "Cidade", "Estado", "Cliente", "Fornecedor", "Valor Total", "Frete", "Tipo de Pagamento", "Tipo de Pedido", "Pago"});
-
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
-
     List<Pedido> pedidos;
     List<Cliente> clientes;
     List<Fornecedor> fornecedores;
-
     HashSet cCliente;
     HashSet cEstado;
     HashSet cCidade;
     HashSet cFornecedor;
-
     String cliente;
     String fornecedor;
     Date dataInicial, dataFinal;
@@ -443,7 +439,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
         int resposta = JOptionPane.showConfirmDialog(Listagem_Pedidos.this, "Deseja Realmente excluir o pedido?", "Remove Data", JOptionPane.OK_CANCEL_OPTION);
-        
+
         if (resposta == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pedido excluído com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         }
@@ -454,8 +450,28 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBImprimirActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
+        while (tmPedido.getRowCount() > 0) {
+            tmPedido.removeRow(0);
+        }
+        List<Object[]> list = peddao.buscaAvançada(montaQuery());
+        for (int i =0; i < list.size(); i++) {
+            Object[] resultado = list.get(i);
+            tmPedido.addRow(new String[]{null, null, null, null, null, null, null, null, null, null}); 
+            //Posições a baixo relativos as ordem das colunas do JTABLE
+            tmPedido.setValueAt(resultado[0], i, 0); //Data
+            tmPedido.setValueAt(resultado[1], i, 1); //Cidade
+            tmPedido.setValueAt(resultado[2], i, 2); //Estado
+            tmPedido.setValueAt(resultado[3], i, 3); //Cliente
+            tmPedido.setValueAt(resultado[4], i, 4); //Fornecedor
+            tmPedido.setValueAt(resultado[5], i, 5); //Valor Total
+            tmPedido.setValueAt(resultado[6], i, 9); //Frete
+            tmPedido.setValueAt(resultado[7], i, 7); //Tipo pagamento
+            tmPedido.setValueAt(resultado[8], i, 8); //Tipo de pedido
+            tmPedido.setValueAt(resultado[9], i, 6); //Status
+            
+            //System.out.println(resultado[0]);
+        }
 
-        //pedidos = peddao.buscaAvançada(cliente, fornecedor, dataInicial, dataFinal, valorInicial, valorFinal, estado, cidade, pago, tipo_pgto, tipo_ped, montaQuery());
         System.out.println("ok");
         System.out.println(montaQuery());
     }//GEN-LAST:event_jBPesquisarActionPerformed
@@ -545,9 +561,9 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     }
 
     public String montaQuery() {
-        String query = "SELECT pedido.id,cliente.cidade,cliente.estado,cliente.nome,"
-                + "fornecedor.nome,sum(item.valor_alterado*item.quantidade) as valor_total,pedido.status,"
-                + "pedido.tipo_pagamento,pedido.tipo_pedido,(sum(item.valor_alterado*item.quantidade)*cliente.frete)/100 as frete "
+        String query = "SELECT pedido.data,cliente.cidade,cliente.estado,cliente.nome,"
+                + "fornecedor.nome,sum(item.valor_alterado*item.quantidade),pedido.status,"
+                + "pedido.tipo_pagamento,pedido.tipo_pedido,(sum(item.valor_alterado*item.quantidade)*cliente.frete)/100,pedido.id "
                 + "FROM Pedido pedido "
                 + "INNER JOIN pedido.cliente as cliente "
                 + "INNER JOIN pedido.itens as item "
@@ -564,52 +580,53 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 //                + "AND lower(pedido.tipo_pedido) like lower('%') "
 //                + "GROUP BY pedido.id,cliente.cidade,cliente.estado,cliente.nome, "
 //                + "fornecedor.nome, cliente.frete HAVING SUM(item.valor_alterado*item.quantidade) BETWEEN 1 AND 100";
-        
-        
+
+
         if (jRBCliente.isSelected()) {
             cliente = jCBCliente.getSelectedItem().toString();
-            query += "AND lower(cliente.nome) like lower('%"+cliente+"%') ";
+            query += "AND lower(cliente.nome) like lower('%" + cliente + "%') ";
         }
-        if(jRBFornecedor.isSelected()){
-            fornecedor = jCBFornecedor.getSelectedItem().toString(); 
-            query+= "AND lower(fornecedor.nome) like lower('%"+fornecedor+"%')";
+        if (jRBFornecedor.isSelected()) {
+            fornecedor = jCBFornecedor.getSelectedItem().toString();
+            query += "AND lower(fornecedor.nome) like lower('%" + fornecedor + "%')";
         }
         if (jRBCidade.isSelected()) {
             cidade = jCBCidade.getSelectedItem().toString();
-            query += "AND lower(cliente.cidade) like lower('%"+cidade+"%') ";
+            query += "AND lower(cliente.cidade) like lower('%" + cidade + "%') ";
         }
         if (jRBData.isSelected() && jDCData_Inicial.getDate() != null && jDCData_Final.getDate() != null) {
             dataInicial = jDCData_Inicial.getDate();
             dataFinal = jDCData_Final.getDate();
-            query += "AND pedido.data BETWEEN "+dataInicial+" AND "+dataFinal+" ";
+            query += "AND pedido.data BETWEEN " + dataInicial + " AND " + dataFinal + " ";
         } else if (jRBData.isSelected()) {
             JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
         }
 
         if (jRBEstado.isSelected()) {
             estado = jCBEstado.getSelectedItem().toString();
-            query += "AND lower(cliente.estado) like lower('"+estado+"') ";
+            query += "AND lower(cliente.estado) like lower('" + estado + "') ";
         }
-        
+
         if (jRBPago.isSelected()) {
             pago = jCBPago.getSelectedItem().toString();
-            query += "AND lower(cliente.pago) like lower('"+pago+"')";
+            query += "AND lower(cliente.pago) like lower('" + pago + "') ";
         }
         if (jRBTipo_Pagamento.isSelected()) {
             tipo_pgto = jCBTipo_Pagamento.getSelectedItem().toString();
-            query += "AND lower(cliente.tipo_pagamento) like lower('"+tipo_pgto+"') ";
+            query += "AND lower(cliente.tipo_pagamento) like lower('" + tipo_pgto + "') ";
         }
         if (jRBTipo_Pedido.isSelected()) {
             tipo_ped = jCBTipo_Pedido.getSelectedItem().toString();
-            query += "AND lower(cliente.tipo_pedido) like lower('"+tipo_ped+"') ";
+            query += "AND lower(cliente.tipo_pedido) like lower('" + tipo_ped + "') ";
         }
-        query += "GROUP BY pedido.id,cliente.cidade,cliente.estado,cliente.nome, fornecedor.nome, cliente.frete ";
+        query += "GROUP BY pedido.data,cliente.cidade,cliente.estado,cliente.nome, fornecedor.nome, cliente.frete, pedido.status," + 
+                "pedido.tipo_pagamento,pedido.tipo_pedido,pedido.id ";
         if (jRBValor.isSelected() && !jTValor_Inicial.getText().equals("") && !jTValor_Final.getText().equals("")) {
             //fazer sum e between
             valorInicial = Double.parseDouble(jTValor_Inicial.getText());
             valorFinal = Double.parseDouble(jTValor_Final.getText());
-            query += " HAVING SUM(item.valor_alterado*item.quantidade) BETWEEN "+valorInicial+" AND "+valorFinal+" ";
-            
+            query += " HAVING SUM(item.valor_alterado*item.quantidade) BETWEEN " + valorInicial + " AND " + valorFinal + " ";
+
         } else if (jRBValor.isSelected()) {
 
             JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pesquisa efetuada sem valores(R$). \n Valores(R$) não foram escolhidos");

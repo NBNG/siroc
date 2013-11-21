@@ -31,7 +31,7 @@ public class PedidoDAO {
 
         System.out.println(consulta);
         if (cliente != null) {
-
+            
         }
         if (fornecedor != null) {
 
@@ -60,13 +60,12 @@ public class PedidoDAO {
         return null;
     }
     
-    public List<Pedido> buscaAvançada(String consulta) {
-
+    public List<Object[]> buscaAvançada(String consulta) {
+       
+//        Query query = session.createQuery(consulta);
+//        List<Object> list = (List<Object>) session.createQuery(consulta);
         
-        
-        //Query query = session.createQuery(consulta);
-        
-        return session.createQuery(consulta).list();
+        return (List<Object[]>) session.createQuery(consulta).list();
     }
 
 }
