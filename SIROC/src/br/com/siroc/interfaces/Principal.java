@@ -19,7 +19,7 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     public Principal() {
-        super("Cella - Sistema de Pedidos e Romaneios");
+        super("Cella - Sistema de Pedidos e Romaneios");        
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
         setLocationRelativeTo(null);
@@ -182,7 +182,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMICadastro_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_ClientesActionPerformed
         try {
-            Cadastro_Clientes cc = new Cadastro_Clientes(jPanel);
+            CadastroClientes cc = new CadastroClientes(jPanel);
             jPanel.add(cc);
             cc.setVisible(true);
         } catch (ParseException ex) {
@@ -192,7 +192,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMIListagem_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_ClientesActionPerformed
         try {
-            Listagem_Clientes lc = new Listagem_Clientes(jPanel);
+            ListagemClientes lc = new ListagemClientes(jPanel);
             jPanel.add(lc);
             lc.setVisible(true);
         } catch (ParseException ex) {
@@ -202,7 +202,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMICadastro_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_FornecedorActionPerformed
         try {
-            Cadastro_Fornecedor cf = new Cadastro_Fornecedor(jPanel);
+            CadastroFornecedor cf = new CadastroFornecedor(jPanel);
             jPanel.add(cf);
             cf.setVisible(true);
         } catch (ParseException ex) {
@@ -211,38 +211,38 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMICadastro_FornecedorActionPerformed
 
     private void jMIListagem_FornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_FornecedorActionPerformed
-        Listagem_Fornecedores lf = new Listagem_Fornecedores(jPanel);
+        ListagemFornecedores lf = new ListagemFornecedores(jPanel);
         jPanel.add(lf);
         lf.setVisible(true);
     }//GEN-LAST:event_jMIListagem_FornecedorActionPerformed
 
     private void jMICadastro_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_ProdutosActionPerformed
-        Cadastro_Produtos cp = new Cadastro_Produtos(jPanel);
+        CadastroProdutos cp = new CadastroProdutos(jPanel);
         jPanel.add(cp);
         cp.setVisible(true);
 
     }//GEN-LAST:event_jMICadastro_ProdutosActionPerformed
 
     private void jMIListagem_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_ProdutosActionPerformed
-        Listagem_Produtos lp = new Listagem_Produtos(jPanel);
+        ListagemProdutos lp = new ListagemProdutos(jPanel);
         jPanel.add(lp);
         lp.setVisible(true);
     }//GEN-LAST:event_jMIListagem_ProdutosActionPerformed
 
     private void jMICadastro_PedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastro_PedidosActionPerformed
-        Cadastro_Pedidos cp = new Cadastro_Pedidos(jPanel);
+        CadastroPedidos cp = new CadastroPedidos(jPanel);
         jPanel.add(cp);
         cp.setVisible(true);
     }//GEN-LAST:event_jMICadastro_PedidosActionPerformed
 
     private void jMIListagem_PedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListagem_PedidosActionPerformed
-        Listagem_Pedidos lp = new Listagem_Pedidos(jPanel);
+        ListagemPedidos lp = new ListagemPedidos(jPanel);
         jPanel.add(lp);
         lp.setVisible(true);
     }//GEN-LAST:event_jMIListagem_PedidosActionPerformed
 
     private void jMI_HistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMI_HistoricoActionPerformed
-        Historico_Preco hp = new Historico_Preco();
+        HistoricoPreco hp = new HistoricoPreco();
         jPanel.add(hp);
         hp.setVisible(true);
     }//GEN-LAST:event_jMI_HistoricoActionPerformed

@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author matt
  */
-public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
+public class ListagemFornecedores extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Listagem_Fornecedores
@@ -23,7 +23,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
     JDesktopPane painel;
 
-    public Listagem_Fornecedores(JDesktopPane painel) {
+    public ListagemFornecedores(JDesktopPane painel) {
         super("Cella - Listagem de Fornecedores");
         initComponents();
         tabela.setRowHeight(23);
@@ -126,7 +126,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
                         .addComponent(jButton1)
                         .addGap(29, 29, 29)
                         .addComponent(jBLimpar)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         pack();
@@ -136,7 +136,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
         if (tabela.getSelectedRowCount() < 1) {
             JOptionPane.showMessageDialog(null, "Selecione um cadastro a ser alterado.");
         } else {
-            Atualiza_Fornecedor af = new Atualiza_Fornecedor(fornecedores.get(tabela.getSelectedRow()));
+            AtualizaFornecedor af = new AtualizaFornecedor(fornecedores.get(tabela.getSelectedRow()));
             af.setVisible(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -187,7 +187,7 @@ public class Listagem_Fornecedores extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpar() {
-        Listagem_Fornecedores lf = new Listagem_Fornecedores(painel);
+        ListagemFornecedores lf = new ListagemFornecedores(painel);
         painel.add(lf);
         lf.setVisible(true);
         this.dispose();

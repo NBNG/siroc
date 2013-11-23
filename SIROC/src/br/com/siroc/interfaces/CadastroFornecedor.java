@@ -17,7 +17,7 @@ import org.hibernate.exception.ConstraintViolationException;
  *
  * @author matt
  */
-public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
+public class CadastroFornecedor extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Cadastro_Fornecedor
@@ -26,7 +26,7 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
     Fornecedor fornecedor;
     JDesktopPane painel;
 
-    public Cadastro_Fornecedor(JDesktopPane painel) throws ParseException {
+    public CadastroFornecedor(JDesktopPane painel) throws ParseException {
         super("Cella - Cadastro de Fornecedores");
 
         initComponents();
@@ -114,8 +114,7 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
                             .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLCabecalho)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(23, 23, 23)
-                            .addGap(70, 70, 70)
+                            .addGap(93, 93, 93)
                             .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLTelefone)))
                 .addGap(0, 22, Short.MAX_VALUE))
@@ -154,15 +153,15 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
         try {
             fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getFornecedor();
             dao.adicionar(fornecedor);
-            JOptionPane.showMessageDialog(Cadastro_Fornecedor.this, "Fornecedor adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroFornecedor.this, "Fornecedor adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             limpar();
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(Cadastro_Fornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroFornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(Cadastro_Fornecedor.this, "E-mail já cadastrado!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroFornecedor.this, "E-mail já cadastrado!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(Cadastro_Fornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroFornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         }
     }//GEN-LAST:event_jBCadastrar2ActionPerformed
@@ -184,12 +183,12 @@ public class Cadastro_Fornecedor extends javax.swing.JInternalFrame {
 
     public void limpar() {
         try {
-            Cadastro_Fornecedor cf = new Cadastro_Fornecedor(painel);
+            CadastroFornecedor cf = new CadastroFornecedor(painel);
             painel.add(cf);
             cf.setVisible(true);
             this.dispose();
         } catch (ParseException pe) {
-            JOptionPane.showMessageDialog(Cadastro_Fornecedor.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroFornecedor.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
     }
 

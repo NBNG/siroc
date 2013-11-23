@@ -6,7 +6,7 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.builder.ItemBuilder;
 import br.com.siroc.builder.PedidoBuilder;
-import br.com.siroc.classes_auxiliares.Editor;
+import br.com.siroc.Editor.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import br.com.siroc.modelo.Fornecedor;
@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author matteus
  */
-public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
+public class CadastroPedidos extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Cadastro_Pedido
@@ -49,7 +49,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
     String status;
     JDesktopPane painel;
 
-    public Cadastro_Pedidos(JDesktopPane painel) {
+    public CadastroPedidos(JDesktopPane painel) {
         super("Cella - Cadastro de Pedidos");
         initComponents();
         TabelaFornecedor.setRowHeight(23);
@@ -371,7 +371,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
         }
 
         pdao.adicionar(pedido);
-        JOptionPane.showMessageDialog(Cadastro_Pedidos.this, "Pedido adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(CadastroPedidos.this, "Pedido adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
         //marca();
         pedido = new Pedido();
     }//GEN-LAST:event_jBSalvarActionPerformed
@@ -385,7 +385,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
             "Quantidade: ", campo_quantidade,
             "Valor Alterado: ", campo_valor};
 
-        if (JOptionPane.showConfirmDialog(Cadastro_Pedidos.this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+        if (JOptionPane.showConfirmDialog(CadastroPedidos.this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
             /*if (campo_valor.getText().equals("")) {
              item.setValor_alterado(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida());
@@ -401,7 +401,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
                         setQuantidade(campo_quantidade.getText()).setValor_alterado(campo_valor.getText())
                         .getItem();
             } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(Cadastro_Pedidos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(CadastroPedidos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             }
             listItem.add(item);
             preencheTabela(listItem);
@@ -430,7 +430,7 @@ public class Cadastro_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTClienteKeyTyped
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        Cadastro_Pedidos cp = new Cadastro_Pedidos(painel);
+        CadastroPedidos cp = new CadastroPedidos(painel);
         painel.add(cp);
         cp.setVisible(true);
         this.dispose();

@@ -118,13 +118,13 @@ public class Pedido {
     public void setItens(List<Item> itens) {
         this.itens = itens;
     }
-    
+
     @Transient
-    public Double getValorTotal(){
+    public Double getValorTotal() {
         return valorTotal;
     }
-    
-    public void setValorTotal(Double valorTotal){
+
+    public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
     }
 }

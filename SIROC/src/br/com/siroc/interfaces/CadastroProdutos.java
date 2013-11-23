@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author matt
  */
-public class Cadastro_Produtos extends javax.swing.JInternalFrame {
+public class CadastroProdutos extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Cadastro_Produtos
@@ -32,7 +32,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     FornecedorDAO fdao = new FornecedorDAO();
     JDesktopPane painel;
 
-    public Cadastro_Produtos(JDesktopPane painel) {
+    public CadastroProdutos(JDesktopPane painel) {
         super("Cella - Cadastro de Produtos");
         initComponents();
         this.painel = painel;
@@ -242,13 +242,13 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
                         setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
 
                 dao.adicionar(produto);
-                JOptionPane.showMessageDialog(Cadastro_Produtos.this, "Fornecedor adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(CadastroProdutos.this, "Fornecedor adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
                 limpar();
             } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(Cadastro_Produtos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(CadastroProdutos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
                 marca();
             } catch (IllegalStateException e) {
-                JOptionPane.showMessageDialog(Cadastro_Produtos.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(CadastroProdutos.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
@@ -272,7 +272,7 @@ public class Cadastro_Produtos extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void limpar() {
-        Cadastro_Produtos cp = new Cadastro_Produtos(painel);
+        CadastroProdutos cp = new CadastroProdutos(painel);
         painel.add(cp);
         cp.setVisible(true);
         this.dispose();

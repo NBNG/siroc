@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.siroc.classes_auxiliares;
+package br.com.siroc.Jasper;
 
 import br.com.siroc.fabrica.ConnectionFactory;
 import java.net.URL;
@@ -25,17 +25,17 @@ import org.hibernate.Session;
  *
  * @author matteus
  */
-public class Jasper_Reports {
+public class Relatorio {
 
     private Session session;
 
-    public Jasper_Reports() {
+    public Relatorio() {
         session = new ConnectionFactory().getSession();
     }
 
     public void gerar(int id) throws JRException, SQLException {
         URL arquivo = getClass().getResource("/br/com/siroc/Jasper/pedido_final.jrxml");
-        
+
         String resultado = arquivo.getPath();
         resultado = resultado.replaceAll("%20", " ");
 
@@ -54,7 +54,7 @@ public class Jasper_Reports {
                 + " from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = :id), 'R$99G999D99') as total from\n"
                 + " pedidos inner join clientes on clientes.cli_id = pedidos.fk_cliente inner join itens on pedidos.ped_id = itens.fk_pedido inner join produtos on\n"
                 + " produtos.pro_id = itens.fk_produto where pedidos.ped_id = :id";
-        
+        System.out.println(consulta);
         Query query = session.createQuery(consulta);
         query.setParameter("id", id);
         //PreparedStatement pstmt = this.session.prepareStatement(query);
@@ -66,7 +66,7 @@ public class Jasper_Reports {
     }
 
     public static void main(String[] args) throws JRException, SQLException {
-        Jasper_Reports jr = new Jasper_Reports();
+        Relatorio jr = new Relatorio();
         jr.gerar(35);
     }
 

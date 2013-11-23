@@ -13,7 +13,7 @@ import org.hibernate.exception.ConstraintViolationException;
  *
  * @author matt
  */
-public class Atualiza_Fornecedor extends javax.swing.JFrame {
+public class AtualizaFornecedor extends javax.swing.JFrame {
 
     /**
      * Creates new form Atualiza_Fornecedor
@@ -21,7 +21,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
     DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
     Fornecedor fornecedor;
 
-    public Atualiza_Fornecedor(Fornecedor fornecedor) {
+    public AtualizaFornecedor(Fornecedor fornecedor) {
         super("Cella - Atualização de Fornecedores");
         this.fornecedor = fornecedor;
 
@@ -31,7 +31,7 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
             MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
             maskTelefone.install(jFTTelefone);
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(Atualiza_Fornecedor.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
 
         setLocationRelativeTo(null);
@@ -141,15 +141,15 @@ public class Atualiza_Fornecedor extends javax.swing.JFrame {
                     .setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getFornecedor();
 
             dao.atualiza(fornecedor);
-            JOptionPane.showMessageDialog(Atualiza_Fornecedor.this, "Fornecedor alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "Fornecedor alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             populateFields(fornecedor);
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(Atualiza_Fornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(Atualiza_Fornecedor.this, "E-mail já cadastrado!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "E-mail já cadastrado!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(Atualiza_Fornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         }
 

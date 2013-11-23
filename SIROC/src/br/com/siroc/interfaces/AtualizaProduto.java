@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author matt
  */
-public class Atualiza_Produto extends javax.swing.JFrame {
+public class AtualizaProduto extends javax.swing.JFrame {
 
     /**
      * Creates new form Atualiza_Produto
@@ -31,7 +31,7 @@ public class Atualiza_Produto extends javax.swing.JFrame {
     DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
     FornecedorDAO fdao = new FornecedorDAO();
 
-    public Atualiza_Produto(Produto produto) {
+    public AtualizaProduto(Produto produto) {
         super("Cella - Atualização de Produtos");
         initComponents();
         tabela_fornecedor.setRowHeight(23);
@@ -193,13 +193,13 @@ public class Atualiza_Produto extends javax.swing.JFrame {
                     setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
 
             dao.atualiza(produto);
-            JOptionPane.showMessageDialog(Atualiza_Produto.this, "Produto alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaProduto.this, "Produto alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             populateFields(produto);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(Atualiza_Produto.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaProduto.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(Atualiza_Produto.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaProduto.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed

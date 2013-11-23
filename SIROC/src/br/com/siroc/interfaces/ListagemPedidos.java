@@ -5,6 +5,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.PedidoDAO;
 import br.com.siroc.modelo.Cliente;
@@ -23,12 +24,21 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author matteus
  */
-public class Listagem_Pedidos extends javax.swing.JInternalFrame {
+public class ListagemPedidos extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Listagem_Pedidos
      */
-    DefaultTableModel tmPedido = new DefaultTableModel(null, new String[]{"Data", "Cidade", "Estado", "Cliente", "Fornecedor", "Valor Total", "Frete", "Tipo de Pagamento", "Tipo de Pedido", "Pago"});
+    DefaultTableModel tmPedido = new DefaultTableModel(null, new String[]{"Data", "Cidade", "Estado", "Cliente", "Fornecedor", "Valor Total", "Frete", "Tipo de Pagamento", "Tipo de Pedido", "Pago"}) {
+        boolean[] canEdit = new boolean[]{
+            false, false, false, false, false, false, false, false, false, false
+        };
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit[columnIndex];
+        }
+    };
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
     List<Pedido> pedidos;
@@ -44,12 +54,14 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     Double valorInicial, valorFinal;
     String estado, cidade, pago, tipo_pgto, tipo_ped;
     JDesktopPane painel;
+    List<Object[]> list;
 
-    public Listagem_Pedidos(JDesktopPane painel) {
+    public ListagemPedidos(JDesktopPane painel) {
         super("Cella - Listagem de Produtos");
         initComponents();
         populateFields();
         this.painel = painel;
+        tabela.setRowHeight(23);
     }
 
     /**
@@ -94,7 +106,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
         jRBTipo_Pagamento = new javax.swing.JRadioButton();
         jRBTipo_Pedido = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabela_pedido = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         jTBSeleciona = new javax.swing.JToggleButton();
         jBCancelar = new javax.swing.JButton();
         jBPesquisar = new javax.swing.JButton();
@@ -102,88 +114,131 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
         jBImprimir = new javax.swing.JButton();
 
         setClosable(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLInicio.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLInicio.setText("Início:");
+        getContentPane().add(jLInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 146, -1, -1));
 
         jLCidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLCidade.setText("Cidade:");
+        getContentPane().add(jLCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 281, -1, -1));
 
         jLEstado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLEstado.setText("Estado:");
+        getContentPane().add(jLEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 235, -1, -1));
 
         jLCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLCliente.setText("Cliente:");
+        getContentPane().add(jLCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 57, -1, -1));
 
         jLFim.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLFim.setText("Fim:");
+        getContentPane().add(jLFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 146, -1, -1));
 
         jLValor_Inicial.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLValor_Inicial.setText("Valor Inicial:");
+        getContentPane().add(jLValor_Inicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 189, -1, -1));
 
         jLTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLTipo_Pagamento.setText("Tipo de Pagamento:");
+        getContentPane().add(jLTipo_Pagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 373, -1, -1));
 
         jLFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLFornecedor.setText("Fornecedor:");
+        getContentPane().add(jLFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 103, -1, -1));
 
         jLValor_Final.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLValor_Final.setText("Valor Final:");
+        getContentPane().add(jLValor_Final, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 189, -1, -1));
 
         jLTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLTipo_Pedido.setText("Tipo de Pedido:");
+        getContentPane().add(jLTipo_Pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 419, -1, -1));
 
         jLPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLPago.setText("Pago:");
+        getContentPane().add(jLPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 327, -1, -1));
 
         jCBCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jCBCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 54, 397, -1));
 
         jCBEstado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jCBEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 232, 80, -1));
 
         jCBCidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jCBCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 278, 397, -1));
 
         jCBFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jCBFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 100, 377, -1));
 
         jCBTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCBTipo_Pagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cartão", "Cheque", "Depósito", "Dinheiro" }));
+        getContentPane().add(jCBTipo_Pagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(227, 370, -1, -1));
 
         jCBTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCBTipo_Pedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NF", "SO" }));
+        getContentPane().add(jCBTipo_Pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 416, 67, -1));
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLCabecalho.setText("Pesquisa de Pedidos");
+        getContentPane().add(jLCabecalho, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 7, -1, -1));
 
         jCBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Pago" }));
+        getContentPane().add(jCBPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 324, 94, -1));
 
         jDCData_Inicial.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jDCData_Inicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 148, 170, -1));
 
         jDCData_Final.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jDCData_Final, new org.netbeans.lib.awtextra.AbsoluteConstraints(356, 146, 167, -1));
 
         jTValor_Inicial.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jTValor_Inicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 186, 121, -1));
 
         jTValor_Final.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jTValor_Final, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 186, 121, -1));
 
         jRBCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jRBCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 61, -1, -1));
 
         jRBFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jRBFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 107, -1, -1));
 
         jRBData.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jRBData, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 146, -1, 22));
 
         jRBValor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jRBValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 193, -1, -1));
 
         jRBEstado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jRBEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 239, -1, -1));
 
         jRBCidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jRBCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 285, -1, -1));
 
         jRBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jRBPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 331, -1, -1));
 
         jRBTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jRBTipo_Pagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 377, -1, -1));
 
         jRBTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(jRBTipo_Pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 423, -1, -1));
 
-        tabela_pedido.setModel(tmPedido);
-        jScrollPane1.setViewportView(tabela_pedido);
+        tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tabela.setModel(tmPedido);
+        tabela.setUpdateSelectionOnSort(false);
+        tabela.setVerifyInputWhenFocusTarget(false);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabela);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(541, 54, 812, 578));
 
         jTBSeleciona.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTBSeleciona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/editar.png"))); // NOI18N
@@ -193,6 +248,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                 jTBSelecionaActionPerformed(evt);
             }
         });
+        getContentPane().add(jTBSeleciona, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 462, -1, -1));
 
         jBCancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/excluir.gif"))); // NOI18N
@@ -202,6 +258,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                 jBCancelarActionPerformed(evt);
             }
         });
+        getContentPane().add(jBCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 599, -1, -1));
 
         jBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pesquisar.png"))); // NOI18N
@@ -211,6 +268,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                 jBPesquisarActionPerformed(evt);
             }
         });
+        getContentPane().add(jBPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 462, -1, -1));
 
         jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
@@ -220,6 +278,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                 jBLimparActionPerformed(evt);
             }
         });
+        getContentPane().add(jBLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 599, -1, -1));
 
         jBImprimir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/imprimir.png"))); // NOI18N
@@ -229,182 +288,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
                 jBImprimirActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jRBCliente)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLCliente)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jBCancelar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBImprimir)
-                                    .addGap(36, 36, 36)
-                                    .addComponent(jBLimpar)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBFornecedor)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLFornecedor)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBData)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLInicio)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDCData_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLFim)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRBEstado)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLEstado)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jRBValor)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLValor_Inicial)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTValor_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLValor_Final)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTValor_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jRBCidade)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLCidade)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBPago)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLPago)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBTipo_Pagamento)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLTipo_Pagamento)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBTipo_Pedido)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLTipo_Pedido)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTBSeleciona)
-                                .addGap(18, 18, 18)
-                                .addComponent(jBPesquisar)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 812, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLCabecalho)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTValor_Final, jTValor_Inicial});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(jLCabecalho)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jRBCliente)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLCliente)
-                                .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jRBFornecedor)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLFornecedor)
-                                .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jDCData_Inicial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLFim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jRBData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jRBValor))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTValor_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLValor_Inicial)
-                                .addComponent(jLValor_Final)
-                                .addComponent(jTValor_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLEstado)
-                                .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jRBEstado))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jRBCidade)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLCidade)
-                                .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLPago)
-                                .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jRBPago, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLTipo_Pagamento)
-                                .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jRBTipo_Pagamento, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLTipo_Pedido)
-                                    .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(jRBTipo_Pedido)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTBSeleciona)
-                            .addComponent(jBPesquisar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBCancelar)
-                            .addComponent(jBLimpar)
-                            .addComponent(jBImprimir)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
+        getContentPane().add(jBImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(247, 599, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -434,14 +318,19 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTBSelecionaActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        // TODO add your handling code here:
+        ListagemPedidos lp = new ListagemPedidos(painel);
+        painel.add(lp);
+        lp.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(Listagem_Pedidos.this, "Deseja Realmente excluir o pedido?", "Remove Data", JOptionPane.OK_CANCEL_OPTION);
+        int resposta = JOptionPane.showConfirmDialog(ListagemPedidos.this, "Deseja Realmente excluir o pedido?", "Remove Data", JOptionPane.OK_CANCEL_OPTION);
 
         if (resposta == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pedido excluído com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+            pdao.remover(null);
+            JOptionPane.showMessageDialog(ListagemPedidos.this, "Pedido excluído com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+
         }
     }//GEN-LAST:event_jBCancelarActionPerformed
 
@@ -453,28 +342,32 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
         while (tmPedido.getRowCount() > 0) {
             tmPedido.removeRow(0);
         }
-        List<Object[]> list = peddao.buscaAvançada(montaQuery());
-        for (int i =0; i < list.size(); i++) {
+
+        list = peddao.buscaAvançada(montaQuery());
+        for (int i = 0; i < list.size(); i++) {
             Object[] resultado = list.get(i);
-            tmPedido.addRow(new String[]{null, null, null, null, null, null, null, null, null, null}); 
+            tmPedido.addRow(new String[]{null, null, null, null});
             //Posições a baixo relativos as ordem das colunas do JTABLE
-            tmPedido.setValueAt(resultado[0], i, 0); //Data
+            tmPedido.setValueAt(Editor.formatData((Date) resultado[0]), i, 0); //Data
             tmPedido.setValueAt(resultado[1], i, 1); //Cidade
             tmPedido.setValueAt(resultado[2], i, 2); //Estado
             tmPedido.setValueAt(resultado[3], i, 3); //Cliente
             tmPedido.setValueAt(resultado[4], i, 4); //Fornecedor
-            tmPedido.setValueAt(resultado[5], i, 5); //Valor Total
-            tmPedido.setValueAt(resultado[6], i, 9); //Frete
+            tmPedido.setValueAt(Editor.format((Double) resultado[5]), i, 5); //Valor Total
+            tmPedido.setValueAt(resultado[6], i, 9); //Status
             tmPedido.setValueAt(resultado[7], i, 7); //Tipo pagamento
             tmPedido.setValueAt(resultado[8], i, 8); //Tipo de pedido
-            tmPedido.setValueAt(resultado[9], i, 6); //Status
-            
-            //System.out.println(resultado[0]);
+            tmPedido.setValueAt(Editor.format((Double) resultado[9]), i, 6); //Frete
         }
-
-        System.out.println("ok");
-        System.out.println(montaQuery());
     }//GEN-LAST:event_jBPesquisarActionPerformed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
+            AtualizaPedido ap = new AtualizaPedido(list.get(tabela.getSelectedRow()));
+            ap.setVisible(true);
+        }
+    }//GEN-LAST:event_tabelaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBImprimir;
@@ -514,7 +407,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
     private javax.swing.JToggleButton jTBSeleciona;
     private javax.swing.JTextField jTValor_Final;
     private javax.swing.JTextField jTValor_Inicial;
-    private javax.swing.JTable tabela_pedido;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 
     private void populateFields() {
@@ -580,8 +473,6 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 //                + "AND lower(pedido.tipo_pedido) like lower('%') "
 //                + "GROUP BY pedido.id,cliente.cidade,cliente.estado,cliente.nome, "
 //                + "fornecedor.nome, cliente.frete HAVING SUM(item.valor_alterado*item.quantidade) BETWEEN 1 AND 100";
-
-
         if (jRBCliente.isSelected()) {
             cliente = jCBCliente.getSelectedItem().toString();
             query += "AND lower(cliente.nome) like lower('%" + cliente + "%') ";
@@ -599,7 +490,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
             dataFinal = jDCData_Final.getDate();
             query += "AND pedido.data BETWEEN " + dataInicial + " AND " + dataFinal + " ";
         } else if (jRBData.isSelected()) {
-            JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
+            JOptionPane.showMessageDialog(ListagemPedidos.this, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
         }
 
         if (jRBEstado.isSelected()) {
@@ -609,18 +500,18 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
         if (jRBPago.isSelected()) {
             pago = jCBPago.getSelectedItem().toString();
-            query += "AND lower(cliente.pago) like lower('" + pago + "') ";
+            query += "AND lower(pedido.status) like lower('" + pago + "') ";
         }
         if (jRBTipo_Pagamento.isSelected()) {
             tipo_pgto = jCBTipo_Pagamento.getSelectedItem().toString();
-            query += "AND lower(cliente.tipo_pagamento) like lower('" + tipo_pgto + "') ";
+            query += "AND lower(pedido.tipo_pagamento) like lower('" + tipo_pgto + "') ";
         }
         if (jRBTipo_Pedido.isSelected()) {
             tipo_ped = jCBTipo_Pedido.getSelectedItem().toString();
-            query += "AND lower(cliente.tipo_pedido) like lower('" + tipo_ped + "') ";
+            query += "AND lower(pedido.tipo_pedido) like lower('" + tipo_ped + "') ";
         }
-        query += "GROUP BY pedido.data,cliente.cidade,cliente.estado,cliente.nome, fornecedor.nome, cliente.frete, pedido.status," + 
-                "pedido.tipo_pagamento,pedido.tipo_pedido,pedido.id ";
+        query += "GROUP BY pedido.data,cliente.cidade,cliente.estado,cliente.nome, fornecedor.nome, cliente.frete, pedido.status,"
+                + "pedido.tipo_pagamento,pedido.tipo_pedido,pedido.id ";
         if (jRBValor.isSelected() && !jTValor_Inicial.getText().equals("") && !jTValor_Final.getText().equals("")) {
             //fazer sum e between
             valorInicial = Double.parseDouble(jTValor_Inicial.getText());
@@ -629,7 +520,7 @@ public class Listagem_Pedidos extends javax.swing.JInternalFrame {
 
         } else if (jRBValor.isSelected()) {
 
-            JOptionPane.showMessageDialog(Listagem_Pedidos.this, "Pesquisa efetuada sem valores(R$). \n Valores(R$) não foram escolhidos");
+            JOptionPane.showMessageDialog(ListagemPedidos.this, "Pesquisa efetuada sem valores(R$). \n Valores(R$) não foram escolhidos");
         }
         return query;
     }

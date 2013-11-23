@@ -18,7 +18,7 @@ import org.hibernate.exception.ConstraintViolationException;
  *
  * @author matt
  */
-public class Atualiza_Clientes extends javax.swing.JFrame {
+public class AtualizaClientes extends javax.swing.JFrame {
 
     /**
      * Creates new form Pesquisa_Clientes
@@ -28,7 +28,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
     MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
 
-    public Atualiza_Clientes(Cliente cliente) throws ParseException {
+    public AtualizaClientes(Cliente cliente) throws ParseException {
         super("Cella - Atualização de Clientes");
         this.cliente = cliente;
         initComponents();
@@ -44,7 +44,7 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
             //maskFrete.install(jTFrete);
             maskCep.install(jTCEP);
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(Atualiza_Clientes.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaClientes.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
 
         setLocationRelativeTo(null);
@@ -326,13 +326,13 @@ public class Atualiza_Clientes extends javax.swing.JFrame {
                     .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).setId(cliente.getId()).getCliente();
 
             dao.atualiza(cliente);
-            JOptionPane.showMessageDialog(Atualiza_Clientes.this, "Cliente alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaClientes.this, "Cliente alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             populateFields(cliente);
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(Atualiza_Clientes.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaClientes.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(Atualiza_Clientes.this, "CNPJ/CPF, E-mail e/ou Inscrição Estadual já cadastrado(s)!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaClientes.this, "CNPJ/CPF, E-mail e/ou Inscrição Estadual já cadastrado(s)!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jBCadastrarActionPerformed

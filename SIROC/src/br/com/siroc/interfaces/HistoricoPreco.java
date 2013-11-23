@@ -5,7 +5,7 @@
  */
 package br.com.siroc.interfaces;
 
-import br.com.siroc.classes_auxiliares.Editor;
+import br.com.siroc.Editor.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Historico;
 import br.com.siroc.modelo.Produto;
@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author matteus
  */
-public class Historico_Preco extends javax.swing.JInternalFrame {
+public class HistoricoPreco extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Historico_Preco
@@ -26,7 +26,7 @@ public class Historico_Preco extends javax.swing.JInternalFrame {
     DAO<Historico> dao = new DAO<Historico>(Historico.class);
     DefaultTableModel tmHistorico = new DefaultTableModel(null, new String[]{"Produto", "Data", "Valor Antigo", "Valor Atualizado"});
 
-    public Historico_Preco() {
+    public HistoricoPreco() {
         initComponents();
         tabela.setRowHeight(23);
     }

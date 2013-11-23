@@ -18,7 +18,7 @@ import org.hibernate.exception.ConstraintViolationException;
  *
  * @author matt
  */
-public class Cadastro_Clientes extends javax.swing.JInternalFrame {
+public class CadastroClientes extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Cadastro_Clientes
@@ -29,7 +29,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
     JDesktopPane painel;
 
-    public Cadastro_Clientes(JDesktopPane painel) throws ParseException {
+    public CadastroClientes(JDesktopPane painel) throws ParseException {
         super("Cella - Cadastro de Clientes");
         initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
@@ -320,7 +320,7 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -334,13 +334,13 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
                     .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
 
             dao.adicionar(cliente);
-            JOptionPane.showMessageDialog(Cadastro_Clientes.this, "Cliente adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroClientes.this, "Cliente adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             limpar();
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(Cadastro_Clientes.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroClientes.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(Cadastro_Clientes.this, "CNPJ/CPF, E-mail e/ou Inscrição Estadual já cadastrado(s)!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroClientes.this, "CNPJ/CPF, E-mail e/ou Inscrição Estadual já cadastrado(s)!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
@@ -400,12 +400,12 @@ public class Cadastro_Clientes extends javax.swing.JInternalFrame {
 
     public void limpar() {
         try {
-            Cadastro_Clientes cc = new Cadastro_Clientes(painel);
+            CadastroClientes cc = new CadastroClientes(painel);
             painel.add(cc);
             cc.setVisible(true);
             this.dispose();
         } catch (ParseException pe) {
-            JOptionPane.showMessageDialog(Cadastro_Clientes.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroClientes.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
     }
 

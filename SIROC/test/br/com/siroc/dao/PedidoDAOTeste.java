@@ -5,7 +5,6 @@
  */
 package br.com.siroc.dao;
 
-import br.com.siroc.modelo.Pedido;
 import org.junit.Test;
 
 /**
@@ -41,8 +40,5 @@ public class PedidoDAOTeste {
         //    System.out.println(pedido.getId());
         //}
     }
-    
-    
-    
-    
+
 }

@@ -2,11 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.siroc.classes_auxiliares;
+package br.com.siroc.Editor;
 
-import br.com.siroc.interfaces.Cadastro_Clientes;
 import br.com.siroc.modelo.Cliente;
-import java.text.ParseException;
 import java.util.Calendar;
 
 /**

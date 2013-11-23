@@ -19,7 +19,7 @@ import javax.swing.text.MaskFormatter;
  *
  * @author matt
  */
-public class Listagem_Clientes extends javax.swing.JInternalFrame {
+public class ListagemClientes extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Listagem_Clientes
@@ -35,7 +35,7 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
     JDesktopPane painel;
 
-    public Listagem_Clientes(JDesktopPane painel) throws ParseException {
+    public ListagemClientes(JDesktopPane painel) throws ParseException {
 
         super("Cella - Listagem de Clientes");
         initComponents();
@@ -194,10 +194,10 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Selecione um cadastro a ser alterado.");
         } else {
             try {
-                Atualiza_Clientes ac = new Atualiza_Clientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
+                AtualizaClientes ac = new AtualizaClientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
                 ac.setVisible(true);
             } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(Listagem_Clientes.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(ListagemClientes.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBAtualizarActionPerformed
@@ -230,12 +230,12 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         try {
-            Listagem_Clientes lc = new Listagem_Clientes(painel);
+            ListagemClientes lc = new ListagemClientes(painel);
             painel.add(lc);
             lc.setVisible(true);
             this.dispose();
         } catch (ParseException pe) {
-            JOptionPane.showMessageDialog(Listagem_Clientes.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(ListagemClientes.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBLimparActionPerformed
 
@@ -298,12 +298,12 @@ public class Listagem_Clientes extends javax.swing.JInternalFrame {
 
     private void limpar() {
         try {
-            Listagem_Clientes lc = new Listagem_Clientes(painel);
+            ListagemClientes lc = new ListagemClientes(painel);
             painel.add(lc);
             lc.setVisible(true);
             this.dispose();
         } catch (ParseException pe) {
-            JOptionPane.showMessageDialog(Listagem_Clientes.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(ListagemClientes.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

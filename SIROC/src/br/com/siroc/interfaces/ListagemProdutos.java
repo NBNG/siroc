@@ -4,7 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
-import br.com.siroc.classes_auxiliares.Editor;
+import br.com.siroc.Editor.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author matt
  */
-public class Listagem_Produtos extends javax.swing.JInternalFrame {
+public class ListagemProdutos extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Listagem_Produtos
@@ -31,7 +31,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
     JDesktopPane painel;
 
-    public Listagem_Produtos(JDesktopPane painel) {
+    public ListagemProdutos(JDesktopPane painel) {
         super("Cella - Listagem de Produtos");
         initComponents();
         tabela.setRowHeight(23);
@@ -165,9 +165,9 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         if (tabela.getSelectedRowCount() < 1) {
-            JOptionPane.showMessageDialog(Listagem_Produtos.this, "Favor, escolher um Produto!", "ERROR 404 - Product not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(ListagemProdutos.this, "Favor, escolher um Produto!", "ERROR 404 - Product not found!", JOptionPane.ERROR_MESSAGE);
         } else {
-            Atualiza_Produto ap = new Atualiza_Produto(produtos.get(tabela.getSelectedRow()));
+            AtualizaProduto ap = new AtualizaProduto(produtos.get(tabela.getSelectedRow()));
             ap.setVisible(true);
         }
     }//GEN-LAST:event_jBAlterarActionPerformed
@@ -229,7 +229,7 @@ public class Listagem_Produtos extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpar() {
-        Listagem_Produtos lp = new Listagem_Produtos(painel);
+        ListagemProdutos lp = new ListagemProdutos(painel);
         painel.add(lp);
         lp.setVisible(true);
         this.dispose();
