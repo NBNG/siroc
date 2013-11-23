@@ -39,6 +39,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             return canEdit[columnIndex];
         }
     };
+    
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
     List<Pedido> pedidos;
