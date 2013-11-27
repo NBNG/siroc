@@ -242,7 +242,7 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
                         setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
 
                 dao.adicionar(produto);
-                JOptionPane.showMessageDialog(CadastroProdutos.this, "Fornecedor adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(CadastroProdutos.this, "Produto adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
                 limpar();
             } catch (IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(CadastroProdutos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);

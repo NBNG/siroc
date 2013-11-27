@@ -8,6 +8,7 @@ import br.com.siroc.dao.ClienteDAO;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
@@ -247,8 +248,11 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             tmCliente.removeRow(0);
         }
 
+        clientes = new ArrayList<Cliente>();
+        
         cliente = (Cliente) cdao.buscaPorCNPJ(jFTCnpj_cpf.getText());
-
+        clientes.add(cliente);
+        
         String endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
                 + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "
                 + cliente.getCep();

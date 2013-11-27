@@ -488,8 +488,11 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         }
         if (jRBData.isSelected() && jDCData_Inicial.getDate() != null && jDCData_Final.getDate() != null) {
             dataInicial = jDCData_Inicial.getDate();
+            System.out.println(dataInicial.getTime());
+            
             dataFinal = jDCData_Final.getDate();
-            query += "AND pedido.data BETWEEN " + dataInicial + " AND " + dataFinal + " ";
+            System.out.println(dataFinal.toString());
+            query += "AND pedido.data BETWEEN " + dataInicial.getTime() + " AND " + dataFinal.getTime() + " ";
         } else if (jRBData.isSelected()) {
             JOptionPane.showMessageDialog(ListagemPedidos.this, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
         }
