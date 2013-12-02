@@ -11,7 +11,6 @@ import br.com.siroc.modelo.Produto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDesktopPane;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,7 +27,17 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
     DAO<Produto> pdao = new DAO<Produto>(Produto.class);
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     //definição das colunas da tabela
-    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
+    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"}) {
+        boolean[] canEdit = new boolean[]{
+            false, false, false, false, false, false
+        };
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit[columnIndex];
+        }
+    };
+
     JDesktopPane painel;
 
     public ListagemProdutos(JDesktopPane painel) {
@@ -49,7 +58,6 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
 
         jLCabecalho = new javax.swing.JLabel();
         jBLimpar = new javax.swing.JButton();
-        jBAlterar = new javax.swing.JButton();
         jTNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
@@ -71,15 +79,6 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
             }
         });
 
-        jBAlterar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/editar.png"))); // NOI18N
-        jBAlterar.setText("Alterar");
-        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAlterarActionPerformed(evt);
-            }
-        });
-
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -89,6 +88,11 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
 
         tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela.setModel(tmProduto);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabela);
 
         jTFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -111,11 +115,9 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBAlterar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBLimpar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(20, 20, 20))
+                .addGap(18, 18, 18)
+                .addComponent(jBLimpar)
+                .addGap(23, 23, 23))
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,13 +149,11 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBAlterar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBLimpar)
-                        .addContainerGap(360, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                        .addGap(43, 43, 43))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(43, 43, 43))))
+                        .addComponent(jBLimpar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -162,15 +162,6 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
-
-    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-        if (tabela.getSelectedRowCount() < 1) {
-            JOptionPane.showMessageDialog(ListagemProdutos.this, "Favor, escolher um Produto!", "ERROR 404 - Product not found!", JOptionPane.ERROR_MESSAGE);
-        } else {
-            AtualizaProduto ap = new AtualizaProduto(produtos.get(tabela.getSelectedRow()));
-            ap.setVisible(true);
-        }
-    }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
         jTFornecedor.setText("");
@@ -216,8 +207,14 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
 
         }    }//GEN-LAST:event_jTFornecedorKeyTyped
 
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
+            AtualizaProduto ap = new AtualizaProduto(produtos.get(tabela.getSelectedRow()));
+            ap.setVisible(true);
+        }
+    }//GEN-LAST:event_tabelaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLNome_Produto;

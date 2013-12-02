@@ -26,11 +26,11 @@ public class AtualizaPedido extends javax.swing.JFrame {
     Object[] resultado;
     Pedido pedido;
     DAO<Pedido> pdao = new DAO<>(Pedido.class);
-    
+
     public AtualizaPedido(Object[] resultado) {
         super("Cella - Atualização de Clientes");
         this.resultado = resultado;
-        pedido = pdao.busca((Long)resultado[10]); //Garofolo
+        pedido = pdao.busca((Long) resultado[10]); //Garofolo
         pedido.setValorTotal((Double) resultado[5]);
         initComponents();
         setLocationRelativeTo(null);
@@ -182,10 +182,10 @@ public class AtualizaPedido extends javax.swing.JFrame {
         if (jCBPago.isSelected()) {
             pago = "Pago";
         }
-        
+
         pedido = new PedidoBuilder().setData(jDCData.getDate()).setStatus(pago).
                 setTipo_pagamento((String) jCBPagamento.getSelectedItem()).
-                setTipo_pedido((String) jCBPedido.getSelectedItem()).setCliente(new DAO<Cliente>(Cliente.class).buscaPorNome((String)resultado[3]).get(0)).getPedido();
+                setTipo_pedido((String) jCBPedido.getSelectedItem()).setCliente(new DAO<Cliente>(Cliente.class).buscaPorNome((String) resultado[3]).get(0)).getPedido();
         pdao.atualiza(pedido);
         JOptionPane.showMessageDialog(AtualizaPedido.this, "Pedido alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jBAtualizarActionPerformed
@@ -226,11 +226,11 @@ public class AtualizaPedido extends javax.swing.JFrame {
             }
         }
     }
-    
-    public void populateFields(Pedido pedido){
+
+    public void populateFields(Pedido pedido) {
         jLCliente.setText(pedido.getCliente().getNome());
         //jLFornecedor.setText((String) resultado[4]);
-        jLEndereco.setText(pedido.getCliente().getCidade()+ " - "+pedido.getCliente().getEstado());
+        jLEndereco.setText(pedido.getCliente().getCidade() + " - " + pedido.getCliente().getEstado());
         jDCData.setDate(pedido.getData());
         if (pedido.getStatus() != null) {
             jCBPago.setSelected(true);
