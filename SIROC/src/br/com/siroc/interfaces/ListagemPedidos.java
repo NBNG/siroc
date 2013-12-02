@@ -39,7 +39,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             return canEdit[columnIndex];
         }
     };
-    
+
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
     List<Pedido> pedidos;
@@ -63,7 +63,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         populateFields();
         this.painel = painel;
         tabela.setRowHeight(23);
-        this.setSize(this.painel.getWidth(),this.painel.getHeight()); 
+        this.setSize(this.painel.getWidth(), this.painel.getHeight());
     }
 
     /**
@@ -524,8 +524,8 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 + "pedido.tipo_pagamento,pedido.tipo_pedido,pedido.id ";
         if (jRBValor.isSelected() && !jTValor_Inicial.getText().equals("") && !jTValor_Final.getText().equals("")) {
             //fazer sum e between
-            valorInicial = Double.parseDouble(jTValor_Inicial.getText().replace(",","."));
-            valorFinal = Double.parseDouble(jTValor_Final.getText().replace(",","."));
+            valorInicial = Double.parseDouble(jTValor_Inicial.getText().replace(",", "."));
+            valorFinal = Double.parseDouble(jTValor_Final.getText().replace(",", "."));
             query += " HAVING SUM(item.valor_alterado*item.quantidade) BETWEEN " + valorInicial + " AND " + valorFinal + " ";
 
         } else if (jRBValor.isSelected()) {

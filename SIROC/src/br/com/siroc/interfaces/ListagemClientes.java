@@ -10,6 +10,8 @@ import br.com.siroc.modelo.Cliente;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,8 +31,18 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
     ClienteDAO cdao = new ClienteDAO();
     String endereco;
     List<Cliente> clientes;//List de uma classe do modelo para utilização na tabela;
-    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ/CPF", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"});
-    //definição das colunas da tabela
+    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ/CPF", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"}) {
+        boolean[] canEdit = new boolean[]{
+            false, false, false, false, false, false, false, false, false, false
+        };
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit[columnIndex];
+        }
+    };
+
+//definição das colunas da tabela
     Cliente cliente;
     MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
@@ -55,7 +67,6 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-        jBAtualizar = new javax.swing.JButton();
         jLCabecalho = new javax.swing.JLabel();
         jTNome = new javax.swing.JTextField();
         jBLimpar = new javax.swing.JButton();
@@ -69,16 +80,12 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
 
         tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela.setModel(tmCliente);
-        jScrollPane1.setViewportView(tabela);
-
-        jBAtualizar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/editar.png"))); // NOI18N
-        jBAtualizar.setText("Alterar");
-        jBAtualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAtualizarActionPerformed(evt);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
             }
         });
+        jScrollPane1.setViewportView(tabela);
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLCabecalho.setText("Pesquisa de Clientes");
@@ -154,14 +161,9 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBAtualizar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBLimpar, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addComponent(jBLimpar)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBAtualizar, jBLimpar});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -180,28 +182,12 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBAtualizar)
-                        .addGap(27, 27, 27)
-                        .addComponent(jBLimpar)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                    .addComponent(jBLimpar))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAtualizarActionPerformed
-        if (tabela.getSelectedRowCount() < 1) {
-            JOptionPane.showMessageDialog(null, "Selecione um cadastro a ser alterado.");
-        } else {
-            try {
-                AtualizaClientes ac = new AtualizaClientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
-                ac.setVisible(true);
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(ListagemClientes.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_jBAtualizarActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
         jFTCnpj_cpf.setText("");
@@ -249,10 +235,10 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
         }
 
         clientes = new ArrayList<Cliente>();
-        
+
         cliente = (Cliente) cdao.buscaPorCNPJ(jFTCnpj_cpf.getText());
         clientes.add(cliente);
-        
+
         String endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
                 + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "
                 + cliente.getCep();
@@ -286,8 +272,19 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             jFTCnpj_cpf.setFormatterFactory(new DefaultFormatterFactory(maskCnpj));
         }
     }//GEN-LAST:event_jRBJuridicaActionPerformed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
+            try {
+                AtualizaClientes ac = new AtualizaClientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
+                ac.setVisible(true);
+            } catch (ParseException ex) {
+                Logger.getLogger(ListagemClientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_tabelaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAtualizar;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JFormattedTextField jFTCnpj_cpf;

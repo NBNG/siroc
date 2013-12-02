@@ -19,7 +19,7 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     public Principal() {
-        super("Cella - Sistema de Pedidos e Romaneios");        
+        super("Cella - Sistema de Pedidos e Romaneios");
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
         setLocationRelativeTo(null);

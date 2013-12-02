@@ -5,20 +5,21 @@
  */
 package br.com.siroc.Jasper;
 
+import br.com.siroc.dao.PedidoDAO;
 import br.com.siroc.fabrica.ConnectionFactory;
-import java.net.URL;
+
 import java.sql.ResultSet;
+
+
 import java.sql.SQLException;
+import java.util.List;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
-import org.hibernate.Query;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.hibernate.Session;
 
 /**
@@ -28,32 +29,56 @@ import org.hibernate.Session;
 public class Relatorio {
 
     private Session session;
-
-    public Relatorio() {
+    List<Object> list;
+    PedidoDAO pdao = new PedidoDAO();
+    Long id;
+    public Relatorio(Long id) {
+        this.id = id;
         session = new ConnectionFactory().getSession();
     }
 
     public void gerar(int id) throws JRException, SQLException {
-        URL arquivo = getClass().getResource("/br/com/siroc/Jasper/pedido_final.jrxml");
 
-        String resultado = arquivo.getPath();
-        resultado = resultado.replaceAll("%20", " ");
-
-        JasperDesign desenho = JRXmlLoader.load(resultado);
+        String caminho = "C:\\siroc\\pedidofinal.jrxml";
+        JasperDesign desenho = JRXmlLoader.load(caminho);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
-        String consulta = "select clientes.cli_nome,clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,\n"
-                + " clientes.cli_telefone, clientes.cli_cep,clientes.cli_cnpj_cpf,clientes.cli_inscricao_est,\n"
-                + " to_char(((select sum(itens.item_valor * itens.item_quantidade)\n"
-                + " from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id inner join clientes on pedidos.fk_cliente = clientes.cli_id\n"
-                + " where pedidos.ped_id = :id)*clientes.cli_frete)/100,'R$99G999D99' ) as cli_frete,produtos.pro_id,itens.item_quantidade,\n"
-                + " produtos.pro_nome || ' - ' || produtos.pro_peso|| ' Kg' as produto, to_char(itens.item_valor, 'R$99G999D99') as item_valor,\n"
-                + " to_char((itens.item_valor * itens.item_quantidade), 'R$99G999D99') as total_parcial, to_char((select sum((itens.item_valor - produtos.pro_saida)\n"
-                + " * itens.item_quantidade) from itens inner join produtos on itens.fk_produto = produtos.pro_id inner join pedidos on\n"
-                + " itens.fk_pedido = pedidos.ped_id inner join clientes on pedidos.fk_cliente = clientes.cli_id where pedidos.ped_id = :id), 'R$99G999D99')as saldo,\n"
-                + " pedidos.ped_pagamento,pedidos.ped_pedido,pedidos.ped_status, to_char((select sum(itens.item_valor * itens.item_quantidade)\n"
-                + " from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = :id), 'R$99G999D99') as total from\n"
-                + " pedidos inner join clientes on clientes.cli_id = pedidos.fk_cliente inner join itens on pedidos.ped_id = itens.fk_pedido inner join produtos on\n"
-                + " produtos.pro_id = itens.fk_produto where pedidos.ped_id = :id";
+        String consulta = "select cliente.cli_nome,cliente.cli_endereco ||', ' ||cliente.cli_bairro || '. ' || cliente.cli_cidade || '-' || cliente.cli_estado as endereco,\n" +
+            "cliente.cli_telefone,cliente.cli_cep,cliente.cli_cnpj_cpf,cliente.cli_inscricao_est,to_char(sum(((item.item_valor * item.item_quantidade))*cliente.cli_frete)/100,'R$999G990D99')  as frete ,\n" +
+            "produto.pro_id,item.item_quantidade,produto.pro_nome || ' - ' || produto.pro_peso|| ' Kg' as produto,to_char(item.item_valor,'R$999G990D99') as item_valor,\n" +
+            "to_char((item.item_valor * item.item_quantidade) ,'R$999G990D99') as total_parcial ,to_char(sum((item.item_valor - produto.pro_saida)*item.item_quantidade),'L9G999G90D99')  as lucro ,\n" +
+            "pedido.ped_pagamento,pedido.ped_pedido,pedido.ped_status,to_char(pedido.ped_data,'dd/mm/yyyy') as data,\n" +
+            "to_char(sum(item.item_valor * item.item_quantidade),'R$999G990D99')  as total\n" +
+
+        String caminho = "c:\\siroc\\pedidofinal.jrxml";
+        
+        String consulta = "select cliente.nome,\n" +
+            "cliente.endereco ||', ' ||cliente.bairro || '. ' || cliente.cidade || '-' || cliente.estado as endereco,\n" +
+            "cliente.telefone,\n" +
+            "cliente.cep,\n" +
+            "cliente.cnpj_cpf,\n" +
+            "cliente.inscricao_est,\n" +
+            "to_char(sum(((item.valor_alterado * item.quantidade))*cliente.frete)/100,'R$999G990D99')  as frete ,\n" +
+            "produto.id,\n" +
+            "item.quantidade,\n" +
+            "produto.nome || ' - ' || produto.peso|| ' Kg' as produto,\n" +
+            "to_char(item.valor_alterado,'R$999G990D99') as item_valor,\n" +
+            "to_char((item.valor_alterado * item.quantidade) ,'R$999G990D99') as total_parcial ,\n" +
+            "to_char(sum((item.valor_alterado - produto.valor_saida)*item.quantidade),'L9G999G90D99')  as lucro ,\n" +
+            "pedido.tipo_pagamento,\n" +
+            "pedido.tipo_pedido,\n" +
+            "pedido.status,\n" +
+            "to_char(pedido.data,'dd/mm/yyyy') as data,\n" +
+            "to_char(sum(item.valor_alterado * item.quantidade),'R$999G990D99')  as total\n" +
+
+            "FROM Pedido pedido \n" +
+            "INNER JOIN pedido.cliente as cliente \n" +
+            "INNER JOIN pedido.itens as item \n" +
+            "INNER JOIN item.produto as produto \n" +
+            "INNER JOIN produto.fornecedor as fornecedor\n" +
+            "where pedidos.ped_id =: id\n" +
+            "group by clientes.cli_nome,clientes.cli_endereco,clientes.cli_bairro,clientes.cli_cidade,clientes.cli_estado,clientes.cli_telefone,\n" +
+            "clientes.cli_cep,clientes.cli_cnpj_cpf,clientes.cli_inscricao_est,clientes.cli_frete,produtos.pro_id,itens.item_quantidade,itens.item_valor,pedidos.ped_pagamento,\n" +
+            "pedidos.ped_pedido,pedidos.ped_status,pedidos.ped_data";
         System.out.println(consulta);
         Query query = session.createQuery(consulta);
         query.setParameter("id", id);
@@ -63,10 +88,16 @@ public class Relatorio {
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, null, jrRS);
         JasperViewer.viewReport(impressao);
         //JasperPrintManager.printPage(impressao, 0, true);
+            list = pdao.buscaPedido(consulta);
+ 
+            JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
+            JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, null, new JRBeanCollectionDataSource(list));
+            JasperExportManager.exportReportToPdfFile(printReport, "c:/reportex.pdf");      
+
     }
 
     public static void main(String[] args) throws JRException, SQLException {
-        Relatorio jr = new Relatorio();
+        Relatorio jr = new Relatorio(new Long(35));
         jr.gerar(35);
     }
 

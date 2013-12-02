@@ -37,8 +37,9 @@ public class PedidoBuilder {
         return new Pedido(id, data, tipo_pagamento, tipo_pedido, status, cliente, itens);
     }
 
-    public void setId(Long id) {
+    public PedidoBuilder setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public PedidoBuilder setCliente(Cliente cliente) {

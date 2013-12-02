@@ -24,14 +24,22 @@ public class AtualizaPedido extends javax.swing.JFrame {
      * Creates new form Atualiza_Pedido
      */
     Object[] resultado;
-    Pedido pedido;
-    DAO<Pedido> pdao = new DAO<>(Pedido.class);
     
+    Pedido pedido;
+    
+    DAO<Pedido> pdao = new DAO<>(Pedido.class);
+
     public AtualizaPedido(Object[] resultado) {
         super("Cella - Atualização de Clientes");
         this.resultado = resultado;
+
+        
         pedido = pdao.busca((Long)resultado[10]); //Garofolo
+
+        pedido = pdao.busca((Long) resultado[10]); //Garofolo
+
         pedido.setValorTotal((Double) resultado[5]);
+        
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
@@ -62,6 +70,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jCBPagamento = new javax.swing.JComboBox();
         jBAtualizar = new javax.swing.JButton();
         jLCabecalho = new javax.swing.JLabel();
+        jLFornecedor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -109,6 +118,9 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLCabecalho.setText("Atualização de Pedidos");
 
+        jLFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLFornecedor.setText("Fornecedor");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,7 +132,6 @@ public class AtualizaPedido extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBAtualizar)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLTipoPedido)
@@ -130,35 +141,42 @@ public class AtualizaPedido extends javax.swing.JFrame {
                             .addComponent(jLTipoPagamento)
                             .addGap(18, 18, 18)
                             .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLEndereco)
-                        .addComponent(jLCliente)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLValor)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLData)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLEndereco)
+                                .addComponent(jLFornecedor))
                             .addGap(52, 52, 52)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLFrete)
-                                .addComponent(jCBPago)))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                                .addComponent(jCBPago))))
+                    .addComponent(jBAtualizar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLCliente)
+                        .addGap(386, 386, 386)))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLCabecalho)
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addComponent(jLCliente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jLFornecedor)
+                .addGap(11, 11, 11)
                 .addComponent(jLEndereco)
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLData)
-                    .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCBPago))
+                    .addComponent(jCBPago)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLData)
+                        .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLValor)
@@ -169,9 +187,9 @@ public class AtualizaPedido extends javax.swing.JFrame {
                     .addComponent(jCBPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLTipoPagamento)
                     .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(60, 60, 60)
                 .addComponent(jBAtualizar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -182,10 +200,19 @@ public class AtualizaPedido extends javax.swing.JFrame {
         if (jCBPago.isSelected()) {
             pago = "Pago";
         }
+
         
+        pedido.setData(jDCData.getDate());
+        pedido.setStatus(pago);
+        pedido.setTipo_pagamento((String)jCBPagamento.getSelectedItem());
+        pedido.setTipo_pedido((String)jCBPedido.getSelectedItem());
+        
+
+
         pedido = new PedidoBuilder().setData(jDCData.getDate()).setStatus(pago).
                 setTipo_pagamento((String) jCBPagamento.getSelectedItem()).
-                setTipo_pedido((String) jCBPedido.getSelectedItem()).setCliente(new DAO<Cliente>(Cliente.class).buscaPorNome((String)resultado[3]).get(0)).getPedido();
+                setTipo_pedido((String) jCBPedido.getSelectedItem()).setCliente(new DAO<Cliente>(Cliente.class).buscaPorNome((String) resultado[3]).get(0)).getPedido();
+
         pdao.atualiza(pedido);
         JOptionPane.showMessageDialog(AtualizaPedido.this, "Pedido alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jBAtualizarActionPerformed
@@ -200,6 +227,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLCliente;
     private javax.swing.JLabel jLData;
     private javax.swing.JLabel jLEndereco;
+    private javax.swing.JLabel jLFornecedor;
     private javax.swing.JLabel jLFrete;
     private javax.swing.JLabel jLTipoPagamento;
     private javax.swing.JLabel jLTipoPedido;
@@ -226,11 +254,16 @@ public class AtualizaPedido extends javax.swing.JFrame {
             }
         }
     }
-    
-    public void populateFields(Pedido pedido){
+
+    public void populateFields(Pedido pedido) {
         jLCliente.setText(pedido.getCliente().getNome());
-        //jLFornecedor.setText((String) resultado[4]);
+
+        jLFornecedor.setText((String) resultado[4]);
         jLEndereco.setText(pedido.getCliente().getCidade()+ " - "+pedido.getCliente().getEstado());
+
+        //jLFornecedor.setText((String) resultado[4]);
+        jLEndereco.setText(pedido.getCliente().getCidade() + " - " + pedido.getCliente().getEstado());
+
         jDCData.setDate(pedido.getData());
         if (pedido.getStatus() != null) {
             jCBPago.setSelected(true);
