@@ -24,41 +24,6 @@ public class PedidoDAO {
         session = new ConnectionFactory().getSession();
     }
 
-    public List<Pedido> buscaAvançada(Cliente cliente, Fornecedor fornecedor, Date dataInicial, Date dataFinal,
-            Double valorInicial, Double valorFinal, String estado, String cidade, String status,
-            String tipoPagamento, String tipoPedido, String consulta) {
-
-        System.out.println(consulta);
-        if (cliente != null) {
-
-        }
-        if (fornecedor != null) {
-
-        }
-        if (dataInicial != null && dataFinal != null) {
-
-        }
-        if (valorInicial != null && valorFinal != null) {
-
-        }
-        if (estado != null) {
-
-        }
-        if (cidade != null) {
-
-        }
-        if (status != null) {
-
-        }
-        if (tipoPagamento != null) {
-
-        }
-        if (tipoPedido != null) {
-
-        }
-        return null;
-    }
-
     public List<Object[]> buscaAvançada(String consulta) {
 
 //        Query query = session.createQuery(consulta);

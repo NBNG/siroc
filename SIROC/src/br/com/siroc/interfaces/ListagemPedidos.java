@@ -488,15 +488,17 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             query += "AND lower(cliente.cidade) like lower('%" + cidade + "%') ";
         }
         if (jRBData.isSelected() && jDCData_Inicial.getDate() != null && jDCData_Final.getDate() != null) {
+            //dataInicial = jDCData_Inicial.getDate();
+            //dataFinal = jDCData_Final.getDate();
+            //System.out.println("TESTE DE DATAS");
+            //System.out.println(dataInicial);
+            //System.out.println(dataFinal);
+            //System.out.println("Alteradas");
             dataInicial = jDCData_Inicial.getDate();
             dataFinal = jDCData_Final.getDate();
-            System.out.println("TESTE DE DATAS");
-            System.out.println(dataInicial);
-            System.out.println(dataFinal);
-            System.out.println("Alteradas");
-            dataInicial = new java.sql.Date(dataInicial.getDate());
-            System.out.println("dataInicial: "+dataInicial);
-            query += "AND pedido.data BETWEEN " + dataInicial+ " AND " + dataFinal.getDate()+ " ";
+            //System.out.println("dataInicial: "+dataInicial);
+            //System.out.println("dataInicial: "+dataFinal);
+            query += "AND pedido.data BETWEEN '" + dataInicial + "' AND '" + dataFinal + "' ";
         } else if (jRBData.isSelected()) {
             JOptionPane.showMessageDialog(ListagemPedidos.this, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
         }
@@ -522,8 +524,8 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 + "pedido.tipo_pagamento,pedido.tipo_pedido,pedido.id ";
         if (jRBValor.isSelected() && !jTValor_Inicial.getText().equals("") && !jTValor_Final.getText().equals("")) {
             //fazer sum e between
-            valorInicial = Double.parseDouble(jTValor_Inicial.getText());
-            valorFinal = Double.parseDouble(jTValor_Final.getText());
+            valorInicial = Double.parseDouble(jTValor_Inicial.getText().replace(",","."));
+            valorFinal = Double.parseDouble(jTValor_Final.getText().replace(",","."));
             query += " HAVING SUM(item.valor_alterado*item.quantidade) BETWEEN " + valorInicial + " AND " + valorFinal + " ";
 
         } else if (jRBValor.isSelected()) {
