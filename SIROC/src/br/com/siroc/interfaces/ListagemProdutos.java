@@ -11,6 +11,7 @@ import br.com.siroc.modelo.Produto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -58,6 +59,7 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
 
         jLCabecalho = new javax.swing.JLabel();
         jBLimpar = new javax.swing.JButton();
+        jBAlterar = new javax.swing.JButton();
         jTNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
@@ -76,6 +78,15 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         jBLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBLimparActionPerformed(evt);
+            }
+        });
+
+        jBAlterar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/editar.png"))); // NOI18N
+        jBAlterar.setText("Alterar");
+        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarActionPerformed(evt);
             }
         });
 
@@ -115,9 +126,11 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBLimpar)
-                .addGap(23, 23, 23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBAlterar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBLimpar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,11 +162,13 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
-                        .addGap(43, 43, 43))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBAlterar)
+                        .addGap(18, 18, 18)
                         .addComponent(jBLimpar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(360, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(43, 43, 43))))
         );
 
         pack();
@@ -162,6 +177,14 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
+
+    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        if (tabela.getSelectedRowCount() < 1) {
+            JOptionPane.showMessageDialog(ListagemProdutos.this, "Favor, escolher um Produto!", "ERROR 404 - Product not found!", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+        }
+    }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
         jTFornecedor.setText("");
@@ -215,6 +238,7 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLNome_Produto;

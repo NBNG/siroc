@@ -4,6 +4,7 @@ import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import java.util.List;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,16 +20,7 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
     DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
     List<Fornecedor> fornecedores;
     //definição das colunas da tabela
-    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"}) {
-        boolean[] canEdit = new boolean[]{
-            false, false, false
-        };
-
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return canEdit[columnIndex];
-        }
-    };
+    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
     JDesktopPane painel;
 
     public ListagemFornecedores(JDesktopPane painel) {
@@ -50,6 +42,7 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
         jTNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         jLCabecalho = new javax.swing.JLabel();
         jBLimpar = new javax.swing.JButton();
         jLNome = new javax.swing.JLabel();
@@ -70,12 +63,16 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
 
         tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela.setModel(tmFornecedor);
-        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaMouseClicked(evt);
+        jScrollPane1.setViewportView(tabela);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/editar.png"))); // NOI18N
+        jButton1.setText("Alterar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
-        jScrollPane1.setViewportView(tabela);
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLCabecalho.setText("Pesquisa de Fornecedores");
@@ -102,7 +99,9 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jBLimpar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jBLimpar)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLNome)
@@ -123,12 +122,24 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBLimpar))
-                .addContainerGap(100, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(29, 29, 29)
+                        .addComponent(jBLimpar)))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (tabela.getSelectedRowCount() < 1) {
+            JOptionPane.showMessageDialog(null, "Selecione um cadastro a ser alterado.");
+        } else {
+            AtualizaFornecedor af = new AtualizaFornecedor(fornecedores.get(tabela.getSelectedRow()));
+            af.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
         while (tmFornecedor.getRowCount() > 0) {
@@ -165,16 +176,9 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
             tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
         }
     }//GEN-LAST:event_jTNomeActionPerformed
-
-    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-        if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
-            AtualizaFornecedor af = new AtualizaFornecedor(fornecedores.get(tabela.getSelectedRow()));
-            af.setVisible(true);
-        }
-    }//GEN-LAST:event_tabelaMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLimpar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLNome;
     private javax.swing.JScrollPane jScrollPane1;

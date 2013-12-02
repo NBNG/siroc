@@ -5,10 +5,6 @@
 package br.com.siroc.dao;
 
 import br.com.siroc.fabrica.ConnectionFactory;
-import br.com.siroc.modelo.Cliente;
-import br.com.siroc.modelo.Fornecedor;
-import br.com.siroc.modelo.Pedido;
-import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -29,6 +25,10 @@ public class PedidoDAO {
 //        Query query = session.createQuery(consulta);
 //        List<Object> list = (List<Object>) session.createQuery(consulta);
         return (List<Object[]>) session.createQuery(consulta).list();
+    }
+
+    public List<Object> buscaPedido(String consulta) {
+        return (List<Object>) session.createQuery(consulta).list();
     }
 
 }
