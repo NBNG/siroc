@@ -32,7 +32,7 @@ import org.hibernate.Session;
 public class Relatorio {
 
     private Session session;
-    List<Object> list;
+    List list;
     PedidoDAO pdao = new PedidoDAO();
     Long id;
     public Relatorio(Long id) {
@@ -106,7 +106,7 @@ public class Relatorio {
             
 >>>>>>> ede404529825867332d8133b2eadfffa912e2bee
             list = pdao.buscaPedido(consulta);
- 
+            
             JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
             JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, null, new JRBeanCollectionDataSource(list));
             JasperExportManager.exportReportToPdfFile(printReport, "c:/reportex.pdf");      
