@@ -63,6 +63,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         populateFields();
         this.painel = painel;
         tabela.setRowHeight(23);
+        this.setSize(this.painel.getWidth(),this.painel.getHeight()); 
     }
 
     /**
@@ -488,11 +489,14 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         }
         if (jRBData.isSelected() && jDCData_Inicial.getDate() != null && jDCData_Final.getDate() != null) {
             dataInicial = jDCData_Inicial.getDate();
-            System.out.println(dataInicial.getTime());
-            
             dataFinal = jDCData_Final.getDate();
-            System.out.println(dataFinal.toString());
-            query += "AND pedido.data BETWEEN " + dataInicial.getTime() + " AND " + dataFinal.getTime() + " ";
+            System.out.println("TESTE DE DATAS");
+            System.out.println(dataInicial);
+            System.out.println(dataFinal);
+            System.out.println("Alteradas");
+            dataInicial = new java.sql.Date(dataInicial.getDate());
+            System.out.println("dataInicial: "+dataInicial);
+            query += "AND pedido.data BETWEEN " + dataInicial+ " AND " + dataFinal.getDate()+ " ";
         } else if (jRBData.isSelected()) {
             JOptionPane.showMessageDialog(ListagemPedidos.this, "Pesquisa efetuada sem datas. \n Valores não foram escolhidos");
         }
