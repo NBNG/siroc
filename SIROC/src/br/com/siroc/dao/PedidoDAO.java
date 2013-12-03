@@ -27,8 +27,8 @@ public class PedidoDAO {
         return (List<Object[]>) session.createQuery(consulta).list();
     }
 
-    public List buscaPedido(String consulta) {
-        return (List) session.createQuery(consulta).list();
+    public List<Object[]> buscaPedido(String consulta) {
+        return (List<Object[]>) session.createQuery(consulta).list();
     }
 
 }

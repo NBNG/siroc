@@ -23,12 +23,11 @@ import org.hibernate.Session;
  * @author matteus
  */
 public class Relatorio {
-
+    
     private Session session;
-    List list;
     PedidoDAO pdao = new PedidoDAO();
     Long id;
-
+    
     public Relatorio(Long id) {
         this.id = id;
         session = new ConnectionFactory().getSession();
@@ -65,7 +64,7 @@ public class Relatorio {
                 + "cliente.cep,cliente.cnpj_cpf,cliente.inscricao_est,cliente.frete,produto.id,item.quantidade,item.valor_alterado,pedido.tipo_pagamento,\n"
                 + "pedido.tipo_pedido,pedido.status,pedido.data";
 
-        list = pdao.buscaPedido(consulta);
+        List<Object[]> list= pdao.buscaPedido(consulta);
 
         JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
         JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, null, new JRBeanCollectionDataSource(list));
