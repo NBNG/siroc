@@ -69,7 +69,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setValor_alterado(String valor_alterado) {
-        if (!temNumeros(valor_alterado)) {
+        if (!temNumeros(valor_alterado) && !valor_alterado.equals("")) {
             throw new IllegalArgumentException();
         }
 

@@ -389,37 +389,68 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     private void TabelaProduto_FornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaProduto_FornecedorMouseClicked
-        //item = new Item();
-        JTextField campo_quantidade = new JTextField();
-        JTextField campo_valor = new JTextField();
+        /*item = new Item();
+         JTextField campo_quantidade = new JTextField();
+         JTextField campo_valor = new JTextField();
 
-        Object[] message = {
-            "Quantidade: ", campo_quantidade,
-            "Valor Alterado: ", campo_valor};
+         Object[] message = {
+         "Quantidade: ", campo_quantidade,
+         "Valor Alterado: ", campo_valor};
+        
+         if (JOptionPane.showConfirmDialog(CadastroPedidos.this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
-        if (JOptionPane.showConfirmDialog(CadastroPedidos.this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-
-            /*if (campo_valor.getText().equals("")) {
-             item.setValor_alterado(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida());
-             } else {
-             item.setValor_alterado(Double.parseDouble(campo_valor.getText()));
-             }
-             item.setQuantidade(Integer.parseInt(campo_quantidade.getText()));
-             item.setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()));
+         /*if (campo_valor.getText().equals("")) {
+         item.setValor_alterado(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida());
+         } else {
+         item.setValor_alterado(Double.parseDouble(campo_valor.getText()));
+         }
+         item.setQuantidade(Integer.parseInt(campo_quantidade.getText()));
+         item.setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()));
            
-             */
-            try {
-                item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
-                        setQuantidade(campo_quantidade.getText()).setValor_alterado(campo_valor.getText())
-                        .getItem();
-            } catch (NullPointerException | IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(CadastroPedidos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
-            }
-            listItem.add(item);
-            preencheTabela(listItem);
-        }
+         *
+         try {
+         item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
+         setQuantidade(campo_quantidade.getText()).setValor_alterado(campo_valor.getText())
+         .getItem();
+         } catch (NullPointerException | IllegalArgumentException e) {
+         JOptionPane.showMessageDialog(CadastroPedidos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+         }
+         listItem.add(item);
+         preencheTabela(listItem);
+         }
+         */
+        listItem.add(abreOptionPane());
+        preencheTabela(listItem);
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
 
+    public Item abreOptionPane() {
+        JTextField campo_quantidade = new JTextField();
+        JTextField campo_valor = new JTextField();
+        Object[] message = {
+            "Quantidade: ", campo_quantidade,
+            "Valor Alterado: ", campo_valor };
+        
+        if(JOptionPane.showConfirmDialog(CadastroPedidos.this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
+            String[] optionpane = { campo_quantidade.getText(),campo_valor.getText()};
+            return gravaResposta(optionpane);
+        }else
+            return null;
+    }
+
+    public Item gravaResposta(String[] message) {
+        try {
+            System.out.println((String) message[0]);
+            System.out.println((String) message[1]);
+            item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
+                    setQuantidade(message[0]).setValor_alterado((String) message[1])
+                    .getItem();
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(CadastroPedidos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            abreOptionPane();
+        }
+        return item;
+    }
     private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
         jTCliente.setText(listCliente.get(TabelaCliente.getSelectedRow()).getNome());
         cliente = new Cliente();
@@ -451,7 +482,6 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
         removeItem();
     }//GEN-LAST:event_jBExcluirActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator Separador;
     private javax.swing.JTable TabelaCliente;
@@ -504,7 +534,8 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             tmProduto_Pedido.setValueAt(Editor.format(Itens.get(i).getValor_alterado()), i, 3);
         }
     }
-    public void removeItem(){
+
+    public void removeItem() {
         listItem.remove(listItem.get(TabelaProduto_Pedido.getSelectedRow()));
         preencheTabela(listItem);
     }

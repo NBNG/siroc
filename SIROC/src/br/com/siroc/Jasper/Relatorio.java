@@ -73,7 +73,7 @@ public class Relatorio {
     }
 
     public static void main(String[] args) throws JRException, SQLException {
-        Relatorio jr = new Relatorio(new Long(35));
+        Relatorio jr = new Relatorio(new Long(12));
         jr.gerar();
     }
 
