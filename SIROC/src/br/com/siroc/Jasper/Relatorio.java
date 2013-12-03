@@ -34,7 +34,8 @@ public class Relatorio {
     }
 
     public void gerar() throws JRException, SQLException {
-        String caminho = "c:\\siroc\\pedidofinal.jrxml";
+        //String caminho = "c:\\siroc\\pedidofinal.jrxml";
+        String caminho = "C:\\Users\\Proclima\\Documents\\GitHub\\siroc\\pedidofinal.jrxml";
 
         String consulta = "select cliente.nome,\n"
                 + "cliente.endereco ||', ' ||cliente.bairro || '. ' || cliente.cidade || '-' || cliente.estado as endereco,\n"
@@ -62,7 +63,7 @@ public class Relatorio {
                 + "where pedido.id =" + id + "\n"
                 + "group by cliente.nome,cliente.endereco,cliente.bairro,cliente.cidade,cliente.estado,cliente.telefone,\n"
                 + "cliente.cep,cliente.cnpj_cpf,cliente.inscricao_est,cliente.frete,produto.id,item.quantidade,item.valor_alterado,pedido.tipo_pagamento,\n"
-                + "pedido.tipo_pedido,pedido.status,pedido.data";
+                + "pedido.tipo_pedido,pedido.status,pedido.data,produto.nome,produto.peso";
 
         List<Object[]> list= pdao.buscaPedido(consulta);
 
