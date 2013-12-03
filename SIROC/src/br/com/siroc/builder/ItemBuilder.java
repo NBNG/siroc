@@ -55,7 +55,7 @@ public class ItemBuilder {
 
     public ItemBuilder setQuantidade(String quantidade) {
         if (quantidade == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException();
         }
 
         if (!temNumeros(quantidade)) {
@@ -76,7 +76,7 @@ public class ItemBuilder {
         if (valor_alterado.equals("")) {
             this.valor_alterado = produto.getValor_saida();
         } else {
-            this.valor_alterado = Double.parseDouble(valor_alterado);
+            this.valor_alterado = Double.parseDouble(valor_alterado.replace(",", "."));
         }
 
         return this;

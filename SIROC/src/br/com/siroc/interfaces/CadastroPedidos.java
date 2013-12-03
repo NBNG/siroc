@@ -4,9 +4,9 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.Editor;
 import br.com.siroc.builder.ItemBuilder;
 import br.com.siroc.builder.PedidoBuilder;
-import br.com.siroc.Editor.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import br.com.siroc.modelo.Fornecedor;
@@ -400,7 +400,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                 item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
                         setQuantidade(campo_quantidade.getText()).setValor_alterado(campo_valor.getText())
                         .getItem();
-            } catch (NullPointerException e) {
+            } catch (NullPointerException | IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(CadastroPedidos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             }
             listItem.add(item);
