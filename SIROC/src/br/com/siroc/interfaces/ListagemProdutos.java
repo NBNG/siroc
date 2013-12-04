@@ -164,8 +164,6 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         limpar();
     }//GEN-LAST:event_jBLimparActionPerformed
 
-
-
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         if (tabela.getSelectedRowCount() < 1) {
             JOptionPane.showMessageDialog(ListagemProdutos.this, "Favor, escolher um Produto!", "ERROR 404 - Product not found!", JOptionPane.ERROR_MESSAGE);
@@ -173,7 +171,6 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
 
         }
     }//GEN-LAST:event_jBAlterarActionPerformed
-
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
         jTFornecedor.setText("");

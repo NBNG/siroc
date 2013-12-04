@@ -24,22 +24,21 @@ public class AtualizaPedido extends javax.swing.JFrame {
      * Creates new form Atualiza_Pedido
      */
     Object[] resultado;
-    
+
     Pedido pedido;
-    
+
     DAO<Pedido> pdao = new DAO<>(Pedido.class);
 
     public AtualizaPedido(Object[] resultado) {
         super("Cella - Atualização de Clientes");
         this.resultado = resultado;
 
-        
-        pedido = pdao.busca((Long)resultado[10]); //Garofolo
+        pedido = pdao.busca((Long) resultado[10]); //Garofolo
 
         pedido = pdao.busca((Long) resultado[10]); //Garofolo
 
         pedido.setValorTotal((Double) resultado[5]);
-        
+
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
@@ -197,13 +196,10 @@ public class AtualizaPedido extends javax.swing.JFrame {
             pago = "Pago";
         }
 
-        
         pedido.setData(jDCData.getDate());
         pedido.setStatus(pago);
-        pedido.setTipo_pagamento((String)jCBPagamento.getSelectedItem());
-        pedido.setTipo_pedido((String)jCBPedido.getSelectedItem());
-        
-
+        pedido.setTipo_pagamento((String) jCBPagamento.getSelectedItem());
+        pedido.setTipo_pedido((String) jCBPedido.getSelectedItem());
 
         pedido = new PedidoBuilder().setData(jDCData.getDate()).setStatus(pago).
                 setTipo_pagamento((String) jCBPagamento.getSelectedItem()).
@@ -255,7 +251,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jLCliente.setText(pedido.getCliente().getNome());
 
         jLFornecedor.setText((String) resultado[4]);
-        jLEndereco.setText(pedido.getCliente().getCidade()+ " - "+pedido.getCliente().getEstado());
+        jLEndereco.setText(pedido.getCliente().getCidade() + " - " + pedido.getCliente().getEstado());
 
         //jLFornecedor.setText((String) resultado[4]);
         jLEndereco.setText(pedido.getCliente().getCidade() + " - " + pedido.getCliente().getEstado());

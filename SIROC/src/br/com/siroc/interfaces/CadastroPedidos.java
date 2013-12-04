@@ -428,13 +428,14 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         JTextField campo_valor = new JTextField();
         Object[] message = {
             "Quantidade: ", campo_quantidade,
-            "Valor Alterado: ", campo_valor };
-        
-        if(JOptionPane.showConfirmDialog(CadastroPedidos.this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
-            String[] optionpane = { campo_quantidade.getText(),campo_valor.getText()};
+            "Valor Alterado: ", campo_valor};
+
+        if (JOptionPane.showConfirmDialog(CadastroPedidos.this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+            String[] optionpane = {campo_quantidade.getText(), campo_valor.getText()};
             return gravaResposta(optionpane);
-        }else
+        } else {
             return null;
+        }
     }
 
     public Item gravaResposta(String[] message) {
