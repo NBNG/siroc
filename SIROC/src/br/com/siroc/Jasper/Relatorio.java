@@ -5,18 +5,23 @@
  */
 package br.com.siroc.Jasper;
 
-import br.com.siroc.dao.PedidoDAO;
-import br.com.siroc.fabrica.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.hibernate.Session;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -24,57 +29,91 @@ import org.hibernate.Session;
  */
 public class Relatorio {
 
-    private Session session;
-    PedidoDAO pdao = new PedidoDAO();
-    Long id;
+    private Connection conexao;
 
-    public Relatorio(Long id) {
-        this.id = id;
-        session = new ConnectionFactory().getSession();
+    public Relatorio() {
+        this.conexao = getConexao();
     }
 
-    public void gerar() throws JRException, SQLException {
-        //String caminho = "c:\\siroc\\pedidofinal.jrxml";
-        String caminho = "C:\\Users\\Proclima\\Documents\\GitHub\\siroc\\pedidofinal.jrxml";
+    public static Connection getConexao() {
 
-        String consulta = "select cliente.nome,\n"
-                + "cliente.endereco ||', ' ||cliente.bairro || '. ' || cliente.cidade || '-' || cliente.estado as endereco,\n"
-                + "cliente.telefone,\n"
-                + "cliente.cep,\n"
-                + "cliente.cnpj_cpf,\n"
-                + "cliente.inscricao_est,\n"
-                + "to_char(((select sum (item.valor_alterado * item.quantidade) from pedido pedido inner join pedido.itens as item where pedido.id = 55)*cliente.frete)/100 ,'r$999g990d99') as frete,\n"
-                + "produto.id,\n"
-                + "item.quantidade,\n"
-                + "produto.nome || ' - ' || produto.peso|| ' kg' as produto,\n"
-                + "to_char(item.valor_alterado,'r$999g990d99') as item_valor,\n"
-                + "to_char((item.valor_alterado * item.quantidade) ,'r$999g990d99') as total_parcial ,\n"
-                + "to_char((select sum((item.valor_alterado - produto.valor_saida)*item.quantidade) from pedido pedido inner join pedido.itens as item inner join item.produto as produto where pedido.id = 55),'l9g999g90d99')  as lucro,\n"
-                + "pedido.tipo_pagamento,\n"
-                + "pedido.tipo_pedido,\n"
-                + "pedido.status,\n"
-                + "to_char(pedido.data,'dd/mm/yyyy') as data,\n"
-                + "to_char((select sum (item.valor_alterado * item.quantidade) from pedido pedido inner join pedido.itens as item where pedido.id = 55),'l9g999g90d99')  as total\n"
-                + "from Pedido pedido \n"
-                + "inner join pedido.cliente as cliente \n"
-                + "inner join pedido.itens as item \n"
-                + "inner join item.produto as produto \n"
-                + "inner join produto.fornecedor as fornecedor\n"
-                + "where pedido.id =55\n"
-                + "group by cliente.nome,cliente.endereco,cliente.bairro,cliente.cidade,cliente.estado,cliente.telefone,\n"
-                + "cliente.cep,cliente.cnpj_cpf,cliente.inscricao_est,cliente.frete,produto.id,produto.nome,produto.peso,produto.valor_saida,item.quantidade,\n"
-                + "item.valor_alterado,pedido.tipo_pagamento,pedido.tipo_pedido,pedido.status,pedido.data,pedido.id";
-        System.out.println(consulta);
-        List<Object[]> list = pdao.buscaPedido(consulta);
-
-        JasperReport pathjrxml = JasperCompileManager.compileReport(caminho);
-        JasperPrint printReport = JasperFillManager.fillReport(pathjrxml, null, new JRBeanCollectionDataSource(list));
-        JasperExportManager.exportReportToPdfFile(printReport, "c:/reportex.pdf");
+        try {
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/siroc", "postgres", "senha");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro:\n" + ex);
+            throw new RuntimeException(ex);
+        }
     }
 
-    public static void main(String[] args) throws JRException, SQLException {
-        Relatorio jr = new Relatorio(new Long(12));
-        jr.gerar();
+    public void gerarPedido(Long id, int tipo) throws JRException, SQLException {
+        String caminho = "c:\\siroc\\pedidofinalizado.jrxml";
+        JasperDesign desenho = JRXmlLoader.load(caminho);
+        JasperReport relatorio = JasperCompileManager.compileReport(desenho);
+        String query = "select clientes.cli_nome,\n"
+                + "clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,clientes.cli_telefone,\n"
+                + "clientes.cli_cep, clientes.cli_cnpj_cpf, clientes.cli_inscricao_est,to_char(((select sum (itens.item_valor * itens.item_quantidade) \n"
+                + "from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = " + id + ")*clientes.cli_frete)/100 ,'R$999G990D99') as frete,\n"
+                + "produtos.pro_id, itens.item_quantidade, produtos.pro_nome || ' - ' || produtos.pro_peso|| ' Kg' as produto, \n"
+                + "to_char(itens.item_valor,'R$999G990D99') as item_valor, to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial,\n"
+                + "to_char((select sum((itens.item_valor - produtos.pro_saida)*itens.item_quantidade) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id \n"
+                + "inner join produtos on itens.fk_produto = produtos.pro_id where pedidos.ped_id = " + id + "),'L9G999G90D99')  as lucro, pedidos.ped_pagamento, pedidos.ped_pedido,\n"
+                + "pedidos.ped_status, to_char(pedidos.ped_data,'dd/mm/yyyy') as data, to_char((select sum (itens.item_valor * itens.item_quantidade) \n"
+                + "from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = " + id + "),'R$999G990D99')  as total from pedidos\n"
+                + "inner join clientes on clientes.cli_id = pedidos.fk_cliente inner join itens on pedidos.ped_id = itens.fk_pedido inner join produtos\n"
+                + "on produtos.pro_id = itens.fk_produto where pedidos.ped_id = " + id + " \n"
+                + "group by pedidos.ped_id,clientes.cli_nome,clientes.cli_endereco,clientes.cli_bairro,clientes.cli_cidade,clientes.cli_estado,clientes.cli_telefone,\n"
+                + "clientes.cli_cep,clientes.cli_cnpj_cpf,clientes.cli_inscricao_est,clientes.cli_frete,produtos.pro_id,itens.item_quantidade,itens.item_valor,\n"
+                + "pedidos.ped_pagamento, pedidos.ped_pedido,pedidos.ped_status,pedidos.ped_data";
+        PreparedStatement pstmt = this.conexao.prepareStatement(query);
+        ResultSet rs = pstmt.executeQuery();
+
+        JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+
+        HashMap parametros = new HashMap();
+        parametros.put("termo", new Double(10));
+
+        JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
+        if (tipo == 1) {
+            JasperPrintManager.printPage(impressao, 0, true);
+        } else if (tipo == 0) {
+            JasperViewer.viewReport(impressao);
+        }
+    }
+
+    public void gerarSO(String where, int tipo) throws JRException, SQLException {
+        String caminho = "c:\\siroc\\RomaneioSO.jrxml";
+        JasperDesign desenho = JRXmlLoader.load(caminho);
+        JasperReport relatorio = JasperCompileManager.compileReport(desenho);
+        String query = "select produtos.pro_id,itens.item_quantidade, produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto,\n"
+                + "to_char(produtos.pro_entrada,'R$09G999D99')as valor_entrada,to_char(itens.item_valor, 'R$09G999D99') as item_valor, to_char((itens.item_valor * itens.item_quantidade), 'R$09G999D99') as total_parcial,\n"
+                + "to_char((select sum(itens.item_valor * itens.item_quantidade) - sum(itens.item_quantidade * produtos.pro_saida) from itens inner join produtos on\n"
+                + "itens.fk_produto = produtos.pro_id inner join pedidos on itens.fk_pedido = pedidos.ped_id inner join clientes on\n"
+                + "pedidos.fk_cliente = clientes.cli_id inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id\n"
+                + "" + where + " ), 'R$09G999D99')as saldo,\n"
+                + "to_char(((select sum(itens.item_valor * itens.item_quantidade) from itens inner join produtos on itens.fk_produto = produtos.pro_id inner join\n"
+                + "pedidos on itens.fk_pedido = pedidos.ped_id inner join clientes on pedidos.fk_cliente = clientes.cli_id inner join fornecedores on\n"
+                + "produtos.fk_fornecedor = fornecedores.for_id \n"
+                + "" + where + " )), 'R$09G999D99') \n"
+                + "as total from pedidos inner join clientes on clientes.cli_id = pedidos.fk_cliente inner join itens on\n"
+                + "pedidos.ped_id = itens.fk_pedido inner join produtos on produtos.pro_id = itens.fk_produto inner join fornecedores  on\n"
+                + "produtos.fk_fornecedor = fornecedores.for_id\n"
+                + "" + where;
+
+        PreparedStatement pstmt = this.conexao.prepareStatement(query);
+        ResultSet rs = pstmt.executeQuery();
+
+        JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+
+        HashMap parametros = new HashMap();
+        parametros.put("termo", new Double(10));
+
+        JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
+        if (tipo == 1) {
+            JasperPrintManager.printPage(impressao, 0, true);
+        } else if (tipo == 0) {
+            JasperViewer.viewReport(impressao);
+        }
+
     }
 
 }

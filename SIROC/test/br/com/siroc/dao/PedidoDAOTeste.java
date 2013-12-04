@@ -36,9 +36,6 @@ public class PedidoDAOTeste {
                 + "GROUP BY pedido.id,cliente.cidade,cliente.estado,cliente.nome, "
                 + "fornecedor.nome, cliente.frete HAVING SUM(item.valor_alterado*item.quantidade) BETWEEN 1 AND 100";
         dao.buscaAvançada(consulta);
-        //for (Pedido pedido : dao.buscaAvançada(consulta)) {
-        //    System.out.println(pedido.getId());
-        //}
     }
 
 }

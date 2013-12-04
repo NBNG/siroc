@@ -51,6 +51,8 @@ public class Principal extends javax.swing.JFrame {
         jMPedido = new javax.swing.JMenu();
         jMICadastro_Pedidos = new javax.swing.JMenuItem();
         jMIListagem_Pedidos = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMIRomaneioSO = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -161,6 +163,16 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMPedido.add(jMIListagem_Pedidos);
+        jMPedido.add(jSeparator1);
+
+        jMIRomaneioSO.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIRomaneioSO.setText("Romaneio - SO");
+        jMIRomaneioSO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIRomaneioSOActionPerformed(evt);
+            }
+        });
+        jMPedido.add(jMIRomaneioSO);
 
         jMenu.add(jMPedido);
 
@@ -247,6 +259,11 @@ public class Principal extends javax.swing.JFrame {
         hp.setVisible(true);
     }//GEN-LAST:event_jMI_HistoricoActionPerformed
 
+    private void jMIRomaneioSOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRomaneioSOActionPerformed
+        RomaneioSO romaso = new RomaneioSO();
+        romaso.setVisible(true);
+    }//GEN-LAST:event_jMIRomaneioSOActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -293,10 +310,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMIListagem_Fornecedor;
     private javax.swing.JMenuItem jMIListagem_Pedidos;
     private javax.swing.JMenuItem jMIListagem_Produtos;
+    private javax.swing.JMenuItem jMIRomaneioSO;
     private javax.swing.JMenuItem jMI_Historico;
     private javax.swing.JMenu jMPedido;
     private javax.swing.JMenu jMProdutos;
     private javax.swing.JMenuBar jMenu;
     private javax.swing.JDesktopPane jPanel;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

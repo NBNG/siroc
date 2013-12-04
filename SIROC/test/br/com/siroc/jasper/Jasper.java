@@ -42,7 +42,6 @@ public class Jasper {
                 + "group by cliente.nome,cliente.endereco,cliente.bairro,cliente.cidade,cliente.estado,cliente.telefone,\n"
                 + "cliente.cep,cliente.cnpj_cpf,cliente.inscricao_est,cliente.frete,produto.id,produto.nome,produto.peso,produto.valor_saida,item.quantidade,\n"
                 + "item.valor_alterado,pedido.tipo_pagamento,pedido.tipo_pedido,pedido.status,pedido.data,pedido.id";
-        System.out.println(consulta);
         PedidoDAO pdao = new PedidoDAO();
         List<Object[]> lista = pdao.buscaPedido(consulta);
 

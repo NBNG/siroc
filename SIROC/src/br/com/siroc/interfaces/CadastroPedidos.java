@@ -440,8 +440,6 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
 
     public Item gravaResposta(String[] message) {
         try {
-            System.out.println((String) message[0]);
-            System.out.println((String) message[1]);
             item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
                     setQuantidade(message[0]).setValor_alterado((String) message[1])
                     .getItem();

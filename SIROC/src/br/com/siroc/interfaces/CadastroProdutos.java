@@ -236,7 +236,6 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Selecione um fornecedor na tabela.");
         } else {
             try {
-                System.out.println(fornecedores.get(tabela.getSelectedRow()).getId() + "+" + fornecedores.get(tabela.getSelectedRow()).getNome());
                 produto = new ProdutoBuilder().setFornecedor(fornecedores.get(tabela.getSelectedRow()))
                         .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
                         setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
