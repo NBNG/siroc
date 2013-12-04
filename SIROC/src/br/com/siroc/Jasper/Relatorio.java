@@ -12,16 +12,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileSystemView;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -76,7 +77,9 @@ public class Relatorio {
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            JasperViewer.viewReport(impressao);
+            FileSystemView filesys = FileSystemView.getFileSystemView();
+            String resultado = filesys.getHomeDirectory().toString() + "\\Pedido.pdf";
+            JasperExportManager.exportReportToPdfFile(impressao, resultado);
         }
     }
 
@@ -111,9 +114,48 @@ public class Relatorio {
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            JasperViewer.viewReport(impressao);
+            FileSystemView filesys = FileSystemView.getFileSystemView();
+            String resultado = filesys.getHomeDirectory().toString() + "\\RomaneioSO.pdf";
+            JasperExportManager.exportReportToPdfFile(impressao, resultado);
         }
 
     }
 
+    public void gerarNF(String where, int tipo) throws JRException, SQLException {
+        String caminho = "c:\\siroc\\RomaneioNF.jrxml";
+        JasperDesign desenho = JRXmlLoader.load(caminho);
+        JasperReport relatorio = JasperCompileManager.compileReport(desenho);
+        String query = "select pedidos.ped_id,fornecedores.for_nome,clientes.cli_nome || ' - ' || to_char(pedidos.ped_data,'dd/mm/yyyy') as cliente,itens.item_quantidade, produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto,\n"
+                + "to_char(produtos.pro_entrada,'R$09G999D99')as valor_entrada,to_char(itens.item_valor, 'R$09G999D99') as item_valor,\n"
+                + "to_char((itens.item_valor * itens.item_quantidade), 'R$09G999D99') as total_parcial,\n"
+                + "to_char((select sum(itens.item_valor * itens.item_quantidade) - sum(itens.item_quantidade * produtos.pro_saida) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id\n"
+                + "inner join produtos on itens.fk_produto = produtos.pro_id inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id\n"
+                + "" + where + " ), 'R$09G999D99')as saldo,\n"
+                + "to_char((select sum(itens.item_quantidade * itens.item_valor) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id\n"
+                + "inner join produtos on itens.fk_produto = produtos.pro_id inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id\n"
+                + "" + where + " ), 'R$09G999D99') as total\n"
+                + "from pedidos inner join clientes on pedidos.fk_cliente = clientes.cli_id\n"
+                + "inner join itens on pedidos.ped_id = itens.fk_pedido\n"
+                + "inner join produtos on itens.fk_produto = produtos.pro_id\n"
+                + "inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id\n"
+                + "" + where + ""
+                + "order by clientes.cli_nome,fornecedores.for_nome,produto,itens.item_quantidade";
+
+        PreparedStatement pstmt = this.conexao.prepareStatement(query);
+        ResultSet rs = pstmt.executeQuery();
+
+        JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+
+        HashMap parametros = new HashMap();
+        parametros.put("termo", new Double(10));
+
+        JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
+        if (tipo == 1) {
+            JasperPrintManager.printPage(impressao, 0, true);
+        } else if (tipo == 0) {
+            FileSystemView filesys = FileSystemView.getFileSystemView();
+            String resultado = filesys.getHomeDirectory().toString() + "\\RomaneioNF.pdf";
+            JasperExportManager.exportReportToPdfFile(impressao, resultado);
+        }
+    }
 }

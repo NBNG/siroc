@@ -68,6 +68,11 @@ public class RomaneioSO extends javax.swing.JFrame {
         jBPDF.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pdf (1).png"))); // NOI18N
         jBPDF.setText("Gerar PDF");
+        jBPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPDFActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,7 +127,19 @@ public class RomaneioSO extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
+        try {
+            String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
+                    + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
+            Relatorio rel = new Relatorio();
+            rel.gerarSO(where, 1);
+        } catch (JRException ex) {
+            Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jBImprimirActionPerformed
 
+    private void jBPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPDFActionPerformed
         try {
             String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
@@ -133,43 +150,7 @@ public class RomaneioSO extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jBImprimirActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RomaneioSO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RomaneioSO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RomaneioSO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RomaneioSO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RomaneioSO().setVisible(true);
-            }
-        });
-    }
-
+    }//GEN-LAST:event_jBPDFActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBImprimir;
     private javax.swing.JButton jBPDF;

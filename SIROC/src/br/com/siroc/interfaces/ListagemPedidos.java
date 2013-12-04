@@ -505,7 +505,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
         try {
             Relatorio rel = new Relatorio();
-            rel.gerarPedido(pedidos.get(tabela.getSelectedRow()).getId(), 0);
+            rel.gerarPedido(pedidos.get(tabela.getSelectedRow()).getId(), 1);
         } catch (JRException | SQLException ex) {
             ex.printStackTrace();
         }
@@ -542,7 +542,12 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void jBImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimir1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            Relatorio rel = new Relatorio();
+            rel.gerarPedido(pedidos.get(tabela.getSelectedRow()).getId(), 0);
+        } catch (JRException | SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jBImprimir1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

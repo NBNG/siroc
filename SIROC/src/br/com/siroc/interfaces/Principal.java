@@ -53,6 +53,7 @@ public class Principal extends javax.swing.JFrame {
         jMIListagem_Pedidos = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMIRomaneioSO = new javax.swing.JMenuItem();
+        jMIRomaneioNF = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -174,6 +175,15 @@ public class Principal extends javax.swing.JFrame {
         });
         jMPedido.add(jMIRomaneioSO);
 
+        jMIRomaneioNF.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIRomaneioNF.setText("Romaneio - NF");
+        jMIRomaneioNF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIRomaneioNFActionPerformed(evt);
+            }
+        });
+        jMPedido.add(jMIRomaneioNF);
+
         jMenu.add(jMPedido);
 
         setJMenuBar(jMenu);
@@ -264,6 +274,11 @@ public class Principal extends javax.swing.JFrame {
         romaso.setVisible(true);
     }//GEN-LAST:event_jMIRomaneioSOActionPerformed
 
+    private void jMIRomaneioNFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRomaneioNFActionPerformed
+        RomaneioNF romanf = new RomaneioNF();
+        romanf.setVisible(true);
+    }//GEN-LAST:event_jMIRomaneioNFActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -310,6 +325,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMIListagem_Fornecedor;
     private javax.swing.JMenuItem jMIListagem_Pedidos;
     private javax.swing.JMenuItem jMIListagem_Produtos;
+    private javax.swing.JMenuItem jMIRomaneioNF;
     private javax.swing.JMenuItem jMIRomaneioSO;
     private javax.swing.JMenuItem jMI_Historico;
     private javax.swing.JMenu jMPedido;
