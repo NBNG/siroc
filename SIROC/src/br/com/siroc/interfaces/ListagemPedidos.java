@@ -45,20 +45,27 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
 
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
+    
     List<Pedido> pedidos;
     List<Cliente> clientes;
     List<Fornecedor> fornecedores;
+    
     HashSet cCliente;
     HashSet cEstado;
     HashSet cCidade;
     HashSet cFornecedor;
+    
     String cliente;
     String fornecedor;
+    
     Date dataInicial, dataFinal;
+    
     Double valorInicial, valorFinal;
     String estado, cidade, pago, tipo_pgto, tipo_ped;
     JDesktopPane painel;
-    List<Object[]> list;
+    
+    
+    List<Object[]> list; //pesquisa avançada
 
     public ListagemPedidos(JDesktopPane painel) {
         super("Cella - Listagem de Produtos");
@@ -276,80 +283,83 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBCliente)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLCliente)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBFornecedor)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLFornecedor)
-                                .addGap(4, 4, 4)
-                                .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBData)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLInicio)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDCData_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLFim)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBValor)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLValor_Inicial)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTValor_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLValor_Final)
-                                .addGap(10, 10, 10)
-                                .addComponent(jTValor_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBEstado)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLEstado)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBCidade)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLCidade)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBPago)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLPago)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBTipo_Pagamento)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLTipo_Pagamento)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRBTipo_Pedido)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLTipo_Pedido)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTBSeleciona)
                                     .addComponent(jBCancelar))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jBPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jBImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                    .addComponent(jBLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jBImprimir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(18, 18, 18)
+                                    .addComponent(jBPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(22, 22, 22))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBTipo_Pedido)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLTipo_Pedido)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBCliente)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLCliente)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBFornecedor)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLFornecedor)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBData)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLInicio)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jDCData_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLFim)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBValor)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLValor_Inicial)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTValor_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLValor_Final)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jTValor_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBEstado)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLEstado)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBCidade)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLCidade)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBPago)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLPago)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRBTipo_Pagamento)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLTipo_Pagamento)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 18, Short.MAX_VALUE)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
@@ -435,7 +445,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                                 .addGap(3, 3, 3)
                                 .addComponent(jLTipo_Pagamento))
                             .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
@@ -447,15 +457,15 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTBSeleciona)
-                            .addComponent(jBPesquisar)
-                            .addComponent(jBLimpar))
+                            .addComponent(jBLimpar)
+                            .addComponent(jBPesquisar))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBCancelar)
                             .addComponent(jBImprimir)
                             .addComponent(jBImprimir1)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -505,7 +515,8 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
         try {
             Relatorio rel = new Relatorio();
-            rel.gerarPedido(pedidos.get(tabela.getSelectedRow()).getId(), 1);
+            Object[] auxID = list.get(tabela.getSelectedRow());
+            rel.gerarPedido((Long) auxID[10], 1);
         } catch (JRException | SQLException ex) {
             ex.printStackTrace();
         }
@@ -531,6 +542,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             tmPedido.setValueAt(resultado[7], i, 7); //Tipo pagamento
             tmPedido.setValueAt(resultado[8], i, 8); //Tipo de pedido
             tmPedido.setValueAt(Editor.format((Double) resultado[9]), i, 6); //Frete
+            //[10] é o ID do PEDIDO
         }
     }//GEN-LAST:event_jBPesquisarActionPerformed
 
@@ -544,7 +556,9 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     private void jBImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimir1ActionPerformed
         try {
             Relatorio rel = new Relatorio();
-            rel.gerarPedido(pedidos.get(tabela.getSelectedRow()).getId(), 0);
+            Object[] auxID = list.get(tabela.getSelectedRow());
+            rel.gerarPedido((Long) auxID[10], 0);
+            //rel.gerarPedido(pedidos.get(tabela.getSelectedRow()).getId(), 0);
         } catch (JRException | SQLException ex) {
             ex.printStackTrace();
         }
