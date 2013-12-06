@@ -200,10 +200,10 @@ public class AtualizaPedido extends javax.swing.JFrame {
         pedido.setStatus(pago);
         pedido.setTipo_pagamento((String) jCBPagamento.getSelectedItem());
         pedido.setTipo_pedido((String) jCBPedido.getSelectedItem());
-
-        pedido = new PedidoBuilder().setData(jDCData.getDate()).setStatus(pago).
+        
+        /*pedido = new PedidoBuilder().setData(jDCData.getDate()).setStatus(pago).
                 setTipo_pagamento((String) jCBPagamento.getSelectedItem()).
-                setTipo_pedido((String) jCBPedido.getSelectedItem()).setCliente(new DAO<Cliente>(Cliente.class).buscaPorNome((String) resultado[3]).get(0)).getPedido();
+                setTipo_pedido((String) jCBPedido.getSelectedItem()).setCliente(new DAO<Cliente>(Cliente.class).buscaPorNome((String) resultado[3]).get(0)).getPedido();*/
 
         pdao.atualiza(pedido);
         JOptionPane.showMessageDialog(AtualizaPedido.this, "Pedido alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
