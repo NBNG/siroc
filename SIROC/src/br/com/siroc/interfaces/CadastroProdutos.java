@@ -36,6 +36,7 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
         super("Cella - Cadastro de Produtos");
         initComponents();
         this.painel = painel;
+        hinter();
     }
 
     /**
@@ -62,6 +63,7 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
         jBCadastrar = new javax.swing.JButton();
         jBLimpar = new javax.swing.JButton();
         jTNome = new javax.swing.JTextField();
+        jLAjuda = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -125,6 +127,10 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
             }
         });
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,16 +159,19 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
                                 .addComponent(jTNome_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(jBLimpar))
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLCabecalho)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLFornecedor)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTNome)))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                                .addComponent(jTNome))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLCabecalho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLAjuda)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTPeso, jTV_Compra, jTV_Saida});
@@ -172,8 +181,13 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLCabecalho))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLAjuda)))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLFornecedor)
@@ -255,6 +269,7 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBLimpar;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLFornecedor;
     private javax.swing.JLabel jLNome;
@@ -283,5 +298,15 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
         jLPeso.setText("Peso:*");
         jLV_Compra.setText("Valor de Compra:*");
         jLV_Venda.setText("Valor de Saída:*");
+    }
+
+    private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta é a tela de cadastro de Produtos,<br>"
+                + " onde serão cadastrados os dados relativos as informações do produto. <br>"
+                + "1. Lembre-se de preencher os dados obrigatórios sempre, para serem evitados erros.<br>"
+                + "2. Lembre-se de escolher o fornecedor do respectivo produto.<br>"
+                + "3. Após o preenchimento, clique no botão Cadastrar para que seja executada a atualização.<br>"
+                + "4. O botão limpar reinicia a tela, limpando os campos.<br>"
+                + "5. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
     }
 }

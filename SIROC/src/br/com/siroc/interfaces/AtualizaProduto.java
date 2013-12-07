@@ -38,6 +38,7 @@ public class AtualizaProduto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.produto = produto;
         populateFields(this.produto);
+        hinter();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
     }
 
@@ -64,6 +65,7 @@ public class AtualizaProduto extends javax.swing.JFrame {
         jLFornecedor = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabela_fornecedor = new javax.swing.JTable();
+        jLAjuda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,6 +120,10 @@ public class AtualizaProduto extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tabela_fornecedor);
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,7 +131,10 @@ public class AtualizaProduto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLCabecalho)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLCabecalho)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 322, Short.MAX_VALUE)
+                        .addComponent(jLAjuda))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLPeso)
                         .addGap(18, 18, 18)
@@ -149,13 +158,18 @@ public class AtualizaProduto extends javax.swing.JFrame {
                             .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBCadastrar, javax.swing.GroupLayout.Alignment.TRAILING)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLCabecalho))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLAjuda)))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLFornecedor)
@@ -224,6 +238,7 @@ public class AtualizaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_tabela_fornecedorMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLFornecedor;
     private javax.swing.JLabel jLNome;
@@ -270,5 +285,15 @@ public class AtualizaProduto extends javax.swing.JFrame {
         jLPeso.setText("Peso:*");
         jLV_Compra.setText("Valor de Compra:*");
         jLV_Venda.setText("Valor de Saída:*");
+    }
+
+    private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta é a tela de atualização de Produtos,<br>"
+                + " onde serão atualizados dados relativos as informações já cadastradas. <br>"
+                + "1. Lembre-se de preencher os dados obrigatórios sempre, para serem evitados erros.<br>"
+                + "2. Lembre-se de escolher se o Fornecedor para o cadastro ser efetuado com sucesso.<br>"
+                + " Tal escolha auxiliará na máscara utilizada para o cadastro do seu respectivo código.<br>"
+                + "3. Após o preenchimento, clique no botão atualizar para que seja executada a atualização.<br>"
+                + "4. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
     }
 }

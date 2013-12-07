@@ -54,7 +54,7 @@ public class Relatorio {
                 + "clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,clientes.cli_telefone,\n"
                 + "clientes.cli_cep, clientes.cli_cnpj_cpf, clientes.cli_inscricao_est,to_char(((select sum (itens.item_valor * itens.item_quantidade) \n"
                 + "from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = " + id + ")*clientes.cli_frete)/100 ,'R$999G990D99') as frete,\n"
-                + "produtos.pro_id, itens.item_quantidade, produtos.pro_nome || ' - ' || produtos.pro_peso|| ' Kg' as produto, \n"
+                + "produtos.pro_id, itens.item_quantidade, produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto, \n"
                 + "to_char(itens.item_valor,'R$999G990D99') as item_valor, to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial,\n"
                 + "to_char((select sum((itens.item_valor - produtos.pro_saida)*itens.item_quantidade) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id \n"
                 + "inner join produtos on itens.fk_produto = produtos.pro_id where pedidos.ped_id = " + id + "),'L9G999G90D99')  as lucro, pedidos.ped_pagamento, pedidos.ped_pedido,\n"

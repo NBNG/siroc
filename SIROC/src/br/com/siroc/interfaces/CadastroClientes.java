@@ -42,6 +42,7 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
         //maskFrete.install(jTFrete);
         maskCep.install(jTCEP);
         this.painel = painel;
+        hinter();
     }
 
     /**
@@ -84,6 +85,7 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
         jTCEP = new javax.swing.JFormattedTextField();
         jRBFisica = new javax.swing.JRadioButton();
         jRBJuridica = new javax.swing.JRadioButton();
+        jLAjuda = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -190,76 +192,86 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRBFisica)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRBJuridica))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRBFisica)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRBJuridica))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLNome)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTNome))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jBCadastrar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jBLimpar))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jL_IE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTIE, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(26, 26, 26)
+                                    .addComponent(jLCNPJ)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jFTCnpj_Cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLContato)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTContato))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLEstado)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(jLCEP)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLFrete)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLTelefone)
+                                .addGap(18, 18, 18)
+                                .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLCelular)
+                                .addGap(18, 18, 18)
+                                .addComponent(jFTCelular))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLEmail)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTEmail))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLEndereco)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTEndereco))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLBairro)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)
+                                .addComponent(jLCidade)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 67, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLNome)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTNome))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jBCadastrar)
-                            .addGap(18, 18, 18)
-                            .addComponent(jBLimpar))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jL_IE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTIE, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26)
-                            .addComponent(jLCNPJ)
-                            .addGap(18, 18, 18)
-                            .addComponent(jFTCnpj_Cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLCabecalho)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLContato)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTContato))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLEstado)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(jLCEP)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLFrete)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLTelefone)
-                        .addGap(18, 18, 18)
-                        .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLCelular)
-                        .addGap(18, 18, 18)
-                        .addComponent(jFTCelular))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLEmail)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTEmail))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLEndereco)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTEndereco))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLBairro)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(jLCidade)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addComponent(jLCabecalho)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLAjuda)))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
@@ -267,8 +279,13 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLCabecalho))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLAjuda)))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRBFisica)
@@ -320,7 +337,7 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -371,6 +388,7 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jFTCelular;
     private javax.swing.JFormattedTextField jFTCnpj_Cpf;
     private javax.swing.JFormattedTextField jFTTelefone;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLBairro;
     private javax.swing.JLabel jLCEP;
     private javax.swing.JLabel jLCNPJ;
@@ -419,5 +437,16 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
         jLCEP.setText("CEP:*");
         jLCNPJ.setText("CNPJ/CPF:*");
         jLContato.setText("Contato:*");
+    }
+
+    private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta é a tela de cadastro de Clientes,<br>"
+                + " onde serão cadastrados os dados relativos as informações do cliente. <br>"
+                + "1. Lembre-se de preencher os dados obrigatórios sempre, para serem evitados erros.<br>"
+                + "2. Lembre-se de escolher se o cliente é Pessoa Física ou Jurídica.<br>"
+                + " Tal escolha auxiliará na máscara utilizada para o cadastro do seu respectivo código.<br>"
+                + "3. Após o preenchimento, clique no botão Cadastrar para que seja executada a atualização.<br>"
+                + "4. O botão limpar reinicia a tela, limpando os campos.<br>"
+                + "5. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
     }
 }

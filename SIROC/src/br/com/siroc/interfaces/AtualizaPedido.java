@@ -6,9 +6,7 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
-import br.com.siroc.builder.PedidoBuilder;
 import br.com.siroc.dao.DAO;
-import br.com.siroc.modelo.Cliente;
 import br.com.siroc.modelo.Pedido;
 import java.awt.Toolkit;
 import java.util.Date;
@@ -45,6 +43,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
         //populateFields(resultado);
         populateFields(pedido);
+        hinter();
     }
 
     /**
@@ -70,6 +69,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jBAtualizar = new javax.swing.JButton();
         jLCabecalho = new javax.swing.JLabel();
         jLFornecedor = new javax.swing.JLabel();
+        jLAjuda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -120,6 +120,10 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jLFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLFornecedor.setText("Fornecedor");
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,30 +140,40 @@ public class AtualizaPedido extends javax.swing.JFrame {
                             .addComponent(jLTipoPagamento)
                             .addGap(18, 18, 18)
                             .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLCabecalho)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLValor)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLData)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLEndereco)
-                                    .addComponent(jLFornecedor)
-                                    .addComponent(jLCliente))
-                                .addGap(52, 52, 52)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLFrete)
-                                    .addComponent(jCBPago)))))
-                    .addComponent(jBAtualizar))
-                .addContainerGap(50, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLCabecalho)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLValor)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLData)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLEndereco)
+                                        .addComponent(jLFornecedor)
+                                        .addComponent(jLCliente))
+                                    .addGap(52, 52, 52)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLFrete)
+                                        .addComponent(jCBPago))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                            .addComponent(jLAjuda)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBAtualizar)
+                        .addGap(40, 40, 40)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLCabecalho))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLAjuda)))
                 .addGap(18, 18, 18)
                 .addComponent(jLCliente)
                 .addGap(18, 18, 18)
@@ -200,11 +214,10 @@ public class AtualizaPedido extends javax.swing.JFrame {
         pedido.setStatus(pago);
         pedido.setTipo_pagamento((String) jCBPagamento.getSelectedItem());
         pedido.setTipo_pedido((String) jCBPedido.getSelectedItem());
-        
-        /*pedido = new PedidoBuilder().setData(jDCData.getDate()).setStatus(pago).
-                setTipo_pagamento((String) jCBPagamento.getSelectedItem()).
-                setTipo_pedido((String) jCBPedido.getSelectedItem()).setCliente(new DAO<Cliente>(Cliente.class).buscaPorNome((String) resultado[3]).get(0)).getPedido();*/
 
+        /*pedido = new PedidoBuilder().setData(jDCData.getDate()).setStatus(pago).
+         setTipo_pagamento((String) jCBPagamento.getSelectedItem()).
+         setTipo_pedido((String) jCBPedido.getSelectedItem()).setCliente(new DAO<Cliente>(Cliente.class).buscaPorNome((String) resultado[3]).get(0)).getPedido();*/
         pdao.atualiza(pedido);
         JOptionPane.showMessageDialog(AtualizaPedido.this, "Pedido alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jBAtualizarActionPerformed
@@ -215,6 +228,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCBPago;
     private javax.swing.JComboBox jCBPedido;
     private com.toedter.calendar.JDateChooser jDCData;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLCliente;
     private javax.swing.JLabel jLData;
@@ -272,5 +286,16 @@ public class AtualizaPedido extends javax.swing.JFrame {
                 jCBPedido.setSelectedIndex(i);
             }
         }
+    }
+
+    private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta é a tela de atualização de Pedidos,<br>"
+                + " onde serão atualizados dados relativos as informações já cadastradas. <br>"
+                + "1. Lembre-se de preencher os dados obrigatórios sempre, para serem evitados erros.<br>"
+                + "2. Nesta tela apenas alguns dados podem ser atualizados, caso seja necessário alterar outros componentes,<br>"
+                + "é necessário deletar este pedido e fazer outro.<br>"
+                + " Tal escolha auxiliará na máscara utilizada para o cadastro do seu respectivo código.<br>"
+                + "3. Após o preenchimento, clique no botão atualizar para que seja executada a atualização.<br>"
+                + "4. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
     }
 }

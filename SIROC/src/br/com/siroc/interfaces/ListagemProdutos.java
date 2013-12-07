@@ -46,6 +46,7 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         initComponents();
         tabela.setRowHeight(23);
         this.painel = painel;
+        hinter();
     }
 
     /**
@@ -65,6 +66,7 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         jTFornecedor = new javax.swing.JTextField();
         jLNome_Produto = new javax.swing.JLabel();
         jLNome_Produto1 = new javax.swing.JLabel();
+        jLAjuda = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -109,6 +111,10 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         jLNome_Produto1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLNome_Produto1.setText("Nome Fornecedor:");
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,7 +128,10 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLCabecalho)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLCabecalho)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLAjuda))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLNome_Produto)
@@ -132,13 +141,18 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
                             .addComponent(jLNome_Produto1)
                             .addGap(18, 18, 18)
                             .addComponent(jTFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLCabecalho))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLAjuda)))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,7 +164,7 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                         .addGap(43, 43, 43))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBLimpar)
@@ -225,6 +239,7 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLimpar;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLNome_Produto;
     private javax.swing.JLabel jLNome_Produto1;
@@ -239,5 +254,13 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         painel.add(lp);
         lp.setVisible(true);
         this.dispose();
+    }
+
+    private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta é a tela de listagem de Produtos,<br>"
+                + " onde serão listados os dados relativos as informações do produto. <br>"
+                + "1. Aqui poderão ser efetuadas pesquisas nome do produto ou fornecedor.<br>"
+                + "2. Para ir para a tela de atualização, basta dar um duplo clique na linha do cliente escolhido.<br> "
+                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
     }
 }

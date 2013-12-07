@@ -45,26 +45,25 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
 
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
-    
+
     List<Pedido> pedidos;
     List<Cliente> clientes;
     List<Fornecedor> fornecedores;
-    
+
     HashSet cCliente;
     HashSet cEstado;
     HashSet cCidade;
     HashSet cFornecedor;
-    
+
     String cliente;
     String fornecedor;
-    
+
     Date dataInicial, dataFinal;
-    
+
     Double valorInicial, valorFinal;
     String estado, cidade, pago, tipo_pgto, tipo_ped;
     JDesktopPane painel;
-    
-    
+
     List<Object[]> list; //pesquisa avançada
 
     public ListagemPedidos(JDesktopPane painel) {
@@ -74,6 +73,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         this.painel = painel;
         tabela.setRowHeight(23);
         this.setSize(this.painel.getWidth(), this.painel.getHeight());
+        hinter();
     }
 
     /**
@@ -125,6 +125,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         jBLimpar = new javax.swing.JButton();
         jBImprimir = new javax.swing.JButton();
         jBImprimir1 = new javax.swing.JButton();
+        jLAjuda = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -272,6 +273,10 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -279,7 +284,11 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLCabecalho)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLCabecalho)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLAjuda)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -366,7 +375,9 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLCabecalho)
+                    .addComponent(jLAjuda))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -465,7 +476,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                             .addComponent(jBImprimir)
                             .addComponent(jBImprimir1)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -579,6 +590,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jCBTipo_Pedido;
     private com.toedter.calendar.JDateChooser jDCData_Final;
     private com.toedter.calendar.JDateChooser jDCData_Inicial;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLCidade;
     private javax.swing.JLabel jLCliente;
@@ -720,5 +732,16 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(ListagemPedidos.this, "Pesquisa efetuada sem valores(R$). \n Valores(R$) não foram escolhidos");
         }
         return query;
+    }
+
+    private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta tela é responsável pela Listagem de Pedidos,<br>"
+                + "onde a listagem pode ser efetuada escolhendo as cláusulas no lado esquerdo,<br>"
+                + "sendo necessário preencher os botões ao lado e pesquisar.<br>"
+                + "1. O botão \"Selecionar Tudo\" facilita o preenchimento dos campos escolhidos.<br>"
+                + "2. O botão limpar reinicia a tela limpando os campos.<br>"
+                + "3. O botão Cancelar pedido exclui o mesmo.<br>"
+                + "4. Há a opção de gerar PDF's e/ou imprimi-los.<br>"
+                + "5. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
     }
 }

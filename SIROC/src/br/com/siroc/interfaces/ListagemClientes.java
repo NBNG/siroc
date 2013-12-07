@@ -54,6 +54,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
         initComponents();
         tabela.setRowHeight(23);
         this.painel = painel;
+        hinter();
     }
 
     /**
@@ -75,6 +76,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
         jLNome = new javax.swing.JLabel();
         jRBFisica = new javax.swing.JRadioButton();
         jRBJuridica = new javax.swing.JRadioButton();
+        jLAjuda = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -136,6 +138,10 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,7 +149,10 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLCabecalho)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLCabecalho)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1036, Short.MAX_VALUE)
+                        .addComponent(jLAjuda))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -162,13 +171,18 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBLimpar)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLCabecalho))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLAjuda)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFTCnpj_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,7 +197,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBLimpar))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         pack();
@@ -288,6 +302,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBLimpar;
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JFormattedTextField jFTCnpj_cpf;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLNome;
     private javax.swing.JRadioButton jRBFisica;
@@ -306,5 +321,13 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
         } catch (ParseException pe) {
             JOptionPane.showMessageDialog(ListagemClientes.this, "Erro: \n" + pe, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta é a tela de listagem de Clientes,<br>"
+                + " onde serão listados os dados relativos as informações do cliente. <br>"
+                + "1. Aqui poderão ser efetuadas pesquisas por CPF ou pelo nome do cliente.<br>"
+                + "2. Para ir para a tela de atualização, basta dar um duplo clique na linha do cliente escolhido.<br>"
+                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
     }
 }

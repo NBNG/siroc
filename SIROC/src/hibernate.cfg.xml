@@ -2,31 +2,25 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-       
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/siroc</property>
         <property name="hibernate.connection.username">postgres</property>
         <!--<property name="hibernate.connection.password">senha</property> -->
-                
         <!-- <property name="hibernate.c3p0.min_size">2</property>
         <property name="hibernate.c3p0.max_size">5</property>
         <property name="hibernate.c3p0.timeout">1800</property>
         <property name="hibernate.c3p0.max_statements">50</property>
         <property name="hibernate.c3p0.timeout">1800</property>-->
-        <property name="hibernate.connection.password">agreste03</property>
-        
+        <property name="hibernate.connection.password">senha</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-
-        <mapping class="br.com.siroc.modelo.Cliente" />
-        <mapping class="br.com.siroc.modelo.Fornecedor" />
-        <mapping class="br.com.siroc.modelo.Produto" />
-        <mapping class="br.com.siroc.modelo.Pedido" />
-        <mapping class="br.com.siroc.modelo.Item" />
-        <mapping class="br.com.siroc.modelo.Historico" />
-        
+        <mapping class="br.com.siroc.modelo.Cliente"/>
+        <mapping class="br.com.siroc.modelo.Fornecedor"/>
+        <mapping class="br.com.siroc.modelo.Produto"/>
+        <mapping class="br.com.siroc.modelo.Pedido"/>
+        <mapping class="br.com.siroc.modelo.Item"/>
+        <mapping class="br.com.siroc.modelo.Historico"/>
     </session-factory>
 </hibernate-configuration>

@@ -56,6 +56,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         TabelaProduto_Fornecedor.setRowHeight(23);
         TabelaProduto_Pedido.setRowHeight(23);
         this.painel = painel;
+        hinter();
     }
 
     /**
@@ -93,6 +94,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         jLCliente = new javax.swing.JLabel();
         jTCliente = new javax.swing.JTextField();
         jBExcluir = new javax.swing.JButton();
+        jLAjuda = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -203,6 +205,10 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,7 +242,9 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLCabecalho)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLAjuda)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -277,7 +285,9 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLCabecalho)
+                    .addComponent(jLAjuda))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -319,7 +329,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSalvar)
                     .addComponent(jBLimpar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane4});
@@ -494,6 +504,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jCBTipo_Pagamento;
     private javax.swing.JComboBox jCBTipo_Pedido;
     private com.toedter.calendar.JDateChooser jDCData;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLCliente;
     private javax.swing.JLabel jLData;
@@ -537,5 +548,19 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     public void removeItem() {
         listItem.remove(listItem.get(TabelaProduto_Pedido.getSelectedRow()));
         preencheTabela(listItem);
+    }
+
+    private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta é a tela de cadastro de Pedidos,<br>"
+                + " onde serão cadastrados os dados relativos as informações do pedido. <br>"
+                + "1. Lembre-se de preencher os dados obrigatórios sempre, para serem evitados erros.<br>"
+                + "2. Lembre-se de escolher o Cliente para o cadastro ser efetuado com sucesso.<br>"
+                + "3. Para serem listados os produtos, é necessário que seja escolhido o fornecedor.<br>"
+                + "3. Após o preenchimento, clique no botão Cadastrar para que seja executada a atualização.<br>"
+                + "4. O botão limpar reinicia a tela, limpando os campos.<br>"
+                + "5. Caso a data não seja escolhida, o pedido será cadastrado com a data atual.<br>"
+                + "6. O valor do produto pode ou não ser alterado quando for escolhido.<br>"
+                + "7. O botão retirar produto remove um produto da lista no pedido.<br>"
+                + "8. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
     }
 }

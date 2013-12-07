@@ -36,6 +36,7 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
         initComponents();
         tabela.setRowHeight(23);
         this.painel = painel;
+        hinter();
     }
 
     /**
@@ -53,6 +54,7 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
         jLCabecalho = new javax.swing.JLabel();
         jBLimpar = new javax.swing.JButton();
         jLNome = new javax.swing.JLabel();
+        jLAjuda = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -92,6 +94,10 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
         jLNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLNome.setText("Nome:");
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,20 +108,29 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jBLimpar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLNome)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTNome))
-                        .addComponent(jLCabecalho, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addComponent(jBLimpar)
+                        .addGap(0, 31, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLNome)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTNome))
+                            .addComponent(jLCabecalho, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLAjuda)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLCabecalho))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLAjuda, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,7 +139,7 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBLimpar))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,6 +190,7 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLimpar;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLNome;
     private javax.swing.JScrollPane jScrollPane1;
@@ -187,5 +203,13 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
         painel.add(lf);
         lf.setVisible(true);
         this.dispose();
+    }
+
+    private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta é a tela de listagem de Fornecedores,<br>"
+                + " onde serão listados os dados relativos as informações do fornecedor. <br>"
+                + "1. Aqui poderão ser efetuadas pesquisas por CNPJ ou pelo nome do fornecedor.<br>"
+                + "2. Para ir para a tela de atualização, basta dar um duplo clique na linha do fornecedor escolhido.<br>"
+                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
     }
 }

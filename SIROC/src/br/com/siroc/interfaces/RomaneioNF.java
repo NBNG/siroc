@@ -38,11 +38,12 @@ public class RomaneioNF extends javax.swing.JFrame {
     };
 
     public RomaneioNF() {
-        super("Cella - Romaneio SO");
+        super("Cella - Romaneio NF");
         initComponents();
         tabela.setRowHeight(23);
         setLocationRelativeTo(null);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
+        hinter();
     }
 
     /**
@@ -65,8 +66,9 @@ public class RomaneioNF extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         jLNome = new javax.swing.JLabel();
+        jLAjuda = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jBPDF.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pdf (1).png"))); // NOI18N
@@ -119,6 +121,10 @@ public class RomaneioNF extends javax.swing.JFrame {
         jLNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLNome.setText("Nome:");
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,14 +157,18 @@ public class RomaneioNF extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(325, 325, 325)
                 .addComponent(jLCabecalho)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLAjuda)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jLCabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLCabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLAjuda))
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLNome))
@@ -249,6 +259,7 @@ public class RomaneioNF extends javax.swing.JFrame {
     private javax.swing.JButton jBPDF;
     private com.toedter.calendar.JCalendar jCFinal;
     private com.toedter.calendar.JCalendar jCInicial;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLFinal;
     private javax.swing.JLabel jLInicial;
@@ -257,4 +268,11 @@ public class RomaneioNF extends javax.swing.JFrame {
     private javax.swing.JTextField jTNome;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+        private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta é a tela de geração de Romaneios NF.<br>"
+                + "1. Para gerar o romaneio é necessário escolher o fornecedor<br>"
+                + " e as datas respectivas de início e término.<br>"
+                + "2. Há a opção de gerar PDF's e/ou imprimi-los.<br>"
+                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
+    }
 }
