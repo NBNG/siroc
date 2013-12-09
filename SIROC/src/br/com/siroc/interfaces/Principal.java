@@ -4,9 +4,14 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.backup.Backup;
+import br.com.siroc.drive.InsertGoogleDrive;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,6 +43,8 @@ public class Principal extends javax.swing.JFrame {
         jPanel = new javax.swing.JDesktopPane();
         jMenu = new javax.swing.JMenuBar();
         jMArquivo = new javax.swing.JMenu();
+        jMIBackup = new javax.swing.JMenuItem();
+        jMIGoogle = new javax.swing.JMenuItem();
         jMClente = new javax.swing.JMenu();
         jMICadastro_Clientes = new javax.swing.JMenuItem();
         jMIListagem_Clientes = new javax.swing.JMenuItem();
@@ -60,6 +67,25 @@ public class Principal extends javax.swing.JFrame {
         jMArquivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/arquivo.png"))); // NOI18N
         jMArquivo.setText("Arquivo");
         jMArquivo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jMIBackup.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIBackup.setText("Backup");
+        jMIBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIBackupActionPerformed(evt);
+            }
+        });
+        jMArquivo.add(jMIBackup);
+
+        jMIGoogle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIGoogle.setText("Google Drive");
+        jMIGoogle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIGoogleActionPerformed(evt);
+            }
+        });
+        jMArquivo.add(jMIGoogle);
+
         jMenu.add(jMArquivo);
 
         jMClente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/cliente.png"))); // NOI18N
@@ -279,6 +305,31 @@ public class Principal extends javax.swing.JFrame {
         romanf.setVisible(true);
     }//GEN-LAST:event_jMIRomaneioNFActionPerformed
 
+    private void jMIGoogleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIGoogleActionPerformed
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);//use FILES_ONLY caso deseje que o usuario selecione apenas arquivos  
+            fileChooser.setDialogTitle("Abrir...");
+
+            int status = fileChooser.showOpenDialog(null);
+            if (status == JFileChooser.APPROVE_OPTION) {
+
+                File file = fileChooser.getSelectedFile();//esse é o arquivo que o usuario escolheu, faça o que quiser com ele  
+                String caminho = String.valueOf(file);
+                InsertGoogleDrive igd = new InsertGoogleDrive();
+                igd.EnviaBackup(caminho);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: \n" + ex);
+        }
+    }//GEN-LAST:event_jMIGoogleActionPerformed
+
+    private void jMIBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIBackupActionPerformed
+        Backup bac = new Backup();
+        bac.fazBackup();
+    }//GEN-LAST:event_jMIBackupActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -317,10 +368,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenu jMClente;
     private javax.swing.JMenu jMFornecedor;
+    private javax.swing.JMenuItem jMIBackup;
     private javax.swing.JMenuItem jMICadastro_Clientes;
     private javax.swing.JMenuItem jMICadastro_Fornecedor;
     private javax.swing.JMenuItem jMICadastro_Pedidos;
     private javax.swing.JMenuItem jMICadastro_Produtos;
+    private javax.swing.JMenuItem jMIGoogle;
     private javax.swing.JMenuItem jMIListagem_Clientes;
     private javax.swing.JMenuItem jMIListagem_Fornecedor;
     private javax.swing.JMenuItem jMIListagem_Pedidos;
