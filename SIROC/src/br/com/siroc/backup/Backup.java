@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package br.com.siroc.teste;
+package br.com.siroc.backup;
 
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
