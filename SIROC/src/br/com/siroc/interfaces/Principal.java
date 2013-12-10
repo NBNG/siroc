@@ -5,6 +5,7 @@
 package br.com.siroc.interfaces;
 
 //import br.com.siroc.backup.Backup;
+import br.com.siroc.backup.Backup;
 import br.com.siroc.drive.InsertGoogleDrive;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Toolkit;
@@ -326,8 +327,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIGoogleActionPerformed
 
     private void jMIBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIBackupActionPerformed
-        //Backup bac = new Backup();
-        //bac.fazBackup();
+        Backup bac = new Backup();
+        bac.fazBackup();
     }//GEN-LAST:event_jMIBackupActionPerformed
 
     /**
