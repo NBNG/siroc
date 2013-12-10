@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -142,6 +143,7 @@ public class RomaneioSO extends javax.swing.JFrame {
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
             Relatorio rel = new Relatorio();
             rel.gerarSO(where, 1);
+            JOptionPane.showMessageDialog(RomaneioSO.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (JRException ex) {
             Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -155,6 +157,7 @@ public class RomaneioSO extends javax.swing.JFrame {
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
             Relatorio rel = new Relatorio();
             rel.gerarSO(where, 0);
+            JOptionPane.showMessageDialog(RomaneioSO.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (JRException ex) {
             Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

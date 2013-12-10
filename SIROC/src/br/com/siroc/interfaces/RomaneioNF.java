@@ -11,6 +11,7 @@ import br.com.siroc.modelo.Fornecedor;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 
@@ -199,6 +200,7 @@ public class RomaneioNF extends javax.swing.JFrame {
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'NF'";
             Relatorio rel = new Relatorio();
             rel.gerarNF(where, 0);
+            JOptionPane.showMessageDialog(RomaneioNF.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (JRException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
@@ -212,6 +214,7 @@ public class RomaneioNF extends javax.swing.JFrame {
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
             Relatorio rel = new Relatorio();
             rel.gerarNF(where, 1);
+            JOptionPane.showMessageDialog(RomaneioNF.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (JRException ex) {
 
         } catch (SQLException ex) {

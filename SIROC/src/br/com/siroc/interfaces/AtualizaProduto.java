@@ -34,7 +34,7 @@ public class AtualizaProduto extends javax.swing.JFrame {
     public AtualizaProduto(Produto produto) {
         super("Cella - Atualização de Produtos");
         initComponents();
-        tabela_fornecedor.setRowHeight(23);
+        tabela.setRowHeight(23);
         setLocationRelativeTo(null);
         this.produto = produto;
         populateFields(this.produto);
@@ -64,7 +64,7 @@ public class AtualizaProduto extends javax.swing.JFrame {
         jTNome = new javax.swing.JTextField();
         jLFornecedor = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tabela_fornecedor = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         jLAjuda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -111,14 +111,14 @@ public class AtualizaProduto extends javax.swing.JFrame {
         jLFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLFornecedor.setText("Fornecedor:");
 
-        tabela_fornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        tabela_fornecedor.setModel(tmFornecedor);
-        tabela_fornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tabela.setModel(tmFornecedor);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabela_fornecedorMouseClicked(evt);
+                tabelaMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tabela_fornecedor);
+        jScrollPane3.setViewportView(tabela);
 
         jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
@@ -201,21 +201,30 @@ public class AtualizaProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        try {
-            produto = new ProdutoBuilder().setId(produto.getId()).setFornecedor(fornecedores.get(tabela_fornecedor.getSelectedRow()))
-                    .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
-                    setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
-
-            dao.atualiza(produto);
-            JOptionPane.showMessageDialog(AtualizaProduto.this, "Produto alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
-            populateFields(produto);
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(AtualizaProduto.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
-            marca();
-        } catch (IllegalArgumentException e) {
+        System.out.println("1");
+        if (tabela.getSelectedRowCount() < 1) {
             JOptionPane.showMessageDialog(AtualizaProduto.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            System.out.println("2");
+            try {
+                System.out.println("3");
+                produto = new ProdutoBuilder().setId(produto.getId()).setFornecedor(fornecedores.get(tabela.getSelectedRow()))
+                        .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
+                        setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
+                System.out.println("4");
+                dao.atualiza(produto);
+                System.out.println("5");
+                JOptionPane.showMessageDialog(AtualizaProduto.this, "Produto alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+                populateFields(produto);
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(AtualizaProduto.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+                marca();
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(AtualizaProduto.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
 
+            }
         }
+
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
@@ -233,9 +242,9 @@ public class AtualizaProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTNomeKeyTyped
 
-    private void tabela_fornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_fornecedorMouseClicked
-        jTNome.setText(fornecedores.get(tabela_fornecedor.getSelectedRow()).getNome());
-    }//GEN-LAST:event_tabela_fornecedorMouseClicked
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        jTNome.setText(fornecedores.get(tabela.getSelectedRow()).getNome());
+    }//GEN-LAST:event_tabelaMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JLabel jLAjuda;
@@ -251,7 +260,7 @@ public class AtualizaProduto extends javax.swing.JFrame {
     private javax.swing.JTextField jTPeso;
     private javax.swing.JTextField jTV_Compra;
     private javax.swing.JTextField jTV_Saida;
-    private javax.swing.JTable tabela_fornecedor;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 
     private void populateFields(Produto produto) {

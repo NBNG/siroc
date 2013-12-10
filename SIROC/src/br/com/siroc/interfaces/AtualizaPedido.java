@@ -141,8 +141,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLCabecalho)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLValor)
@@ -156,7 +155,10 @@ public class AtualizaPedido extends javax.swing.JFrame {
                                     .addGap(52, 52, 52)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLFrete)
-                                        .addComponent(jCBPago))))
+                                        .addComponent(jCBPago)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(73, 73, 73)
+                                    .addComponent(jLCabecalho)))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                             .addComponent(jLAjuda)))
                     .addGroup(layout.createSequentialGroup()
@@ -262,9 +264,9 @@ public class AtualizaPedido extends javax.swing.JFrame {
     }
 
     public void populateFields(Pedido pedido) {
-        jLCliente.setText(pedido.getCliente().getNome());
+        jLCliente.setText("Cliente: " + pedido.getCliente().getNome());
 
-        jLFornecedor.setText((String) resultado[4]);
+        jLFornecedor.setText("Fornecedor: " + (String) resultado[4]);
         jLEndereco.setText(pedido.getCliente().getCidade() + " - " + pedido.getCliente().getEstado());
 
         //jLFornecedor.setText((String) resultado[4]);

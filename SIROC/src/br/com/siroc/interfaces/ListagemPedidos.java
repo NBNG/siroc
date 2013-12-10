@@ -515,11 +515,14 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
         int resposta = JOptionPane.showConfirmDialog(ListagemPedidos.this, "Deseja Realmente excluir o pedido?", "Remove Data", JOptionPane.OK_CANCEL_OPTION);
-
         if (resposta == JOptionPane.YES_OPTION) {
-            pdao.remover(null);
-            JOptionPane.showMessageDialog(ListagemPedidos.this, "Pedido excluído com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-
+            Object[] auxID = list.get(tabela.getSelectedRow());
+            for (int i = 0; i < pedidos.size(); i++) {
+                if (pedidos.get(i).getId().equals((Long) auxID[10])) {
+                    pdao.remover(pedidos.get(i));
+                    JOptionPane.showMessageDialog(ListagemPedidos.this, "Pedido excluído com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+                }
+            }
         }
     }//GEN-LAST:event_jBCancelarActionPerformed
 
@@ -528,6 +531,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             Relatorio rel = new Relatorio();
             Object[] auxID = list.get(tabela.getSelectedRow());
             rel.gerarPedido((Long) auxID[10], 1);
+            JOptionPane.showMessageDialog(ListagemPedidos.this, "Pedido impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (JRException | SQLException ex) {
             ex.printStackTrace();
         }
@@ -569,7 +573,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             Relatorio rel = new Relatorio();
             Object[] auxID = list.get(tabela.getSelectedRow());
             rel.gerarPedido((Long) auxID[10], 0);
-            //rel.gerarPedido(pedidos.get(tabela.getSelectedRow()).getId(), 0);
+            JOptionPane.showMessageDialog(ListagemPedidos.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (JRException | SQLException ex) {
             ex.printStackTrace();
         }
@@ -673,15 +677,6 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 + "INNER JOIN produto.fornecedor as fornecedor "
                 + "WHERE 1=1 ";
 
-//        "AND lower(fornecedor.nome) like lower('%a%') "
-//                + "AND pedido.data BETWEEN '2013-01-01' AND '2013-12-30' "
-//                + "AND lower(cliente.estado) like lower('%s%') "
-//                + "AND lower(cliente.cidade) like lower('%c%') "
-//                + "AND lower(pedido.status) like lower('%') "
-//                + "AND lower(pedido.tipo_pagamento) like lower('%') "
-//                + "AND lower(pedido.tipo_pedido) like lower('%') "
-//                + "GROUP BY pedido.id,cliente.cidade,cliente.estado,cliente.nome, "
-//                + "fornecedor.nome, cliente.frete HAVING SUM(item.valor_alterado*item.quantidade) BETWEEN 1 AND 100";
         if (jRBCliente.isSelected()) {
             cliente = jCBCliente.getSelectedItem().toString();
             query += "AND lower(cliente.nome) like lower('%" + cliente + "%') ";
@@ -708,8 +703,12 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         }
 
         if (jRBPago.isSelected()) {
-            pago = jCBPago.getSelectedItem().toString();
-            query += "AND lower(pedido.status) like lower('" + pago + "') ";
+            if (jCBPago.getSelectedItem().toString().equals("Pago")) {
+                pago = jCBPago.getSelectedItem().toString();
+                query += "AND lower(pedido.status) like lower('" + pago + "') ";
+            } else {
+                query += "AND lower(pedido.status) is null ";
+            }
         }
         if (jRBTipo_Pagamento.isSelected()) {
             tipo_pgto = jCBTipo_Pagamento.getSelectedItem().toString();

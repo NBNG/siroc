@@ -37,8 +37,7 @@
                           <Component id="jCBPagamento" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLCabecalho" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLValor" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -56,6 +55,10 @@
                                       <Component id="jLFrete" min="-2" max="-2" attributes="0"/>
                                       <Component id="jCBPago" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                                  <Component id="jLCabecalho" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="72" max="32767" attributes="0"/>
