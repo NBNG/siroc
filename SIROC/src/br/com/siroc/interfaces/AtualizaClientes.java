@@ -27,18 +27,18 @@ public class AtualizaClientes extends javax.swing.JFrame {
     DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
     MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
-    
+
     public AtualizaClientes(Cliente cliente) throws ParseException {
         super("Cella - Atualização de Clientes");
         this.cliente = cliente;
         initComponents();
-        
+
         try {
             MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
             MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");
             //MaskFormatter maskFrete = new MaskFormatter("##,#");
             MaskFormatter maskCep = new MaskFormatter("#####-###");
-            
+
             maskTelefone.install(jFTTelefone);
             maskCelular.install(jFTCelular);
             //maskFrete.install(jTFrete);
@@ -46,13 +46,13 @@ public class AtualizaClientes extends javax.swing.JFrame {
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(AtualizaClientes.this, "Erro: \n" + ex, "ERROR - Parse Exception!", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         setLocationRelativeTo(null);
         populateFields(this.cliente);
         hinter();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -343,7 +343,6 @@ public class AtualizaClientes extends javax.swing.JFrame {
             jFTCnpj.setFormatterFactory(new DefaultFormatterFactory(maskCPF));
         }
     }//GEN-LAST:event_jRBFisicaActionPerformed
-    
     private void jRBJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBJuridicaActionPerformed
         if (jRBJuridica.isSelected()) {
             jRBFisica.setSelected(false);
@@ -352,14 +351,13 @@ public class AtualizaClientes extends javax.swing.JFrame {
             jFTCnpj.setFormatterFactory(new DefaultFormatterFactory(maskCnpj));
         }
     }//GEN-LAST:event_jRBJuridicaActionPerformed
-    
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         try {
             cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
                     .setCidade(jTCidade.getText()).setCnpj_cpf(jFTCnpj.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
                     setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
                     .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
-            
+
             dao.atualiza(cliente);
             JOptionPane.showMessageDialog(AtualizaClientes.this, "Cliente adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
         } catch (IllegalArgumentException e) {
@@ -417,7 +415,7 @@ public class AtualizaClientes extends javax.swing.JFrame {
         jTIE.setText(cliente.getInscricao_est());
         jFTCelular.setText(cliente.getCelular());
         jFTTelefone.setText(cliente.getTelefone());
-        
+
         if (cliente.getCnpj_cpf().length() > 14) {
             jFTCnpj.setValue(null);
             maskCnpj.install(jFTCnpj);
@@ -432,7 +430,7 @@ public class AtualizaClientes extends javax.swing.JFrame {
             jRBJuridica.setSelected(true);
         }
     }
-    
+
     private void marca() {
         jLAjuda.setText("Nome:*");
         jL_IE.setText("Inscrição Estadual:*");
@@ -444,7 +442,7 @@ public class AtualizaClientes extends javax.swing.JFrame {
         jLCNPJ.setText("CNPJ/CPF:*");
         jLContato.setText("Contato:*");
     }
-    
+
     private void hinter() {
         jLAjuda.setToolTipText("<html>Esta é a tela de atualização de Clientes,<br>"
                 + " onde serão atualizados dados relativos as informações já cadastradas. <br>"
