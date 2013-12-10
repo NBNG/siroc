@@ -24,6 +24,8 @@ public class AtualizaClientes extends javax.swing.JFrame {
      * Creates new form Pesquisa_Clientes
      */
     Cliente cliente;
+    Long id;
+    
     DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
     MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
@@ -31,6 +33,7 @@ public class AtualizaClientes extends javax.swing.JFrame {
     public AtualizaClientes(Cliente cliente) throws ParseException {
         super("Cella - Atualização de Clientes");
         this.cliente = cliente;
+        id = this.cliente.getId();
         initComponents();
 
         try {
@@ -356,10 +359,10 @@ public class AtualizaClientes extends javax.swing.JFrame {
             cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
                     .setCidade(jTCidade.getText()).setCnpj_cpf(jFTCnpj.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
                     setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
-                    .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
+                    .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).setId(id).getCliente();
 
             dao.atualiza(cliente);
-            JOptionPane.showMessageDialog(AtualizaClientes.this, "Cliente adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaClientes.this, "Cliente alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(AtualizaClientes.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();

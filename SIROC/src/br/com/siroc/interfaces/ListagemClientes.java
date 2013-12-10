@@ -291,6 +291,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
         if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
             try {
                 AtualizaClientes ac = new AtualizaClientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
+                System.out.println(clientes.get(tabela.getSelectedRow()));
                 ac.setVisible(true);
             } catch (ParseException ex) {
                 Logger.getLogger(ListagemClientes.class.getName()).log(Level.SEVERE, null, ex);
