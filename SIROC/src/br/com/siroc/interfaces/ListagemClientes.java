@@ -242,31 +242,34 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
 
-        jTNome.setText("");
+      if (!jFTCnpj_cpf.getText().equals("")) {
+            jTNome.setText("");
 
-        while (tmCliente.getRowCount() > 0) {
-            tmCliente.removeRow(0);
+            while (tmCliente.getRowCount() > 0) {
+                tmCliente.removeRow(0);
+            }
+
+            clientes = new ArrayList<Cliente>();
+
+            cliente = (Cliente) cdao.buscaPorCNPJ(jFTCnpj_cpf.getText());
+            clientes.add(cliente);
+
+            String endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
+                    + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "
+                    + cliente.getCep();
+            tmCliente.addRow(new String[]{null, null, null, null});
+            tmCliente.setValueAt(cliente.getNome(), 0, 0);
+            tmCliente.setValueAt(cliente.getInscricao_est(), 0, 1);
+            tmCliente.setValueAt(cliente.getCnpj_cpf(), 0, 2);
+            tmCliente.setValueAt(cliente.getTelefone(), 0, 3);
+            tmCliente.setValueAt(cliente.getContato(), 0, 4);
+            tmCliente.setValueAt(cliente.getEmail(), 0, 5);
+            tmCliente.setValueAt(cliente.getCelular(), 0, 6);
+            tmCliente.setValueAt(endereco, 0, 7);
+            tmCliente.setValueAt(cliente.getFrete() + " %", 0, 8);
+        } else {
+            JOptionPane.showMessageDialog(ListagemClientes.this, "Favor preencher um CPF/CNPJ!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         }
-
-        clientes = new ArrayList<Cliente>();
-
-        cliente = (Cliente) cdao.buscaPorCNPJ(jFTCnpj_cpf.getText());
-        clientes.add(cliente);
-
-        String endereco = cliente.getEndereco() + ", " + cliente.getBairro() + " - "
-                + cliente.getCidade() + "/" + cliente.getEstado() + " - CEP: "
-                + cliente.getCep();
-        tmCliente.addRow(new String[]{null, null, null, null});
-        tmCliente.setValueAt(cliente.getNome(), 0, 0);
-        tmCliente.setValueAt(cliente.getInscricao_est(), 0, 1);
-        tmCliente.setValueAt(cliente.getCnpj_cpf(), 0, 2);
-        tmCliente.setValueAt(cliente.getTelefone(), 0, 3);
-        tmCliente.setValueAt(cliente.getContato(), 0, 4);
-        tmCliente.setValueAt(cliente.getEmail(), 0, 5);
-        tmCliente.setValueAt(cliente.getCelular(), 0, 6);
-        tmCliente.setValueAt(endereco, 0, 7);
-        tmCliente.setValueAt(cliente.getFrete() + " %", 0, 8);
-        // TODO add your handling code here:
     }//GEN-LAST:event_jBPesquisarActionPerformed
 
     private void jRBFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFisicaActionPerformed
