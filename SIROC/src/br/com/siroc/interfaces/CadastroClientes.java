@@ -358,6 +358,7 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
             marca();
         } catch (ConstraintViolationException e) {
             JOptionPane.showMessageDialog(CadastroClientes.this, "CNPJ/CPF, E-mail e/ou Inscrição Estadual já cadastrado(s)!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            dao = new DAO<Cliente>(Cliente.class);
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed

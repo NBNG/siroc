@@ -5,6 +5,7 @@
  */
 package br.com.siroc.backup;
 
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
 
@@ -23,8 +24,8 @@ public class Backup {
             pb.redirectErrorStream(true);
             p = pb.start();
             JOptionPane.showMessageDialog(null, "Backup realizado com sucesso.");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro:\n" + ex);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Arquivo não encontrado, contate o administrador do sistema e informe o erro: \n" +ex);
         }
     }
 }

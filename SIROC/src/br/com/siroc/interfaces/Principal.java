@@ -103,7 +103,7 @@ public class Principal extends javax.swing.JFrame {
         jMClente.add(jMICadastro_Clientes);
 
         jMIListagem_Clientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMIListagem_Clientes.setText("Listagem de Clientes");
+        jMIListagem_Clientes.setText("Pesquisa de Clientes");
         jMIListagem_Clientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMIListagem_ClientesActionPerformed(evt);
@@ -127,7 +127,7 @@ public class Principal extends javax.swing.JFrame {
         jMFornecedor.add(jMICadastro_Fornecedor);
 
         jMIListagem_Fornecedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMIListagem_Fornecedor.setText("Listagem de Fornecedores");
+        jMIListagem_Fornecedor.setText("Pesquisa de Fornecedores");
         jMIListagem_Fornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMIListagem_FornecedorActionPerformed(evt);
@@ -151,7 +151,7 @@ public class Principal extends javax.swing.JFrame {
         jMProdutos.add(jMICadastro_Produtos);
 
         jMIListagem_Produtos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMIListagem_Produtos.setText("Listagem de Produtos");
+        jMIListagem_Produtos.setText("Pesquisa de Produtos");
         jMIListagem_Produtos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMIListagem_ProdutosActionPerformed(evt);
@@ -184,7 +184,7 @@ public class Principal extends javax.swing.JFrame {
         jMPedido.add(jMICadastro_Pedidos);
 
         jMIListagem_Pedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMIListagem_Pedidos.setText("Listagem de Pedidos");
+        jMIListagem_Pedidos.setText("Pesquisa de Pedidos");
         jMIListagem_Pedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMIListagem_PedidosActionPerformed(evt);
