@@ -52,9 +52,6 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     public CadastroPedidos(JDesktopPane painel) {
         super("Cella - Cadastro de Pedidos");
         initComponents();
-        TabelaFornecedor.setRowHeight(23);
-        TabelaProduto_Fornecedor.setRowHeight(23);
-        TabelaProduto_Pedido.setRowHeight(23);
         this.painel = painel;
         hinter();
     }
@@ -98,17 +95,17 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
 
         setClosable(true);
 
-        jLFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLFornecedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLFornecedor.setText("Fornecedor:");
 
-        jTNome_Fornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTNome_Fornecedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTNome_Fornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTNome_FornecedorKeyTyped(evt);
             }
         });
 
-        TabelaFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TabelaFornecedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TabelaFornecedor.setModel(tmFornecedor);
         TabelaFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -117,21 +114,21 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(TabelaFornecedor);
 
-        jLData.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLData.setText("Data:");
 
-        jLTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLTipo_Pedido.setText("Tipo de Pedido:");
 
-        jLTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLTipo_Pagamento.setText("Tipo de Pagamento:");
 
         jDCData.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jCBTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCBTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jCBTipo_Pedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NF", "SO" }));
 
-        jCBTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCBTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jCBTipo_Pagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cartão", "Cheque", "Depósito", "Dinheiro" }));
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -140,7 +137,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         jLTabela_Pedido.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLTabela_Pedido.setText("Tabela de Produtos do Pedido");
 
-        TabelaProduto_Fornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TabelaProduto_Fornecedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TabelaProduto_Fornecedor.setModel(tmProduto_Fornecedor);
         TabelaProduto_Fornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -149,14 +146,14 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(TabelaProduto_Fornecedor);
 
-        TabelaProduto_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TabelaProduto_Pedido.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TabelaProduto_Pedido.setModel(tmProduto_Pedido);
         jScrollPane3.setViewportView(TabelaProduto_Pedido);
 
         jLTabela_Fornecedor.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLTabela_Fornecedor.setText("Tabela de Produtos do Fornecedor");
 
-        jBSalvar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBSalvar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/salvar.png"))); // NOI18N
         jBSalvar.setText("Salvar");
         jBSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +162,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
         jBLimpar.setText("Limpar");
         jBLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -174,10 +171,10 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jCBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCBPago.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jCBPago.setText("Pago");
 
-        TabelaCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TabelaCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TabelaCliente.setModel(tmCliente);
         TabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -186,17 +183,17 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(TabelaCliente);
 
-        jLCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLCliente.setText("Cliente:");
 
-        jTCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTClienteKeyTyped(evt);
             }
         });
 
-        jBExcluir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBExcluir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/excluir.gif"))); // NOI18N
         jBExcluir.setText("Retirar Produto");
         jBExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -213,74 +210,73 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBSalvar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBLimpar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLTabela_Fornecedor)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLTabela_Pedido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBExcluir))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(35, 35, 35))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Separador)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLCabecalho)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLAjuda)
-                        .addContainerGap())
+                        .addComponent(jLAjuda))
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLFornecedor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTNome_Fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLData)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBPago)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLTipo_Pedido)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLTipo_Pagamento)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLCliente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 9, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLData)
+                        .addGap(18, 18, 18)
+                        .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCBPago)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLTipo_Pedido)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLTipo_Pagamento)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jBExcluir)
+                                .addGap(448, 448, 448)
+                                .addComponent(jBSalvar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBLimpar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLTabela_Fornecedor)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLFornecedor)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTNome_Fornecedor))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jLTabela_Pedido))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLCliente)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(36, 36, 36))))
+                                        .addGap(40, 40, 40)
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addComponent(Separador, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBLimpar, jBSalvar});
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane2, jScrollPane3});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,19 +285,18 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                     .addComponent(jLCabecalho)
                     .addComponent(jLAjuda))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLCliente)
-                                .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLFornecedor)
-                                .addComponent(jTNome_Fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLCliente)
+                        .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLFornecedor)
+                        .addComponent(jTNome_Fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jCBPago)
@@ -314,25 +309,23 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLData)
                             .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(Separador, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLTabela_Pedido)
-                    .addComponent(jBExcluir)
                     .addComponent(jLTabela_Fornecedor))
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSalvar)
-                    .addComponent(jBLimpar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(jBLimpar)
+                    .addComponent(jBExcluir))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane4});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
