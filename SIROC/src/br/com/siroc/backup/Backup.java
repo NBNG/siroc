@@ -25,7 +25,7 @@ public class Backup {
             p = pb.start();
             JOptionPane.showMessageDialog(null, "Backup realizado com sucesso.");
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Arquivo não encontrado, contate o administrador do sistema e informe o erro: \n" +ex);
+            JOptionPane.showMessageDialog(null, "Arquivo não encontrado, contate o administrador do sistema e informe o erro: \n" + ex);
         }
     }
 }

@@ -6,13 +6,11 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
-import br.com.siroc.Jasper.Relatorio;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.PedidoDAO;
 import br.com.siroc.modelo.Cliente;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Pedido;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,7 +19,6 @@ import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -72,7 +69,6 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         populateFields();
         this.painel = painel;
         tabela.setRowHeight(23);
-        this.setSize(this.painel.getWidth(), this.painel.getHeight());
         hinter();
     }
 
@@ -120,11 +116,8 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         jTBSeleciona = new javax.swing.JToggleButton();
-        jBCancelar = new javax.swing.JButton();
         jBPesquisar = new javax.swing.JButton();
         jBLimpar = new javax.swing.JButton();
-        jBImprimir = new javax.swing.JButton();
-        jBImprimir1 = new javax.swing.JButton();
         jLAjuda = new javax.swing.JLabel();
 
         setClosable(true);
@@ -182,9 +175,9 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         jCBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Pago" }));
 
-        jDCData_Inicial.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jDCData_Inicial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jDCData_Final.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jDCData_Final.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jTValor_Inicial.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -228,15 +221,6 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jBCancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/excluir.gif"))); // NOI18N
-        jBCancelar.setText("Cancelar Pedido");
-        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCancelarActionPerformed(evt);
-            }
-        });
-
         jBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pesquisar.png"))); // NOI18N
         jBPesquisar.setText("Pesquisar");
@@ -255,24 +239,6 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jBImprimir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/imprimir.png"))); // NOI18N
-        jBImprimir.setText("Imprimir");
-        jBImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBImprimirActionPerformed(evt);
-            }
-        });
-
-        jBImprimir1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBImprimir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pdf (1).png"))); // NOI18N
-        jBImprimir1.setText("Gerar PDF");
-        jBImprimir1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBImprimir1ActionPerformed(evt);
-            }
-        });
-
         jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
         jLAjuda.setText("Ajuda");
@@ -282,201 +248,187 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLCabecalho)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLAjuda)
-                        .addContainerGap())
+                        .addComponent(jRBData)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLInicio)
+                        .addGap(18, 18, 18)
+                        .addComponent(jDCData_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLFim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRBValor)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLValor_Inicial)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTValor_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLValor_Final)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTValor_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRBEstado)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLEstado)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRBCidade)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLCidade)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRBPago)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLPago)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRBTipo_Pagamento)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLTipo_Pagamento)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRBTipo_Pedido)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLTipo_Pedido)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTBSeleciona)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
+                .addGap(28, 28, 28))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTBSeleciona)
-                                    .addComponent(jBCancelar))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jBImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                    .addComponent(jBLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jBImprimir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(22, 22, 22))
+                                .addComponent(jLCabecalho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLAjuda))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRBTipo_Pedido)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLTipo_Pedido)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRBCliente)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLCliente)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRBFornecedor)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLFornecedor)
-                                        .addGap(4, 4, 4)
-                                        .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRBData)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLInicio)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jDCData_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLFim)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRBValor)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLValor_Inicial)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTValor_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLValor_Final)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jTValor_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRBEstado)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLEstado)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRBCidade)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLCidade)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRBPago)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLPago)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRBTipo_Pagamento)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLTipo_Pagamento)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 18, Short.MAX_VALUE)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jRBCliente)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLCliente)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRBFornecedor)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLFornecedor)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBLimpar)
+                .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTValor_Final, jTValor_Inicial});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLCabecalho)
                     .addComponent(jLAjuda))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLFornecedor))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(7, 7, 7)
+                            .addComponent(jRBCliente))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
+                            .addComponent(jLCliente))
+                        .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jRBFornecedor))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jRBCliente))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLCliente))
-                            .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jRBFornecedor))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLFornecedor))
-                            .addComponent(jCBFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(7, 7, 7)
+                        .addComponent(jRBValor))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLValor_Inicial))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTValor_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLValor_Final)
+                        .addComponent(jTValor_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRBData, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLInicio)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jDCData_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLFim)
-                            .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLFim)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDCData_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDCData_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(7, 7, 7)
+                            .addComponent(jRBEstado))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
+                            .addComponent(jLEstado))
+                        .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(4, 4, 4)
+                            .addComponent(jRBCidade)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jRBValor))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLValor_Inicial))
-                            .addComponent(jTValor_Inicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLValor_Final))
-                            .addComponent(jTValor_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jRBEstado))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLEstado))
-                            .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jRBCidade))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLCidade))
-                            .addComponent(jCBCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jRBPago))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLPago))
-                            .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jRBTipo_Pagamento))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLTipo_Pagamento))
-                            .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jRBTipo_Pedido))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLTipo_Pedido))
-                            .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTBSeleciona)
-                            .addComponent(jBLimpar)
-                            .addComponent(jBPesquisar))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBCancelar)
-                            .addComponent(jBImprimir)
-                            .addComponent(jBImprimir1)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                                .addGap(4, 4, 4)
+                                .addComponent(jRBPago)))
+                        .addGap(3, 3, 3)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jRBTipo_Pagamento))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLTipo_Pagamento))
+                    .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLTipo_Pedido))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBPesquisar)
+                        .addComponent(jTBSeleciona))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jRBTipo_Pedido)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBLimpar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -513,30 +465,6 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jBLimparActionPerformed
 
-    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(ListagemPedidos.this, "Deseja Realmente excluir o pedido?", "Remove Data", JOptionPane.OK_CANCEL_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            Object[] auxID = list.get(tabela.getSelectedRow());
-            for (int i = 0; i < pedidos.size(); i++) {
-                if (pedidos.get(i).getId().equals((Long) auxID[10])) {
-                    pdao.remover(pedidos.get(i));
-                    JOptionPane.showMessageDialog(ListagemPedidos.this, "Pedido excluído com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-                }
-            }
-        }
-    }//GEN-LAST:event_jBCancelarActionPerformed
-
-    private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
-        try {
-            Relatorio rel = new Relatorio();
-            Object[] auxID = list.get(tabela.getSelectedRow());
-            rel.gerarPedido((Long) auxID[10], 1);
-            JOptionPane.showMessageDialog(ListagemPedidos.this, "Pedido impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (JRException | SQLException ex) {
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_jBImprimirActionPerformed
-
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
         while (tmPedido.getRowCount() > 0) {
             tmPedido.removeRow(0);
@@ -568,21 +496,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tabelaMouseClicked
 
-    private void jBImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimir1ActionPerformed
-        try {
-            Relatorio rel = new Relatorio();
-            Object[] auxID = list.get(tabela.getSelectedRow());
-            rel.gerarPedido((Long) auxID[10], 0);
-            JOptionPane.showMessageDialog(ListagemPedidos.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (JRException | SQLException ex) {
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_jBImprimir1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBCancelar;
-    private javax.swing.JButton jBImprimir;
-    private javax.swing.JButton jBImprimir1;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JComboBox jCBCidade;
@@ -739,8 +653,6 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 + "sendo necessário preencher os botões ao lado e pesquisar.<br>"
                 + "1. O botão \"Selecionar Tudo\" facilita o preenchimento dos campos escolhidos.<br>"
                 + "2. O botão limpar reinicia a tela limpando os campos.<br>"
-                + "3. O botão Cancelar pedido exclui o mesmo.<br>"
-                + "4. Há a opção de gerar PDF's e/ou imprimi-los.<br>"
-                + "5. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
+                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
     }
 }

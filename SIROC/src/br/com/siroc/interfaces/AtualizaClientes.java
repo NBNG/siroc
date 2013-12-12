@@ -25,7 +25,7 @@ public class AtualizaClientes extends javax.swing.JFrame {
      */
     Cliente cliente;
     Long id;
-    
+
     DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
     MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
