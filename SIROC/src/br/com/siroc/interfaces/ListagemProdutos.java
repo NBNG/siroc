@@ -106,10 +106,10 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         });
 
         jLNome_Produto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLNome_Produto.setText("Nome Produto:");
+        jLNome_Produto.setText("Produto:");
 
         jLNome_Produto1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLNome_Produto1.setText("Nome Fornecedor:");
+        jLNome_Produto1.setText("Fornecedor:");
 
         jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
@@ -132,15 +132,17 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
                         .addComponent(jLCabecalho)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLAjuda))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLNome_Produto)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTNome))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLNome_Produto1)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLNome_Produto)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLNome_Produto1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFornecedor)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -164,7 +166,7 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
                         .addGap(43, 43, 43))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBLimpar)

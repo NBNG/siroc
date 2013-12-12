@@ -51,7 +51,7 @@ public class ProdutoBuilder {
     }
 
     public ProdutoBuilder setNome(String nome) {
-        if (nome == "") {
+        if (nome.equals("")) {
             throw new IllegalArgumentException();
         }
         this.nome = nome;
@@ -102,6 +102,15 @@ public class ProdutoBuilder {
     }
 
     private boolean temNumeros(String texto) {
+        for (int i = 0; i < texto.length(); i++) {
+            if (Character.isDigit(texto.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean temLetra(String texto) {
         for (int i = 0; i < texto.length(); i++) {
             if (Character.isDigit(texto.charAt(i))) {
                 return true;

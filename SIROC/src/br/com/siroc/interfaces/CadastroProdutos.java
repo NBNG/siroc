@@ -64,6 +64,7 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
         jBLimpar = new javax.swing.JButton();
         jTNome = new javax.swing.JTextField();
         jLAjuda = new javax.swing.JLabel();
+        jLPeso1 = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -92,7 +93,7 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
         jLV_Compra.setText("Valor de Compra:");
 
         jLV_Venda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLV_Venda.setText("Valor de Saída:");
+        jLV_Venda.setText("Valor de Venda:");
 
         jTNome_Produto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -131,6 +132,9 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
         jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
         jLAjuda.setText("Ajuda");
 
+        jLPeso1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLPeso1.setText("Kg");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,15 +145,17 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLPeso)
                         .addGap(18, 18, 18)
-                        .addComponent(jTPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLPeso1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLV_Venda)
                         .addGap(18, 18, 18)
-                        .addComponent(jTV_Saida, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTV_Saida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLV_Compra)
                         .addGap(18, 18, 18)
-                        .addComponent(jTV_Compra, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTV_Compra, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jBCadastrar)
@@ -173,8 +179,6 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
                                 .addComponent(jLAjuda)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTPeso, jTV_Compra, jTV_Saida});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBCadastrar, jBLimpar});
 
@@ -201,7 +205,8 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLPeso)
-                    .addComponent(jTPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLPeso1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLV_Compra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -250,6 +255,7 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Selecione um fornecedor na tabela.");
         } else {
             try {
+                System.out.println("Produto: "+jTNome_Produto.getText());
                 produto = new ProdutoBuilder().setFornecedor(fornecedores.get(tabela.getSelectedRow()))
                         .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
                         setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
@@ -274,6 +280,7 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLFornecedor;
     private javax.swing.JLabel jLNome;
     private javax.swing.JLabel jLPeso;
+    private javax.swing.JLabel jLPeso1;
     private javax.swing.JLabel jLV_Compra;
     private javax.swing.JLabel jLV_Venda;
     private javax.swing.JScrollPane jScrollPane1;
