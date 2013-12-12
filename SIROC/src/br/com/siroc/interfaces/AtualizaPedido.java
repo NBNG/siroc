@@ -6,11 +6,15 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
+import br.com.siroc.Jasper.Relatorio;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Pedido;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -26,22 +30,19 @@ public class AtualizaPedido extends javax.swing.JFrame {
     Pedido pedido;
 
     DAO<Pedido> pdao = new DAO<>(Pedido.class);
+    List<Object[]> list;
 
     public AtualizaPedido(Object[] resultado) {
         super("Cella - Atualização de Clientes");
+        this.list = list;
         this.resultado = resultado;
-
         pedido = pdao.busca((Long) resultado[10]); //Garofolo
-
         pedido = pdao.busca((Long) resultado[10]); //Garofolo
-
         pedido.setValorTotal((Double) resultado[5]);
-
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
-        //populateFields(resultado);
         populateFields(pedido);
         hinter();
     }
@@ -70,6 +71,9 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jLCabecalho = new javax.swing.JLabel();
         jLFornecedor = new javax.swing.JLabel();
         jLAjuda = new javax.swing.JLabel();
+        jBCancelar = new javax.swing.JButton();
+        jBImprimir1 = new javax.swing.JButton();
+        jBImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -124,48 +128,83 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
         jLAjuda.setText("Ajuda");
 
+        jBCancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/excluir.gif"))); // NOI18N
+        jBCancelar.setText("Cancelar Pedido");
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarActionPerformed(evt);
+            }
+        });
+
+        jBImprimir1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBImprimir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pdf (1).png"))); // NOI18N
+        jBImprimir1.setText("Gerar PDF");
+        jBImprimir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBImprimir1ActionPerformed(evt);
+            }
+        });
+
+        jBImprimir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/imprimir.png"))); // NOI18N
+        jBImprimir.setText("Imprimir");
+        jBImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLTipoPedido)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jCBPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLTipoPagamento)
-                            .addGap(18, 18, 18)
-                            .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLValor)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLData)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jLEndereco)
-                                        .addComponent(jLFornecedor)
-                                        .addComponent(jLCliente))
-                                    .addGap(52, 52, 52)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLFrete)
-                                        .addComponent(jCBPago)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(73, 73, 73)
-                                    .addComponent(jLCabecalho)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                            .addComponent(jLAjuda)))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBAtualizar)
-                        .addGap(40, 40, 40)))
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLTipoPedido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCBPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLTipoPagamento)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLValor)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLData)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLEndereco)
+                                    .addComponent(jLFornecedor)
+                                    .addComponent(jLCliente))
+                                .addGap(52, 52, 52)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLFrete)
+                                    .addComponent(jCBPago)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(73, 73, 73)
+                                .addComponent(jLCabecalho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                                .addComponent(jLAjuda))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBCancelar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBAtualizar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBImprimir1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBAtualizar, jBCancelar, jBImprimir, jBImprimir1});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -199,8 +238,14 @@ public class AtualizaPedido extends javax.swing.JFrame {
                     .addComponent(jLTipoPagamento)
                     .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addComponent(jBAtualizar)
-                .addGap(57, 57, 57))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBAtualizar)
+                    .addComponent(jBCancelar))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBImprimir)
+                    .addComponent(jBImprimir1))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -224,8 +269,39 @@ public class AtualizaPedido extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(AtualizaPedido.this, "Pedido alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jBAtualizarActionPerformed
 
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(AtualizaPedido.this, "Deseja Realmente excluir o pedido?", "Remove Data", JOptionPane.OK_CANCEL_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            pdao.remover(pedido);
+            JOptionPane.showMessageDialog(AtualizaPedido.this, "Pedido excluído com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void jBImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimir1ActionPerformed
+        try {
+            Relatorio rel = new Relatorio();
+            rel.gerarPedido((Long) resultado[10], 0);
+            JOptionPane.showMessageDialog(AtualizaPedido.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+        } catch (JRException | SQLException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jBImprimir1ActionPerformed
+
+    private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
+        try {
+            Relatorio rel = new Relatorio();
+            rel.gerarPedido((Long) resultado[10], 1);
+            JOptionPane.showMessageDialog(AtualizaPedido.this, "Pedido impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+        } catch (JRException | SQLException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jBImprimirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAtualizar;
+    private javax.swing.JButton jBCancelar;
+    private javax.swing.JButton jBImprimir;
+    private javax.swing.JButton jBImprimir1;
     private javax.swing.JComboBox jCBPagamento;
     private javax.swing.JCheckBox jCBPago;
     private javax.swing.JComboBox jCBPedido;
@@ -298,6 +374,8 @@ public class AtualizaPedido extends javax.swing.JFrame {
                 + "é necessário deletar este pedido e fazer outro.<br>"
                 + " Tal escolha auxiliará na máscara utilizada para o cadastro do seu respectivo código.<br>"
                 + "3. Após o preenchimento, clique no botão atualizar para que seja executada a atualização.<br>"
-                + "4. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
+                + "4. O botão Cancelar pedido exclui o mesmo.<br>"
+                + "5. Há a opção de gerar PDF's e/ou imprimi-los.<br>"
+                + "6. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
     }
 }
