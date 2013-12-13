@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileSystemView;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -47,8 +46,9 @@ public class Relatorio {
     }
 
     public void gerarPedido(Long id, int tipo) throws JRException, SQLException {
-        String caminho = "c:\\siroc\\pedidofinalizado.jrxml";
-        JasperDesign desenho = JRXmlLoader.load(caminho);
+        String caminho = "c:\\siroc\\pdfs";
+        String xml = "c:\\siroc\\xml\\pedidofinalizado.jrxml";
+        JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String query = "select clientes.cli_nome,\n"
                 + "clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,clientes.cli_telefone,\n"
@@ -77,15 +77,15 @@ public class Relatorio {
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            FileSystemView filesys = FileSystemView.getFileSystemView();
-            String resultado = filesys.getHomeDirectory().toString() + "\\Pedido.pdf";
-            JasperExportManager.exportReportToPdfFile(impressao, resultado);
+            caminho = caminho + "\\pedido.pdf";
+            JasperExportManager.exportReportToPdfFile(impressao, caminho);
         }
     }
 
     public void gerarSO(String where, int tipo) throws JRException, SQLException {
-        String caminho = "c:\\siroc\\RomaneioSO.jrxml";
-        JasperDesign desenho = JRXmlLoader.load(caminho);
+        String caminho = "c:\\siroc\\pdfs";
+        String xml = "c:\\siroc\\xml\\RomaneioSO.jrxml";
+        JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String query = "select produtos.pro_id,itens.item_quantidade, produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto,\n"
                 + "to_char(produtos.pro_entrada,'R$09G999D99')as valor_entrada,to_char(itens.item_valor, 'R$09G999D99') as item_valor, to_char((itens.item_valor * itens.item_quantidade), 'R$09G999D99') as total_parcial,\n"
@@ -114,16 +114,16 @@ public class Relatorio {
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            FileSystemView filesys = FileSystemView.getFileSystemView();
-            String resultado = filesys.getHomeDirectory().toString() + "\\RomaneioSO.pdf";
-            JasperExportManager.exportReportToPdfFile(impressao, resultado);
+            caminho = caminho + "\\RomaneioSO.pdf";
+            JasperExportManager.exportReportToPdfFile(impressao, caminho);
         }
 
     }
 
     public void gerarNF(String where, int tipo) throws JRException, SQLException {
-        String caminho = "c:\\siroc\\RomaneioNF.jrxml";
-        JasperDesign desenho = JRXmlLoader.load(caminho);
+        String caminho = "c:\\siroc\\pdfs";
+        String xml = "c:\\siroc\\xml\\RomaneioNF.jrxml";
+        JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String query = "select pedidos.ped_id,fornecedores.for_nome,clientes.cli_nome || ' - ' || to_char(pedidos.ped_data,'dd/mm/yyyy') as cliente,itens.item_quantidade, produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto,\n"
                 + "to_char(produtos.pro_entrada,'R$09G999D99')as valor_entrada,to_char(itens.item_valor, 'R$09G999D99') as item_valor,\n"
@@ -153,9 +153,8 @@ public class Relatorio {
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            FileSystemView filesys = FileSystemView.getFileSystemView();
-            String resultado = filesys.getHomeDirectory().toString() + "\\RomaneioNF.pdf";
-            JasperExportManager.exportReportToPdfFile(impressao, resultado);
+            caminho = caminho + "\\RomaneioNF.pdf";
+            JasperExportManager.exportReportToPdfFile(impressao, caminho);
         }
     }
 }

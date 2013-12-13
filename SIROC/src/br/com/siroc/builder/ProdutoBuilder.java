@@ -109,7 +109,7 @@ public class ProdutoBuilder {
         }
         return false;
     }
-    
+
     private boolean temLetra(String texto) {
         for (int i = 0; i < texto.length(); i++) {
             if (Character.isDigit(texto.charAt(i))) {
