@@ -188,6 +188,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Ajuda"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLAjudaMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

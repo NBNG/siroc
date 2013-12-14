@@ -9,7 +9,10 @@ import br.com.siroc.Editor.Editor;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Historico;
 import br.com.siroc.modelo.Produto;
+import java.awt.Desktop;
+import java.io.File;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -70,6 +73,11 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
         jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
         jLAjuda.setText("Ajuda");
+        jLAjuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLAjudaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,6 +137,19 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
             tmHistorico.setValueAt(Editor.format(historico.get(i).getValor_atualizado()), i, 3);
         }
     }//GEN-LAST:event_jTProdutoKeyTyped
+
+    private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
+        if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
+            String caminho = "C:\\siroc\\ajuda\\ajuda.pdf";
+            File arquivo = new File(caminho);
+            try {
+                Desktop.getDesktop().open(arquivo);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jLAjudaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLAjuda;

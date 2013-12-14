@@ -13,6 +13,8 @@ import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Item;
 import br.com.siroc.modelo.Pedido;
 import br.com.siroc.modelo.Produto;
+import java.awt.Desktop;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDesktopPane;
@@ -205,6 +207,11 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
         jLAjuda.setText("Ajuda");
+        jLAjuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLAjudaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -480,6 +487,20 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
         removeItem();
     }//GEN-LAST:event_jBExcluirActionPerformed
+
+    private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
+        if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
+            String caminho = "C:\\siroc\\ajuda\\ajuda.pdf";
+            File arquivo = new File(caminho);
+            try {
+                Desktop.getDesktop().open(arquivo);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jLAjudaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator Separador;
     private javax.swing.JTable TabelaCliente;
