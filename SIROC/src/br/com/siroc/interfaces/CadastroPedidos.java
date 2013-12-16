@@ -389,44 +389,18 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         }
 
         pdao.adicionar(pedido);
-        JOptionPane.showMessageDialog(CadastroPedidos.this, "Pedido adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(CadastroPedidos.this, "Pedido adicionado com sucesso! \n Se deseja realizar outro pedido, clique em Limpar!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
         //marca();
         pedido = new Pedido();
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     private void TabelaProduto_FornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaProduto_FornecedorMouseClicked
-        /*item = new Item();
-         JTextField campo_quantidade = new JTextField();
-         JTextField campo_valor = new JTextField();
-
-         Object[] message = {
-         "Quantidade: ", campo_quantidade,
-         "Valor Alterado: ", campo_valor};
+        Item itemAux = abreOptionPane();
+        if(!itemAux.equals(null)){
+            listItem.add(itemAux);
+            preencheTabela(listItem);
+        } 
         
-         if (JOptionPane.showConfirmDialog(CadastroPedidos.this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-
-         /*if (campo_valor.getText().equals("")) {
-         item.setValor_alterado(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida());
-         } else {
-         item.setValor_alterado(Double.parseDouble(campo_valor.getText()));
-         }
-         item.setQuantidade(Integer.parseInt(campo_quantidade.getText()));
-         item.setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()));
-           
-         *
-         try {
-         item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
-         setQuantidade(campo_quantidade.getText()).setValor_alterado(campo_valor.getText())
-         .getItem();
-         } catch (NullPointerException | IllegalArgumentException e) {
-         JOptionPane.showMessageDialog(CadastroPedidos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
-         }
-         listItem.add(item);
-         preencheTabela(listItem);
-         }
-         */
-        listItem.add(abreOptionPane());
-        preencheTabela(listItem);
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
 
     public Item abreOptionPane() {
