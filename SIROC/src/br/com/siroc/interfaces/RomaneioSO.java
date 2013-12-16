@@ -148,8 +148,11 @@ public class RomaneioSO extends javax.swing.JFrame {
         try {
             String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
+            java.sql.Date dataI = new java.sql.Date(jCInicial.getDate().getTime());
+            java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
+            String nome = "//Romaneio SO " + dataI + " até " + dataF + ".pdf";
             Relatorio rel = new Relatorio();
-            rel.gerarSO(where, 1);
+            rel.gerarSO(where, 1, nome);
             JOptionPane.showMessageDialog(RomaneioSO.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (JRException ex) {
             Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
@@ -162,9 +165,12 @@ public class RomaneioSO extends javax.swing.JFrame {
         try {
             String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
+            java.sql.Date dataI = new java.sql.Date(jCInicial.getDate().getTime());
+            java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
+            String nome = "//Romaneio SO " + dataI + " até " + dataF + ".pdf";
             Relatorio rel = new Relatorio();
-            rel.gerarSO(where, 0);
-            JOptionPane.showMessageDialog(RomaneioSO.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+            rel.gerarSO(where, 0, nome);
+            JOptionPane.showMessageDialog(RomaneioSO.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (JRException ex) {
             Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

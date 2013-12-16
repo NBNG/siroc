@@ -211,8 +211,11 @@ public class RomaneioNF extends javax.swing.JFrame {
         try {
             String where = "where fornecedores.for_nome like '" + jTNome.getText() + "' AND pedidos.ped_data >='" + jCInicio.getDate() + "' AND"
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'NF'";
+            java.sql.Date dataI = new java.sql.Date(jCInicio.getDate().getTime());
+            java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
+            String nome = "//Romaneio" + fornecedores.get(tabela.getSelectedRow()).getId() + " - " + dataI + " até " + dataF + ".pdf";
             Relatorio rel = new Relatorio();
-            rel.gerarNF(where, 0);
+            rel.gerarNF(where, 0, nome);
             JOptionPane.showMessageDialog(RomaneioNF.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (JRException ex) {
             ex.printStackTrace();
@@ -225,8 +228,9 @@ public class RomaneioNF extends javax.swing.JFrame {
         try {
             String where = "where  pedidos.ped_data >='" + jCInicio.getDate() + "' AND"
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
+            String nome = "";
             Relatorio rel = new Relatorio();
-            rel.gerarNF(where, 1);
+            rel.gerarNF(where, 1, nome);
             JOptionPane.showMessageDialog(RomaneioNF.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (JRException ex) {
 

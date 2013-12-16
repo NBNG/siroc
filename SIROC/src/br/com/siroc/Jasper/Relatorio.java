@@ -77,12 +77,12 @@ public class Relatorio {
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            caminho = caminho + "\\pedido.pdf";
+            caminho = caminho + "\\pedido - "+id+".pdf";
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
         }
     }
 
-    public void gerarSO(String where, int tipo) throws JRException, SQLException {
+    public void gerarSO(String where, int tipo, String nome) throws JRException, SQLException {
         String caminho = "c:\\siroc\\pdfs";
         String xml = "c:\\siroc\\xml\\RomaneioSO.jrxml";
         JasperDesign desenho = JRXmlLoader.load(xml);
@@ -114,13 +114,13 @@ public class Relatorio {
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            caminho = caminho + "\\RomaneioSO.pdf";
+            caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
         }
 
     }
 
-    public void gerarNF(String where, int tipo) throws JRException, SQLException {
+    public void gerarNF(String where, int tipo,String nome) throws JRException, SQLException {
         String caminho = "c:\\siroc\\pdfs";
         String xml = "c:\\siroc\\xml\\RomaneioNF.jrxml";
         JasperDesign desenho = JRXmlLoader.load(xml);
@@ -153,7 +153,7 @@ public class Relatorio {
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            caminho = caminho + "\\RomaneioNF.pdf";
+            caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
         }
     }
