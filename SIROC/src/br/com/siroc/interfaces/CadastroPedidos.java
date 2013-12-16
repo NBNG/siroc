@@ -396,11 +396,11 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
 
     private void TabelaProduto_FornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaProduto_FornecedorMouseClicked
         Item itemAux = abreOptionPane();
-        if(!itemAux.equals(null)){
+        if (!itemAux.equals(null)) {
             listItem.add(itemAux);
             preencheTabela(listItem);
-        } 
-        
+        }
+
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
 
     public Item abreOptionPane() {
@@ -464,7 +464,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
 
     private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
         if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
-            String caminho = "C:\\siroc\\ajuda\\ajuda.pdf";
+            String caminho = "C:\\siroc\\ajuda\\Manual do Proprietário - SIROC versão 1.9.9.pdf";
             File arquivo = new File(caminho);
             try {
                 Desktop.getDesktop().open(arquivo);

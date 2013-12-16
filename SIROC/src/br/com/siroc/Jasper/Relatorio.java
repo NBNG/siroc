@@ -77,7 +77,7 @@ public class Relatorio {
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            caminho = caminho + "\\pedido - "+id+".pdf";
+            caminho = caminho + "\\pedido - " + id + ".pdf";
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
         }
     }
@@ -120,7 +120,7 @@ public class Relatorio {
 
     }
 
-    public void gerarNF(String where, int tipo,String nome) throws JRException, SQLException {
+    public void gerarNF(String where, int tipo, String nome) throws JRException, SQLException {
         String caminho = "c:\\siroc\\pdfs";
         String xml = "c:\\siroc\\xml\\RomaneioNF.jrxml";
         JasperDesign desenho = JRXmlLoader.load(xml);
