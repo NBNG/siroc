@@ -5,6 +5,7 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.builder.ItemBuilder;
 import br.com.siroc.builder.PedidoBuilder;
 import br.com.siroc.dao.DAO;
@@ -56,6 +57,8 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         initComponents();
         this.painel = painel;
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -545,6 +548,6 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                 + "5. Caso a data não seja escolhida, o pedido será cadastrado com a data atual.<br>"
                 + "6. O valor do produto pode ou não ser alterado quando for escolhido.<br>"
                 + "7. O botão retirar produto remove um produto da lista no pedido.<br>"
-                + "8. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
+                + "8. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

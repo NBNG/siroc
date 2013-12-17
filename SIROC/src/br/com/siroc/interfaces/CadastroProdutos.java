@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.builder.ProdutoBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.FornecedorDAO;
@@ -39,6 +40,8 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
         initComponents();
         this.painel = painel;
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -262,7 +265,6 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Selecione um fornecedor na tabela.");
         } else {
             try {
-                System.out.println("Produto: " + jTNome_Produto.getText());
                 produto = new ProdutoBuilder().setFornecedor(fornecedores.get(tabela.getSelectedRow()))
                         .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
                         setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
@@ -334,6 +336,6 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
                 + "2. Lembre-se de escolher o fornecedor do respectivo produto.<br>"
                 + "3. Após o preenchimento, clique no botão Cadastrar para que seja executada a atualização.<br>"
                 + "4. O botão limpar reinicia a tela, limpando os campos.<br>"
-                + "5. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
+                + "5. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

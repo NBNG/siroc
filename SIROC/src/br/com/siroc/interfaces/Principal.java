@@ -5,6 +5,7 @@
 package br.com.siroc.interfaces;
 
 //import br.com.siroc.backup.Backup;
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.backup.Backup;
 import br.com.siroc.drive.InsertGoogleDrive;
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -29,6 +30,8 @@ public class Principal extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
         setLocationRelativeTo(null);
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
     }
 

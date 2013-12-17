@@ -1,5 +1,6 @@
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.builder.FornecedorBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
@@ -39,6 +40,8 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         populateFields(this.fornecedor);
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
     }
 
@@ -222,6 +225,6 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
                 + "1. Lembre-se de preencher os dados obrigatórios sempre, para serem evitados erros.<br>"
                 + " Tal escolha auxiliará na máscara utilizada para o cadastro do seu respectivo código.<br>"
                 + "2. Após o preenchimento, clique no botão atualizar para que seja executada a atualização.<br>"
-                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
+                + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

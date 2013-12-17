@@ -6,6 +6,7 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Historico;
 import br.com.siroc.modelo.Produto;
@@ -33,6 +34,8 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
         initComponents();
         tabela.setRowHeight(23);
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -163,6 +166,6 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
         jLAjuda.setToolTipText("<html>Esta é a tela de Listagem do histórico do produto,<br>"
                 + "aqui serão listadas todas as alterações de valores em todos os produtos,<br>"
                 + "onde as colunas representam o produto, a data de alteração, o valor antigo e o valor atualizado.<br>"
-                + "1. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
+                + "1. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

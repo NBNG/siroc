@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.builder.ClienteBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
@@ -55,6 +56,8 @@ public class AtualizaClientes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         populateFields(this.cliente);
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
     }
 
@@ -461,6 +464,6 @@ public class AtualizaClientes extends javax.swing.JFrame {
                 + "2. Lembre-se de escolher se o cliente é Pessoa Física ou Jurídica.<br>"
                 + " Tal escolha auxiliará na máscara utilizada para o cadastro do seu respectivo código.<br>"
                 + "3. Após o preenchimento, clique no botão atualizar para que seja executada a atualização.<br>"
-                + "4. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
+                + "4. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

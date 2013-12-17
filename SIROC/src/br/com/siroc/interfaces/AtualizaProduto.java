@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.builder.ProdutoBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.FornecedorDAO;
@@ -41,6 +42,8 @@ public class AtualizaProduto extends javax.swing.JFrame {
         this.produto = produto;
         populateFields(this.produto);
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
     }
 
@@ -209,19 +212,14 @@ public class AtualizaProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        System.out.println("1");
         if (tabela.getSelectedRowCount() < 1) {
             JOptionPane.showMessageDialog(AtualizaProduto.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
         } else {
-            System.out.println("2");
             try {
-                System.out.println("3");
                 produto = new ProdutoBuilder().setId(produto.getId()).setFornecedor(fornecedores.get(tabela.getSelectedRow()))
                         .setNome(jTNome_Produto.getText()).setPeso(jTPeso.getText()).
                         setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
-                System.out.println("4");
                 dao.atualiza(produto);
-                System.out.println("5");
                 JOptionPane.showMessageDialog(AtualizaProduto.this, "Produto alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
                 populateFields(produto);
             } catch (NullPointerException e) {
@@ -325,6 +323,6 @@ public class AtualizaProduto extends javax.swing.JFrame {
                 + "2. Lembre-se de escolher se o Fornecedor para o cadastro ser efetuado com sucesso.<br>"
                 + " Tal escolha auxiliará na máscara utilizada para o cadastro do seu respectivo código.<br>"
                 + "3. Após o preenchimento, clique no botão atualizar para que seja executada a atualização.<br>"
-                + "4. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
+                + "4. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

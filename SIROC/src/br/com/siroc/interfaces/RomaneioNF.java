@@ -5,6 +5,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.Jasper.Relatorio;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
@@ -47,6 +48,8 @@ public class RomaneioNF extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -307,6 +310,6 @@ public class RomaneioNF extends javax.swing.JFrame {
                 + "1. Para gerar o romaneio é necessário escolher o fornecedor<br>"
                 + " e as datas respectivas de início e término.<br>"
                 + "2. Há a opção de gerar PDF's e/ou imprimi-los.<br>"
-                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
+                + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

@@ -6,6 +6,7 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.Jasper.Relatorio;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Pedido;
@@ -47,6 +48,8 @@ public class AtualizaPedido extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
         populateFields(pedido);
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -396,6 +399,6 @@ public class AtualizaPedido extends javax.swing.JFrame {
                 + "3. Após o preenchimento, clique no botão atualizar para que seja executada a atualização.<br>"
                 + "4. O botão Cancelar pedido exclui o mesmo.<br>"
                 + "5. Há a opção de gerar PDF's e/ou imprimi-los.<br>"
-                + "6. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
+                + "6. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

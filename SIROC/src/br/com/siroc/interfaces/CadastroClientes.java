@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.builder.ClienteBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
@@ -45,6 +46,8 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
         maskCep.install(jTCEP);
         this.painel = painel;
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -463,6 +466,6 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
                 + " Tal escolha auxiliará na máscara utilizada para o cadastro do seu respectivo código.<br>"
                 + "3. Após o preenchimento, clique no botão Cadastrar para que seja executada a atualização.<br>"
                 + "4. O botão limpar reinicia a tela, limpando os campos.<br>"
-                + "5. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
+                + "5. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

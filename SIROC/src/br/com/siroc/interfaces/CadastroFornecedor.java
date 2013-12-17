@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.builder.FornecedorBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
@@ -36,6 +37,8 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         maskTelefone.install(jFTTelefone);
         this.painel = painel;
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -241,6 +244,6 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
                 + "1. Lembre-se de preencher os dados obrigatórios sempre, para serem evitados erros.<br>"
                 + "2. Após o preenchimento, clique no botão Cadastrar para que seja executada a atualização.<br>"
                 + "3. O botão limpar reinicia a tela, limpando os campos.<br>"
-                + "4. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html");
+                + "4. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

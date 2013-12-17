@@ -1,5 +1,6 @@
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import java.awt.Desktop;
@@ -40,6 +41,8 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
         tabela.setRowHeight(23);
         this.painel = painel;
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -233,6 +236,6 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
                 + " onde serão listados os dados relativos as informações do fornecedor. <br>"
                 + "1. Aqui poderão ser efetuadas pesquisas por CNPJ ou pelo nome do fornecedor.<br>"
                 + "2. Para ir para a tela de atualização, basta dar um duplo clique na linha do fornecedor escolhido.<br>"
-                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
+                + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

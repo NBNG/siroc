@@ -6,6 +6,7 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.PedidoDAO;
 import br.com.siroc.modelo.Cliente;
@@ -72,6 +73,8 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         this.painel = painel;
         tabela.setRowHeight(23);
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -671,6 +674,6 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 + "sendo necessário preencher os botões ao lado e pesquisar.<br>"
                 + "1. O botão \"Selecionar Tudo\" facilita o preenchimento dos campos escolhidos.<br>"
                 + "2. O botão limpar reinicia a tela limpando os campos.<br>"
-                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
+                + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

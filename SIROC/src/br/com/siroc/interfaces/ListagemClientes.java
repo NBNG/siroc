@@ -4,6 +4,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.dao.ClienteDAO;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
@@ -57,6 +58,8 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
         tabela.setRowHeight(23);
         this.painel = painel;
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -303,7 +306,6 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
         if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
             try {
                 AtualizaClientes ac = new AtualizaClientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
-                System.out.println(clientes.get(tabela.getSelectedRow()));
                 ac.setVisible(true);
             } catch (ParseException ex) {
                 Logger.getLogger(ListagemClientes.class.getName()).log(Level.SEVERE, null, ex);
@@ -354,6 +356,6 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
                 + " onde serão listados os dados relativos as informações do cliente. <br>"
                 + "1. Aqui poderão ser efetuadas pesquisas por CPF ou pelo nome do cliente.<br>"
                 + "2. Para ir para a tela de atualização, basta dar um duplo clique na linha do cliente escolhido.<br>"
-                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
+                + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

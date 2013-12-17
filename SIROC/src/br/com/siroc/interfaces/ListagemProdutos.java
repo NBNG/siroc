@@ -5,6 +5,7 @@
 package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Produto;
@@ -49,6 +50,8 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         tabela.setRowHeight(23);
         this.painel = painel;
         hinter();
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
     }
 
     /**
@@ -282,6 +285,6 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
                 + " onde serão listados os dados relativos as informações do produto. <br>"
                 + "1. Aqui poderão ser efetuadas pesquisas nome do produto ou fornecedor.<br>"
                 + "2. Para ir para a tela de atualização, basta dar um duplo clique na linha do cliente escolhido.<br> "
-                + "3. Para consultar o Manual do Usuário, basta dar um duplo clique em \"Ajuda.\"</html>");
+                + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }
