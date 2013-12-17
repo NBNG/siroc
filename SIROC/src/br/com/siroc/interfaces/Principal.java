@@ -8,6 +8,7 @@ package br.com.siroc.interfaces;
 import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.backup.Backup;
 import br.com.siroc.drive.InsertGoogleDrive;
+import java.awt.Desktop;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Toolkit;
 import java.io.File;
@@ -49,6 +50,11 @@ public class Principal extends javax.swing.JFrame {
         jMArquivo = new javax.swing.JMenu();
         jMIBackup = new javax.swing.JMenuItem();
         jMIGoogle = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMIAjuda = new javax.swing.JMenuItem();
+        jMSobre = new javax.swing.JMenu();
+        jMICella = new javax.swing.JMenuItem();
+        jMIDesenvolvedores = new javax.swing.JMenuItem();
         jMClente = new javax.swing.JMenu();
         jMICadastro_Clientes = new javax.swing.JMenuItem();
         jMIListagem_Clientes = new javax.swing.JMenuItem();
@@ -72,6 +78,7 @@ public class Principal extends javax.swing.JFrame {
         jMArquivo.setText("Arquivo");
         jMArquivo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jMIBackup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         jMIBackup.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMIBackup.setText("Backup");
         jMIBackup.addActionListener(new java.awt.event.ActionListener() {
@@ -81,6 +88,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMArquivo.add(jMIBackup);
 
+        jMIGoogle.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMIGoogle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMIGoogle.setText("Google Drive");
         jMIGoogle.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +97,42 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMArquivo.add(jMIGoogle);
+        jMArquivo.add(jSeparator2);
+
+        jMIAjuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMIAjuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIAjuda.setText("Ajuda");
+        jMIAjuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIAjudaActionPerformed(evt);
+            }
+        });
+        jMArquivo.add(jMIAjuda);
+
+        jMSobre.setText("Sobre");
+        jMSobre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jMICella.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        jMICella.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMICella.setText("Cella");
+        jMICella.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMICellaActionPerformed(evt);
+            }
+        });
+        jMSobre.add(jMICella);
+
+        jMIDesenvolvedores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
+        jMIDesenvolvedores.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIDesenvolvedores.setText("Desenvolvedores");
+        jMIDesenvolvedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIDesenvolvedoresActionPerformed(evt);
+            }
+        });
+        jMSobre.add(jMIDesenvolvedores);
+
+        jMArquivo.add(jMSobre);
 
         jMenu.add(jMArquivo);
 
@@ -334,6 +378,27 @@ public class Principal extends javax.swing.JFrame {
         bac.fazBackup();
     }//GEN-LAST:event_jMIBackupActionPerformed
 
+    private void jMIAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAjudaActionPerformed
+        String caminho = "C:\\siroc\\ajuda\\Manual do Proprietário - SIROC versão 1.9.9.pdf";
+        File arquivo = new File(caminho);
+        try {
+            Desktop.getDesktop().open(arquivo);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMIAjudaActionPerformed
+
+    private void jMICellaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICellaActionPerformed
+        Cella cel = new Cella();
+        cel.setVisible(true);
+    }//GEN-LAST:event_jMICellaActionPerformed
+
+    private void jMIDesenvolvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIDesenvolvedoresActionPerformed
+        Desenvolvedores des = new Desenvolvedores();
+        des.setVisible(true);
+    }//GEN-LAST:event_jMIDesenvolvedoresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -372,11 +437,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMArquivo;
     private javax.swing.JMenu jMClente;
     private javax.swing.JMenu jMFornecedor;
+    private javax.swing.JMenuItem jMIAjuda;
     private javax.swing.JMenuItem jMIBackup;
     private javax.swing.JMenuItem jMICadastro_Clientes;
     private javax.swing.JMenuItem jMICadastro_Fornecedor;
     private javax.swing.JMenuItem jMICadastro_Pedidos;
     private javax.swing.JMenuItem jMICadastro_Produtos;
+    private javax.swing.JMenuItem jMICella;
+    private javax.swing.JMenuItem jMIDesenvolvedores;
     private javax.swing.JMenuItem jMIGoogle;
     private javax.swing.JMenuItem jMIListagem_Clientes;
     private javax.swing.JMenuItem jMIListagem_Fornecedor;
@@ -387,8 +455,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMI_Historico;
     private javax.swing.JMenu jMPedido;
     private javax.swing.JMenu jMProdutos;
+    private javax.swing.JMenu jMSobre;
     private javax.swing.JMenuBar jMenu;
     private javax.swing.JDesktopPane jPanel;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     // End of variables declaration//GEN-END:variables
 }
