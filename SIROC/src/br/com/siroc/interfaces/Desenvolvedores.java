@@ -78,7 +78,7 @@ public class Desenvolvedores extends javax.swing.JFrame {
         jLabel4.setText("Email:");
 
         jLMailLucas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLMailLucas.setText("<html><u>lugas.garofolo@gmail.com</u></html>");
+        jLMailLucas.setText("<html><u>lucas.garofolo@gmail.com</u></html>");
         jLMailLucas.setToolTipText("Clique para enviar um email.");
         jLMailLucas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -133,7 +133,7 @@ public class Desenvolvedores extends javax.swing.JFrame {
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +165,7 @@ public class Desenvolvedores extends javax.swing.JFrame {
     private void jLMailLucasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLMailLucasMouseClicked
         Desktop desktop = getDesktop();
         try {
-            desktop.mail(new URI("mailto:lugas.garofolo@gmail.com"));
+            desktop.mail(new URI("mailto:lucas.garofolo@gmail.com"));
         } catch (IOException ex) {
             Logger.getLogger(Desenvolvedores.class.getName()).log(Level.SEVERE, null, ex);
         } catch (URISyntaxException ex) {
