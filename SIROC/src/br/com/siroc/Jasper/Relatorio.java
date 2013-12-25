@@ -30,6 +30,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 public class Relatorio {
 
     private Connection conexao;
+    private String caminho = System.getenv("USERPROFILE") + "\\My Documents\\siroc\\pdfs";
 
     public Relatorio() {
         this.conexao = getConexao();
@@ -46,7 +47,6 @@ public class Relatorio {
     }
 
     public void gerarPedido(Long id, int tipo) throws JRException, SQLException {
-        String caminho = "c:\\siroc\\pdfs";
         String xml = "c:\\siroc\\xml\\pedidofinalizado.jrxml";
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
@@ -83,7 +83,6 @@ public class Relatorio {
     }
 
     public void gerarSO(String where, int tipo, String nome) throws JRException, SQLException {
-        String caminho = "c:\\siroc\\pdfs";
         String xml = "c:\\siroc\\xml\\RomaneioSO.jrxml";
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
@@ -121,7 +120,6 @@ public class Relatorio {
     }
 
     public void gerarNF(String where, int tipo, String nome) throws JRException, SQLException {
-        String caminho = "c:\\siroc\\pdfs";
         String xml = "c:\\siroc\\xml\\RomaneioNF.jrxml";
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
