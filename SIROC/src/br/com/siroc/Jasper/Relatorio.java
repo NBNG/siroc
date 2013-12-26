@@ -5,6 +5,8 @@
  */
 package br.com.siroc.Jasper;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -45,9 +47,12 @@ public class Relatorio {
         }
     }
 
-    public void gerarPedido(Long id, int tipo) throws JRException, SQLException {
+    public void gerarPedido(Long id, int tipo) throws JRException, SQLException, IOException {
         String caminho = "c:\\siroc\\pdfs";
-        String xml = "c:\\siroc\\xml\\pedidofinalizado.jrxml";
+        //String xml = "c:\\siroc\\xml\\pedidofinalizado.jrxml";
+        
+        String xml = new File("../src/br/com/siroc/Jasper/pedidofinalizado.jrxml").getCanonicalPath();
+        JOptionPane.showMessageDialog(null, xml);
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String query = "select clientes.cli_nome,\n"
