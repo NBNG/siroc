@@ -49,7 +49,7 @@ public class Relatorio {
     }
 
     public void gerarPedido(Long id, int tipo) throws JRException, SQLException, IOException {
-        String xml = new File("../siroc/src/br/com/siroc/Jasper/pedido.jrxml").getCanonicalPath();
+        String xml = new File("../br/com/siroc/Jasper/pedido.jrxml").getCanonicalPath();
 
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
