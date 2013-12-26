@@ -12,6 +12,7 @@ import br.com.siroc.modelo.Fornecedor;
 import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -216,13 +217,13 @@ public class RomaneioNF extends javax.swing.JFrame {
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'NF'";
             java.sql.Date dataI = new java.sql.Date(jCInicio.getDate().getTime());
             java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
-            String nome = "//Romaneio" + fornecedores.get(tabela.getSelectedRow()).getId() + " - " + dataI + " até " + dataF + ".pdf";
+            String nome = "//RomaneioNF " + " - " + dataI + " até " + dataF + ".pdf";
             Relatorio rel = new Relatorio();
+
             rel.gerarNF(where, 0, nome);
+
             JOptionPane.showMessageDialog(RomaneioNF.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (JRException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
+        } catch (IOException | JRException | SQLException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jBPDFActionPerformed
@@ -235,10 +236,8 @@ public class RomaneioNF extends javax.swing.JFrame {
             Relatorio rel = new Relatorio();
             rel.gerarNF(where, 1, nome);
             JOptionPane.showMessageDialog(RomaneioNF.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (JRException ex) {
-
-        } catch (SQLException ex) {
-
+        } catch (IOException | JRException | SQLException ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jBImprimirActionPerformed
 

@@ -10,9 +10,8 @@ import br.com.siroc.Jasper.Relatorio;
 import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 
@@ -157,10 +156,8 @@ public class RomaneioSO extends javax.swing.JFrame {
             Relatorio rel = new Relatorio();
             rel.gerarSO(where, 1, nome);
             JOptionPane.showMessageDialog(RomaneioSO.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (JRException ex) {
-            Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | JRException | SQLException ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jBImprimirActionPerformed
 
@@ -173,11 +170,9 @@ public class RomaneioSO extends javax.swing.JFrame {
             String nome = "//Romaneio SO " + dataI + " até " + dataF + ".pdf";
             Relatorio rel = new Relatorio();
             rel.gerarSO(where, 0, nome);
-            JOptionPane.showMessageDialog(RomaneioSO.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (JRException ex) {
-            Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(RomaneioSO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(RomaneioSO.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+        } catch (IOException | JRException | SQLException ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jBPDFActionPerformed
 

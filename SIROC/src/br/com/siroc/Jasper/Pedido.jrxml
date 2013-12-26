@@ -265,7 +265,7 @@
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="59">
+		<band height="99">
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="18816079-e4cd-4d2c-ab93-a2b256f5a1f6" x="438" y="7" width="113" height="20"/>
 				<textElement textAlignment="Center">
@@ -274,9 +274,9 @@
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="e71455ed-8d82-4873-a30c-ed7c76d48071" x="139" y="37" width="268" height="20"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Gerado por: Cella - Sistema de Pedidos e Romaneios]]></text>
+				<reportElement uuid="e71455ed-8d82-4873-a30c-ed7c76d48071" x="0" y="53" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Gerado por: Cella - Sistema de Pedidos e Romaneios.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="701cfa99-0302-4d12-bdc4-e35795cb0488" x="394" y="7" width="44" height="20"/>
@@ -284,6 +284,11 @@
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cb28866c-f0a7-4e62-a4b4-d6e152c9b5ee" x="0" y="73" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ Interessado em nosso serviço? Ligue: (12) 982054378 ou (12) 981669841]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

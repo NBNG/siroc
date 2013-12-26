@@ -32,7 +32,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 public class Relatorio {
 
     private Connection conexao;
-    private String caminho = System.getenv("USERPROFILE") + "\\My Documents\\siroc\\pdfs";
+    private String caminho = System.getenv("USERPROFILE") + "\\meus documentos\\siroc\\pdfs";
 
     public Relatorio() {
         this.conexao = getConexao();
@@ -48,17 +48,9 @@ public class Relatorio {
         }
     }
 
-<<<<<<< HEAD
     public void gerarPedido(Long id, int tipo) throws JRException, SQLException, IOException {
-        String caminho = "c:\\siroc\\pdfs";
-        //String xml = "c:\\siroc\\xml\\pedidofinalizado.jrxml";
-        
-        String xml = new File("../src/br/com/siroc/Jasper/pedidofinalizado.jrxml").getCanonicalPath();
-        JOptionPane.showMessageDialog(null, xml);
-=======
-    public void gerarPedido(Long id, int tipo) throws JRException, SQLException {
-        String xml = "c:\\siroc\\xml\\pedidofinalizado.jrxml";
->>>>>>> 019266fa5f981c9cb09eff341c94662e48adb00f
+        String xml = new File("../siroc/src/br/com/siroc/Jasper/pedido.jrxml").getCanonicalPath();
+
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String query = "select clientes.cli_nome,\n"
@@ -93,13 +85,13 @@ public class Relatorio {
         }
     }
 
-    public void gerarSO(String where, int tipo, String nome) throws JRException, SQLException {
-        String xml = "c:\\siroc\\xml\\RomaneioSO.jrxml";
+    public void gerarSO(String where, int tipo, String nome) throws JRException, SQLException, IOException {
+        String xml = new File("../siroc/src/br/com/siroc/Jasper/romaneioso.jrxml").getCanonicalPath();
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String query = "select produtos.pro_id,itens.item_quantidade, produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto,\n"
                 + "to_char(produtos.pro_entrada,'R$09G999D99')as valor_entrada,to_char(itens.item_valor, 'R$09G999D99') as item_valor, to_char((itens.item_valor * itens.item_quantidade), 'R$09G999D99') as total_parcial,\n"
-                + "to_char((select sum(itens.item_valor * itens.item_quantidade) - sum(itens.item_quantidade * produtos.pro_saida) from itens inner join produtos on\n"
+                + "to_char((select sum(itens.item_valor * itens.item_quantidade) - sum(itens.item_quantidade * produtos.pro_entrada) from itens inner join produtos on\n"
                 + "itens.fk_produto = produtos.pro_id inner join pedidos on itens.fk_pedido = pedidos.ped_id inner join clientes on\n"
                 + "pedidos.fk_cliente = clientes.cli_id inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id\n"
                 + "" + where + " ), 'R$09G999D99')as saldo,\n"
@@ -130,14 +122,14 @@ public class Relatorio {
 
     }
 
-    public void gerarNF(String where, int tipo, String nome) throws JRException, SQLException {
-        String xml = "c:\\siroc\\xml\\RomaneioNF.jrxml";
+    public void gerarNF(String where, int tipo, String nome) throws JRException, SQLException, IOException {
+        String xml = new File("../siroc/src/br/com/siroc/Jasper/romaneioNF.jrxml").getCanonicalPath();
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String query = "select pedidos.ped_id,fornecedores.for_nome,clientes.cli_nome || ' - ' || to_char(pedidos.ped_data,'dd/mm/yyyy') as cliente,itens.item_quantidade, produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto,\n"
                 + "to_char(produtos.pro_entrada,'R$09G999D99')as valor_entrada,to_char(itens.item_valor, 'R$09G999D99') as item_valor,\n"
                 + "to_char((itens.item_valor * itens.item_quantidade), 'R$09G999D99') as total_parcial,\n"
-                + "to_char((select sum(itens.item_valor * itens.item_quantidade) - sum(itens.item_quantidade * produtos.pro_saida) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id\n"
+                + "to_char((select sum(itens.item_valor * itens.item_quantidade) - sum(itens.item_quantidade * produtos.pro_entrada) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id\n"
                 + "inner join produtos on itens.fk_produto = produtos.pro_id inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id\n"
                 + "" + where + " ), 'R$09G999D99')as saldo,\n"
                 + "to_char((select sum(itens.item_quantidade * itens.item_valor) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id\n"

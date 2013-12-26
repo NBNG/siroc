@@ -295,13 +295,9 @@ public class AtualizaPedido extends javax.swing.JFrame {
             Relatorio rel = new Relatorio();
             rel.gerarPedido((Long) resultado[10], 0);
             JOptionPane.showMessageDialog(AtualizaPedido.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (IOException ex) {
-            Logger.getLogger(AtualizaPedido.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!");
-        } catch (JRException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex){
-            ex.printStackTrace();
+
+        } catch (IOException | JRException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
         }
     }//GEN-LAST:event_jBImprimir1ActionPerformed
 
@@ -309,12 +305,9 @@ public class AtualizaPedido extends javax.swing.JFrame {
         try {
             Relatorio rel = new Relatorio();
             rel.gerarPedido((Long) resultado[10], 1);
-            JOptionPane.showMessageDialog(AtualizaPedido.this, "Pedido impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (IOException ex) {
             Logger.getLogger(AtualizaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JRException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex){
+        } catch (JRException | SQLException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jBImprimirActionPerformed
