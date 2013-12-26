@@ -32,6 +32,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 public class Relatorio {
 
     private Connection conexao;
+    private String caminho = System.getenv("USERPROFILE") + "\\My Documents\\siroc\\pdfs";
 
     public Relatorio() {
         this.conexao = getConexao();
@@ -47,12 +48,17 @@ public class Relatorio {
         }
     }
 
+<<<<<<< HEAD
     public void gerarPedido(Long id, int tipo) throws JRException, SQLException, IOException {
         String caminho = "c:\\siroc\\pdfs";
         //String xml = "c:\\siroc\\xml\\pedidofinalizado.jrxml";
         
         String xml = new File("../src/br/com/siroc/Jasper/pedidofinalizado.jrxml").getCanonicalPath();
         JOptionPane.showMessageDialog(null, xml);
+=======
+    public void gerarPedido(Long id, int tipo) throws JRException, SQLException {
+        String xml = "c:\\siroc\\xml\\pedidofinalizado.jrxml";
+>>>>>>> 019266fa5f981c9cb09eff341c94662e48adb00f
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String query = "select clientes.cli_nome,\n"
@@ -88,7 +94,6 @@ public class Relatorio {
     }
 
     public void gerarSO(String where, int tipo, String nome) throws JRException, SQLException {
-        String caminho = "c:\\siroc\\pdfs";
         String xml = "c:\\siroc\\xml\\RomaneioSO.jrxml";
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
@@ -126,7 +131,6 @@ public class Relatorio {
     }
 
     public void gerarNF(String where, int tipo, String nome) throws JRException, SQLException {
-        String caminho = "c:\\siroc\\pdfs";
         String xml = "c:\\siroc\\xml\\RomaneioNF.jrxml";
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
