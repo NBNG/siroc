@@ -21,7 +21,7 @@ public class ProdutoDAO {
     private Session session;
 
     public ProdutoDAO() {
-        session = new ConnectionFactory().getSession();
+        session = new ConnectionFactory().getSessionFactory().openSession();
     }
 
     public List<Produto> buscaPorNome(String nome) {
@@ -34,5 +34,10 @@ public class ProdutoDAO {
         tx.commit();
 
         return produtos;
+    }
+    
+    public void close() {
+        if (session.isOpen())
+            session.close();
     }
 }

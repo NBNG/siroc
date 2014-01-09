@@ -17,7 +17,7 @@ public class PedidoDAO {
     private Session session;
 
     public PedidoDAO() {
-        session = new ConnectionFactory().getSession();
+        session = new ConnectionFactory().getSessionFactory().openSession();
     }
 
     public List<Object[]> buscaAvançada(String consulta) {
@@ -31,4 +31,8 @@ public class PedidoDAO {
         return (List<Object[]>) session.createQuery(consulta).list();
     }
 
+    public void close() {
+        if (session.isOpen())
+            session.close();
+    }
 }

@@ -13,4 +13,13 @@ public class DaoTest {
 
         assertEquals("Lucas Garofolo Lopes", dao.busca((long) 3).getNome());
     }
+    
+    @Test
+    public void testaConexoes(){
+         for (int i = 0; i < 1000; i++) {
+            System.out.println(i);
+            DAO<Cliente> dao = new DAO<>(Cliente.class);
+            dao.close();
+        }
+    }
 }

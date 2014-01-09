@@ -18,7 +18,7 @@ public class ClienteDAO {
     private Session session;
 
     public ClienteDAO() {
-        session = new ConnectionFactory().getSession();
+        session = new ConnectionFactory().getSessionFactory().openSession();
     }
 
     public Cliente buscaPorCNPJ(String cnpj_cpf) {
@@ -52,5 +52,10 @@ public class ClienteDAO {
 
         return clientes;
     }
-
+    
+    public void close() {
+        if (session.isOpen())
+            session.close();
+    }
+    
 }

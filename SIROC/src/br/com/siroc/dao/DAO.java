@@ -1,7 +1,10 @@
 package br.com.siroc.dao;
 
 import br.com.siroc.fabrica.ConnectionFactory;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -14,7 +17,7 @@ public class DAO<T> {
 
     public DAO(Class<T> class1) {
         classe = class1;
-        session = new ConnectionFactory().getSession();
+        session = new ConnectionFactory().getSessionFactory().openSession();
     }
 
     public void adicionar(T t) {
@@ -22,6 +25,7 @@ public class DAO<T> {
         Transaction tx = session.beginTransaction();
         session.save(t);
         tx.commit();
+
     }
 
     public void atualiza(T t) {
@@ -31,7 +35,6 @@ public class DAO<T> {
     }
 
     public void remover(T t) {
-
         Transaction tx = session.beginTransaction();
         session.delete(t);
         tx.commit();
@@ -47,5 +50,10 @@ public class DAO<T> {
 
     public List<T> buscaPorNome(String nome) {
         return session.createCriteria(classe).add(Restrictions.ilike("nome", "%" + nome + "%")).list();
+    }
+
+    public void close() {
+        if (session.isOpen())
+            session.close();
     }
 }

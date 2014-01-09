@@ -8,6 +8,7 @@ package br.com.siroc.interfaces;
 import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.backup.Backup;
 import br.com.siroc.drive.InsertGoogleDrive;
+import br.com.siroc.fabrica.ConnectionFactory;
 import java.awt.Desktop;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Toolkit;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import org.hibernate.Session;
 
 /**
  *
@@ -26,10 +28,13 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    private Session session;
+    
     public Principal() {
         super("Cella - Sistema de Pedidos e Romaneios");
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
+        session = new ConnectionFactory().getSessionFactory().openSession();
         setLocationRelativeTo(null);
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());

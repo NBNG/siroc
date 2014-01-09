@@ -14,7 +14,7 @@ public class FornecedorDAO {
     private Session session;
 
     public FornecedorDAO() {
-        session = new ConnectionFactory().getSession();
+        session = new ConnectionFactory().getSessionFactory().openSession();
     }
 
     public List<Fornecedor> buscaPorNome(String nome) {
@@ -31,5 +31,10 @@ public class FornecedorDAO {
 
         tx.commit();
         return fornecedores;
+    }
+    
+    public void close() {
+        if (session.isOpen())
+            session.close();
     }
 }
