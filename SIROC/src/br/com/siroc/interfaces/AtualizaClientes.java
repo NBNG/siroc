@@ -432,34 +432,27 @@ public class AtualizaClientes extends javax.swing.JFrame {
         jFTCelular.setText(cliente.getCelular());
         jFTTelefone.setText(cliente.getTelefone());
 
-        String aux = cliente.getCnpj_cpf();
-        boolean cpf = false;
-        boolean erro = false;
-        int index = aux.length();
-        int indexAux = 0;
-        while (cpf = false) {
-            if (aux.charAt(indexAux) == '/') {
-                cpf = true;
-            } else if (indexAux == index) {
-                erro = true;
+        int aux = 0;
+        for (int i = 0; i < cliente.getCnpj_cpf().length(); i++) {
+            if (cliente.getCnpj_cpf().charAt(i) == '/') {
+                aux++;
             }
-            indexAux++;
         }
 
-        if (cpf = true) {
+        if (aux != 0) {
             jFTCnpj.setValue(null);
             maskCnpj.install(jFTCnpj);
             jFTCnpj.setFormatterFactory(new DefaultFormatterFactory(maskCnpj));
             jFTCnpj.setText(cliente.getCnpj_cpf());
-            jRBFisica.setSelected(true);
-        } else if (erro = true) {
+            jRBFisica.setSelected(false);
+            jRBJuridica.setSelected(true);
+        } else {
             jFTCnpj.setValue(null);
             maskCPF.install(jFTCnpj);
             jFTCnpj.setFormatterFactory(new DefaultFormatterFactory(maskCPF));
             jFTCnpj.setText(cliente.getCnpj_cpf());
-            jRBJuridica.setSelected(true);
-        }
-        if (cliente.getCnpj_cpf().length() > 14) {
+            jRBFisica.setSelected(true);
+            jRBJuridica.setSelected(false);
         }
     }
 
