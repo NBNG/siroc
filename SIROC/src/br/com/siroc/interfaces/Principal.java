@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import org.hibernate.Session;
 
 /**
@@ -29,7 +31,7 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     private Session session;
-    
+
     public Principal() {
         super("Cella - Sistema de Pedidos e Romaneios");
         this.setExtendedState(MAXIMIZED_BOTH);
@@ -361,10 +363,14 @@ public class Principal extends javax.swing.JFrame {
     private void jMIGoogleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIGoogleActionPerformed
         try {
             JFileChooser fileChooser = new JFileChooser();
-
+            UIManager.put("FileChooser.openButtonText", "Salvar");
+            SwingUtilities.updateComponentTreeUI(fileChooser);
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);//use FILES_ONLY caso deseje que o usuario selecione apenas arquivos  
             fileChooser.setDialogTitle("Abrir...");
-
+            String inicio = System.getenv("USERPROFILE")
+                    + "\\Documents\\nbng\\siroc\\Backup";
+            File comeco = new File(inicio);
+            fileChooser.setCurrentDirectory(comeco);
             int status = fileChooser.showOpenDialog(null);
             if (status == JFileChooser.APPROVE_OPTION) {
 
@@ -384,7 +390,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIBackupActionPerformed
 
     private void jMIAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAjudaActionPerformed
-        String caminho = "C:\\siroc\\ajuda\\Manual do Proprietário - SIROC versão 1.9.9.pdf";
+        String caminho = System.getenv("USERPROFILE")
+                + "\\Documents\\nbng\\siroc\\ajuda\\Manual do Proprietário - "
+                + "SIROC versão 1.9.9.pdf";
         File arquivo = new File(caminho);
         try {
             Desktop.getDesktop().open(arquivo);

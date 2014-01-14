@@ -35,9 +35,10 @@ public class ProdutoDAO {
 
         return produtos;
     }
-    
+
     public void close() {
-        if (session.isOpen())
+        if (session.isOpen()) {
             session.close();
+        }
     }
 }
