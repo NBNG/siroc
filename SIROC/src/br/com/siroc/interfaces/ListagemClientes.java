@@ -13,8 +13,6 @@ import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,9 +32,9 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
     ClienteDAO cdao = new ClienteDAO();
     String endereco;
     List<Cliente> clientes;//List de uma classe do modelo para utilização na tabela;
-    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ/CPF", "Telefone", "Contato", "Email", "Celular", "Endereço", "Frete"}) {
+    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ/CPF", "Telefone", "Contato", "Email", "Celular", "Endereço"}) {
         boolean[] canEdit = new boolean[]{
-            false, false, false, false, false, false, false, false, false, false
+            false, false, false, false, false, false, false, false, false
         };
 
         @Override
@@ -237,7 +235,6 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             tmCliente.setValueAt(clientes.get(i).getEmail(), i, 5);
             tmCliente.setValueAt(clientes.get(i).getCelular(), i, 6);
             tmCliente.setValueAt(endereco, i, 7);
-            tmCliente.setValueAt(clientes.get(i).getFrete() + " %", i, 8);
 
         }    }//GEN-LAST:event_jTNomeKeyTyped
 
@@ -278,7 +275,6 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             tmCliente.setValueAt(cliente.getEmail(), 0, 5);
             tmCliente.setValueAt(cliente.getCelular(), 0, 6);
             tmCliente.setValueAt(endereco, 0, 7);
-            tmCliente.setValueAt(cliente.getFrete() + " %", 0, 8);
         } else {
             JOptionPane.showMessageDialog(ListagemClientes.this, "Favor preencher um CPF/CNPJ!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         }
@@ -305,10 +301,12 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
             try {
-                AtualizaClientes ac = new AtualizaClientes(clientes.get(tabela.getSelectedRow())); //Novo pego o objeto inteiro
+                AtualizaClientes ac = new AtualizaClientes(clientes.
+                        get(tabela.getSelectedRow()), this, painel);
                 ac.setVisible(true);
             } catch (ParseException ex) {
-                Logger.getLogger(ListagemClientes.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_tabelaMouseClicked
@@ -322,8 +320,8 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             try {
                 Desktop.getDesktop().open(arquivo);
             } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jLAjudaMouseClicked

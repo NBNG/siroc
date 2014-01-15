@@ -1,7 +1,6 @@
 package br.com.siroc.modelo;
 
 import br.com.siroc.builder.ClienteBuilder;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class ClienteTeste {
@@ -24,7 +23,7 @@ public class ClienteTeste {
     @Test
     public void testaFrete() {
         String frete = "";
-        new ClienteBuilder().setFrete(frete);
+
     }
 
     @Test(expected = IllegalArgumentException.class)

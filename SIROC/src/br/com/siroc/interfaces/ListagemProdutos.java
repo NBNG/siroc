@@ -243,7 +243,8 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
-            AtualizaProduto ap = new AtualizaProduto(produtos.get(tabela.getSelectedRow()));
+            AtualizaProduto ap = new AtualizaProduto(produtos.
+                    get(tabela.getSelectedRow()), this, painel);
             ap.setVisible(true);
         }
     }//GEN-LAST:event_tabelaMouseClicked

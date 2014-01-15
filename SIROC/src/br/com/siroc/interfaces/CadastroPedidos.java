@@ -29,15 +29,49 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CadastroPedidos extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Cadastro_Pedido
-     */
-    //modelos para tabelas
-    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Email"});
-    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "CNPJ/CPF", "Contato"});
-    DefaultTableModel tmProduto_Fornecedor = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"});
-    DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Código", "Nome", "Quantidade", "Valor Alterado"});
-    //listas para serem utilizadas nas tabelas
+    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Email"}) {
+        boolean[] canEdit = new boolean[]{
+            false, false
+        };
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit[columnIndex];
+        }
+    };
+
+    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "CNPJ/CPF", "Contato"}) {
+        boolean[] canEdit = new boolean[]{
+            false, false, false
+        };
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit[columnIndex];
+        }
+    };
+    DefaultTableModel tmProduto_Fornecedor = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"}) {
+        boolean[] canEdit = new boolean[]{
+            false, false, false, false, false
+        };
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit[columnIndex];
+        }
+    };
+    DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Código", "Nome", "Quantidade", "Valor Alterado"}) {
+        boolean[] canEdit = new boolean[]{
+            false, false, false, false
+        };
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit[columnIndex];
+        }
+    };
+
+//listas para serem utilizadas nas tabelas
     List<Fornecedor> listFornecedor;
     List<Produto> listProduto;
     List<Cliente> listCliente;
@@ -90,13 +124,15 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         jLTabela_Fornecedor = new javax.swing.JLabel();
         jBSalvar = new javax.swing.JButton();
         jBLimpar = new javax.swing.JButton();
-        jCBPago = new javax.swing.JCheckBox();
         jScrollPane4 = new javax.swing.JScrollPane();
         TabelaCliente = new javax.swing.JTable();
         jLCliente = new javax.swing.JLabel();
         jTCliente = new javax.swing.JTextField();
         jBExcluir = new javax.swing.JButton();
         jLAjuda = new javax.swing.JLabel();
+        jLPrazo = new javax.swing.JLabel();
+        jTPrazo = new javax.swing.JTextField();
+        jCBPago1 = new javax.swing.JComboBox();
 
         setClosable(true);
 
@@ -134,7 +170,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         jCBTipo_Pedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NF", "SO" }));
 
         jCBTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jCBTipo_Pagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cartão", "Cheque", "Depósito", "Dinheiro" }));
+        jCBTipo_Pagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cheque", "Boleto", "Vale", "Cartão", "Depósito", "Dinheiro" }));
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLCabecalho.setText("Cadastro de Pedidos");
@@ -176,9 +212,6 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jCBPago.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jCBPago.setText("Pago");
-
         TabelaCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TabelaCliente.setModel(tmCliente);
         TabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -216,70 +249,84 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        jLPrazo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLPrazo.setText("Prazo:");
+
+        jCBPago1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jCBPago1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Parcialmente", "" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLCabecalho)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLAjuda))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLFornecedor)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTNome_Fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLCliente)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTCliente)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLData)
-                        .addGap(18, 18, 18)
-                        .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCBPago)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLTipo_Pedido)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLTipo_Pagamento)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(Separador, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLTabela_Fornecedor)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLTabela_Pedido)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBExcluir)
+                                .addComponent(jLCabecalho)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBSalvar)
+                                .addComponent(jLAjuda))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLFornecedor)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTNome_Fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLCliente)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTCliente)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Separador, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLTabela_Fornecedor)
+                                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(30, 30, 30)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLTabela_Pedido)
+                                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jBExcluir)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jBSalvar)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jBLimpar)))))
+                                .addGap(0, 9, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLData)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBLimpar)))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                                .addComponent(jLPrazo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jCBPago1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLTipo_Pedido)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLTipo_Pagamento)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBLimpar, jBSalvar});
@@ -300,20 +347,22 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(17, 17, 17)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jCBPago)
-                        .addComponent(jLTipo_Pedido)
-                        .addComponent(jLTipo_Pagamento)
-                        .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLData)
+                        .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLData)
-                            .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLTipo_Pedido)
+                            .addComponent(jLTipo_Pagamento)
+                            .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLPrazo)
+                            .addComponent(jTPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCBPago1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1)))
+                .addGap(16, 16, 16)
                 .addComponent(Separador, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -328,7 +377,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                     .addComponent(jBExcluir)
                     .addComponent(jBSalvar)
                     .addComponent(jBLimpar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -375,9 +424,8 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TabelaFornecedorMouseClicked
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
-        if (jCBPago.isSelected()) {
-            status = "Pago";
-        }
+
+        status = (String) jCBPago1.getSelectedItem();
 
         DAO<Pedido> pdao = new DAO<>(Pedido.class);
 
@@ -487,7 +535,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JButton jBSalvar;
-    private javax.swing.JCheckBox jCBPago;
+    private javax.swing.JComboBox jCBPago1;
     private javax.swing.JComboBox jCBTipo_Pagamento;
     private javax.swing.JComboBox jCBTipo_Pedido;
     private com.toedter.calendar.JDateChooser jDCData;
@@ -496,6 +544,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLCliente;
     private javax.swing.JLabel jLData;
     private javax.swing.JLabel jLFornecedor;
+    private javax.swing.JLabel jLPrazo;
     private javax.swing.JLabel jLTabela_Fornecedor;
     private javax.swing.JLabel jLTabela_Pedido;
     private javax.swing.JLabel jLTipo_Pagamento;
@@ -506,6 +555,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTCliente;
     private javax.swing.JTextField jTNome_Fornecedor;
+    private javax.swing.JTextField jTPrazo;
     // End of variables declaration//GEN-END:variables
 
     public void marca() {

@@ -85,8 +85,8 @@ public class Relatorio {
         }
     }
 
-    public void gerarSO(String where, int tipo, String nome) throws JRException, SQLException, IOException {
-        xml += "\\romaneioso.jrxml";
+    public void balancoSO(String where, int tipo, String nome) throws JRException, SQLException, IOException {
+        xml += "\\balancoso.jrxml";
 
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
@@ -123,8 +123,8 @@ public class Relatorio {
 
     }
 
-    public void gerarNF(String where, int tipo, String nome) throws JRException, SQLException, IOException {
-        xml += "\\romaneionf.jrxml";
+    public void balancoNF(String where, int tipo, String nome) throws JRException, SQLException, IOException {
+        xml += "\\balanconf.jrxml";
 
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);

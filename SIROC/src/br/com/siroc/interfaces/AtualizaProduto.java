@@ -13,7 +13,9 @@ import br.com.siroc.modelo.Produto;
 import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.io.File;
+import java.text.ParseException;
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,10 +33,14 @@ public class AtualizaProduto extends javax.swing.JFrame {
     List<Fornecedor> fornecedores;
     DAO<Produto> dao = new DAO<Produto>(Produto.class);
     //definição das colunas da tabela
-    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
+    DefaultTableModel tmFornecedor = new DefaultTableModel(null,
+            new String[]{"Nome", "Telefone", "Email"});
     FornecedorDAO fdao = new FornecedorDAO();
+    ListagemProdutos lista;
+    JDesktopPane painel;
 
-    public AtualizaProduto(Produto produto) {
+    public AtualizaProduto(Produto produto,
+            ListagemProdutos lista, JDesktopPane painel) {
         super("Cella - Atualização de Produtos");
         initComponents();
         tabela.setRowHeight(23);
@@ -44,7 +50,10 @@ public class AtualizaProduto extends javax.swing.JFrame {
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().
+                getResource("/br/com/siroc/Imagens/icone.png")));
+        this.lista = lista;
+        this.painel = painel;
     }
 
     /**
@@ -326,5 +335,13 @@ public class AtualizaProduto extends javax.swing.JFrame {
                 + " Tal escolha auxiliará na máscara utilizada para o cadastro do seu respectivo código.<br>"
                 + "3. Após o preenchimento, clique no botão atualizar para que seja executada a atualização.<br>"
                 + "4. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
+    }
+
+    private void limpar() throws ParseException {
+        lista.dispose();
+        ListagemProdutos cl = new ListagemProdutos(painel);
+        painel.add(cl);
+        cl.setVisible(true);
+        this.dispose();
     }
 }

@@ -76,6 +76,9 @@ public class Principal extends javax.swing.JFrame {
         jMICadastro_Pedidos = new javax.swing.JMenuItem();
         jMIListagem_Pedidos = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMIBalancoSO = new javax.swing.JMenuItem();
+        jMIBalancoNF = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMIRomaneioSO = new javax.swing.JMenuItem();
         jMIRomaneioNF = new javax.swing.JMenuItem();
 
@@ -229,7 +232,7 @@ public class Principal extends javax.swing.JFrame {
         jMPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMICadastro_Pedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMICadastro_Pedidos.setText("Cadastro de Pedidos");
+        jMICadastro_Pedidos.setText("Novo Pedido");
         jMICadastro_Pedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMICadastro_PedidosActionPerformed(evt);
@@ -247,6 +250,25 @@ public class Principal extends javax.swing.JFrame {
         jMPedido.add(jMIListagem_Pedidos);
         jMPedido.add(jSeparator1);
 
+        jMIBalancoSO.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIBalancoSO.setText("Balanço - SO");
+        jMIBalancoSO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIBalancoSOActionPerformed(evt);
+            }
+        });
+        jMPedido.add(jMIBalancoSO);
+
+        jMIBalancoNF.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIBalancoNF.setText("Balanço - NF");
+        jMIBalancoNF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIBalancoNFActionPerformed(evt);
+            }
+        });
+        jMPedido.add(jMIBalancoNF);
+        jMPedido.add(jSeparator3);
+
         jMIRomaneioSO.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMIRomaneioSO.setText("Romaneio - SO");
         jMIRomaneioSO.addActionListener(new java.awt.event.ActionListener() {
@@ -258,11 +280,6 @@ public class Principal extends javax.swing.JFrame {
 
         jMIRomaneioNF.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMIRomaneioNF.setText("Romaneio - NF");
-        jMIRomaneioNF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMIRomaneioNFActionPerformed(evt);
-            }
-        });
         jMPedido.add(jMIRomaneioNF);
 
         jMenu.add(jMPedido);
@@ -350,15 +367,15 @@ public class Principal extends javax.swing.JFrame {
         hp.setVisible(true);
     }//GEN-LAST:event_jMI_HistoricoActionPerformed
 
-    private void jMIRomaneioSOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRomaneioSOActionPerformed
-        RomaneioSO romaso = new RomaneioSO();
+    private void jMIBalancoSOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIBalancoSOActionPerformed
+        BalancoSO romaso = new BalancoSO();
         romaso.setVisible(true);
-    }//GEN-LAST:event_jMIRomaneioSOActionPerformed
+    }//GEN-LAST:event_jMIBalancoSOActionPerformed
 
-    private void jMIRomaneioNFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRomaneioNFActionPerformed
-        RomaneioNF romanf = new RomaneioNF();
+    private void jMIBalancoNFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIBalancoNFActionPerformed
+        BalancoNF romanf = new BalancoNF();
         romanf.setVisible(true);
-    }//GEN-LAST:event_jMIRomaneioNFActionPerformed
+    }//GEN-LAST:event_jMIBalancoNFActionPerformed
 
     private void jMIGoogleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIGoogleActionPerformed
         try {
@@ -412,6 +429,10 @@ public class Principal extends javax.swing.JFrame {
         des.setVisible(true);
     }//GEN-LAST:event_jMIDesenvolvedoresActionPerformed
 
+    private void jMIRomaneioSOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRomaneioSOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMIRomaneioSOActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -452,6 +473,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMFornecedor;
     private javax.swing.JMenuItem jMIAjuda;
     private javax.swing.JMenuItem jMIBackup;
+    private javax.swing.JMenuItem jMIBalancoNF;
+    private javax.swing.JMenuItem jMIBalancoSO;
     private javax.swing.JMenuItem jMICadastro_Clientes;
     private javax.swing.JMenuItem jMICadastro_Fornecedor;
     private javax.swing.JMenuItem jMICadastro_Pedidos;
@@ -473,5 +496,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jPanel;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     // End of variables declaration//GEN-END:variables
 }

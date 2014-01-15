@@ -12,6 +12,7 @@ import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.io.File;
 import java.text.ParseException;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -32,13 +33,17 @@ public class AtualizaClientes extends javax.swing.JFrame {
     DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
     MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
     MaskFormatter maskCnpj = new MaskFormatter("##.###.###/####-##");
+    ListagemClientes lista;
+    JDesktopPane painel;
 
-    public AtualizaClientes(Cliente cliente) throws ParseException {
+    public AtualizaClientes(Cliente cliente,
+            ListagemClientes lista, JDesktopPane painel) throws ParseException {
         super("Cella - Atualização de Clientes");
         this.cliente = cliente;
         id = this.cliente.getId();
         initComponents();
-
+        this.lista = lista;
+        this.painel = painel;
         try {
             MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
             MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");
@@ -66,7 +71,6 @@ public class AtualizaClientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jLCabecalho = new javax.swing.JLabel();
-        jLFrete = new javax.swing.JLabel();
         jL_IE = new javax.swing.JLabel();
         jLCelular = new javax.swing.JLabel();
         jTBairro = new javax.swing.JTextField();
@@ -87,7 +91,6 @@ public class AtualizaClientes extends javax.swing.JFrame {
         jTEndereco = new javax.swing.JTextField();
         jTContato = new javax.swing.JTextField();
         jTNome = new javax.swing.JTextField();
-        jTFrete = new javax.swing.JFormattedTextField();
         jTIE = new javax.swing.JTextField();
         jLCNPJ = new javax.swing.JLabel();
         jLTelefone = new javax.swing.JLabel();
@@ -101,9 +104,6 @@ public class AtualizaClientes extends javax.swing.JFrame {
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLCabecalho.setText("Atualização Clientes");
-
-        jLFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLFrete.setText("Frete:");
 
         jL_IE.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jL_IE.setText("Inscrição Estadual:");
@@ -160,8 +160,6 @@ public class AtualizaClientes extends javax.swing.JFrame {
         jTContato.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jTFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTIE.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -265,11 +263,7 @@ public class AtualizaClientes extends javax.swing.JFrame {
                             .addGap(31, 31, 31)
                             .addComponent(jLCEP)
                             .addGap(18, 18, 18)
-                            .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(33, 33, 33)
-                            .addComponent(jLFrete)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(39, 39, 39)
                 .addComponent(jLAjuda)
                 .addContainerGap())
@@ -325,8 +319,6 @@ public class AtualizaClientes extends javax.swing.JFrame {
                     .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLFrete)
-                        .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLCEP)))
                 .addGap(18, 18, 18)
                 .addComponent(jBAlterar)
@@ -356,16 +348,20 @@ public class AtualizaClientes extends javax.swing.JFrame {
         try {
             cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
                     .setCidade(jTCidade.getText()).setCnpj_cpf(jFTCnpj.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
-                    setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
+                    setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem()))
                     .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).setId(id).getCliente();
 
             dao.atualiza(cliente);
             JOptionPane.showMessageDialog(AtualizaClientes.this, "Cliente alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            limpar();
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(AtualizaClientes.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
             JOptionPane.showMessageDialog(AtualizaClientes.this, "CNPJ/CPF, E-mail e/ou Inscrição Estadual já cadastrado(s)!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBAlterarActionPerformed
 
@@ -401,7 +397,6 @@ public class AtualizaClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLEmail;
     private javax.swing.JLabel jLEndereco;
     private javax.swing.JLabel jLEstado;
-    private javax.swing.JLabel jLFrete;
     private javax.swing.JLabel jLNome;
     private javax.swing.JLabel jLTelefone;
     private javax.swing.JLabel jL_IE;
@@ -413,7 +408,6 @@ public class AtualizaClientes extends javax.swing.JFrame {
     private javax.swing.JTextField jTContato;
     private javax.swing.JTextField jTEmail;
     private javax.swing.JTextField jTEndereco;
-    private javax.swing.JFormattedTextField jTFrete;
     private javax.swing.JTextField jTIE;
     private javax.swing.JTextField jTNome;
     // End of variables declaration//GEN-END:variables
@@ -427,7 +421,6 @@ public class AtualizaClientes extends javax.swing.JFrame {
         jTContato.setText(cliente.getContato());
         jTEmail.setText(cliente.getEmail());
         jTEndereco.setText(cliente.getEndereco());
-        jTFrete.setText(String.valueOf(cliente.getFrete()));
         jTIE.setText(cliente.getInscricao_est());
         jFTCelular.setText(cliente.getCelular());
         jFTTelefone.setText(cliente.getTelefone());
@@ -476,5 +469,13 @@ public class AtualizaClientes extends javax.swing.JFrame {
                 + " Tal escolha auxiliará na máscara utilizada para o cadastro do seu respectivo código.<br>"
                 + "3. Após o preenchimento, clique no botão atualizar para que seja executada a atualização.<br>"
                 + "4. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
+    }
+
+    private void limpar() throws ParseException {
+        lista.dispose();
+        ListagemClientes cl = new ListagemClientes(painel);
+        painel.add(cl);
+        cl.setVisible(true);
+        this.dispose();
     }
 }

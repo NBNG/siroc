@@ -23,10 +23,10 @@ import net.sf.jasperreports.engine.JRException;
  *
  * @author matteus
  */
-public class RomaneioNF extends javax.swing.JFrame {
+public class BalancoNF extends javax.swing.JFrame {
 
     /**
-     * Creates new form RomaneioNF
+     * Creates new form BalancoNF
      */
     DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
     List<Fornecedor> fornecedores;
@@ -42,7 +42,7 @@ public class RomaneioNF extends javax.swing.JFrame {
         }
     };
 
-    public RomaneioNF() {
+    public BalancoNF() {
         super("Cella - Romaneio NF");
         initComponents();
         tabela.setRowHeight(23);
@@ -96,7 +96,7 @@ public class RomaneioNF extends javax.swing.JFrame {
         });
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLCabecalho.setText("Romaneios NF - Cella");
+        jLCabecalho.setText("Balanço NF - Cella");
 
         jLInicial.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLInicial.setText("Data Inicial");
@@ -220,9 +220,9 @@ public class RomaneioNF extends javax.swing.JFrame {
             String nome = "//RomaneioNF " + " - " + dataI + " até " + dataF + ".pdf";
             Relatorio rel = new Relatorio();
 
-            rel.gerarNF(where, 0, nome);
+            rel.balancoNF(where, 0, nome);
 
-            JOptionPane.showMessageDialog(RomaneioNF.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(BalancoNF.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (IOException | JRException | SQLException ex) {
             ex.printStackTrace();
         }
@@ -234,8 +234,8 @@ public class RomaneioNF extends javax.swing.JFrame {
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
             String nome = "";
             Relatorio rel = new Relatorio();
-            rel.gerarNF(where, 1, nome);
-            JOptionPane.showMessageDialog(RomaneioNF.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+            rel.balancoNF(where, 1, nome);
+            JOptionPane.showMessageDialog(BalancoNF.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (IOException | JRException | SQLException ex) {
             ex.printStackTrace();
         }

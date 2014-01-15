@@ -18,16 +18,18 @@ public class Fornecedor {
     private String nome;
     private String telefone;
     private String email;
+    private Double frete;
     private List<Produto> produtos;
 
     public Fornecedor() {
     }
 
-    public Fornecedor(Long id, String nome, String telefone, String email, List<Produto> produtos) {
+    public Fornecedor(Long id, String nome, String telefone, String email, Double frete, List<Produto> produtos) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
+        this.frete = frete;
         this.produtos = produtos;
     }
 
@@ -76,5 +78,14 @@ public class Fornecedor {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    @Column(name = "cli_frete", nullable = true)
+    public Double getFrete() {
+        return frete;
+    }
+
+    public void setFrete(Double frete) {
+        this.frete = frete;
     }
 }
