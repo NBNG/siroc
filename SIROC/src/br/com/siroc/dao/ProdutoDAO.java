@@ -5,11 +5,13 @@
 package br.com.siroc.dao;
 
 import br.com.siroc.fabrica.ConnectionFactory;
+import br.com.siroc.modelo.Historico;
 import br.com.siroc.modelo.Produto;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -34,6 +36,10 @@ public class ProdutoDAO {
         tx.commit();
 
         return produtos;
+    }
+    
+    public List listaTodos() {
+        return this.session.createCriteria(Historico.class).addOrder(Order.desc("data_mudanca")).list();
     }
     
     public void close() {
