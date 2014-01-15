@@ -7,7 +7,7 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
 import br.com.siroc.Editor.LeitorTeclas;
-import br.com.siroc.dao.DAO;
+import br.com.siroc.dao.ProdutoDAO;
 import br.com.siroc.modelo.Historico;
 import br.com.siroc.modelo.Produto;
 import java.awt.Desktop;
@@ -27,7 +27,7 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
      */
     Produto produto = new Produto();
     List<Historico> historico;
-    DAO<Historico> dao = new DAO<Historico>(Historico.class);
+    ProdutoDAO dao = new ProdutoDAO();
     DefaultTableModel tmHistorico = new DefaultTableModel(null, new String[]{"Produto", "Data", "Valor Antigo", "Valor Atualizado"});
 
     public HistoricoPreco() {

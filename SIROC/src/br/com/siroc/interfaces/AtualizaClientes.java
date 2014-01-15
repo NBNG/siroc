@@ -450,7 +450,7 @@ public class AtualizaClientes extends javax.swing.JFrame {
     }
 
     private void marca() {
-        jLAjuda.setText("Nome:*");
+        jLNome.setText("Nome:*");
         jL_IE.setText("Inscrição Estadual:*");
         jLEndereco.setText("Endereço:*");
         jLBairro.setText("Bairro:*");
