@@ -26,11 +26,13 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
     Fornecedor fornecedor;
     ListagemFornecedores lista;
     JDesktopPane painel;
+    Long id;
 
     public AtualizaFornecedor(Fornecedor fornecedor,
             ListagemFornecedores lista, JDesktopPane painel) {
         super("Cella - Atualização de Fornecedores");
         this.fornecedor = fornecedor;
+        id = this.fornecedor.getId();
         this.lista = lista;
         this.painel = painel;
         initComponents();
@@ -186,16 +188,27 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
 
     private void jBCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrar2ActionPerformed
         try {
-            fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).setFrete(jTFrete.getText()).getFornecedor();
+            fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).
+                    setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).
+                    setFrete(jTFrete.getText()).setId(id).
+                    getFornecedor();
 
             dao.atualiza(fornecedor);
-            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "Fornecedor alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this,
+                    "Fornecedor alterado com sucesso!",
+                    "Activity Performed Successfully",
+                    JOptionPane.INFORMATION_MESSAGE);
             limpar();
         } catch (IllegalArgumentException | NullPointerException e) {
-            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this,
+                    "Campos obrigatórios (*) vazios e/ou Informação inválida!",
+                    "ERROR 404 - Content not found!",
+                    JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "E-mail já cadastrado!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this,
+                    "E-mail já cadastrado!", "ERROR 404 - Content not found!",
+                    JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
                     "ERROR", JOptionPane.ERROR_MESSAGE);
