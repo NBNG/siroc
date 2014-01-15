@@ -16,7 +16,10 @@ public class LeitorTeclas implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_F1) {
-            String caminho = "C:\\siroc\\ajuda\\Manual do Proprietário - SIROC versão 1.9.9.pdf";
+            String caminho = System.getenv("USERPROFILE")
+                    + "\\Documents\\nbng\\siroc\\ajuda\\Manual do Proprietário - "
+                    + "SIROC versão 1.9.9.pdf";
+
             File arquivo = new File(caminho);
             try {
                 Desktop.getDesktop().open(arquivo);

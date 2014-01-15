@@ -32,9 +32,10 @@ public class FornecedorDAO {
         tx.commit();
         return fornecedores;
     }
-    
+
     public void close() {
-        if (session.isOpen())
+        if (session.isOpen()) {
             session.close();
+        }
     }
 }

@@ -28,14 +28,14 @@ public class Cliente {
     private String contato;
     private String email;
     private String cnpj_cpf;
-    private Double frete;
+
     private List<Pedido> pedidos;
 
     public Cliente() {
     }
 
     public Cliente(Long id, String nome, String inscricao_est, String celular, String telefone,
-            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj_cpf, Double frete, List<Pedido> pedidos) {
+            String endereco, String bairro, String cidade, String estado, String cep, String contato, String email, String cnpj_cpf, List<Pedido> pedidos) {
         this.id = id;
         this.nome = nome;
         this.inscricao_est = inscricao_est;
@@ -49,7 +49,6 @@ public class Cliente {
         this.contato = contato;
         this.email = email;
         this.cnpj_cpf = cnpj_cpf;
-        this.frete = frete;
         this.pedidos = pedidos;
     }
 
@@ -171,15 +170,6 @@ public class Cliente {
 
     public void setCnpj_cpf(String cnpj_cpf) {
         this.cnpj_cpf = cnpj_cpf;
-    }
-
-    @Column(name = "cli_frete", nullable = true)
-    public Double getFrete() {
-        return frete;
-    }
-
-    public void setFrete(Double frete) {
-        this.frete = frete;
     }
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -18,6 +18,7 @@ public class FornecedorBuilder {
     private String nome;
     private String telefone;
     private String email;
+    private Double frete;
     private List<Produto> produtos;
     int count;
 
@@ -61,12 +62,21 @@ public class FornecedorBuilder {
         return this;
     }
 
+    public FornecedorBuilder setFrete(String frete) {
+        if (frete.equals("")) {
+            this.frete = 0.;
+        } else {
+            this.frete = Double.parseDouble(frete.replace(",", "."));;
+        }
+        return this;
+    }
+
     public Fornecedor getFornecedor() {
         if (count < 3) {
             throw new IllegalArgumentException();
         }
 
-        return new Fornecedor(id, nome, telefone, email, produtos);
+        return new Fornecedor(id, nome, telefone, email, frete, produtos);
     }
 
     private boolean isValidEmail(String email) {

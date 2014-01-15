@@ -23,7 +23,7 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
     DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
     List<Fornecedor> fornecedores;
     //definição das colunas da tabela
-    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"}) {
+    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email", "Frete"}) {
         boolean[] canEdit = new boolean[]{
             false, false, false
         };
@@ -171,6 +171,7 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
             tmFornecedor.setValueAt(fornecedores.get(i).getNome(), i, 0);
             tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
             tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
+            tmFornecedor.setValueAt(fornecedores.get(i).getFrete(), i, 3);
         }
     }//GEN-LAST:event_jTNomeKeyTyped
 
@@ -196,14 +197,17 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
-            AtualizaFornecedor af = new AtualizaFornecedor(fornecedores.get(tabela.getSelectedRow()));
+            AtualizaFornecedor af = new AtualizaFornecedor(fornecedores.
+                    get(tabela.getSelectedRow()), this, painel);
             af.setVisible(true);
         }
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
         if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
-            String caminho = "C:\\siroc\\ajuda\\Manual do Proprietário - SIROC versão 1.9.9.pdf";
+            String caminho = System.getenv("USERPROFILE")
+                    + "\\Documents\\nbng\\siroc\\ajuda\\Manual do Proprietário - "
+                    + "SIROC versão 1.9.9.pdf";
             File arquivo = new File(caminho);
             try {
                 Desktop.getDesktop().open(arquivo);

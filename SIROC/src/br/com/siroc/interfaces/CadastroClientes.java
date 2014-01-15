@@ -9,7 +9,9 @@ import br.com.siroc.builder.ClienteBuilder;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.modelo.Cliente;
 import java.awt.Desktop;
+import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
@@ -37,12 +39,9 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
         initComponents();
         MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");
         MaskFormatter maskCelular = new MaskFormatter("(##) #####-####");
-        //MaskFormatter maskFrete = new MaskFormatter("##,#");
         MaskFormatter maskCep = new MaskFormatter("#####-###");
-
         maskTelefone.install(jFTTelefone);
         maskCelular.install(jFTCelular);
-        //maskFrete.install(jTFrete);
         maskCep.install(jTCEP);
         this.painel = painel;
         hinter();
@@ -60,7 +59,6 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLCabecalho = new javax.swing.JLabel();
-        jLFrete = new javax.swing.JLabel();
         jBCadastrar = new javax.swing.JButton();
         jLCNPJ = new javax.swing.JLabel();
         jLCEP = new javax.swing.JLabel();
@@ -86,7 +84,6 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
         jTEndereco = new javax.swing.JTextField();
         jTContato = new javax.swing.JTextField();
         jTNome = new javax.swing.JTextField();
-        jTFrete = new javax.swing.JFormattedTextField();
         jTCEP = new javax.swing.JFormattedTextField();
         jRBFisica = new javax.swing.JRadioButton();
         jRBJuridica = new javax.swing.JRadioButton();
@@ -96,9 +93,6 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLCabecalho.setText("Cadastro de Clientes");
-
-        jLFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLFrete.setText("Frete:");
 
         jBCadastrar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/salvar.png"))); // NOI18N
@@ -176,8 +170,6 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
         jTContato.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jTFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTCEP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -272,11 +264,7 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
                             .addGap(31, 31, 31)
                             .addComponent(jLCEP)
                             .addGap(18, 18, 18)
-                            .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLFrete)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLAjuda)
                 .addContainerGap())
@@ -334,14 +322,12 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
                     .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLCEP)
-                        .addComponent(jLFrete)
-                        .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLCEP)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBLimpar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -351,7 +337,7 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
         try {
             cliente = new ClienteBuilder().setBairro(jTBairro.getText()).setCelular(jFTCelular.getText()).setCep(jTCEP.getText())
                     .setCidade(jTCidade.getText()).setCnpj_cpf(jFTCnpj_Cpf.getText()).setContato(jTContato.getText()).setEmail(jTEmail.getText()).
-                    setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem())).setFrete(jTFrete.getText())
+                    setEndereco(jTEndereco.getText()).setEstado(String.valueOf(jCBEstado.getSelectedItem()))
                     .setInscricao_est(jTIE.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).getCliente();
 
             dao.adicionar(cliente);
@@ -388,13 +374,14 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRBJuridicaActionPerformed
 
     private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
-        if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
-            String caminho = "C:\\siroc\\ajuda\\Manual do Proprietário - SIROC versão 1.9.9.pdf";
+        if (evt.getButton() != MouseEvent.BUTTON3 && evt.getClickCount() == 2) {
+            String caminho = System.getenv("USERPROFILE")
+                    + "\\Documents\\nbng\\siroc\\ajuda\\Manual do Proprietário - "
+                    + "SIROC versão 1.9.9.pdf";
             File arquivo = new File(caminho);
             try {
                 Desktop.getDesktop().open(arquivo);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -418,7 +405,6 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLEmail;
     private javax.swing.JLabel jLEndereco;
     private javax.swing.JLabel jLEstado;
-    private javax.swing.JLabel jLFrete;
     private javax.swing.JLabel jLNome;
     private javax.swing.JLabel jLTelefone;
     private javax.swing.JLabel jL_IE;
@@ -430,7 +416,6 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTContato;
     private javax.swing.JTextField jTEmail;
     private javax.swing.JTextField jTEndereco;
-    private javax.swing.JFormattedTextField jTFrete;
     private javax.swing.JTextField jTIE;
     private javax.swing.JTextField jTNome;
     // End of variables declaration//GEN-END:variables

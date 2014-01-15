@@ -37,13 +37,18 @@ public class ProdutoDAO {
 
         return produtos;
     }
+<<<<<<< HEAD
     
     public List listaTodos() {
         return this.session.createCriteria(Historico.class).addOrder(Order.desc("data_mudanca")).list();
     }
     
+=======
+
+>>>>>>> d0dc45909fc0af86dc92a391e1286e4574fd2f97
     public void close() {
-        if (session.isOpen())
+        if (session.isOpen()) {
             session.close();
+        }
     }
 }

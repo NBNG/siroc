@@ -23,11 +23,11 @@ import javax.swing.JOptionPane;
 
 public class InsertGoogleDrive { //adicione aqui o CLIENT_ID que nós criamos 
 
-    private static String CLIENT_ID = "295001421562-ehmp2uojlukkijg8b4o2f82vf918q0qs.apps.googleusercontent.com"; //adicione aqui o CLIENT_SECRET que nós criamos 
-    private static String CLIENT_SECRET = "JGsBQKJiToHV1LoRdYA6pi7l"; //a REDIRECT_URI vai ser a mesma sempre (provavelmente) 
+    private static String CLIENT_ID = "221204757876-2tb5amhcg4d084a91fr9hflr66pgpol2.apps.googleusercontent.com"; //adicione aqui o CLIENT_SECRET que nós criamos 
+    private static String CLIENT_SECRET = "j6HGgTwu3UIPBcALl268bswN"; //a REDIRECT_URI vai ser a mesma sempre (provavelmente) 
     private static String REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob";
-    //email: 
-    //senha: 
+    //email: nbng.cella@gmail.com 
+    //senha: Senha123
 
     public void EnviaBackup(String caminho) throws IOException {
         HttpTransport httpTransport = new NetHttpTransport();

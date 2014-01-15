@@ -32,7 +32,8 @@ public class PedidoDAO {
     }
 
     public void close() {
-        if (session.isOpen())
+        if (session.isOpen()) {
             session.close();
+        }
     }
 }

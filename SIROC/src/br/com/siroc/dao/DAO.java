@@ -1,10 +1,7 @@
 package br.com.siroc.dao;
 
 import br.com.siroc.fabrica.ConnectionFactory;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
@@ -54,7 +51,8 @@ public class DAO<T> {
     }
 
     public void close() {
-        if (session.isOpen())
+        if (session.isOpen()) {
             session.close();
+        }
     }
 }

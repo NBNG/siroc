@@ -52,10 +52,11 @@ public class ClienteDAO {
 
         return clientes;
     }
-    
+
     public void close() {
-        if (session.isOpen())
+        if (session.isOpen()) {
             session.close();
+        }
     }
-    
+
 }

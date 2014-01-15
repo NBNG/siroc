@@ -19,12 +19,12 @@ import net.sf.jasperreports.engine.JRException;
  *
  * @author matteus
  */
-public class RomaneioSO extends javax.swing.JFrame {
+public class BalancoSO extends javax.swing.JFrame {
 
     /**
      * Creates new form Romaneio
      */
-    public RomaneioSO() {
+    public BalancoSO() {
         super("Cella - Romaneio SO");
         initComponents();
         setLocationRelativeTo(null);
@@ -55,7 +55,7 @@ public class RomaneioSO extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLCabecalho.setText("Romaneios SO - Cella");
+        jLCabecalho.setText("Balanço SO - Cella");
 
         jLInicial.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLInicial.setText("Data Inicial");
@@ -154,8 +154,8 @@ public class RomaneioSO extends javax.swing.JFrame {
             java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
             String nome = "//Romaneio SO " + dataI + " até " + dataF + ".pdf";
             Relatorio rel = new Relatorio();
-            rel.gerarSO(where, 1, nome);
-            JOptionPane.showMessageDialog(RomaneioSO.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+            rel.balancoSO(where, 1, nome);
+            JOptionPane.showMessageDialog(BalancoSO.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (IOException | JRException | SQLException ex) {
             ex.printStackTrace();
         }
@@ -169,8 +169,8 @@ public class RomaneioSO extends javax.swing.JFrame {
             java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
             String nome = "//Romaneio SO " + dataI + " até " + dataF + ".pdf";
             Relatorio rel = new Relatorio();
-            rel.gerarSO(where, 0, nome);
-            JOptionPane.showMessageDialog(RomaneioSO.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+            rel.balancoSO(where, 0, nome);
+            JOptionPane.showMessageDialog(BalancoSO.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (IOException | JRException | SQLException ex) {
             ex.printStackTrace();
         }
@@ -178,7 +178,9 @@ public class RomaneioSO extends javax.swing.JFrame {
 
     private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
         if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
-            String caminho = "C:\\siroc\\ajuda\\Manual do Proprietário - SIROC versão 1.9.9.pdf";
+            String caminho = System.getenv("USERPROFILE")
+                    + "\\Documents\\nbng\\siroc\\ajuda\\Manual do Proprietário - "
+                    + "SIROC versão 1.9.9.pdf";
             File arquivo = new File(caminho);
             try {
                 Desktop.getDesktop().open(arquivo);

@@ -27,7 +27,7 @@ public class ClienteBuilder {
     private String contato;
     private String email;
     private String cnpj_cpf;
-    private Double frete;
+
     private List<Pedido> pedidos;
 
     private int count;
@@ -40,8 +40,8 @@ public class ClienteBuilder {
         if (count < 9) {
             throw new IllegalArgumentException();
         }
-        return new Cliente(id, nome, inscricao_est, celular, telefone,
-                endereco, bairro, cidade, estado, cep, contato, email, cnpj_cpf, frete, pedidos);
+        return new Cliente(id, nome, inscricao_est, celular, telefone, endereco,
+                bairro, cidade, estado, cep, contato, email, cnpj_cpf, pedidos);
     }
 
     public ClienteBuilder setId(Long id) {
@@ -112,15 +112,6 @@ public class ClienteBuilder {
     public ClienteBuilder setEstado(String estado) {
         this.estado = estado;
         count++;
-        return this;
-    }
-
-    public ClienteBuilder setFrete(String frete) {
-        if (frete.equals("")) {
-            this.frete = 0.;
-        } else {
-            this.frete = Double.parseDouble(frete.replace(",", "."));;
-        }
         return this;
     }
 

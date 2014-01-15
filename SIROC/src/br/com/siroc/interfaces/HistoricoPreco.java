@@ -67,6 +67,11 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabela);
 
         jTProduto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTProdutoActionPerformed(evt);
+            }
+        });
         jTProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTProdutoKeyTyped(evt);
@@ -143,7 +148,9 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
 
     private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
         if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
-            String caminho = "C:\\siroc\\ajuda\\Manual do Proprietário - SIROC versão 1.9.9.pdf";
+            String caminho = System.getenv("USERPROFILE")
+                    + "\\Documents\\nbng\\siroc\\ajuda\\Manual do Proprietário - "
+                    + "SIROC versão 1.9.9.pdf";
             File arquivo = new File(caminho);
             try {
                 Desktop.getDesktop().open(arquivo);
@@ -153,6 +160,10 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jLAjudaMouseClicked
+
+    private void jTProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTProdutoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLAjuda;
@@ -168,4 +179,5 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
                 + "onde as colunas representam o produto, a data de alteração, o valor antigo e o valor atualizado.<br>"
                 + "1. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
+    private String query = "FROM Historico historico order by historico.id asc";
 }

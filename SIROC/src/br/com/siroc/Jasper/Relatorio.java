@@ -5,7 +5,6 @@
  */
 package br.com.siroc.Jasper;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,7 +31,8 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 public class Relatorio {
 
     private Connection conexao;
-    private String caminho = System.getenv("USERPROFILE") + "\\meus documentos\\siroc\\pdfs";
+    private String caminho = System.getenv("USERPROFILE") + "\\meus documentos\\NBNG\\siroc\\pdfs";
+    private String xml = System.getenv("USERPROFILE") + "\\meus documentos\\NBNG\\siroc\\xml";
 
     public Relatorio() {
         this.conexao = getConexao();
@@ -49,7 +49,7 @@ public class Relatorio {
     }
 
     public void gerarPedido(Long id, int tipo) throws JRException, SQLException, IOException {
-        String xml = new File("../br/com/siroc/Jasper/pedido.jrxml").getCanonicalPath();
+        xml += "\\pedido.jrxml";
 
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
@@ -85,8 +85,9 @@ public class Relatorio {
         }
     }
 
-    public void gerarSO(String where, int tipo, String nome) throws JRException, SQLException, IOException {
-        String xml = new File("../siroc/src/br/com/siroc/Jasper/romaneioso.jrxml").getCanonicalPath();
+    public void balancoSO(String where, int tipo, String nome) throws JRException, SQLException, IOException {
+        xml += "\\balancoso.jrxml";
+
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String query = "select produtos.pro_id,itens.item_quantidade, produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto,\n"
@@ -122,8 +123,9 @@ public class Relatorio {
 
     }
 
-    public void gerarNF(String where, int tipo, String nome) throws JRException, SQLException, IOException {
-        String xml = new File("../siroc/src/br/com/siroc/Jasper/romaneioNF.jrxml").getCanonicalPath();
+    public void balancoNF(String where, int tipo, String nome) throws JRException, SQLException, IOException {
+        xml += "\\balanconf.jrxml";
+
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         String query = "select pedidos.ped_id,fornecedores.for_nome,clientes.cli_nome || ' - ' || to_char(pedidos.ped_data,'dd/mm/yyyy') as cliente,itens.item_quantidade, produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto,\n"
