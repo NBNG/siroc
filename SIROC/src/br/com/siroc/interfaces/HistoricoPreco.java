@@ -11,7 +11,9 @@ import br.com.siroc.dao.ProdutoDAO;
 import br.com.siroc.modelo.Historico;
 import br.com.siroc.modelo.Produto;
 import java.awt.Desktop;
+import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +28,7 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
      * Creates new form Historico_Preco
      */
     Produto produto = new Produto();
-    List<Historico> historico;
+    List<Object[]> lista;
     ProdutoDAO dao = new ProdutoDAO();
     DefaultTableModel tmHistorico = new DefaultTableModel(null, new String[]{"Produto", "Data", "Valor Antigo", "Valor Atualizado"});
 
@@ -132,31 +134,38 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
-        historico = dao.listaTodos();
-
+        lista = dao.buscaAvançada(query);
+        Object[] resultado;
         while (tmHistorico.getRowCount() > 0) {
             tmHistorico.removeRow(0);
         }
-        for (int i = 0; i < historico.size(); i++) {
+        for (int i = 0; i < lista.size(); i++) {
             tmHistorico.addRow(new String[]{null, null, null, null});
-            tmHistorico.setValueAt(historico.get(i).getProduto().getNome(), i, 0);
-            tmHistorico.setValueAt(Editor.formatData(historico.get(i).getData_mudanca()), i, 1);
-            tmHistorico.setValueAt(Editor.format(historico.get(i).getValor_antigo()), i, 2);
-            tmHistorico.setValueAt(Editor.format(historico.get(i).getValor_atualizado()), i, 3);
+            resultado = lista.get(i);
+            Historico historico = (Historico) resultado[0];
+            Produto produto = (Produto) resultado[1];
+
+            tmHistorico.setValueAt(produto.getNome(), i, 0);
+            tmHistorico.setValueAt(Editor.formatData(historico.
+                    getData_mudanca()), i, 1);
+            tmHistorico.setValueAt(Editor.
+                    format(historico.getValor_antigo()), i, 2);
+            tmHistorico.setValueAt(Editor.
+                    format(historico.getValor_atualizado()), i, 3);
         }
     }//GEN-LAST:event_jTProdutoKeyTyped
 
     private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
-        if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
+        if (evt.getButton() != MouseEvent.BUTTON3 && evt.getClickCount() == 2) {
             String caminho = System.getenv("USERPROFILE")
                     + "\\Documents\\nbng\\siroc\\ajuda\\Manual do Proprietário - "
                     + "SIROC versão 1.9.9.pdf";
             File arquivo = new File(caminho);
             try {
                 Desktop.getDesktop().open(arquivo);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, ex, "ERRO",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jLAjudaMouseClicked
@@ -179,5 +188,7 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
                 + "onde as colunas representam o produto, a data de alteração, o valor antigo e o valor atualizado.<br>"
                 + "1. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
-    private String query = "FROM Historico historico order by historico.id asc";
+    private String query = "From Historico historico "
+            + "INNER JOIN historico.produto as produto"
+            + " order by produto.nome,historico.id desc";
 }
