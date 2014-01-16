@@ -37,18 +37,10 @@ public class ProdutoDAO {
         return produtos;
     }
 
-<<<<<<< HEAD
-    
-    public List listaTodos() {
-        return this.session.createCriteria(Historico.class).addOrder(Order.desc("data_mudanca")).list();
-    }
-    
-=======
     public List<Object[]> buscaAvançada(String consulta) {
         return (List<Object[]>) session.createQuery(consulta).list();
     }
 
->>>>>>> 98054488e6aaa6b5a184f61bbef2a09dab3059cb
     public void close() {
         if (session.isOpen()) {
             session.close();

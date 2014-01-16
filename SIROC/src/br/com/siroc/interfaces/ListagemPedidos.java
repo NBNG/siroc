@@ -421,8 +421,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
 
     private void jBPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPDFActionPerformed
         for (int i = 0; i < tabela.getSelectedRowCount(); i++) {
-            int[] resultado = tabela.getSelectedRows();
-            System.out.println(resultado);
+            String resultado = String.valueOf(tabela.getSelectedRows());
         }
     }//GEN-LAST:event_jBPDFActionPerformed
 
@@ -588,7 +587,8 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             dataVencimento = jDCVencimento.getDate();
             query += "AND pedido.vencimento <='" + dataVencimento + "'";
         } else if (jRBData.isSelected()) {
-            JOptionPane.showMessageDialog(ListagemPedidos.this, "Pesquisa efetuada sem data. \n Valor não especificado.");
+            JOptionPane.showMessageDialog(ListagemPedidos.this,
+                    "Pesquisa efetuada sem data. \n Valor não especificado.");
         }
 
         if (jRBEstado.isSelected()) {
