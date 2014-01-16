@@ -57,8 +57,9 @@ public class FornecedorBuilder {
 
     public FornecedorBuilder setTelefone(String telefone) {
         this.telefone = telefone;
-        if(this.telefone.equals("(  )     -    "))
+        if (this.telefone.equals("(  )     -    ")) {
             this.telefone = null;
+        }
         return this;
     }
 

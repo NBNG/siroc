@@ -80,7 +80,7 @@ public class Fornecedor {
         this.produtos = produtos;
     }
 
-    @Column(name = "cli_frete", nullable = true)
+    @Column(name = "for_frete", nullable = true)
     public Double getFrete() {
         return frete;
     }

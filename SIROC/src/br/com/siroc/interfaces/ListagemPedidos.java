@@ -7,6 +7,7 @@ package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
 import br.com.siroc.Editor.LeitorTeclas;
+import br.com.siroc.Jasper.Relatorio;
 import br.com.siroc.dao.DAO;
 import br.com.siroc.dao.PedidoDAO;
 import br.com.siroc.modelo.Cliente;
@@ -14,6 +15,8 @@ import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Pedido;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,6 +25,7 @@ import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -33,12 +37,12 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
      * Creates new form Listagem_Pedidos
      */
     DefaultTableModel tmPedido = new DefaultTableModel(null,
-            new String[]{"Data", "Cidade", "Estado", "Cliente",
+            new String[]{"ID", "Data", "Cidade", "Estado", "Cliente",
                 "Fornecedor", "Valor Total", "Frete", "Tipo de Pagamento",
                 "Tipo de Pedido", "Pago", "Vencimento", "Obs"}) {
                 boolean[] canEdit = new boolean[]{
                     false, false, false, false, false, false, false, false,
-                    false, false, false, false
+                    false, false, false, false, false
                 };
 
                 @Override
@@ -121,6 +125,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         jBPDF = new javax.swing.JButton();
         jLAjuda = new javax.swing.JLabel();
         jBLimpar1 = new javax.swing.JButton();
+        jBImprimir = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -239,6 +244,15 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        jBImprimir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/imprimir.png"))); // NOI18N
+        jBImprimir.setText("Imprimir");
+        jBImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -306,11 +320,16 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jBImprimir)
+                .addGap(18, 18, 18)
                 .addComponent(jBPDF)
                 .addGap(18, 18, 18)
                 .addComponent(jBLimpar1)
                 .addGap(24, 24, 24))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBImprimir, jBLimpar1, jBPDF});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -387,10 +406,11 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBPDF)
-                    .addComponent(jBLimpar1))
+                    .addComponent(jBLimpar1)
+                    .addComponent(jBImprimir))
                 .addContainerGap())
         );
 
@@ -420,36 +440,50 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTBSelecionaActionPerformed
 
     private void jBPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPDFActionPerformed
+        int[] selecao = tabela.getSelectedRows();
         for (int i = 0; i < tabela.getSelectedRowCount(); i++) {
-            String resultado = String.valueOf(tabela.getSelectedRows());
+            gerarPDF((Long) tabela.getModel().getValueAt(selecao[i], 0),
+                    (String) tabela.getModel().getValueAt(selecao[i], 4));
         }
+        JOptionPane.showMessageDialog(this, "PDFs criado com sucesso!",
+                "Activity Performed Successfully",
+                JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jBPDFActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
         while (tmPedido.getRowCount() > 0) {
             tmPedido.removeRow(0);
         }
-
+        /*
+         0 data         1 cidade         2 estado         3 cliente
+         4 fornecedor        5 total        6 status        7 tipo de pagamento
+         8 tipo de pedido        9 frete        10 id        11 vencimento
+         12 obs
+         new String[]{"ID", "Data", "Cidade", "Estado", "Cliente",
+         "Fornecedor", "Valor Total", "Frete", "Tipo de Pagamento",
+         "Tipo de Pedido", "Pago", "Vencimento", "Obs"}) {*/
         list = peddao.buscaAvançada(montaQuery());
         for (int i = 0; i < list.size(); i++) {
             Object[] resultado = list.get(i);
             tmPedido.addRow(new String[]{null, null, null, null});
             //Posições a baixo relativos as ordem das colunas do JTABLE
-            tmPedido.setValueAt(Editor.formatData((Date) resultado[0]), i, 0); //Data
-            tmPedido.setValueAt(resultado[1], i, 1); //Cidade
-            tmPedido.setValueAt(resultado[2], i, 2); //Estado
-            tmPedido.setValueAt(resultado[3], i, 3); //Cliente
-            tmPedido.setValueAt(resultado[4], i, 4); //Fornecedor
-            tmPedido.setValueAt(Editor.format((Double) resultado[5]), i, 5); //Valor Total
-            tmPedido.setValueAt(resultado[6], i, 9); //Status
-            tmPedido.setValueAt(resultado[7], i, 7); //Tipo pagamento
-            tmPedido.setValueAt(resultado[8], i, 8); //Tipo de pedido
+            tmPedido.setValueAt(resultado[10], i, 0); //ID
+            tmPedido.setValueAt(Editor.formatData((Date) resultado[0]), i, 1); //Data
+            tmPedido.setValueAt(resultado[1], i, 2); //Cidade
+            tmPedido.setValueAt(resultado[2], i, 3); //Estado
+            tmPedido.setValueAt(resultado[3], i, 4); //Cliente
+            tmPedido.setValueAt(resultado[4], i, 5); //Fornecedor
+            tmPedido.setValueAt(Editor.format((Double) resultado[5]), i, 6); //Valor Total
+            tmPedido.setValueAt(Editor.format((Double) resultado[9]), i, 7); //Frete
+            tmPedido.setValueAt(resultado[6], i, 10); //Status
+            tmPedido.setValueAt(resultado[7], i, 8); //Tipo pagamento
+            tmPedido.setValueAt(resultado[8], i, 9); //Tipo de pedido
             if (resultado[11] == null) {
-                tmPedido.setValueAt("", i, 10); //Vencimento    
+                tmPedido.setValueAt("", i, 11); //Vencimento    
             } else {
-                tmPedido.setValueAt(Editor.formatData((Date) resultado[11]), i, 10); //Vencimento
+                tmPedido.setValueAt(Editor.formatData((Date) resultado[11]), i, 11); //Vencimento
             }
-            tmPedido.setValueAt(resultado[12], i, 11); //OBS
+            tmPedido.setValueAt(resultado[12], i, 12); //OBS
             //[10] é o ID do PEDIDO
         }
     }//GEN-LAST:event_jBPesquisarActionPerformed
@@ -478,10 +512,25 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLAjudaMouseClicked
 
     private void jBLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpar1ActionPerformed
-        // TODO add your handling code here:
+        ListagemPedidos lp = new ListagemPedidos(painel);
+        painel.add(lp);
+        this.dispose();
+        lp.setVisible(true);
     }//GEN-LAST:event_jBLimpar1ActionPerformed
 
+    private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
+        int[] selecao = tabela.getSelectedRows();
+        for (int i = 0; i < tabela.getSelectedRowCount(); i++) {
+            imprimir((Long) tabela.getModel().getValueAt(selecao[i], 0),
+                    (String) tabela.getModel().getValueAt(selecao[i], 4));
+        }
+        JOptionPane.showMessageDialog(this, "Impressões realizadas com sucesso!",
+                "Activity Performed Successfully",
+                JOptionPane.WARNING_MESSAGE);
+    }//GEN-LAST:event_jBImprimirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBImprimir;
     private javax.swing.JButton jBLimpar1;
     private javax.swing.JButton jBPDF;
     private javax.swing.JButton jBPesquisar;
@@ -625,5 +674,27 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 + "1. O botão \"Selecionar Tudo\" facilita o preenchimento dos campos escolhidos.<br>"
                 + "2. O botão limpar reinicia a tela limpando os campos.<br>"
                 + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
+    }
+
+    private void imprimir(Long valueAt, String nome) {
+        try {
+            Relatorio rel = new Relatorio();
+            rel.gerarPedido(valueAt, 1, nome);
+
+        } catch (IOException | JRException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo."
+                    + " Contate o administrador do sistema!\n" + ex);
+        }
+    }
+
+    private void gerarPDF(Long valueAt, String nome) {
+        try {
+            Relatorio rel = new Relatorio();
+            rel.gerarPedido(valueAt, 0, nome);
+
+        } catch (IOException | JRException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo."
+                    + " Contate o administrador do sistema!\n" + ex);
+        }
     }
 }

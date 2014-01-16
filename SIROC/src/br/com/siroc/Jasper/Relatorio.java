@@ -23,6 +23,7 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -48,7 +49,7 @@ public class Relatorio {
         }
     }
 
-    public void gerarPedido(Long id, int tipo) throws JRException, SQLException, IOException {
+    public void gerarPedido(Long id, int tipo, String nome) throws JRException, SQLException, IOException {
         xml += "\\pedido.jrxml";
 
         JasperDesign desenho = JRXmlLoader.load(xml);
@@ -56,7 +57,7 @@ public class Relatorio {
         String query = "select clientes.cli_nome,\n"
                 + "clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,clientes.cli_telefone,\n"
                 + "clientes.cli_cep, clientes.cli_cnpj_cpf, clientes.cli_inscricao_est,to_char(((select sum (itens.item_valor * itens.item_quantidade) \n"
-                + "from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = " + id + ")*clientes.cli_frete)/100 ,'R$999G990D99') as frete,\n"
+                + "from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = " + id + ")*fornecedores.for_frete)/100 ,'R$999G990D99') as frete,\n"
                 + "produtos.pro_id, itens.item_quantidade, produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto, \n"
                 + "to_char(itens.item_valor,'R$999G990D99') as item_valor, to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial,\n"
                 + "to_char((select sum((itens.item_valor - produtos.pro_saida)*itens.item_quantidade) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id \n"
@@ -64,9 +65,11 @@ public class Relatorio {
                 + "pedidos.ped_status, to_char(pedidos.ped_data,'dd/mm/yyyy') as data, to_char((select sum (itens.item_valor * itens.item_quantidade) \n"
                 + "from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = " + id + "),'R$999G990D99')  as total from pedidos\n"
                 + "inner join clientes on clientes.cli_id = pedidos.fk_cliente inner join itens on pedidos.ped_id = itens.fk_pedido inner join produtos\n"
-                + "on produtos.pro_id = itens.fk_produto where pedidos.ped_id = " + id + " \n"
+                + "on produtos.pro_id = itens.fk_produto "
+                + " inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id"
+                + " where pedidos.ped_id = " + id + " \n"
                 + "group by pedidos.ped_id,clientes.cli_nome,clientes.cli_endereco,clientes.cli_bairro,clientes.cli_cidade,clientes.cli_estado,clientes.cli_telefone,\n"
-                + "clientes.cli_cep,clientes.cli_cnpj_cpf,clientes.cli_inscricao_est,clientes.cli_frete,produtos.pro_id,itens.item_quantidade,itens.item_valor,\n"
+                + "clientes.cli_cep,clientes.cli_cnpj_cpf,clientes.cli_inscricao_est,fornecedores.for_frete,produtos.pro_id,itens.item_quantidade,itens.item_valor,\n"
                 + "pedidos.ped_pagamento, pedidos.ped_pedido,pedidos.ped_status,pedidos.ped_data";
         PreparedStatement pstmt = this.conexao.prepareStatement(query);
         ResultSet rs = pstmt.executeQuery();
@@ -78,10 +81,12 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperPrintManager.printPage(impressao, 0, true);
+            JasperViewer.viewReport(impressao, false);
+            //JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            caminho = caminho + "\\pedido - " + id + ".pdf";
+            caminho = caminho + "\\pedido -" + id + " - " + nome + ".pdf";
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
+
         }
     }
 

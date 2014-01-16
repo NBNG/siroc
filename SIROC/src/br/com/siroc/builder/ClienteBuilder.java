@@ -53,21 +53,23 @@ public class ClienteBuilder {
         this.bairro = bairro;
         if (this.bairro.equals("")) {
             this.bairro = null;
-        } 
+        }
         return this;
     }
 
     public ClienteBuilder setCelular(String celular) {
         this.celular = celular;
-        if(this.celular.equals("(  )      -    "))
+        if (this.celular.equals("(  )      -    ")) {
             this.celular = null;
+        }
         return this;
     }
 
     public ClienteBuilder setCep(String cep) {
         this.cep = cep;
-        if(this.cep.equals("     -   "))
+        if (this.cep.equals("     -   ")) {
             this.cep = null;
+        }
         return this;
     }
 
@@ -81,14 +83,15 @@ public class ClienteBuilder {
 
     public ClienteBuilder setCnpj_cpf(String cnpj_cpf) {
         this.cnpj_cpf = cnpj_cpf;
-        if(this.cnpj_cpf.equals("   .   .   -  ") || this.cnpj_cpf.equals("  .   .   /    -  "))
+        if (this.cnpj_cpf.equals("   .   .   -  ") || this.cnpj_cpf.equals("  .   .   /    -  ")) {
             this.cnpj_cpf = null;
+        }
         return this;
     }
 
     public ClienteBuilder setContato(String contato) {
         this.contato = contato;
-        if(this.contato.equals("")){
+        if (this.contato.equals("")) {
             this.contato = null;
         }
         return this;
@@ -106,8 +109,9 @@ public class ClienteBuilder {
 
     public ClienteBuilder setEndereco(String endereco) {
         this.endereco = endereco;
-        if(this.endereco.equals(""))
+        if (this.endereco.equals("")) {
             this.endereco = null;
+        }
         return this;
     }
 
@@ -118,15 +122,17 @@ public class ClienteBuilder {
 
     public ClienteBuilder setInscricao_est(String inscricao_est) {
         this.inscricao_est = inscricao_est;
-        if(this.inscricao_est.equals(""))
+        if (this.inscricao_est.equals("")) {
             this.inscricao_est = null;
+        }
         return this;
     }
 
     public ClienteBuilder setNome(String nome) {
-        if (nome.equals(""))
+        if (nome.equals("")) {
             throw new IllegalArgumentException();
-        
+        }
+
         this.nome = nome;
         count++;
         return this;
@@ -134,8 +140,9 @@ public class ClienteBuilder {
 
     public ClienteBuilder setTelefone(String telefone) {
         this.telefone = telefone;
-        if(this.telefone.equals("(  )     -    "))
+        if (this.telefone.equals("(  )     -    ")) {
             this.telefone = null;
+        }
         return this;
     }
 
