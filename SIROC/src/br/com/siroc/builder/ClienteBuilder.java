@@ -37,7 +37,7 @@ public class ClienteBuilder {
     }
 
     public Cliente getCliente() {
-        if (count < 9) {
+        if (count < 1) {
             throw new IllegalArgumentException();
         }
         return new Cliente(id, nome, inscricao_est, celular, telefone, endereco,
@@ -50,46 +50,47 @@ public class ClienteBuilder {
     }
 
     public ClienteBuilder setBairro(String bairro) {
-        if (temNumeros(bairro)) {
-            throw new IllegalArgumentException();
-        }
         this.bairro = bairro;
-        count++;
+        if (this.bairro.equals("")) {
+            this.bairro = null;
+        } 
         return this;
     }
 
     public ClienteBuilder setCelular(String celular) {
         this.celular = celular;
+        if(this.celular.equals("(  )      -    "))
+            this.celular = null;
         return this;
     }
 
     public ClienteBuilder setCep(String cep) {
         this.cep = cep;
-        count++;
+        if(this.cep.equals("     -   "))
+            this.cep = null;
         return this;
     }
 
     public ClienteBuilder setCidade(String cidade) {
-        if (temNumeros(cidade)) {
-            throw new IllegalArgumentException();
-        }
-        count++;
         this.cidade = cidade;
+        if (this.cidade.equals("")) {
+            this.cidade = null;
+        }
         return this;
     }
 
     public ClienteBuilder setCnpj_cpf(String cnpj_cpf) {
-        count++;
         this.cnpj_cpf = cnpj_cpf;
+        if(this.cnpj_cpf.equals("   .   .   -  ") || this.cnpj_cpf.equals("  .   .   /    -  "))
+            this.cnpj_cpf = null;
         return this;
     }
 
     public ClienteBuilder setContato(String contato) {
-        if (temNumeros(contato)) {
-            throw new IllegalArgumentException();
-        }
-        count++;
         this.contato = contato;
+        if(this.contato.equals("")){
+            this.contato = null;
+        }
         return this;
     }
 
@@ -105,29 +106,27 @@ public class ClienteBuilder {
 
     public ClienteBuilder setEndereco(String endereco) {
         this.endereco = endereco;
-        count++;
+        if(this.endereco.equals(""))
+            this.endereco = null;
         return this;
     }
 
     public ClienteBuilder setEstado(String estado) {
         this.estado = estado;
-        count++;
         return this;
     }
 
     public ClienteBuilder setInscricao_est(String inscricao_est) {
-        if (!temNumeros(inscricao_est)) {
-            throw new IllegalArgumentException();
-        }
         this.inscricao_est = inscricao_est;
-        count++;
+        if(this.inscricao_est.equals(""))
+            this.inscricao_est = null;
         return this;
     }
 
     public ClienteBuilder setNome(String nome) {
-        if (temNumeros(nome)) {
+        if (nome.equals(""))
             throw new IllegalArgumentException();
-        }
+        
         this.nome = nome;
         count++;
         return this;
@@ -135,6 +134,8 @@ public class ClienteBuilder {
 
     public ClienteBuilder setTelefone(String telefone) {
         this.telefone = telefone;
+        if(this.telefone.equals("(  )     -    "))
+            this.telefone = null;
         return this;
     }
 

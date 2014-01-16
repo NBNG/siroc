@@ -344,10 +344,10 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(CadastroClientes.this, "Cliente adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             limpar();
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(CadastroClientes.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroClientes.this, "Campos obrigatórios (*) vazios e/ou informação inválida!", "ERRO", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(CadastroClientes.this, "CNPJ/CPF, E-mail e/ou Inscrição Estadual já cadastrado(s)!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroClientes.this, "CNPJ/CPF, E-mail e/ou Inscrição Estadual já cadastrado(s)!", "ERRO", JOptionPane.ERROR_MESSAGE);
             dao = new DAO<Cliente>(Cliente.class);
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
@@ -433,14 +433,6 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
 
     private void marca() {
         jLNome.setText("Nome:*");
-        jL_IE.setText("Inscrição Estadual:*");
-        jLEndereco.setText("Endereço:*");
-        jLBairro.setText("Bairro:*");
-        jLCidade.setText("Cidade:*");
-        jLEstado.setText("Estado:*");
-        jLCEP.setText("CEP:*");
-        jLCNPJ.setText("CNPJ/CPF:*");
-        jLContato.setText("Contato:*");
     }
 
     private void hinter() {

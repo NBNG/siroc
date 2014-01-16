@@ -73,7 +73,7 @@ public class Cliente {
         this.nome = nome;
     }
 
-    @Column(name = "cli_endereco", nullable = false, length = 80)
+    @Column(name = "cli_endereco", nullable = true, length = 80)
     public String getEndereco() {
         return endereco;
     }
@@ -82,7 +82,7 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    @Column(name = "cli_inscricao_est", nullable = false, length = 20, unique = true)
+    @Column(name = "cli_inscricao_est", nullable = true, length = 20, unique = true)
     public String getInscricao_est() {
         return inscricao_est;
     }
@@ -109,7 +109,7 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    @Column(name = "cli_bairro", nullable = false, length = 30)
+    @Column(name = "cli_bairro", nullable = true, length = 30)
     public String getBairro() {
         return bairro;
     }
@@ -118,7 +118,7 @@ public class Cliente {
         this.bairro = bairro;
     }
 
-    @Column(name = "cli_cidade", nullable = false, length = 30)
+    @Column(name = "cli_cidade", nullable = true, length = 30)
     public String getCidade() {
         return cidade;
     }
@@ -127,7 +127,7 @@ public class Cliente {
         this.cidade = cidade;
     }
 
-    @Column(name = "cli_estado", nullable = false, length = 2)
+    @Column(name = "cli_estado", nullable = true, length = 2)
     public String getEstado() {
         return estado;
     }
@@ -136,7 +136,7 @@ public class Cliente {
         this.estado = estado;
     }
 
-    @Column(name = "cli_cep", nullable = false, length = 9)
+    @Column(name = "cli_cep", nullable = true, length = 9)
     public String getCep() {
         return cep;
     }
@@ -145,7 +145,7 @@ public class Cliente {
         this.cep = cep;
     }
 
-    @Column(name = "cli_contato")
+    @Column(name = "cli_contato", nullable = true)
     public String getContato() {
         return contato;
     }
@@ -163,7 +163,7 @@ public class Cliente {
         this.email = email;
     }
 
-    @Column(name = "cli_cnpj_cpf", nullable = false, length = 20, unique = true)
+    @Column(name = "cli_cnpj_cpf", nullable = true, length = 20, unique = true)
     public String getCnpj_cpf() {
         return cnpj_cpf;
     }

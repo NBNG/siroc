@@ -12,7 +12,7 @@ public class ClienteTeste {
 
     @Test(expected = IllegalArgumentException.class)
     public void testaNome() {
-        new ClienteBuilder().setNome("Lucas Garofolo 12331");
+        new ClienteBuilder().setNome("");
     }
 
     @Test(expected = IllegalArgumentException.class)
