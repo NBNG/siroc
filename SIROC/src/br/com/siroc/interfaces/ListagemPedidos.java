@@ -32,16 +32,20 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     /**
      * Creates new form Listagem_Pedidos
      */
-    DefaultTableModel tmPedido = new DefaultTableModel(null, new String[]{"Data", "Cidade", "Estado", "Cliente", "Fornecedor", "Valor Total", "Frete", "Tipo de Pagamento", "Tipo de Pedido", "Pago"}) {
-        boolean[] canEdit = new boolean[]{
-            false, false, false, false, false, false, false, false, false, false
-        };
+    DefaultTableModel tmPedido = new DefaultTableModel(null,
+            new String[]{"Data", "Cidade", "Estado", "Cliente",
+                "Fornecedor", "Valor Total", "Frete", "Tipo de Pagamento",
+                "Tipo de Pedido", "Pago", "Vencimento", "Obs"}) {
+                boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false, false, false,
+                    false, false, false, false
+                };
 
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return canEdit[columnIndex];
-        }
-    };
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+            };
 
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<Pedido>(Pedido.class);
@@ -114,8 +118,9 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         tabela = new javax.swing.JTable();
         jTBSeleciona = new javax.swing.JToggleButton();
         jBPesquisar = new javax.swing.JButton();
-        jBLimpar = new javax.swing.JButton();
+        jBPDF = new javax.swing.JButton();
         jLAjuda = new javax.swing.JLabel();
+        jBLimpar1 = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -207,12 +212,12 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
-        jBLimpar.setText("Limpar");
-        jBLimpar.addActionListener(new java.awt.event.ActionListener() {
+        jBPDF.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/pdf (1).png"))); // NOI18N
+        jBPDF.setText("Gerar PDF");
+        jBPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLimparActionPerformed(evt);
+                jBPDFActionPerformed(evt);
             }
         });
 
@@ -222,6 +227,15 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         jLAjuda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLAjudaMouseClicked(evt);
+            }
+        });
+
+        jBLimpar1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBLimpar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
+        jBLimpar1.setText("Limpar");
+        jBLimpar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpar1ActionPerformed(evt);
             }
         });
 
@@ -286,13 +300,16 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                                 .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jBPesquisar)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                         .addComponent(jLAjuda))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBLimpar)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jBPDF)
+                .addGap(18, 18, 18)
+                .addComponent(jBLimpar1)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,9 +387,11 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jBLimpar)
-                .addGap(16, 16, 16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBPDF)
+                    .addComponent(jBLimpar1))
+                .addContainerGap())
         );
 
         pack();
@@ -400,12 +419,12 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTBSelecionaActionPerformed
 
-    private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        ListagemPedidos lp = new ListagemPedidos(painel);
-        painel.add(lp);
-        lp.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jBLimparActionPerformed
+    private void jBPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPDFActionPerformed
+        for (int i = 0; i < tabela.getSelectedRowCount(); i++) {
+            int[] resultado = tabela.getSelectedRows();
+            System.out.println(resultado);
+        }
+    }//GEN-LAST:event_jBPDFActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
         while (tmPedido.getRowCount() > 0) {
@@ -426,7 +445,12 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             tmPedido.setValueAt(resultado[6], i, 9); //Status
             tmPedido.setValueAt(resultado[7], i, 7); //Tipo pagamento
             tmPedido.setValueAt(resultado[8], i, 8); //Tipo de pedido
-            tmPedido.setValueAt(Editor.format((Double) resultado[9]), i, 6); //Frete
+            if (resultado[11] == null) {
+                tmPedido.setValueAt("", i, 10); //Vencimento    
+            } else {
+                tmPedido.setValueAt(Editor.formatData((Date) resultado[11]), i, 10); //Vencimento
+            }
+            tmPedido.setValueAt(resultado[12], i, 11); //OBS
             //[10] é o ID do PEDIDO
         }
     }//GEN-LAST:event_jBPesquisarActionPerformed
@@ -454,8 +478,13 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jLAjudaMouseClicked
 
+    private void jBLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBLimpar1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBLimpar;
+    private javax.swing.JButton jBLimpar1;
+    private javax.swing.JButton jBPDF;
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JComboBox jCBCidade;
     private javax.swing.JComboBox jCBCliente;
@@ -533,7 +562,9 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     public String montaQuery() {
         String query = "SELECT pedido.data,cliente.cidade,cliente.estado,cliente.nome,"
                 + "fornecedor.nome,sum(item.valor_alterado*item.quantidade),pedido.status,"
-                + "pedido.tipo_pagamento,pedido.tipo_pedido,(sum(item.valor_alterado*item.quantidade)*fornecedor.frete)/100,pedido.id "
+                + "pedido.tipo_pagamento,pedido.tipo_pedido,"
+                + "(sum(item.valor_alterado*item.quantidade)*fornecedor.frete)/100,pedido.id, "
+                + "pedido.vencimento,pedido.obs "
                 + "FROM Pedido pedido "
                 + "INNER JOIN pedido.cliente as cliente "
                 + "INNER JOIN pedido.itens as item "

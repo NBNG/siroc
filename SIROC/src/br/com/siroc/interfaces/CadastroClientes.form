@@ -94,7 +94,7 @@
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="jLCEP" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jTCEP" min="-2" pref="201" max="-2" attributes="0"/>
+                          <Component id="jTCEP" min="-2" pref="125" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -171,7 +171,7 @@
                   <Component id="jBCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

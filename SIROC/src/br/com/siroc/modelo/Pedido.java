@@ -31,14 +31,17 @@ public class Pedido {
 
     private Long id;
     private Date data;
+    private Date vencimento;
     private String tipo_pagamento;
     private String tipo_pedido;
     private String status;
+    private String obs;
     private Cliente cliente;
     private List<Item> itens;
     private Double valorTotal;
 
-    public Pedido(Long id, Date data, String tipo_pagamento, String tipo_pedido, String status, Cliente cliente, List<Item> itens) {
+    public Pedido(Long id, Date data, String tipo_pagamento, String tipo_pedido,
+            String status, Cliente cliente, List<Item> itens, Date vencimento) {
         this.id = id;
         this.data = data;
         this.tipo_pagamento = tipo_pagamento;
@@ -46,6 +49,7 @@ public class Pedido {
         this.status = status;
         this.cliente = cliente;
         this.itens = itens;
+        this.vencimento = vencimento;
     }
 
     public Pedido() {
@@ -73,6 +77,16 @@ public class Pedido {
         this.data = data;
     }
 
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "ped_vencimento", nullable = true)
+    public Date getVencimento() {
+        return vencimento;
+    }
+
+    public void setVencimento(Date vencimento) {
+        this.vencimento = vencimento;
+    }
+
     @Column(name = "ped_pagamento", nullable = false)
     public String getTipo_pagamento() {
         return tipo_pagamento;
@@ -98,6 +112,15 @@ public class Pedido {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Column(name = "ped_obs", nullable = true)
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
     }
 
     @ManyToOne

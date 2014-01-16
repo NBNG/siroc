@@ -111,6 +111,11 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         });
 
         jTFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTFrete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFreteKeyTyped(evt);
+            }
+        });
 
         jLFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLFrete.setText("Frete:");
@@ -227,6 +232,13 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jLAjudaMouseClicked
+
+    private void jTFreteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFreteKeyTyped
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTFreteKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar2;

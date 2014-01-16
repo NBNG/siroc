@@ -91,7 +91,7 @@
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="jLCEP" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jTCEP" min="-2" pref="201" max="-2" attributes="0"/>
+                          <Component id="jTCEP" min="-2" pref="135" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

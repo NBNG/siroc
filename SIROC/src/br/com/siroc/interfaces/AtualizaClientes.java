@@ -263,7 +263,7 @@ public class AtualizaClientes extends javax.swing.JFrame {
                             .addGap(31, 31, 31)
                             .addComponent(jLCEP)
                             .addGap(18, 18, 18)
-                            .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(39, 39, 39)
                 .addComponent(jLAjuda)
                 .addContainerGap())

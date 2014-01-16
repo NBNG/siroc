@@ -93,6 +93,11 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
         jLNome.setText("Nome:");
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTNomeKeyTyped(evt);
+            }
+        });
 
         jLTelefone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLTelefone.setText("Telefone:");
@@ -117,6 +122,11 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
         jLFrete.setText("Frete:");
 
         jTFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTFrete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFreteKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,6 +240,17 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jLAjudaMouseClicked
+
+    private void jTFreteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFreteKeyTyped
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTFreteKeyTyped
+
+    private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTNomeKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar2;
