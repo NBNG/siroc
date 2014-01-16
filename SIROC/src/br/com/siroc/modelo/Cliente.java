@@ -82,7 +82,7 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    @Column(name = "cli_inscricao_est", nullable = true, length = 20, unique = true)
+    @Column(name = "cli_inscricao_est", nullable = true, length = 20)
     public String getInscricao_est() {
         return inscricao_est;
     }
@@ -154,7 +154,7 @@ public class Cliente {
         this.contato = contato;
     }
 
-    @Column(name = "cli_email", nullable = true, length = 50, unique = true)
+    @Column(name = "cli_email", nullable = true, length = 50)
     public String getEmail() {
         return email;
     }
@@ -163,7 +163,7 @@ public class Cliente {
         this.email = email;
     }
 
-    @Column(name = "cli_cnpj_cpf", nullable = true, length = 20, unique = true)
+    @Column(name = "cli_cnpj_cpf", nullable = true, length = 20)
     public String getCnpj_cpf() {
         return cnpj_cpf;
     }

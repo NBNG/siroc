@@ -280,6 +280,11 @@ public class Principal extends javax.swing.JFrame {
 
         jMIRomaneioNF.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMIRomaneioNF.setText("Romaneio - NF");
+        jMIRomaneioNF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIRomaneioNFActionPerformed(evt);
+            }
+        });
         jMPedido.add(jMIRomaneioNF);
 
         jMenu.add(jMPedido);
@@ -430,8 +435,14 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIDesenvolvedoresActionPerformed
 
     private void jMIRomaneioSOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRomaneioSOActionPerformed
-        // TODO add your handling code here:
+        RomaneioSO rso = new RomaneioSO();
+        rso.setVisible(true);
     }//GEN-LAST:event_jMIRomaneioSOActionPerformed
+
+    private void jMIRomaneioNFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRomaneioNFActionPerformed
+        RomaneioNF rnf = new RomaneioNF();
+        rnf.setVisible(true);
+    }//GEN-LAST:event_jMIRomaneioNFActionPerformed
 
     /**
      * @param args the command line arguments

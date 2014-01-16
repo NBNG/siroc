@@ -54,6 +54,7 @@ public class AtualizaProduto extends javax.swing.JFrame {
                 getResource("/br/com/siroc/Imagens/icone.png")));
         this.lista = lista;
         this.painel = painel;
+        this.setResizable(false);
     }
 
     /**

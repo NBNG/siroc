@@ -30,7 +30,17 @@ public class HistoricoPreco extends javax.swing.JInternalFrame {
     Produto produto = new Produto();
     List<Object[]> lista;
     ProdutoDAO dao = new ProdutoDAO();
-    DefaultTableModel tmHistorico = new DefaultTableModel(null, new String[]{"Produto", "Data", "Valor Antigo", "Valor Atualizado"});
+
+    DefaultTableModel tmHistorico = new DefaultTableModel(null, new String[]{"Produto", "Data", "Valor Antigo", "Valor Atualizado"}) {
+        boolean[] canEdit = new boolean[]{
+            false, false, false, false
+        };
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit[columnIndex];
+        }
+    };
 
     public HistoricoPreco() {
         initComponents();

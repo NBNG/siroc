@@ -42,6 +42,7 @@ public class AtualizaClientes extends javax.swing.JFrame {
         this.cliente = cliente;
         id = this.cliente.getId();
         initComponents();
+        this.setResizable(false);
         this.lista = lista;
         this.painel = painel;
         try {

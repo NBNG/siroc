@@ -459,9 +459,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
          4 fornecedor        5 total        6 status        7 tipo de pagamento
          8 tipo de pedido        9 frete        10 id        11 vencimento
          12 obs
-         new String[]{"ID", "Data", "Cidade", "Estado", "Cliente",
-         "Fornecedor", "Valor Total", "Frete", "Tipo de Pagamento",
-         "Tipo de Pedido", "Pago", "Vencimento", "Obs"}) {*/
+         */
         list = peddao.buscaAvançada(montaQuery());
         for (int i = 0; i < list.size(); i++) {
             Object[] resultado = list.get(i);

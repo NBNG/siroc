@@ -36,6 +36,7 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
         this.lista = lista;
         this.painel = painel;
         initComponents();
+        this.setResizable(false);
 
         try {
             MaskFormatter maskTelefone = new MaskFormatter("(##) ####-####");

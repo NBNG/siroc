@@ -52,6 +52,7 @@ public class BalancoNF extends javax.swing.JFrame {
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
+        this.setResizable(false);
     }
 
     /**

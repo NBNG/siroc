@@ -62,7 +62,7 @@ public class Fornecedor {
         this.telefone = telefone;
     }
 
-    @Column(name = "for_email", nullable = true, length = 50, unique = true)
+    @Column(name = "for_email", nullable = true, length = 50)
     public String getEmail() {
         return email;
     }

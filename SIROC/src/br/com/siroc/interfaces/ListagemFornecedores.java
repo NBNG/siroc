@@ -25,7 +25,7 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
     //definição das colunas da tabela
     DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email", "Frete"}) {
         boolean[] canEdit = new boolean[]{
-            false, false, false
+            false, false, false, false
         };
 
         @Override

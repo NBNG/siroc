@@ -63,7 +63,7 @@ public class Relatorio {
                 + "to_char((select sum((itens.item_valor - produtos.pro_saida)*itens.item_quantidade) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id \n"
                 + "inner join produtos on itens.fk_produto = produtos.pro_id where pedidos.ped_id = " + id + "),'L9G999G90D99')  as lucro, pedidos.ped_pagamento, pedidos.ped_pedido,\n"
                 + "pedidos.ped_status, to_char(pedidos.ped_data,'dd/mm/yyyy') as data, to_char((select sum (itens.item_valor * itens.item_quantidade) \n"
-                + "from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = " + id + "),'R$999G990D99')  as total from pedidos\n"
+                + "from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = " + id + "),'R$999G990D99')  as total,to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,pedidos.ped_obs from pedidos\n"
                 + "inner join clientes on clientes.cli_id = pedidos.fk_cliente inner join itens on pedidos.ped_id = itens.fk_pedido inner join produtos\n"
                 + "on produtos.pro_id = itens.fk_produto "
                 + " inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id"
@@ -153,6 +153,30 @@ public class Relatorio {
                 + "" + where + ""
                 + "order by clientes.cli_nome,fornecedores.for_nome,produto,itens.item_quantidade";
 
+        PreparedStatement pstmt = this.conexao.prepareStatement(query);
+        ResultSet rs = pstmt.executeQuery();
+
+        JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+
+        HashMap parametros = new HashMap();
+        parametros.put("termo", new Double(10));
+
+        JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
+        if (tipo == 1) {
+            JasperPrintManager.printPage(impressao, 0, true);
+        } else if (tipo == 0) {
+            caminho = caminho + nome;
+            JasperExportManager.exportReportToPdfFile(impressao, caminho);
+        } else if (tipo == 2) {
+            JasperViewer.viewReport(impressao, false);
+        }
+    }
+
+    public void romaneioSO(String query, int tipo, String nome) throws JRException, SQLException, IOException {
+        xml += "\\romaneioso.jrxml";
+
+        JasperDesign desenho = JRXmlLoader.load(xml);
+        JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         PreparedStatement pstmt = this.conexao.prepareStatement(query);
         ResultSet rs = pstmt.executeQuery();
 
