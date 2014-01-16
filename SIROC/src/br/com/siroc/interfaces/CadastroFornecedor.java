@@ -268,8 +268,6 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
 
     private void marca() {
         jLNome.setText("Nome:*");
-        jLTelefone.setText("Telefone:*");
-        jLEmail.setText("Email:*");
     }
 
     private void hinter() {

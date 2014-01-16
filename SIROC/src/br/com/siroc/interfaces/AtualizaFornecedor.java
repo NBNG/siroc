@@ -275,8 +275,6 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
 
     private void marca() {
         jLNome.setText("Nome:*");
-        jLTelefone.setText("Telefone:*");
-        jLEmail.setText("Email:*");
     }
 
     private void hinter() {
