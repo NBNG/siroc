@@ -29,11 +29,10 @@ public class FornecedorBuilder {
     public FornecedorBuilder setEmail(String email) {
         this.email = email;
         if (this.email.equals("")) {
-            throw new NullPointerException();
+            this.email = null;
         } else if (!isValidEmail(this.email)) {
             throw new IllegalArgumentException();
         }
-        count++;
         return this;
     }
 
@@ -58,7 +57,8 @@ public class FornecedorBuilder {
 
     public FornecedorBuilder setTelefone(String telefone) {
         this.telefone = telefone;
-        count++;
+        if(this.telefone.equals("(  )     -    "))
+            this.telefone = null;
         return this;
     }
 
@@ -72,7 +72,7 @@ public class FornecedorBuilder {
     }
 
     public Fornecedor getFornecedor() {
-        if (count < 3) {
+        if (count < 1) {
             throw new IllegalArgumentException();
         }
 

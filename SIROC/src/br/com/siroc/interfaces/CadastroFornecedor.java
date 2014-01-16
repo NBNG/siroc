@@ -204,12 +204,12 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(CadastroFornecedor.this, "Fornecedor adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             limpar();
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(CadastroFornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroFornecedor.this, "Informações inválidas!", "ERRO", JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
             JOptionPane.showMessageDialog(CadastroFornecedor.this, "E-mail já cadastrado!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(CadastroFornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(CadastroFornecedor.this, "Campo 'Nome' obrigatório (*) vazio!", "ERRO", JOptionPane.ERROR_MESSAGE);
             marca();
         }
     }//GEN-LAST:event_jBCadastrar2ActionPerformed

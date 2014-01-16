@@ -53,7 +53,7 @@ public class Fornecedor {
         this.nome = nome;
     }
 
-    @Column(name = "for_telefone", nullable = false, length = 14)
+    @Column(name = "for_telefone", nullable = true, length = 14)
     public String getTelefone() {
         return telefone;
     }
@@ -62,7 +62,7 @@ public class Fornecedor {
         this.telefone = telefone;
     }
 
-    @Column(name = "for_email", nullable = false, length = 50, unique = true)
+    @Column(name = "for_email", nullable = true, length = 50, unique = true)
     public String getEmail() {
         return email;
     }
