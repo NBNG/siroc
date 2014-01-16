@@ -230,13 +230,16 @@ public class AtualizaProduto extends javax.swing.JFrame {
                         setValor_entrada(jTV_Compra.getText()).setValor_saida(jTV_Saida.getText()).getProduto();
                 dao.atualiza(produto);
                 JOptionPane.showMessageDialog(AtualizaProduto.this, "Produto alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
-                populateFields(produto);
+                limpar();
             } catch (NullPointerException e) {
                 JOptionPane.showMessageDialog(AtualizaProduto.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
                 marca();
             } catch (IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(AtualizaProduto.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
 
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
 

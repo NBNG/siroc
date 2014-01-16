@@ -26,11 +26,13 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
     Fornecedor fornecedor;
     ListagemFornecedores lista;
     JDesktopPane painel;
+    Long id;
 
     public AtualizaFornecedor(Fornecedor fornecedor,
             ListagemFornecedores lista, JDesktopPane painel) {
         super("Cella - Atualização de Fornecedores");
         this.fornecedor = fornecedor;
+        id = this.fornecedor.getId();
         this.lista = lista;
         this.painel = painel;
         initComponents();
@@ -91,6 +93,11 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
         jLNome.setText("Nome:");
 
         jTNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTNomeKeyTyped(evt);
+            }
+        });
 
         jLTelefone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLTelefone.setText("Telefone:");
@@ -115,6 +122,11 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
         jLFrete.setText("Frete:");
 
         jTFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTFrete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFreteKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,16 +198,27 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
 
     private void jBCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrar2ActionPerformed
         try {
-            fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).setFrete(jTFrete.getText()).getFornecedor();
+            fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).
+                    setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).
+                    setFrete(jTFrete.getText()).setId(id).
+                    getFornecedor();
 
             dao.atualiza(fornecedor);
-            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "Fornecedor alterado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this,
+                    "Fornecedor alterado com sucesso!",
+                    "Activity Performed Successfully",
+                    JOptionPane.INFORMATION_MESSAGE);
             limpar();
         } catch (IllegalArgumentException | NullPointerException e) {
-            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this,
+                    "Campos obrigatórios (*) vazios e/ou Informação inválida!",
+                    "ERROR 404 - Content not found!",
+                    JOptionPane.ERROR_MESSAGE);
             marca();
         } catch (ConstraintViolationException e) {
-            JOptionPane.showMessageDialog(AtualizaFornecedor.this, "E-mail já cadastrado!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AtualizaFornecedor.this,
+                    "E-mail já cadastrado!", "ERROR 404 - Content not found!",
+                    JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
                     "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -217,6 +240,17 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jLAjudaMouseClicked
+
+    private void jTFreteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFreteKeyTyped
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTFreteKeyTyped
+
+    private void jTNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTNomeKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar2;

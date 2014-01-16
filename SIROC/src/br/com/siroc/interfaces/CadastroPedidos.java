@@ -17,6 +17,8 @@ import br.com.siroc.modelo.Produto;
 import java.awt.Desktop;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
@@ -424,14 +426,20 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TabelaFornecedorMouseClicked
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
-
         status = (String) jCBPago1.getSelectedItem();
+        Date data = jDCData.getDate();
+        if (!jTPrazo.getText().equals("")) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(data);
+            cal.add(cal.DAY_OF_MONTH, Integer.parseInt(jTPrazo.getText()));
+            data = cal.getTime();
 
+        }
         DAO<Pedido> pdao = new DAO<>(Pedido.class);
 
         pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
                 setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()))
-                .setItens(listItem).getPedido();
+                .setItens(listItem).setVencimento(data).getPedido();
         //pedido.setItens(listItem);
         for (int i = 0; i < listItem.size(); i++) {
             listItem.get(i).setPedido(pedido);
