@@ -5,6 +5,7 @@
  */
 package br.com.siroc.interfaces;
 
+import br.com.siroc.Editor.Editor;
 import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.Jasper.Relatorio;
 import java.awt.Desktop;
@@ -51,6 +52,7 @@ public class BalancoSO extends javax.swing.JFrame {
         jBImprimir = new javax.swing.JButton();
         jBPDF = new javax.swing.JButton();
         jLAjuda = new javax.swing.JLabel();
+        jBVisualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,6 +92,15 @@ public class BalancoSO extends javax.swing.JFrame {
             }
         });
 
+        jBVisualizar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/visualizar.png"))); // NOI18N
+        jBVisualizar.setText("Visualizar");
+        jBVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBVisualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,13 +121,15 @@ public class BalancoSO extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLFinal)
                             .addComponent(jCFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jBImprimir)
-                        .addGap(38, 38, 38)
-                        .addComponent(jBPDF)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(22, 22, 22))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBVisualizar)
+                .addGap(18, 18, 18)
+                .addComponent(jBImprimir)
+                .addGap(18, 18, 18)
+                .addComponent(jBPDF)
+                .addGap(30, 30, 30))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBImprimir, jBPDF});
@@ -136,11 +149,12 @@ public class BalancoSO extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBImprimir)
-                    .addComponent(jBPDF))
-                .addGap(22, 22, 22))
+                    .addComponent(jBPDF)
+                    .addComponent(jBVisualizar))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -167,7 +181,7 @@ public class BalancoSO extends javax.swing.JFrame {
                     + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
             java.sql.Date dataI = new java.sql.Date(jCInicial.getDate().getTime());
             java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
-            String nome = "//Romaneio SO " + dataI + " até " + dataF + ".pdf";
+            String nome = "//Balanço SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
             Relatorio rel = new Relatorio();
             rel.balancoSO(where, 0, nome);
             JOptionPane.showMessageDialog(BalancoSO.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
@@ -191,9 +205,24 @@ public class BalancoSO extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLAjudaMouseClicked
 
+    private void jBVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVisualizarActionPerformed
+        try {
+            String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
+                    + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
+            java.sql.Date dataI = new java.sql.Date(jCInicial.getDate().getTime());
+            java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
+            String nome = "//Romaneio SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
+            Relatorio rel = new Relatorio();
+            rel.balancoSO(where, 2, nome);
+        } catch (IOException | JRException | SQLException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jBVisualizarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBImprimir;
     private javax.swing.JButton jBPDF;
+    private javax.swing.JButton jBVisualizar;
     private com.toedter.calendar.JCalendar jCFinal;
     private com.toedter.calendar.JCalendar jCInicial;
     private javax.swing.JLabel jLAjuda;

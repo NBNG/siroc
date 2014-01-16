@@ -81,12 +81,14 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperViewer.viewReport(impressao, false);
-            //JasperPrintManager.printPage(impressao, 0, true);
+
+            JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
             caminho = caminho + "\\pedido -" + id + " - " + nome + ".pdf";
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
 
+        } else if (tipo == 2) {
+            JasperViewer.viewReport(impressao, false);
         }
     }
 
@@ -124,6 +126,8 @@ public class Relatorio {
         } else if (tipo == 0) {
             caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
+        } else if (tipo == 2) {
+            JasperViewer.viewReport(impressao, false);
         }
 
     }
@@ -163,6 +167,8 @@ public class Relatorio {
         } else if (tipo == 0) {
             caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
+        } else if (tipo == 2) {
+            JasperViewer.viewReport(impressao, false);
         }
     }
 }
