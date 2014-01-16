@@ -62,7 +62,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     String cliente;
     String fornecedor;
 
-    Date dataInicial, dataFinal;
+    Date dataVencimento;
 
     Double valorInicial, valorFinal;
     String estado, cidade, pago, tipo_pgto, tipo_ped;
@@ -585,8 +585,8 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             query += "AND lower(cliente.cidade) like lower('%" + cidade + "%') ";
         }
         if (jRBData.isSelected() && jDCVencimento.getDate() != null) {
-            dataInicial = jDCVencimento.getDate();
-            query += "AND pedido.data BETWEEN '" + dataInicial + "' AND '" + dataFinal + "' ";
+            dataVencimento = jDCVencimento.getDate();
+            query += "AND pedido.vencimento <='" + dataVencimento + "'";
         } else if (jRBData.isSelected()) {
             JOptionPane.showMessageDialog(ListagemPedidos.this, "Pesquisa efetuada sem data. \n Valor não especificado.");
         }
