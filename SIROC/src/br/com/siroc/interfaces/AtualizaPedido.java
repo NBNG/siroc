@@ -90,6 +90,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jCBPago = new javax.swing.JComboBox();
         jTValor = new javax.swing.JTextField();
         jBVisualizar = new javax.swing.JButton();
+        jBImprimir2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -187,6 +188,15 @@ public class AtualizaPedido extends javax.swing.JFrame {
             }
         });
 
+        jBImprimir2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBImprimir2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/imprimir.png"))); // NOI18N
+        jBImprimir2.setText("Imprimir ½ Página");
+        jBImprimir2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBImprimir2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -195,26 +205,40 @@ public class AtualizaPedido extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(jLCabecalho)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLAjuda))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLData)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLFornecedor)
                             .addComponent(jLCliente)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLValor)
-                                .addGap(52, 52, 52)
-                                .addComponent(jLFrete))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLData)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLValor)
+                                        .addGap(52, 52, 52)
+                                        .addComponent(jLFrete)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(117, 117, 117)
+                                .addComponent(jLCabecalho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 291, Short.MAX_VALUE)
+                                .addComponent(jLAjuda)))
+                        .addGap(39, 39, 39))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(184, 184, 184)
+                                .addComponent(jBAtualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLEndereco, javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,24 +249,17 @@ public class AtualizaPedido extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jLTipoPagamento)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(184, 184, 184)
-                                .addComponent(jBAtualizar)
-                                .addGap(18, 18, 18)
-                                .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(39, 39, 39))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(557, 557, 557)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBImprimir1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                                .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBImprimir1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBImprimir2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBImprimir, jBImprimir1});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBImprimir, jBImprimir1, jBImprimir2, jBVisualizar});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBAtualizar, jBCancelar});
 
@@ -265,7 +282,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLData)
                             .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -278,19 +295,20 @@ public class AtualizaPedido extends javax.swing.JFrame {
                             .addComponent(jCBPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLTipoPagamento)
                             .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(118, 118, 118))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBAtualizar)
+                            .addComponent(jBCancelar)))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBImprimir1)
                         .addGap(18, 18, 18)
                         .addComponent(jBVisualizar)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jBAtualizar)
-                                .addComponent(jBCancelar))
-                            .addComponent(jBImprimir))
-                        .addContainerGap())))
+                        .addComponent(jBImprimir)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBImprimir2)))
+                .addContainerGap())
         );
 
         pack();
@@ -329,7 +347,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
     private void jBImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimir1ActionPerformed
         try {
             Relatorio rel = new Relatorio();
-            rel.gerarPedido((Long) resultado[10], 0, (String) resultado[3]);
+            rel.gerarPedido((Long) resultado[10], 0, (String) resultado[3], 0);
             JOptionPane.showMessageDialog(AtualizaPedido.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
         } catch (IOException | JRException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
@@ -339,7 +357,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
         try {
             Relatorio rel = new Relatorio();
-            rel.gerarPedido((Long) resultado[10], 1, (String) resultado[3]);
+            rel.gerarPedido((Long) resultado[10], 1, (String) resultado[3], 0);
         } catch (IOException ex) {
             Logger.getLogger(AtualizaPedido.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JRException | SQLException ex) {
@@ -364,18 +382,30 @@ public class AtualizaPedido extends javax.swing.JFrame {
     private void jBVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVisualizarActionPerformed
         try {
             Relatorio rel = new Relatorio();
-            rel.gerarPedido((Long) resultado[10], 2, (String) resultado[3]);
+            rel.gerarPedido((Long) resultado[10], 2, (String) resultado[3], 0);
 
         } catch (IOException | JRException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
         }
     }//GEN-LAST:event_jBVisualizarActionPerformed
 
+    private void jBImprimir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimir2ActionPerformed
+        try {
+            Relatorio rel = new Relatorio();
+            rel.gerarPedido((Long) resultado[10], 1, (String) resultado[3], 1);
+        } catch (IOException ex) {
+            Logger.getLogger(AtualizaPedido.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
+        }
+    }//GEN-LAST:event_jBImprimir2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAtualizar;
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBImprimir;
     private javax.swing.JButton jBImprimir1;
+    private javax.swing.JButton jBImprimir2;
     private javax.swing.JButton jBVisualizar;
     private javax.swing.JComboBox jCBPagamento;
     private javax.swing.JComboBox jCBPago;

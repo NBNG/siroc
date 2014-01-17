@@ -5,6 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<field name="quantidade" class="java.lang.Integer"/>
 	<field name="produto" class="java.lang.String"/>
+    <field name="peso" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -73,6 +74,20 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[ Interessado em nosso serviço? Ligue: (12) 982054378 ou (12) 981669841]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="f1f35f9e-9f48-4293-a641-1e8697ae3bbf" mode="Opaque" x="383" y="14" width="86" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso Total:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fed50f4f-fecf-4d28-88d4-f70c8bed558d" x="469" y="14" width="86" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{peso}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>

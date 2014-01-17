@@ -4,7 +4,6 @@
  */
 package br.com.siroc.interfaces;
 
-//import br.com.siroc.backup.Backup;
 import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.backup.Backup;
 import br.com.siroc.drive.InsertGoogleDrive;
@@ -407,8 +406,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIGoogleActionPerformed
 
     private void jMIBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIBackupActionPerformed
-        Backup bac = new Backup();
-        bac.fazBackup();
+        Backup.fazBackup();
     }//GEN-LAST:event_jMIBackupActionPerformed
 
     private void jMIAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAjudaActionPerformed
@@ -418,8 +416,7 @@ public class Principal extends javax.swing.JFrame {
         File arquivo = new File(caminho);
         try {
             Desktop.getDesktop().open(arquivo);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMIAjudaActionPerformed

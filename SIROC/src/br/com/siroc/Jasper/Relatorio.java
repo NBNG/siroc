@@ -49,8 +49,12 @@ public class Relatorio {
         }
     }
 
-    public void gerarPedido(Long id, int tipo, String nome) throws JRException, SQLException, IOException {
-        xml += "\\pedido.jrxml";
+    public void gerarPedido(Long id, int tipo, String nome, int pagina) throws JRException, SQLException, IOException {
+        if (pagina == 0) {
+            xml += "\\pedido.jrxml";
+        } else {
+            xml += "\\pedidomeiapagina.jrxml";
+        }
 
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
@@ -71,6 +75,7 @@ public class Relatorio {
                 + "group by pedidos.ped_id,clientes.cli_nome,clientes.cli_endereco,clientes.cli_bairro,clientes.cli_cidade,clientes.cli_estado,clientes.cli_telefone,\n"
                 + "clientes.cli_cep,clientes.cli_cnpj_cpf,clientes.cli_inscricao_est,fornecedores.for_frete,produtos.pro_id,itens.item_quantidade,itens.item_valor,\n"
                 + "pedidos.ped_pagamento, pedidos.ped_pedido,pedidos.ped_status,pedidos.ped_data";
+
         PreparedStatement pstmt = this.conexao.prepareStatement(query);
         ResultSet rs = pstmt.executeQuery();
 

@@ -126,6 +126,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         jLAjuda = new javax.swing.JLabel();
         jBLimpar1 = new javax.swing.JButton();
         jBImprimir = new javax.swing.JButton();
+        jBImprimirMeia = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -253,6 +254,15 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        jBImprimirMeia.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBImprimirMeia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/imprimir.png"))); // NOI18N
+        jBImprimirMeia.setText("Imprimir ½ Página");
+        jBImprimirMeia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBImprimirMeiaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -320,6 +330,8 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jBImprimirMeia)
+                .addGap(18, 18, 18)
                 .addComponent(jBImprimir)
                 .addGap(18, 18, 18)
                 .addComponent(jBPDF)
@@ -406,11 +418,12 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBPDF)
                     .addComponent(jBLimpar1)
-                    .addComponent(jBImprimir))
+                    .addComponent(jBImprimir)
+                    .addComponent(jBImprimirMeia))
                 .addContainerGap())
         );
 
@@ -527,8 +540,20 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jBImprimirActionPerformed
 
+    private void jBImprimirMeiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirMeiaActionPerformed
+        int[] selecao = tabela.getSelectedRows();
+        for (int i = 0; i < tabela.getSelectedRowCount(); i++) {
+            imprimirMeia((Long) tabela.getModel().getValueAt(selecao[i], 0),
+                    (String) tabela.getModel().getValueAt(selecao[i], 4));
+        }
+        JOptionPane.showMessageDialog(this, "Impressões realizadas com sucesso!",
+                "Activity Performed Successfully",
+                JOptionPane.WARNING_MESSAGE);
+    }//GEN-LAST:event_jBImprimirMeiaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBImprimir;
+    private javax.swing.JButton jBImprimirMeia;
     private javax.swing.JButton jBLimpar1;
     private javax.swing.JButton jBPDF;
     private javax.swing.JButton jBPesquisar;
@@ -677,7 +702,18 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     private void imprimir(Long valueAt, String nome) {
         try {
             Relatorio rel = new Relatorio();
-            rel.gerarPedido(valueAt, 1, nome);
+            rel.gerarPedido(valueAt, 1, nome, 0);
+
+        } catch (IOException | JRException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo."
+                    + " Contate o administrador do sistema!\n" + ex);
+        }
+    }
+
+    private void imprimirMeia(Long valueAt, String nome) {
+        try {
+            Relatorio rel = new Relatorio();
+            rel.gerarPedido(valueAt, 1, nome, 1);
 
         } catch (IOException | JRException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro em procurar arquivo."
@@ -688,7 +724,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     private void gerarPDF(Long valueAt, String nome) {
         try {
             Relatorio rel = new Relatorio();
-            rel.gerarPedido(valueAt, 0, nome);
+            rel.gerarPedido(valueAt, 0, nome, 1);
 
         } catch (IOException | JRException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro em procurar arquivo."

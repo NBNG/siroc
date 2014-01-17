@@ -335,10 +335,10 @@ public class BalancoNF extends javax.swing.JFrame {
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
         private void hinter() {
-        jLAjuda.setToolTipText("<html>Esta é a tela de geração de Romaneios NF.<br>"
+        jLAjuda.setToolTipText("<html>Esta é a tela responsável pela geração dos balanços NF.<br>"
                 + "1. Para gerar o romaneio é necessário escolher o fornecedor<br>"
                 + " e as datas respectivas de início e término.<br>"
-                + "2. Há a opção de gerar PDF's e/ou imprimi-los.<br>"
+                + "2. Há a opção de visualização, gerar PDF's e/ou imprimi-los.<br>"
                 + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }

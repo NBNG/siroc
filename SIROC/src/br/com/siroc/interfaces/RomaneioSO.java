@@ -1,13 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.siroc.interfaces;
 
 import br.com.siroc.Editor.Editor;
+import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.Jasper.Relatorio;
 import br.com.siroc.dao.PedidoDAO;
+import java.awt.Desktop;
+import java.awt.Toolkit;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -44,6 +43,9 @@ public class RomaneioSO extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setFocusable(true);
+        this.addKeyListener(new LeitorTeclas());
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
     }
 
     @SuppressWarnings("unchecked")
@@ -61,6 +63,7 @@ public class RomaneioSO extends javax.swing.JFrame {
         jDCInicial = new com.toedter.calendar.JDateChooser();
         jDCFinal = new com.toedter.calendar.JDateChooser();
         jBPesquisar = new javax.swing.JButton();
+        jLAjuda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -112,6 +115,15 @@ public class RomaneioSO extends javax.swing.JFrame {
             }
         });
 
+        jLAjuda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/help.png"))); // NOI18N
+        jLAjuda.setText("Ajuda");
+        jLAjuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLAjudaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,7 +131,8 @@ public class RomaneioSO extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(434, 434, 434)
                 .addComponent(jLCabecalho)
-                .addContainerGap(451, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLAjuda))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,8 +163,11 @@ public class RomaneioSO extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLCabecalho)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLCabecalho))
+                    .addComponent(jLAjuda))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -212,22 +228,27 @@ public class RomaneioSO extends javax.swing.JFrame {
 
     private void jBVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVisualizarActionPerformed
         if (tabela.getSelectedRowCount() != 0) {
-            String query = "select sum(item_quantidade) as quantidade,"
-                    + " produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')||"
-                    + " ' Kg' as produto from itens inner join produtos on"
-                    + " produtos.pro_id = itens.fk_produto where ";
+            String parte = "";
             int aux = 0;
             int[] selecao = tabela.getSelectedRows();
             for (int i : selecao) {
                 if (aux == 0) {
-                    query += " fk_pedido = " + tabela.getModel().getValueAt(i, 0);
+                    parte += " fk_pedido = " + tabela.getModel().getValueAt(i, 0);
                 } else {
-                    query += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 0);
+                    parte += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 0);
                 }
                 aux++;
             }
             aux = 0;
-            query += " group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso";
+            String query = "select sum(item_quantidade) as quantidade,\n"
+                    + "produtos.pro_nome || '-' || to_char(produtos.pro_peso,'0009D90')|| ' Kg' as produto,\n"
+                    + "to_char((select sum(itens.item_quantidade*produtos.pro_peso)\n"
+                    + "from itens inner join produtos on produtos.pro_id = itens.fk_produto where \n"
+                    + parte
+                    + "),'0009D90')|| ' Kg' as peso\n"
+                    + "from itens inner join produtos on produtos.pro_id = itens.fk_produto  where \n"
+                    + parte
+                    + "group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso";
             try {
 
                 java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
@@ -247,22 +268,27 @@ public class RomaneioSO extends javax.swing.JFrame {
 
     private void jBGerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarActionPerformed
         if (tabela.getSelectedRowCount() != 0) {
-            String query = "select sum(item_quantidade) as quantidade,"
-                    + " produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')||"
-                    + " ' Kg' as produto from itens inner join produtos on"
-                    + " produtos.pro_id = itens.fk_produto where ";
+            String parte = "";
             int aux = 0;
             int[] selecao = tabela.getSelectedRows();
             for (int i : selecao) {
                 if (aux == 0) {
-                    query += " fk_pedido = " + tabela.getModel().getValueAt(i, 0);
+                    parte += " fk_pedido = " + tabela.getModel().getValueAt(i, 0);
                 } else {
-                    query += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 0);
+                    parte += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 0);
                 }
                 aux++;
             }
             aux = 0;
-            query += " group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso";
+            String query = "select sum(item_quantidade) as quantidade,\n"
+                    + "produtos.pro_nome || '-' || to_char(produtos.pro_peso,'0009D90')|| ' Kg' as produto,\n"
+                    + "to_char((select sum(itens.item_quantidade*produtos.pro_peso)\n"
+                    + "from itens inner join produtos on produtos.pro_id = itens.fk_produto where \n"
+                    + parte
+                    + "),'0009D90')|| ' Kg' as peso\n"
+                    + "from itens inner join produtos on produtos.pro_id = itens.fk_produto  where \n"
+                    + parte
+                    + "group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso";
             try {
 
                 java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
@@ -270,6 +296,9 @@ public class RomaneioSO extends javax.swing.JFrame {
                 String nome = "//Romaneio SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
                 Relatorio rel = new Relatorio();
                 rel.romaneioSO(query, 0, nome);
+                JOptionPane.showMessageDialog(this, "PDFs criado com sucesso!",
+                        "Activity Performed Successfully",
+                        JOptionPane.WARNING_MESSAGE);
             } catch (IOException | JRException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
                         "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -282,22 +311,27 @@ public class RomaneioSO extends javax.swing.JFrame {
 
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
         if (tabela.getSelectedRowCount() != 0) {
-            String query = "select sum(item_quantidade) as quantidade,"
-                    + " produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')||"
-                    + " ' Kg' as produto from itens inner join produtos on"
-                    + " produtos.pro_id = itens.fk_produto where ";
+            String parte = "";
             int aux = 0;
             int[] selecao = tabela.getSelectedRows();
             for (int i : selecao) {
                 if (aux == 0) {
-                    query += " fk_pedido = " + tabela.getModel().getValueAt(i, 0);
+                    parte += " fk_pedido = " + tabela.getModel().getValueAt(i, 0);
                 } else {
-                    query += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 0);
+                    parte += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 0);
                 }
                 aux++;
             }
             aux = 0;
-            query += " group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso";
+            String query = "select sum(item_quantidade) as quantidade,\n"
+                    + "produtos.pro_nome || '-' || to_char(produtos.pro_peso,'0009D90')|| ' Kg' as produto,\n"
+                    + "to_char((select sum(itens.item_quantidade*produtos.pro_peso)\n"
+                    + "from itens inner join produtos on produtos.pro_id = itens.fk_produto where \n"
+                    + parte
+                    + "),'0009D90')|| ' Kg' as peso\n"
+                    + "from itens inner join produtos on produtos.pro_id = itens.fk_produto  where \n"
+                    + parte
+                    + "group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso";
             try {
 
                 java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
@@ -315,6 +349,21 @@ public class RomaneioSO extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBImprimirActionPerformed
 
+    private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
+        if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
+            String caminho = System.getenv("USERPROFILE")
+                    + "\\Documents\\nbng\\siroc\\ajuda\\Manual do Proprietário - "
+                    + "SIROC versão 1.9.9.pdf";
+            File arquivo = new File(caminho);
+            try {
+                Desktop.getDesktop().open(arquivo);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jLAjudaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGerar;
     private javax.swing.JButton jBImprimir;
@@ -322,6 +371,7 @@ public class RomaneioSO extends javax.swing.JFrame {
     private javax.swing.JButton jBVisualizar;
     private com.toedter.calendar.JDateChooser jDCFinal;
     private com.toedter.calendar.JDateChooser jDCInicial;
+    private javax.swing.JLabel jLAjuda;
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLDataFinal;
     private javax.swing.JLabel jLDataInicial;
@@ -348,4 +398,10 @@ public class RomaneioSO extends javax.swing.JFrame {
 
     }
 
+    private void hinter() {
+        jLAjuda.setToolTipText("<html>Esta é a tela de geração de Romaneios SO.<br>"
+                + "1. Para gerar o romaneio é necessário escolher as datas respectivas de início e término.<br>"
+                + "2. Há a opção de visualização, gerar PDF's e/ou imprimi-los.<br>"
+                + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
+    }
 }
