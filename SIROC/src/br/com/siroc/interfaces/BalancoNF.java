@@ -5,7 +5,6 @@
  */
 package br.com.siroc.interfaces;
 
-import br.com.siroc.Editor.Editor;
 import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.Jasper.Relatorio;
 import br.com.siroc.dao.DAO;
@@ -226,33 +225,40 @@ public class BalancoNF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPDFActionPerformed
-        try {
-            String where = "where fornecedores.for_nome like '" + jTNome.getText() + "' AND pedidos.ped_data >='" + jCInicio.getDate() + "' AND"
-                    + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'NF'";
-            java.sql.Date dataI = new java.sql.Date(jCInicio.getDate().getTime());
-            java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
-            String nome = "//Balanço NF - " + fornecedores.
-                    get(tabela.getSelectedRow()).getNome() + " - " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
-            Relatorio rel = new Relatorio();
+        if (jCInicio.getDate() == null || jCFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Selecione ambas as datas!",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                String where = "where fornecedores.for_nome like '" + jTNome.getText() + "' AND pedidos.ped_data >='" + jCInicio.getDate() + "' AND"
+                        + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'NF'";
+                String nome = "";
+                Relatorio rel = new Relatorio();
 
-            rel.balancoNF(where, 0, nome);
-
-            JOptionPane.showMessageDialog(BalancoNF.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (IOException | JRException | SQLException ex) {
-            ex.printStackTrace();
+                rel.balancoNF(where, 0, nome);
+            } catch (IOException | JRException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Erro: \n" + ex,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jBPDFActionPerformed
 
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
-        try {
-            String where = "where  pedidos.ped_data >='" + jCInicio.getDate() + "' AND"
-                    + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
-            String nome = "";
-            Relatorio rel = new Relatorio();
-            rel.balancoNF(where, 1, nome);
-            JOptionPane.showMessageDialog(BalancoNF.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (IOException | JRException | SQLException ex) {
-            ex.printStackTrace();
+        if (jCInicio.getDate() == null || jCFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Selecione ambas as datas!",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                String where = "where fornecedores.for_nome like '" + jTNome.getText() + "' AND pedidos.ped_data >='" + jCInicio.getDate() + "' AND"
+                        + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'NF'";
+                String nome = "";
+                Relatorio rel = new Relatorio();
+
+                rel.balancoNF(where, 1, nome);
+            } catch (IOException | JRException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Erro: \n" + ex,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jBImprimirActionPerformed
 
@@ -307,15 +313,21 @@ public class BalancoNF extends javax.swing.JFrame {
     }//GEN-LAST:event_jLAjudaMouseClicked
 
     private void jBVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVisualizarActionPerformed
-        try {
-            String where = "where fornecedores.for_nome like '" + jTNome.getText() + "' AND pedidos.ped_data >='" + jCInicio.getDate() + "' AND"
-                    + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'NF'";
-            String nome = "";
-            Relatorio rel = new Relatorio();
+        if (jCInicio.getDate() == null || jCFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Selecione ambas as datas!",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                String where = "where fornecedores.for_nome like '" + jTNome.getText() + "' AND pedidos.ped_data >='" + jCInicio.getDate() + "' AND"
+                        + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'NF'";
+                String nome = "";
+                Relatorio rel = new Relatorio();
 
-            rel.balancoNF(where, 2, nome);
-        } catch (IOException | JRException | SQLException ex) {
-            ex.printStackTrace();
+                rel.balancoNF(where, 2, nome);
+            } catch (IOException | JRException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Erro: \n" + ex,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jBVisualizarActionPerformed
 

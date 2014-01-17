@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -34,7 +33,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
     String endereco;
     List<Cliente> clientes;//List de uma classe do modelo para utilização na tabela;
     //DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ/CPF", "Telefone", "Contato", "Email", "Celular", "Endereço"}) {
-    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "CNPJ/CPF", "Telefone", 
+    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "CNPJ/CPF", "Telefone",
         "Contato", "Email", "Estado"}) {
         boolean[] canEdit = new boolean[]{
             false, false, false, false, false, false
@@ -45,7 +44,6 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             return canEdit[columnIndex];
         }
     };
-    
 
 //definição das colunas da tabela
     Cliente cliente;
@@ -62,7 +60,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
-        
+
         tabela.setAutoResizeMode(tabela.AUTO_RESIZE_OFF);
         tabela.getColumnModel().getColumn(0).setPreferredWidth(200);
         tabela.getColumnModel().getColumn(1).setPreferredWidth(173);
@@ -244,7 +242,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 2);
             tmCliente.setValueAt(clientes.get(i).getContato(), i, 3);
             tmCliente.setValueAt(clientes.get(i).getEmail(), i, 4);
-            
+
             tmCliente.setValueAt(clientes.get(i).getEstado(), i, 5);
 
         }    }//GEN-LAST:event_jTNomeKeyTyped

@@ -162,32 +162,42 @@ public class BalancoSO extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
-        try {
-            String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
-                    + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
-            java.sql.Date dataI = new java.sql.Date(jCInicial.getDate().getTime());
-            java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
-            String nome = "//Romaneio SO " + dataI + " até " + dataF + ".pdf";
-            Relatorio rel = new Relatorio();
-            rel.balancoSO(where, 1, nome);
-            JOptionPane.showMessageDialog(BalancoSO.this, "Romaneio impresso com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (IOException | JRException | SQLException ex) {
-            ex.printStackTrace();
+        if (jCInicial.getDate() == null || jCFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Selecione ao menos um(1) pedido!",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
+                        + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
+                java.sql.Date dataI = new java.sql.Date(jCInicial.getDate().getTime());
+                java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
+                String nome = "//Romaneio SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
+                Relatorio rel = new Relatorio();
+                rel.balancoSO(where, 1, nome);
+            } catch (IOException | JRException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Erro! \n" + ex,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jBImprimirActionPerformed
 
     private void jBPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPDFActionPerformed
-        try {
-            String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
-                    + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
-            java.sql.Date dataI = new java.sql.Date(jCInicial.getDate().getTime());
-            java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
-            String nome = "//Balanço SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
-            Relatorio rel = new Relatorio();
-            rel.balancoSO(where, 0, nome);
-            JOptionPane.showMessageDialog(BalancoSO.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (IOException | JRException | SQLException ex) {
-            ex.printStackTrace();
+        if (jCInicial.getDate() == null || jCFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Selecione ao menos um(1) pedido!",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
+                        + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
+                java.sql.Date dataI = new java.sql.Date(jCInicial.getDate().getTime());
+                java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
+                String nome = "//Romaneio SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
+                Relatorio rel = new Relatorio();
+                rel.balancoSO(where, 0, nome);
+            } catch (IOException | JRException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Erro! \n" + ex,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jBPDFActionPerformed
 
@@ -207,16 +217,22 @@ public class BalancoSO extends javax.swing.JFrame {
     }//GEN-LAST:event_jLAjudaMouseClicked
 
     private void jBVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVisualizarActionPerformed
-        try {
-            String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
-                    + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
-            java.sql.Date dataI = new java.sql.Date(jCInicial.getDate().getTime());
-            java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
-            String nome = "//Romaneio SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
-            Relatorio rel = new Relatorio();
-            rel.balancoSO(where, 2, nome);
-        } catch (IOException | JRException | SQLException ex) {
-            ex.printStackTrace();
+        if (jCInicial.getDate() == null || jCFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Selecione ao menos um(1) pedido!",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                String where = "where  pedidos.ped_data >='" + jCInicial.getDate() + "' AND"
+                        + " pedidos.ped_data <= '" + jCFinal.getDate() + "' AND pedidos.ped_pedido = 'SO'";
+                java.sql.Date dataI = new java.sql.Date(jCInicial.getDate().getTime());
+                java.sql.Date dataF = new java.sql.Date(jCFinal.getDate().getTime());
+                String nome = "//Romaneio SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
+                Relatorio rel = new Relatorio();
+                rel.balancoSO(where, 2, nome);
+            } catch (IOException | JRException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Erro! \n" + ex,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jBVisualizarActionPerformed
 

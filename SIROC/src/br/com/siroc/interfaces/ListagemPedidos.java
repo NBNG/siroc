@@ -37,7 +37,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
      * Creates new form Listagem_Pedidos
      */
     DefaultTableModel tmPedido = new DefaultTableModel(null,
-            new String[]{"ID", "Cliente", "Data","Vencimento","Fornecedor", "Cidade",
+            new String[]{"ID", "Cliente", "Data", "Vencimento", "Fornecedor", "Cidade",
                 "Valor Total", "Pagamento",
                 "Tipo Pedido", "Status"}) {
                 boolean[] canEdit = new boolean[]{
@@ -83,16 +83,18 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
-        
+
         tabela.setAutoResizeMode(tabela.AUTO_RESIZE_OFF);
-        tabela.getColumnModel().getColumn(0).setPreferredWidth(30);
-        tabela.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(225);
         tabela.getColumnModel().getColumn(2).setPreferredWidth(110);
         tabela.getColumnModel().getColumn(3).setPreferredWidth(110);
-        tabela.getColumnModel().getColumn(4).setPreferredWidth(150);
-        tabela.getColumnModel().getColumn(5).setPreferredWidth(100);
+        tabela.getColumnModel().getColumn(4).setPreferredWidth(225);
+        tabela.getColumnModel().getColumn(5).setPreferredWidth(150);
         tabela.getColumnModel().getColumn(6).setPreferredWidth(110);
-        tabela.getColumnModel().getColumn(8).setPreferredWidth(78);
+        tabela.getColumnModel().getColumn(8).setPreferredWidth(85);
+        tabela.getColumnModel().getColumn(9).setPreferredWidth(55);
+        tabela.getColumnModel().getColumn(7).setPreferredWidth(85);
     }
 
     /**
@@ -469,12 +471,11 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
          8 tipo de pedido        9 frete        10 id        11 vencimento
          12 obs
          */
-        
-        
+
         /*
          * "ID", "Cliente", "Data","Vencimento","Fornecedor", "Cidade",
-                "Valor Total", "Frete", "Tipo de Pagamento",
-                "Tipo de Pedido", "Pago"
+         "Valor Total", "Frete", "Tipo de Pagamento",
+         "Tipo de Pedido", "Pago"
          */
         list = peddao.buscaAvançada(montaQuery());
         for (int i = 0; i < list.size(); i++) {
@@ -484,21 +485,17 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             tmPedido.setValueAt(resultado[10], i, 0); //ID
             tmPedido.setValueAt(Editor.formatData((Date) resultado[0]), i, 2); //Data
             tmPedido.setValueAt(resultado[1], i, 5); //Cidade
-            
             tmPedido.setValueAt(resultado[3], i, 1); //Cliente
             tmPedido.setValueAt(resultado[4], i, 4); //Fornecedor
             tmPedido.setValueAt(Editor.format((Double) resultado[5]), i, 6); //Valor Total
-            //tmPedido.setValueAt(Editor.format((Double) resultado[9]), i, 7); //Frete
             tmPedido.setValueAt(resultado[6], i, 9); //Status
             tmPedido.setValueAt(resultado[7], i, 7); //Tipo pagamento
             tmPedido.setValueAt(resultado[8], i, 8); //Tipo de pedido
             if (resultado[11] == null) {
-                tmPedido.setValueAt("", i,3); //Vencimento    
+                tmPedido.setValueAt("", i, 3); //Vencimento    
             } else {
                 tmPedido.setValueAt(Editor.formatData((Date) resultado[11]), i, 3); //Vencimento
             }
-            //tmPedido.setValueAt(resultado[12], i, 12); //OBS
-            //[10] é o ID do PEDIDO
         }
     }//GEN-LAST:event_jBPesquisarActionPerformed
 
