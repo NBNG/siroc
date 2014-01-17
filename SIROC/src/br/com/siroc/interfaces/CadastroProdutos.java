@@ -31,7 +31,17 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
     List<Fornecedor> fornecedores;
     DAO<Produto> dao = new DAO<Produto>(Produto.class);
     //definição das colunas da tabela
-    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"});
+    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email"}){
+        boolean[] canEdit = new boolean[]{
+            false, false, false
+        };
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit[columnIndex];
+        }
+    };
+
     FornecedorDAO fdao = new FornecedorDAO();
     JDesktopPane painel;
 

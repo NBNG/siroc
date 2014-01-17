@@ -234,7 +234,7 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLAjudaMouseClicked
 
     private void jTFreteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFreteKeyTyped
-        String caracteres = "0987654321";
+        String caracteres = "0987654321.,";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }

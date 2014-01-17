@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -32,9 +33,11 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
     ClienteDAO cdao = new ClienteDAO();
     String endereco;
     List<Cliente> clientes;//List de uma classe do modelo para utilização na tabela;
-    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ/CPF", "Telefone", "Contato", "Email", "Celular", "Endereço"}) {
+    //DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "Inscrição Estadual", "CNPJ/CPF", "Telefone", "Contato", "Email", "Celular", "Endereço"}) {
+    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Nome", "CNPJ/CPF", "Telefone", 
+        "Contato", "Email", "Estado"}) {
         boolean[] canEdit = new boolean[]{
-            false, false, false, false, false, false, false, false, false
+            false, false, false, false, false, false
         };
 
         @Override
@@ -42,6 +45,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             return canEdit[columnIndex];
         }
     };
+    
 
 //definição das colunas da tabela
     Cliente cliente;
@@ -58,6 +62,14 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
+        
+        tabela.setAutoResizeMode(tabela.AUTO_RESIZE_OFF);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(200);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(173);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(145);
+        tabela.getColumnModel().getColumn(4).setPreferredWidth(145);
+        tabela.getColumnModel().getColumn(5).setPreferredWidth(60);
     }
 
     /**
@@ -206,7 +218,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBLimpar)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -228,13 +240,12 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
                     + clientes.get(i).getCep();
             tmCliente.addRow(new String[]{null, null, null, null});
             tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
-            tmCliente.setValueAt(clientes.get(i).getInscricao_est(), i, 1);
-            tmCliente.setValueAt(clientes.get(i).getCnpj_cpf(), i, 2);
-            tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 3);
-            tmCliente.setValueAt(clientes.get(i).getContato(), i, 4);
-            tmCliente.setValueAt(clientes.get(i).getEmail(), i, 5);
-            tmCliente.setValueAt(clientes.get(i).getCelular(), i, 6);
-            tmCliente.setValueAt(endereco, i, 7);
+            tmCliente.setValueAt(clientes.get(i).getCnpj_cpf(), i, 1);
+            tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 2);
+            tmCliente.setValueAt(clientes.get(i).getContato(), i, 3);
+            tmCliente.setValueAt(clientes.get(i).getEmail(), i, 4);
+            
+            tmCliente.setValueAt(clientes.get(i).getEstado(), i, 5);
 
         }    }//GEN-LAST:event_jTNomeKeyTyped
 
@@ -355,7 +366,7 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
         jLAjuda.setToolTipText("<html>Esta é a tela de listagem de Clientes,<br>"
                 + " onde serão listados os dados relativos as informações do cliente. <br>"
                 + "1. Aqui poderão ser efetuadas pesquisas por CPF ou pelo nome do cliente.<br>"
-                + "2. Para ir para a tela de atualização, basta dar um duplo clique na linha do cliente escolhido.<br>"
+                + "2. Para visualizar o perfil completo e/ou atualizar seu cliente, basta dar um duplo clique na linha do cliente escolhido.<br>"
                 + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
 }
