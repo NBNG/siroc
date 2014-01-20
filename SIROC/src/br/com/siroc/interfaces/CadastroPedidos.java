@@ -95,6 +95,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
+        jTObs.setVisible(false);
     }
 
     /**
@@ -106,10 +107,10 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLFornecedor = new javax.swing.JLabel();
-        jTNome_Fornecedor = new javax.swing.JTextField();
+        jLCliente = new javax.swing.JLabel();
+        jTCliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TabelaFornecedor = new javax.swing.JTable();
+        TabelaCliente = new javax.swing.JTable();
         jLData = new javax.swing.JLabel();
         jLTipo_Pedido = new javax.swing.JLabel();
         jLTipo_Pagamento = new javax.swing.JLabel();
@@ -127,51 +128,52 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         jBSalvar = new javax.swing.JButton();
         jBLimpar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        TabelaCliente = new javax.swing.JTable();
-        jLCliente = new javax.swing.JLabel();
-        jTCliente = new javax.swing.JTextField();
+        TabelaFornecedor = new javax.swing.JTable();
+        jLFornecedor = new javax.swing.JLabel();
+        jTFornecedor = new javax.swing.JTextField();
         jBExcluir = new javax.swing.JButton();
         jLAjuda = new javax.swing.JLabel();
         jLPrazo = new javax.swing.JLabel();
         jTPrazo = new javax.swing.JTextField();
-        jCBPago1 = new javax.swing.JComboBox();
+        jCBPago = new javax.swing.JComboBox();
+        jTObs = new javax.swing.JTextField();
 
         setClosable(true);
 
-        jLFornecedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLFornecedor.setText("Fornecedor:");
+        jLCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLCliente.setText("Cliente:");
 
-        jTNome_Fornecedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTNome_Fornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTNome_FornecedorKeyTyped(evt);
+                jTClienteKeyTyped(evt);
             }
         });
 
-        TabelaFornecedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TabelaFornecedor.setModel(tmFornecedor);
-        TabelaFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
+        TabelaCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        TabelaCliente.setModel(tmCliente);
+        TabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TabelaFornecedorMouseClicked(evt);
+                TabelaClienteMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TabelaFornecedor);
+        jScrollPane1.setViewportView(TabelaCliente);
 
-        jLData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLData.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLData.setText("Data:");
 
-        jLTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLTipo_Pedido.setText("Tipo de Pedido:");
 
-        jLTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLTipo_Pagamento.setText("Tipo de Pagamento:");
 
         jDCData.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jCBTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jCBTipo_Pedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCBTipo_Pedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NF", "SO" }));
 
-        jCBTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jCBTipo_Pagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCBTipo_Pagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cheque", "Boleto", "Vale", "Cartão", "Depósito", "Dinheiro" }));
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -196,7 +198,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         jLTabela_Fornecedor.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLTabela_Fornecedor.setText("Tabela de Produtos do Fornecedor");
 
-        jBSalvar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBSalvar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/salvar.png"))); // NOI18N
         jBSalvar.setText("Salvar");
         jBSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +207,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/limpar.png"))); // NOI18N
         jBLimpar.setText("Limpar");
         jBLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -214,28 +216,27 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        TabelaCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TabelaCliente.setModel(tmCliente);
-        TabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+        TabelaFornecedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        TabelaFornecedor.setModel(tmFornecedor);
+        TabelaFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TabelaClienteMouseClicked(evt);
+                TabelaFornecedorMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(TabelaCliente);
+        jScrollPane4.setViewportView(TabelaFornecedor);
 
-        jLCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLCliente.setText("Cliente:");
+        jLFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLFornecedor.setText("Fornecedor:");
 
-        jTCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTFornecedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTClienteKeyTyped(evt);
+                jTFornecedorKeyTyped(evt);
             }
         });
 
         jBExcluir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/excluir.gif"))); // NOI18N
-        jBExcluir.setText("Retirar Produto");
         jBExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBExcluirActionPerformed(evt);
@@ -251,19 +252,28 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jLPrazo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLPrazo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLPrazo.setText("Prazo:");
 
-        jCBPago1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jCBPago1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Parcialmente", "" }));
+        jTPrazo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jCBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Parcialmente", "" }));
+        jCBPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBPagoActionPerformed(evt);
+            }
+        });
+
+        jTObs.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -273,65 +283,70 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLFornecedor)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTNome_Fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLCliente)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTCliente))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                .addGap(30, 30, 30)
+                                .addGap(48, 48, 48)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLCliente)
+                                        .addComponent(jLFornecedor)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTCliente)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                                        .addComponent(jTFornecedor)))
+                                .addGap(0, 14, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(Separador))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Separador, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLTabela_Fornecedor)
-                                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(30, 30, 30)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLTabela_Pedido)
-                                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jBExcluir)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jBSalvar)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jBLimpar)))))
-                                .addGap(0, 9, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jLData)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLPrazo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLTabela_Fornecedor)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCBPago1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLTipo_Pedido)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLTipo_Pagamento)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLTabela_Pedido)
+                                        .addGap(19, 19, 19)
+                                        .addComponent(jBExcluir))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14, 14, 14))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLPrazo)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTObs, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLData)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLTipo_Pedido)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLTipo_Pagamento)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBSalvar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBLimpar)))
                 .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBLimpar, jBSalvar});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jScrollPane2, jScrollPane3, jScrollPane4});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,70 +355,74 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                     .addComponent(jLCabecalho)
                     .addComponent(jLAjuda))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLFornecedor)
-                    .addComponent(jTNome_Fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLCliente)
-                    .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLData)
-                        .addComponent(jDCData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLTipo_Pedido)
-                            .addComponent(jLTipo_Pagamento)
-                            .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLPrazo)
-                            .addComponent(jTPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCBPago1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(1, 1, 1)))
-                .addGap(16, 16, 16)
-                .addComponent(Separador, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLTabela_Pedido)
-                    .addComponent(jLTabela_Fornecedor))
+                            .addComponent(jLCliente)
+                            .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLFornecedor)
+                            .addComponent(jTFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(Separador, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLTabela_Pedido)
+                            .addComponent(jLTabela_Fornecedor)))
+                    .addComponent(jBExcluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLTipo_Pedido)
+                        .addComponent(jCBTipo_Pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLTipo_Pagamento)
+                        .addComponent(jCBTipo_Pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jDCData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBExcluir)
+                    .addComponent(jLPrazo)
+                    .addComponent(jTPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSalvar)
                     .addComponent(jBLimpar))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane2, jScrollPane3, jScrollPane4});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTNome_FornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNome_FornecedorKeyTyped
-        while (tmFornecedor.getRowCount() > 0) {
-            tmFornecedor.removeRow(0);
+    private void jTClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyTyped
+        while (tmCliente.getRowCount() > 0) {
+            tmCliente.removeRow(0);
         }
 
-        //pesquisa fornecedor por nome e preenche a ListFornecedores
-        listFornecedor = fdao.buscaPorNome(jTNome_Fornecedor.getText());
+        listCliente = cdao.buscaPorNome(jTFornecedor.getText());
 
-        //preenche tabela de fornecedores
-        for (int i = 0; i < listFornecedor.size(); i++) {
-            tmFornecedor.addRow(new String[]{null, null, null, null});
-            tmFornecedor.setValueAt(listFornecedor.get(i).getNome(), i, 0);
-            tmFornecedor.setValueAt(listFornecedor.get(i).getEmail(), i, 1);
+        for (int i = 0; i < listCliente.size(); i++) {
+            tmCliente.addRow(new String[]{null, null, null, null});
+            tmCliente.setValueAt(listCliente.get(i).getNome(), i, 0);
+            tmCliente.setValueAt(listCliente.get(i).getCnpj_cpf(), i, 1);
+            tmCliente.setValueAt(listCliente.get(i).getContato(), i, 2);
         }
-    }//GEN-LAST:event_jTNome_FornecedorKeyTyped
+    }//GEN-LAST:event_jTClienteKeyTyped
 
-    private void TabelaFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaFornecedorMouseClicked
+    private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
         //coloca o nome inteiro do fornecedor no campo, com isso o usuario confirma a "clicada" na escolha
-        jTNome_Fornecedor.setText(listFornecedor.get(TabelaFornecedor.getSelectedRow()).getNome());
+        jTCliente.setText(listFornecedor.get(TabelaCliente.getSelectedRow()).getNome());
 
         while (tmProduto_Fornecedor.getRowCount() > 0) {
             tmProduto_Fornecedor.removeRow(0);
@@ -412,7 +431,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         //inicializa array produtos
         listProduto = new ArrayList<>();
         //popula a list de produtos com os produtos presentes na lista de fornecedores pesquisada pelo FornecedorKeyTyped
-        listProduto = listFornecedor.get(TabelaFornecedor.getSelectedRow()).getProdutos();
+        listProduto = listFornecedor.get(TabelaCliente.getSelectedRow()).getProdutos();
 
         for (int i = 0; i < listProduto.size(); i++) {
             tmProduto_Fornecedor.addRow(new String[]{null, null, null, null});
@@ -423,10 +442,10 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             tmProduto_Fornecedor.setValueAt(Editor.format(listProduto.get(i).getValor_saida()), i, 4);
         }
         listItem = new ArrayList<>();
-    }//GEN-LAST:event_TabelaFornecedorMouseClicked
+    }//GEN-LAST:event_TabelaClienteMouseClicked
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
-        status = (String) jCBPago1.getSelectedItem();
+        status = (String) jCBPago.getSelectedItem();
         Date data = jDCData.getDate();
         if (!jTPrazo.getText().equals("")) {
             Calendar cal = Calendar.getInstance();
@@ -437,7 +456,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         }
         DAO<Pedido> pdao = new DAO<>(Pedido.class);
 
-        pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
+        pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaFornecedor.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
                 setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()))
                 .setItens(listItem).setVencimento(data).getPedido();
         //pedido.setItens(listItem);
@@ -487,26 +506,27 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         }
         return item;
     }
-    private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
-        jTCliente.setText(listCliente.get(TabelaCliente.getSelectedRow()).getNome());
+    private void TabelaFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaFornecedorMouseClicked
+        jTFornecedor.setText(listCliente.get(TabelaFornecedor.getSelectedRow()).getNome());
         cliente = new Cliente();
         //cliente = listCliente.get(TabelaCliente.getSelectedRow());
-    }//GEN-LAST:event_TabelaClienteMouseClicked
+    }//GEN-LAST:event_TabelaFornecedorMouseClicked
 
-    private void jTClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyTyped
-        while (tmCliente.getRowCount() > 0) {
-            tmCliente.removeRow(0);
+    private void jTFornecedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFornecedorKeyTyped
+        while (tmFornecedor.getRowCount() > 0) {
+            tmFornecedor.removeRow(0);
         }
 
-        listCliente = cdao.buscaPorNome(jTCliente.getText());
+        //pesquisa fornecedor por nome e preenche a ListFornecedores
+        listFornecedor = fdao.buscaPorNome(jTCliente.getText());
 
-        for (int i = 0; i < listCliente.size(); i++) {
-            tmCliente.addRow(new String[]{null, null, null, null});
-            tmCliente.setValueAt(listCliente.get(i).getNome(), i, 0);
-            tmCliente.setValueAt(listCliente.get(i).getCnpj_cpf(), i, 1);
-            tmCliente.setValueAt(listCliente.get(i).getContato(), i, 2);
+        //preenche tabela de fornecedores
+        for (int i = 0; i < listFornecedor.size(); i++) {
+            tmFornecedor.addRow(new String[]{null, null, null, null});
+            tmFornecedor.setValueAt(listFornecedor.get(i).getNome(), i, 0);
+            tmFornecedor.setValueAt(listFornecedor.get(i).getEmail(), i, 1);
         }
-    }//GEN-LAST:event_jTClienteKeyTyped
+    }//GEN-LAST:event_jTFornecedorKeyTyped
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         CadastroPedidos cp = new CadastroPedidos(painel);
@@ -534,6 +554,15 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jLAjudaMouseClicked
 
+    private void jCBPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBPagoActionPerformed
+        String aux = (String) jCBPago.getSelectedItem();
+        if (aux.equals("Parcialmente")) {
+            jTObs.setVisible(true);
+        } else {
+            jTObs.setVisible(false);
+        }
+    }//GEN-LAST:event_jCBPagoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator Separador;
     private javax.swing.JTable TabelaCliente;
@@ -543,7 +572,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBLimpar;
     private javax.swing.JButton jBSalvar;
-    private javax.swing.JComboBox jCBPago1;
+    private javax.swing.JComboBox jCBPago;
     private javax.swing.JComboBox jCBTipo_Pagamento;
     private javax.swing.JComboBox jCBTipo_Pedido;
     private com.toedter.calendar.JDateChooser jDCData;
@@ -562,13 +591,14 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTCliente;
-    private javax.swing.JTextField jTNome_Fornecedor;
+    private javax.swing.JTextField jTFornecedor;
+    private javax.swing.JTextField jTObs;
     private javax.swing.JTextField jTPrazo;
     // End of variables declaration//GEN-END:variables
 
     public void marca() {
-        jLFornecedor.setText("Fornecedor:*");
-        jLCliente.setText("Cliente:*");
+        jLCliente.setText("Fornecedor:*");
+        jLFornecedor.setText("Cliente:*");
         jLData.setText("Data:*");
         jLTipo_Pedido.setText("Tipo de Pedido:*");
         jLTipo_Pagamento.setText("Tipo de Pagamento:*");
