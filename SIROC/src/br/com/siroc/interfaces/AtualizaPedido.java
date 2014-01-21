@@ -175,7 +175,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
         });
 
         jCBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Parcialmente", "" }));
+        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Parcialmente", "Em Aberto" }));
 
         jTValor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 

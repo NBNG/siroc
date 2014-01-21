@@ -95,7 +95,6 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
-        jTObs.setVisible(false);
     }
 
     /**
@@ -258,13 +257,14 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         jTPrazo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jCBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Parcialmente", "" }));
+        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Parcialmente", "Em Aberto" }));
         jCBPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBPagoActionPerformed(evt);
             }
         });
 
+        jTObs.setEditable(false);
         jTObs.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -388,11 +388,12 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                         .addComponent(jDCData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLPrazo)
-                    .addComponent(jTPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLPrazo)
+                        .addComponent(jTPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSalvar)
@@ -557,9 +558,9 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     private void jCBPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBPagoActionPerformed
         String aux = (String) jCBPago.getSelectedItem();
         if (aux.equals("Parcialmente")) {
-            jTObs.setVisible(true);
+            jTObs.setEditable(true);
         } else {
-            jTObs.setVisible(false);
+            jTObs.setEditable(false);
         }
     }//GEN-LAST:event_jCBPagoActionPerformed
 
