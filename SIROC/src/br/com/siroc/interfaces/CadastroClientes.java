@@ -433,6 +433,7 @@ public class CadastroClientes extends javax.swing.JInternalFrame {
 
     private void marca() {
         jLNome.setText("Nome:*");
+        jLEmail.setText("Email:*");
     }
 
     private void hinter() {

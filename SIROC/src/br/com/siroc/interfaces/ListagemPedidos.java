@@ -688,7 +688,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             query += "AND lower(pedido.tipo_pedido) like lower('" + tipo_ped + "') ";
         }
         query += "GROUP BY pedido.data,cliente.cidade,cliente.estado,cliente.nome, fornecedor.nome, fornecedor.frete, pedido.status,"
-                + "pedido.tipo_pagamento,pedido.tipo_pedido,pedido.id ";
+                + "pedido.tipo_pagamento,pedido.tipo_pedido,pedido.id,pedido.vencimento,pedido.obs ";
         return query;
 
     }
