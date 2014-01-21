@@ -29,13 +29,12 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    private Session session;
+    
 
     public Principal() {
         super("Cella - Sistema de Pedidos e Romaneios");
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
-        session = new ConnectionFactory().getSessionFactory().openSession();
         setLocationRelativeTo(null);
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
