@@ -181,7 +181,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         jLCabecalho.setText("Pesquisa de Pedidos");
 
         jCBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Parcialmente", "" }));
+        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Em Aberto", "Parcialmente", "Pago" }));
 
         jDCVencimento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 

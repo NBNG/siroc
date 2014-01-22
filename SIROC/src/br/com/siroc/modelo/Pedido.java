@@ -35,7 +35,7 @@ public class Pedido {
     private String tipo_pagamento;
     private String tipo_pedido;
     private String status;
-    private String obs;
+    private Double obs;
     private Cliente cliente;
     private List<Item> itens;
     private Double valorTotal;
@@ -115,11 +115,11 @@ public class Pedido {
     }
 
     @Column(name = "ped_obs", nullable = true)
-    public String getObs() {
+    public Double getObs() {
         return obs;
     }
 
-    public void setObs(String obs) {
+    public void setObs(Double obs) {
         this.obs = obs;
     }
 

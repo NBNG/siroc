@@ -35,7 +35,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
     Object[] resultado;
 
     Pedido pedido;
-
+    private String caracteres = "0987654321.,";
     DAO<Pedido> pdao = new DAO<>(Pedido.class);
     List<Object[]> list;
     ListagemPedidos lista;
@@ -91,6 +91,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jTValor = new javax.swing.JTextField();
         jBVisualizar = new javax.swing.JButton();
         jBImprimir2 = new javax.swing.JButton();
+        jLRestante = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -178,6 +179,11 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Parcialmente", "Em Aberto" }));
 
         jTValor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTValorKeyTyped(evt);
+            }
+        });
 
         jBVisualizar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jBVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/visualizar.png"))); // NOI18N
@@ -196,6 +202,9 @@ public class AtualizaPedido extends javax.swing.JFrame {
                 jBImprimir2ActionPerformed(evt);
             }
         });
+
+        jLRestante.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLRestante.setText("Restante:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -232,15 +241,18 @@ public class AtualizaPedido extends javax.swing.JFrame {
                                 .addComponent(jLTipoPagamento)
                                 .addGap(18, 18, 18)
                                 .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLValor)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLFrete))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLValor)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLFrete))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLRestante)))
                         .addGap(18, 47, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBImprimir2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,7 +282,8 @@ public class AtualizaPedido extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLRestante))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -314,13 +327,12 @@ public class AtualizaPedido extends javax.swing.JFrame {
             pedido.setStatus(pago);
             pedido.setTipo_pagamento((String) jCBPagamento.getSelectedItem());
             pedido.setTipo_pedido((String) jCBPedido.getSelectedItem());
-            pedido.setObs(jTValor.getText());
+            pedido.setObs(Double.parseDouble(jTValor.getText()));
             pdao.atualiza(pedido);
             JOptionPane.showMessageDialog(AtualizaPedido.this,
                     "Pedido alterado com sucesso!",
                     "Activity Performed Successfully",
                     JOptionPane.INFORMATION_MESSAGE);
-
             limpar();
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
@@ -329,11 +341,18 @@ public class AtualizaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBAtualizarActionPerformed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(AtualizaPedido.this, "Deseja Realmente excluir o pedido?", "Remove Data", JOptionPane.OK_CANCEL_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            pdao.remover(pedido);
-            JOptionPane.showMessageDialog(AtualizaPedido.this, "Pedido excluído com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+        try {
+            int resposta = JOptionPane.showConfirmDialog(AtualizaPedido.this, "Deseja Realmente excluir o pedido?", "Remove Data", JOptionPane.OK_CANCEL_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                pdao.remover(pedido);
+                JOptionPane.showMessageDialog(AtualizaPedido.this, "Pedido excluído com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
+                limpar();
+            }
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimir1ActionPerformed
@@ -392,6 +411,13 @@ public class AtualizaPedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBImprimir2ActionPerformed
 
+    private void jTValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTValorKeyTyped
+        //metodo para não aceitar letras no campo de dinheiro
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTValorKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAtualizar;
     private javax.swing.JButton jBCancelar;
@@ -410,6 +436,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLEndereco;
     private javax.swing.JLabel jLFornecedor;
     private javax.swing.JLabel jLFrete;
+    private javax.swing.JLabel jLRestante;
     private javax.swing.JLabel jLTipoPagamento;
     private javax.swing.JLabel jLTipoPedido;
     private javax.swing.JLabel jLValor;
@@ -423,7 +450,12 @@ public class AtualizaPedido extends javax.swing.JFrame {
 
         //jLFornecedor.setText((String) resultado[4]);
         jLEndereco.setText(pedido.getCliente().getCidade() + " - " + pedido.getCliente().getEstado());
-        jTValor.setText(pedido.getObs());
+
+        if (pedido.getObs() != null) {
+            jTValor.setText(Editor.format(pedido.getObs()));
+            jLRestante.setText(Editor.format(pedido.getValorTotal() - pedido.getObs()));
+        }
+
         jDCData.setDate(pedido.getData());
         for (int i = 0; i < jCBPago.getItemCount(); i++) {
             if (jCBPago.getItemAt(i).equals((String) resultado[6])) {

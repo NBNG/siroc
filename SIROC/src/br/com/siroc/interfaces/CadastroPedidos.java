@@ -52,7 +52,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
             return canEdit[columnIndex];
         }
     };
-    DefaultTableModel tmProduto_Fornecedor = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"}) {
+    DefaultTableModel tmProduto_Fornecedor = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor"}) {
         boolean[] canEdit = new boolean[]{
             false, false, false, false, false
         };
@@ -95,6 +95,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
+        jDCData.setDate(new Date());
     }
 
     /**
@@ -264,7 +265,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         });
 
         jCBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Parcialmente", "Em Aberto" }));
+        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Em Aberto", "Parcialmente", "Pago", " " }));
         jCBPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBPagoActionPerformed(evt);
@@ -508,6 +509,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     public Item abreOptionPane() {
         JTextField campo_quantidade = new JTextField();
         JTextField campo_valor = new JTextField();
+
         Object[] message = {
             "Quantidade: ", campo_quantidade,
             "Valor Alterado: ", campo_valor};
@@ -542,15 +544,14 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         //inicializa array produtos
         listProduto = new ArrayList<>();
         //popula a list de produtos com os produtos presentes na lista de fornecedores pesquisada pelo FornecedorKeyTyped
-        listProduto = listFornecedor.get(TabelaCliente.getSelectedRow()).getProdutos();
+        listProduto = listFornecedor.get(TabelaFornecedor.getSelectedRow()).getProdutos();
 
         for (int i = 0; i < listProduto.size(); i++) {
             tmProduto_Fornecedor.addRow(new String[]{null, null, null, null});
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getNome(), i, 0);
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getPeso() + " kg", i, 1);
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getFornecedor().getNome(), i, 2);
-            tmProduto_Fornecedor.setValueAt(Editor.format(listProduto.get(i).getValor_entrada()), i, 3);
-            tmProduto_Fornecedor.setValueAt(Editor.format(listProduto.get(i).getValor_saida()), i, 4);
+            tmProduto_Fornecedor.setValueAt(Editor.format(listProduto.get(i).getValor_saida()), i, 3);
         }
         listItem = new ArrayList<>();
     }//GEN-LAST:event_TabelaFornecedorMouseClicked
@@ -603,7 +604,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         if (aux.equals("Parcialmente")) {
             jTObs.setEditable(true);
             jTPrazo.setEditable(true);
-        }else if (aux.equals("Em Aberto")) {
+        } else if (aux.equals("Em Aberto")) {
             jTPrazo.setEditable(true);
             jTObs.setEditable(false);
         } else {

@@ -7,7 +7,6 @@ package br.com.siroc.interfaces;
 import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.backup.Backup;
 import br.com.siroc.drive.InsertGoogleDrive;
-import br.com.siroc.fabrica.ConnectionFactory;
 import java.awt.Desktop;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Toolkit;
@@ -18,7 +17,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import org.hibernate.Session;
 
 /**
  *
@@ -29,8 +27,6 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    
-
     public Principal() {
         super("Cella - Sistema de Pedidos e Romaneios");
         this.setExtendedState(MAXIMIZED_BOTH);
