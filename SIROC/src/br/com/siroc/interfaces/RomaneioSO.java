@@ -26,6 +26,7 @@ import net.sf.jasperreports.engine.JRException;
  * @author matteus
  */
 public class RomaneioSO extends javax.swing.JFrame {
+
     PedidoDAO peddao = new PedidoDAO();
     DAO<Pedido> pdao = new DAO<>(Pedido.class);
     List<Pedido> pedidos;
@@ -33,9 +34,15 @@ public class RomaneioSO extends javax.swing.JFrame {
     HashSet cFornecedor;
     List<Object[]> list; //pesquisa avançada
     DefaultTableModel tmPedido = new DefaultTableModel(null,
-            new String[]{"ID", "Cliente", "Data", "Vencimento", "Fornecedor", "Cidade",
-                "Valor Total", "Pagamento",
-                "Tipo Pedido", "Status"}) {
+            new String[]{"Marcação", "Cliente", "Data", "Vencimento", "Valor Total",
+                "Valor Devedor", "Fornecedor", "Pagamento", "Tipo Pedido", "Cidade", "Status", "ID"}) {
+                public Class<?> getColumnClass(int columnIndex) {
+                    if (columnIndex == 0) {
+                        return Boolean.class;
+                    } else {
+                        return super.getColumnClass(columnIndex);
+                    }
+                }
                 boolean[] canEdit = new boolean[]{
                     false, false, false, false, false, false, false, false,
                     false, false
@@ -56,16 +63,19 @@ public class RomaneioSO extends javax.swing.JFrame {
         this.addKeyListener(new LeitorTeclas());
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/br/com/siroc/Imagens/icone.png")));
         tabela.setAutoResizeMode(tabela.AUTO_RESIZE_OFF);
-        tabela.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(70);
         tabela.getColumnModel().getColumn(1).setPreferredWidth(225);
         tabela.getColumnModel().getColumn(2).setPreferredWidth(110);
         tabela.getColumnModel().getColumn(3).setPreferredWidth(110);
-        tabela.getColumnModel().getColumn(4).setPreferredWidth(225);
-        tabela.getColumnModel().getColumn(5).setPreferredWidth(150);
-        tabela.getColumnModel().getColumn(6).setPreferredWidth(110);
+        tabela.getColumnModel().getColumn(4).setPreferredWidth(110);
+        tabela.getColumnModel().getColumn(5).setPreferredWidth(110);
+        tabela.getColumnModel().getColumn(6).setPreferredWidth(225);
+        tabela.getColumnModel().getColumn(7).setPreferredWidth(90);
         tabela.getColumnModel().getColumn(8).setPreferredWidth(85);
-        tabela.getColumnModel().getColumn(9).setPreferredWidth(55);
-        tabela.getColumnModel().getColumn(7).setPreferredWidth(85);
+        tabela.getColumnModel().getColumn(9).setPreferredWidth(150);
+        tabela.getColumnModel().getColumn(10).setPreferredWidth(115);
+        tabela.getColumnModel().getColumn(11).setPreferredWidth(60);
+
         populateFields();
     }
 
@@ -89,6 +99,7 @@ public class RomaneioSO extends javax.swing.JFrame {
         jBVisualizar = new javax.swing.JButton();
         jBImprimir = new javax.swing.JButton();
         jBGerar = new javax.swing.JButton();
+        jTBMarca = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -97,6 +108,12 @@ public class RomaneioSO extends javax.swing.JFrame {
 
         tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela.setModel(tmPedido);
+        tabela.setRowHeight(23);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabela);
 
         jBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -161,6 +178,15 @@ public class RomaneioSO extends javax.swing.JFrame {
             }
         });
 
+        jTBMarca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTBMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/editar.png"))); // NOI18N
+        jTBMarca.setText("Marcar Tudo");
+        jTBMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTBMarcaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -191,14 +217,17 @@ public class RomaneioSO extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBVisualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBGerar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBImprimir))
                     .addComponent(jBPesquisar)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 988, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jTBMarca)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBVisualizar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jBGerar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBImprimir))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 988, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21))
         );
 
@@ -237,7 +266,8 @@ public class RomaneioSO extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBGerar)
                     .addComponent(jBImprimir)
-                    .addComponent(jBVisualizar))
+                    .addComponent(jBVisualizar)
+                    .addComponent(jTBMarca))
                 .addGap(26, 26, 26))
         );
 
@@ -263,20 +293,26 @@ public class RomaneioSO extends javax.swing.JFrame {
                 Object[] resultado = list.get(i);
                 tmPedido.addRow(new String[]{null, null, null, null});
                 //Posições a baixo relativos as ordem das colunas do JTABLE
-                tmPedido.setValueAt(resultado[10], i, 0); //ID
-                tmPedido.setValueAt(Editor.formatData((Date) resultado[0]), i, 2); //Data
-                tmPedido.setValueAt(resultado[1], i, 5); //Cidade
                 tmPedido.setValueAt(resultado[3], i, 1); //Cliente
-                tmPedido.setValueAt(resultado[4], i, 4); //Fornecedor
-                tmPedido.setValueAt(Editor.format((Double) resultado[5]), i, 6); //Valor Total
-                tmPedido.setValueAt(resultado[6], i, 9); //Status
-                tmPedido.setValueAt(resultado[7], i, 7); //Tipo pagamento
-                tmPedido.setValueAt(resultado[8], i, 8); //Tipo de pedido
+                tmPedido.setValueAt(Editor.formatData((Date) resultado[0]), i, 2); //Data
                 if (resultado[11] == null) {
                     tmPedido.setValueAt("", i, 3); //Vencimento    
                 } else {
                     tmPedido.setValueAt(Editor.formatData((Date) resultado[11]), i, 3); //Vencimento
                 }
+                tmPedido.setValueAt(Editor.format((Double) resultado[5]), i, 4); //Valor Total
+                if (resultado[12] != null) {
+                    Double valor = (Double) resultado[5] - (Double) resultado[12];
+                    tmPedido.setValueAt(Editor.format(valor), i, 5);//devedor
+                } else {
+                    tmPedido.setValueAt("0,00", i, 5);//devedor
+                }
+                tmPedido.setValueAt(resultado[4], i, 6); //Fornecedor
+                tmPedido.setValueAt(resultado[7], i, 7); //Tipo pagamento
+                tmPedido.setValueAt(resultado[8], i, 8); //Tipo de pedido
+                tmPedido.setValueAt(resultado[1], i, 9); //Cidade
+                tmPedido.setValueAt(resultado[6], i, 10); //Status
+                tmPedido.setValueAt(resultado[10], i, 11); //ID
             }
         }
     }//GEN-LAST:event_jBPesquisarActionPerformed
@@ -297,143 +333,161 @@ public class RomaneioSO extends javax.swing.JFrame {
     }//GEN-LAST:event_jLAjudaMouseClicked
 
     private void jBVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVisualizarActionPerformed
-        if (jDCInicial.getDate() == null || jDCFinal.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Selecione ambas as datas!",
-                "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else {
-            if (tabela.getSelectedRowCount() != 0) {
-                String parte = "";
-                int aux = 0;
-                int[] selecao = tabela.getSelectedRows();
-                for (int i : selecao) {
-                    if (aux == 0) {
-                        parte += " fk_pedido = " + tabela.getModel().getValueAt(i, 0);
+        Boolean aux;
+        if (tabela.getRowCount() != 0) {
+            int col = 0;
+            String parte = "";
+            for (int i = 0; i < tabela.getRowCount(); i++) {
+                aux = (Boolean) tabela.getValueAt(i, 0);
+                if (aux == null) {
+
+                } else if (aux == true) {
+                    if (col == 0) {
+                        parte += " fk_pedido = " + tabela.getModel().getValueAt(i, 11);
                     } else {
-                        parte += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 0);
+                        parte += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 11);
                     }
-                    aux++;
+                    col++;
                 }
-                aux = 0;
-                String query = "select fornecedores.for_nome as fornecedor,"
-                + "sum(item_quantidade) as quantidade,"
-                + "produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'0009D90')|| ' Kg' as produto,"
-                + "to_char((select sum(itens.item_quantidade*produtos.pro_peso) from itens inner join produtos on "
-                + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id"
-                + " inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
-                + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "'),'0009D90') || ' Kg' as peso from itens inner join produtos on "
-                + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id "
-                + "inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
-                + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "' group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso,fornecedores.for_nome";
+            }
+            String query = "select fornecedores.for_nome as fornecedor,"
+                    + "sum(item_quantidade) as quantidade,"
+                    + "produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'0009D90')|| ' Kg' as produto,"
+                    + "to_char((select sum(itens.item_quantidade*produtos.pro_peso) from itens inner join produtos on "
+                    + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id"
+                    + " inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
+                    + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "'),'0009D90') || ' Kg' as peso from itens inner join produtos on "
+                    + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id "
+                    + "inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
+                    + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "' group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso,fornecedores.for_nome";
+            System.out.println(query);
+            try {
+                java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
+                java.sql.Date dataF = new java.sql.Date(jDCFinal.getDate().getTime());
+                String nome = "//Romaneio NF " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
+                Relatorio rel = new Relatorio();
+                rel.romaneioSO(query, 2, nome);
 
-                try {
-
-                    java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
-                    java.sql.Date dataF = new java.sql.Date(jDCFinal.getDate().getTime());
-                    String nome = "//Romaneio NF " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
-                    Relatorio rel = new Relatorio();
-                    rel.romaneioSO(query, 2, nome);
-                } catch (IOException | JRException | SQLException ex) {
-                    JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
-                        "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Selecione ao menos um(1) pedido!",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException | JRException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
             }
         }
     }//GEN-LAST:event_jBVisualizarActionPerformed
 
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
-        if (jDCInicial.getDate() == null || jDCFinal.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Selecione ambas as datas!",
-                "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else {
-            if (tabela.getSelectedRowCount() != 0) {
-                String parte = "";
-                int aux = 0;
-                int[] selecao = tabela.getSelectedRows();
-                for (int i : selecao) {
-                    if (aux == 0) {
-                        parte += " fk_pedido = " + tabela.getModel().getValueAt(i, 0);
-                    } else {
-                        parte += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 0);
-                    }
-                    aux++;
-                }
-                aux = 0;
-                String query = "select fornecedores.for_nome as fornecedor,"
-                + "sum(item_quantidade) as quantidade,"
-                + "produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'0009D90')|| ' Kg' as produto,"
-                + "to_char((select sum(itens.item_quantidade*produtos.pro_peso) from itens inner join produtos on "
-                + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id"
-                + " inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
-                + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "'),'0009D90') || ' Kg' as peso from itens inner join produtos on "
-                + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id "
-                + "inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
-                + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "' group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso,fornecedores.for_nome";
-                try {
+        Boolean aux;
+        if (tabela.getRowCount() != 0) {
+            int col = 0;
+            String parte = "";
+            for (int i = 0; i < tabela.getRowCount(); i++) {
+                aux = (Boolean) tabela.getValueAt(i, 0);
+                if (aux == null) {
 
-                    java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
-                    java.sql.Date dataF = new java.sql.Date(jDCFinal.getDate().getTime());
-                    String nome = "//Romaneio SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
-                    Relatorio rel = new Relatorio();
-                    rel.romaneioSO(query, 1, nome);
-                } catch (IOException | JRException | SQLException ex) {
-                    JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
-                        "ERROR", JOptionPane.ERROR_MESSAGE);
+                } else if (aux == true) {
+                    if (col == 0) {
+                        parte += " fk_pedido = " + tabela.getModel().getValueAt(i, 11);
+                    } else {
+                        parte += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 11);
+                    }
+                    col++;
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Selecione ao menos um(1) pedido!",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            String query = "select fornecedores.for_nome as fornecedor,"
+                    + "sum(item_quantidade) as quantidade,"
+                    + "produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'0009D90')|| ' Kg' as produto,"
+                    + "to_char((select sum(itens.item_quantidade*produtos.pro_peso) from itens inner join produtos on "
+                    + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id"
+                    + " inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
+                    + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "'),'0009D90') || ' Kg' as peso from itens inner join produtos on "
+                    + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id "
+                    + "inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
+                    + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "' group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso,fornecedores.for_nome";
+            System.out.println(query);
+            try {
+                java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
+                java.sql.Date dataF = new java.sql.Date(jDCFinal.getDate().getTime());
+                String nome = "//Romaneio NF " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
+                Relatorio rel = new Relatorio();
+                rel.romaneioSO(query, 1, nome);
+
+            } catch (IOException | JRException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
             }
         }
     }//GEN-LAST:event_jBImprimirActionPerformed
 
     private void jBGerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarActionPerformed
-        if (jDCInicial.getDate() == null || jDCFinal.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Selecione ambas as datas!",
-                "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else {
-            if (tabela.getSelectedRowCount() != 0) {
-                String parte = "";
-                int aux = 0;
-                int[] selecao = tabela.getSelectedRows();
-                for (int i : selecao) {
-                    if (aux == 0) {
-                        parte += " fk_pedido = " + tabela.getModel().getValueAt(i, 0);
-                    } else {
-                        parte += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 0);
-                    }
-                    aux++;
-                }
-                aux = 0;
-                String query = "select fornecedores.for_nome as fornecedor,"
-                + "sum(item_quantidade) as quantidade,"
-                + "produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'0009D90')|| ' Kg' as produto,"
-                + "to_char((select sum(itens.item_quantidade*produtos.pro_peso) from itens inner join produtos on "
-                + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id"
-                + " inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
-                + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "'),'0009D90') || ' Kg' as peso from itens inner join produtos on "
-                + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id "
-                + "inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
-                + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "' group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso,fornecedores.for_nome";
-                try {
+        Boolean aux;
+        if (tabela.getRowCount() != 0) {
+            int col = 0;
+            String parte = "";
+            for (int i = 0; i < tabela.getRowCount(); i++) {
+                aux = (Boolean) tabela.getValueAt(i, 0);
+                if (aux == null) {
 
-                    java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
-                    java.sql.Date dataF = new java.sql.Date(jDCFinal.getDate().getTime());
-                    String nome = "//Romaneio SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
-                    Relatorio rel = new Relatorio();
-                    rel.romaneioSO(query, 0, nome);
-                } catch (IOException | JRException | SQLException ex) {
-                    JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
-                        "ERROR", JOptionPane.ERROR_MESSAGE);
+                } else if (aux == true) {
+                    if (col == 0) {
+                        parte += " fk_pedido = " + tabela.getModel().getValueAt(i, 11);
+                    } else {
+                        parte += " OR fk_pedido = " + tabela.getModel().getValueAt(i, 11);
+                    }
+                    col++;
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Selecione ao menos um(1) pedido!",
-                    "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            String query = "select fornecedores.for_nome as fornecedor,"
+                    + "sum(item_quantidade) as quantidade,"
+                    + "produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'0009D90')|| ' Kg' as produto,"
+                    + "to_char((select sum(itens.item_quantidade*produtos.pro_peso) from itens inner join produtos on "
+                    + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id"
+                    + " inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
+                    + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "'),'0009D90') || ' Kg' as peso from itens inner join produtos on "
+                    + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id "
+                    + "inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
+                    + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "' group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso,fornecedores.for_nome";
+            System.out.println(query);
+            try {
+                java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
+                java.sql.Date dataF = new java.sql.Date(jDCFinal.getDate().getTime());
+                String nome = "//Romaneio NF " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
+                Relatorio rel = new Relatorio();
+                rel.romaneioSO(query, 0, nome);
+
+            } catch (IOException | JRException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
             }
         }
     }//GEN-LAST:event_jBGerarActionPerformed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        if (evt.getButton() == evt.BUTTON1) {
+            int linha = tabela.getSelectedRow();
+            int col = tabela.getSelectedColumn();
+
+            if (col == 0) {
+                Boolean aux = (Boolean) tmPedido.getValueAt(linha, col);
+                if (aux == null || aux == false) {
+                    tmPedido.setValueAt(true, linha, col);
+                } else if (aux = true) {
+                    tmPedido.setValueAt(false, linha, col);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_tabelaMouseClicked
+
+    private void jTBMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBMarcaActionPerformed
+        if (tabela.getRowCount() != 0) {
+            if (jTBMarca.isSelected()) {
+                for (int i = 0; i < tabela.getRowCount(); i++) {
+                    tmPedido.setValueAt(true, i, 0);
+                }
+            } else {
+                for (int i = 0; i < tabela.getRowCount(); i++) {
+                    tmPedido.setValueAt(false, i, 0);
+                }
+            }
+        }
+    }//GEN-LAST:event_jTBMarcaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGerar;
@@ -451,6 +505,7 @@ public class RomaneioSO extends javax.swing.JFrame {
     private javax.swing.JLabel jLFornecedor;
     private javax.swing.JLabel jLFornecedor2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToggleButton jTBMarca;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
   public String montaQuery() {
@@ -478,7 +533,9 @@ public class RomaneioSO extends javax.swing.JFrame {
                 + "1. Para gerar o romaneio é necessário escolher as datas respectivas de início e término.<br>"
                 + "2. Há a opção de visualização, gerar PDF's e/ou imprimi-los.<br>"
                 + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
-    }    private void populateFields() {
+    }
+
+    private void populateFields() {
         pedidos = pdao.listaTodos();
         cFornecedor = new HashSet();
 
@@ -488,7 +545,7 @@ public class RomaneioSO extends javax.swing.JFrame {
             }
         }
 
-        fornecedores = new ArrayList<Fornecedor>(cFornecedor);
+        fornecedores = new ArrayList<>(cFornecedor);
 
         Iterator i = cFornecedor.iterator();
 

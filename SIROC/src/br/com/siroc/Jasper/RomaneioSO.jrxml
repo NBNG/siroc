@@ -1,172 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Romaneio_SO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a923840a-2791-4ab8-854b-57aba0cfcf1c">
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <queryString language="SQL">
-		<![CDATA[select produtos.pro_id,itens.item_quantidade, produtos.pro_nome || '-' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto,
-to_char(produtos.pro_entrada,'R$09G999D99')as valor_entrada,to_char(itens.item_valor, 'R$09G999D99') as item_valor, to_char((itens.item_valor * itens.item_quantidade), 'R$09G999D99') as total_parcial,
-to_char((select sum(itens.item_valor * itens.item_quantidade) - sum(itens.item_quantidade * produtos.pro_saida) from itens inner join produtos on
-itens.fk_produto = produtos.pro_id inner join pedidos on itens.fk_pedido = pedidos.ped_id inner join clientes on
-pedidos.fk_cliente = clientes.cli_id inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id
-where  pedidos.ped_data >='2013-11-01' AND pedidos.ped_data <= current_date AND pedidos.ped_pedido = 'SO'), 'R$09G999D99')as saldo,
-to_char((select sum(itens.item_valor * itens.item_quantidade) from itens inner join produtos on itens.fk_produto = produtos.pro_id inner join
-pedidos on itens.fk_pedido = pedidos.ped_id inner join clientes on pedidos.fk_cliente = clientes.cli_id inner join fornecedores on
-produtos.fk_fornecedor = fornecedores.for_id where pedidos.ped_data >='2013-11-01' AND
-pedidos.ped_data <= current_date AND pedidos.ped_pedido = 'SO'), 'R$09G999D99') as total from pedidos inner join clientes on
-clientes.cli_id = pedidos.fk_cliente inner join itens on pedidos.ped_id = itens.fk_pedido inner join produtos on
-produtos.pro_id = itens.fk_produto inner join fornecedores  on produtos.fk_fornecedor = fornecedores.for_id
- where pedidos.ped_data >='2013-11-01' AND pedidos.ped_data <= current_date AND pedidos.ped_pedido = 'SO']]>
-    </queryString>
-    <field name="pro_id" class="java.lang.Long"/>
-    <field name="item_quantidade" class="java.lang.Integer"/>
-    <field name="produto" class="java.lang.String"/>
-    <field name="valor_entrada" class="java.lang.String"/>
-    <field name="item_valor" class="java.lang.String"/>
-    <field name="total_parcial" class="java.lang.String"/>
-    <field name="saldo" class="java.lang.String"/>
-    <field name="total" class="java.lang.String"/>
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="82">
-            <staticText>
-                <reportElement uuid="0c0ab42e-6826-4e61-8c74-4712903faa76" x="56" y="18" width="440" height="46"/>
-                <textElement>
-                    <font size="32" isBold="true"/>
-                </textElement>
-                <text><![CDATA[ Cleb Wilton - Romaneio SO]]></text>
-            </staticText>
-        </band>
-    </title>
-    <pageHeader>
-        <band height="13"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="20">
-            <staticText>
-                <reportElement uuid="3ea856e2-ee3a-42a6-988d-2c5265502977" mode="Opaque" x="-17" y="0" width="45" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-                <textElement textAlignment="Center">
-                    <font size="14" isBold="true"/>
-                </textElement>
-                <text><![CDATA[QNT]]></text>
-            </staticText>
-            <staticText>
-                <reportElement uuid="a03724a0-7523-4020-9703-2b57547bac4d" mode="Opaque" x="126" y="0" width="238" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-                <textElement textAlignment="Center">
-                    <font size="14" isBold="true"/>
-                </textElement>
-                <text><![CDATA[Produto]]></text>
-            </staticText>
-            <staticText>
-                <reportElement uuid="78274290-6e7a-4350-9214-b7b50c70bb76" mode="Opaque" x="364" y="0" width="96" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-                <textElement textAlignment="Center">
-                    <font size="14" isBold="true"/>
-                </textElement>
-                <text><![CDATA[V. de Venda]]></text>
-            </staticText>
-            <staticText>
-                <reportElement uuid="e6232601-93e2-46f9-a640-64acde489dba" mode="Opaque" x="460" y="0" width="106" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-                <textElement textAlignment="Center">
-                    <font size="14" isBold="true"/>
-                </textElement>
-                <text><![CDATA[Total Parcial]]></text>
-            </staticText>
-            <staticText>
-                <reportElement uuid="8c85092f-63c6-4231-b67d-f6193370b8bb" mode="Opaque" x="28" y="0" width="98" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-                <textElement textAlignment="Center">
-                    <font size="14" isBold="true"/>
-                </textElement>
-                <text><![CDATA[V. de Compra]]></text>
-            </staticText>
-        </band>
-    </columnHeader>
-    <detail>
-        <band height="25">
-            <textField isStretchWithOverflow="true">
-                <reportElement uuid="0dee0a3c-572b-41e9-bcfd-ff43d30ec35c" x="-17" y="0" width="45" height="20"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{item_quantidade}]]></textFieldExpression>
-            </textField>
-            <textField isStretchWithOverflow="true">
-                <reportElement uuid="812de9f9-3eba-4d4d-a528-6bad0d945398" x="28" y="0" width="98" height="20"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{valor_entrada}]]></textFieldExpression>
-            </textField>
-            <textField isStretchWithOverflow="true">
-                <reportElement uuid="d0bcc6f6-30b0-4332-bdc8-e959df63cb32" x="364" y="0" width="96" height="20"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{item_valor}]]></textFieldExpression>
-            </textField>
-            <textField isStretchWithOverflow="true">
-                <reportElement uuid="2f9f8cad-3c7e-4ec3-8ab4-7b6a28bbec81" x="460" y="0" width="106" height="20"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{total_parcial}]]></textFieldExpression>
-            </textField>
-            <textField isStretchWithOverflow="true">
-                <reportElement uuid="8995a0d7-172b-47ff-bdd3-d302fe491723" x="126" y="0" width="238" height="20"/>
-                <textElement textAlignment="Center">
-                    <font size="11"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
-            </textField>
-        </band>
-    </detail>
-    <columnFooter>
-        <band/>
-    </columnFooter>
-    <pageFooter>
-        <band height="102">
-            <staticText>
-                <reportElement uuid="5057cbc6-7a29-4669-9fd2-b3a09287ff73" mode="Opaque" x="379" y="0" width="69" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-                <textElement textAlignment="Center">
-                    <font size="14" isBold="true"/>
-                </textElement>
-                <text><![CDATA[Saldo:]]></text>
-            </staticText>
-            <textField isStretchWithOverflow="true">
-                <reportElement uuid="bca8c8cf-091c-4c8d-aa0f-e3951282088d" x="436" y="0" width="119" height="20"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
-            </textField>
-            <textField isStretchWithOverflow="true">
-                <reportElement uuid="5dcf3cef-cf00-481f-8029-b8faff01e337" x="436" y="20" width="116" height="20"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement uuid="75122ecd-94bb-4b8c-bffc-fbda6f776eed" mode="Opaque" x="364" y="20" width="69" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-                <textElement textAlignment="Center">
-                    <font size="14" isBold="true"/>
-                </textElement>
-                <text><![CDATA[Total:]]></text>
-            </staticText>
-            <staticText>
-                <reportElement uuid="ea95084d-39f7-4854-81c5-1d4259d5a925" x="0" y="56" width="555" height="20"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle"/>
-                <text><![CDATA[Gerado por: Cella - Sistema de Pedidos e Romaneios.]]></text>
-            </staticText>
-            <staticText>
-                <reportElement uuid="c0092087-0707-42f1-b120-2aeddd87febf" x="0" y="76" width="555" height="20"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle"/>
-                <text><![CDATA[ Interessado em nosso serviço? Ligue: (12) 982054378 ou (12) 981669841]]></text>
-            </staticText>
-        </band>
-    </pageFooter>
-    <summary>
-        <band/>
-    </summary>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="quantidade" class="java.lang.Integer"/>
+	<field name="produto" class="java.lang.String"/>
+    <field name="peso" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="82">
+			<staticText>
+				<reportElement uuid="0c0ab42e-6826-4e61-8c74-4712903faa76" x="56" y="18" width="440" height="46"/>
+				<textElement>
+					<font size="32" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Cleb Wilton - Romaneio SO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement uuid="a03724a0-7523-4020-9703-2b57547bac4d" mode="Opaque" x="0" y="0" width="418" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3ea856e2-ee3a-42a6-988d-2c5265502977" mode="Opaque" x="418" y="0" width="137" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QNT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="8995a0d7-172b-47ff-bdd3-d302fe491723" x="0" y="0" width="418" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="0dee0a3c-572b-41e9-bcfd-ff43d30ec35c" x="418" y="0" width="137" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="102">
+			<staticText>
+				<reportElement uuid="ea95084d-39f7-4854-81c5-1d4259d5a925" x="0" y="56" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Gerado por: Cella - Sistema de Pedidos e Romaneios.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c0092087-0707-42f1-b120-2aeddd87febf" x="0" y="76" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ Interessado em nosso serviço? Ligue: (12) 982054378 ou (12) 981669841]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f1f35f9e-9f48-4293-a641-1e8697ae3bbf" mode="Opaque" x="383" y="14" width="86" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso Total:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fed50f4f-fecf-4d28-88d4-f70c8bed558d" x="469" y="14" width="86" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{peso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
 </jasperReport>
