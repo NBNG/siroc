@@ -200,4 +200,28 @@ public class Relatorio {
             JasperViewer.viewReport(impressao, false);
         }
     }
+
+    public void romaneioNF(String query, int tipo, String nome) throws JRException, SQLException, IOException {
+        xml += "\\romaneionf.jrxml";
+
+        JasperDesign desenho = JRXmlLoader.load(xml);
+        JasperReport relatorio = JasperCompileManager.compileReport(desenho);
+        PreparedStatement pstmt = this.conexao.prepareStatement(query);
+        ResultSet rs = pstmt.executeQuery();
+
+        JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+
+        HashMap parametros = new HashMap();
+        parametros.put("termo", new Double(10));
+
+        JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
+        if (tipo == 1) {
+            JasperPrintManager.printPage(impressao, 0, true);
+        } else if (tipo == 0) {
+            caminho = caminho + nome;
+            JasperExportManager.exportReportToPdfFile(impressao, caminho);
+        } else if (tipo == 2) {
+            JasperViewer.viewReport(impressao, false);
+        }
+    }
 }

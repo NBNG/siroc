@@ -256,7 +256,6 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         jLPrazo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLPrazo.setText("Prazo:");
 
-        jTPrazo.setEditable(false);
         jTPrazo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTPrazo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,14 +264,8 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         });
 
         jCBPago.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Em Aberto", "Parcialmente", "Pago", " " }));
-        jCBPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCBPagoActionPerformed(evt);
-            }
-        });
+        jCBPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Em Aberto", "Parcialmente", "Pago" }));
 
-        jTObs.setEditable(false);
         jTObs.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTObs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,7 +294,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLCliente)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTCliente))
+                                        .addComponent(jTCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                 .addGap(48, 48, 48)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -366,7 +359,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBLimpar, jBSalvar});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jScrollPane2, jScrollPane3, jScrollPane4});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane2, jScrollPane3, jScrollPane4});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -598,21 +591,6 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jLAjudaMouseClicked
 
-    private void jCBPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBPagoActionPerformed
-        String aux = (String) jCBPago.getSelectedItem();
-
-        if (aux.equals("Parcialmente")) {
-            jTObs.setEditable(true);
-            jTPrazo.setEditable(true);
-        } else if (aux.equals("Em Aberto")) {
-            jTPrazo.setEditable(true);
-            jTObs.setEditable(false);
-        } else {
-            jTObs.setEditable(false);
-            jTPrazo.setEditable(false);
-        }
-    }//GEN-LAST:event_jCBPagoActionPerformed
-
     private void jTPrazoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPrazoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTPrazoActionPerformed
@@ -697,4 +675,5 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
                 + "7. O botão retirar produto remove um produto da lista no pedido.<br>"
                 + "8. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
     }
+
 }

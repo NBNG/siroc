@@ -41,7 +41,7 @@ public class Pedido {
     private Double valorTotal;
 
     public Pedido(Long id, Date data, String tipo_pagamento, String tipo_pedido,
-            String status, Cliente cliente, List<Item> itens, Date vencimento) {
+            String status, Cliente cliente, List<Item> itens, Date vencimento,Double obs) {
         this.id = id;
         this.data = data;
         this.tipo_pagamento = tipo_pagamento;
@@ -50,6 +50,7 @@ public class Pedido {
         this.cliente = cliente;
         this.itens = itens;
         this.vencimento = vencimento;
+        this.obs = obs;
     }
 
     public Pedido() {

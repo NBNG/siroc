@@ -21,7 +21,7 @@ public class PedidoBuilder {
     private Date vencimento;
     private String tipo_pagamento;
     private String tipo_pedido;
-    private String obs;
+    private Double obs;
     private String status;
     private Cliente cliente;
     private List<Item> itens;
@@ -36,7 +36,7 @@ public class PedidoBuilder {
             throw new IllegalStateException();
         }
 
-        return new Pedido(id, data, tipo_pagamento, tipo_pedido, status, cliente, itens, vencimento);
+        return new Pedido(id, data, tipo_pagamento, tipo_pedido, status, cliente, itens, vencimento,obs);
     }
 
     public PedidoBuilder setId(Long id) {
@@ -64,7 +64,7 @@ public class PedidoBuilder {
     }
 
     public PedidoBuilder setItens(List<Item> itens) {
-        if (itens.size() == 0) {
+        if (itens.isEmpty()) {
             throw new NullPointerException();
         }
         this.itens = itens;
@@ -77,7 +77,7 @@ public class PedidoBuilder {
         return this;
     }
 
-    public PedidoBuilder setObs(String obs) {
+    public PedidoBuilder setObs(Double obs) {
         this.obs = obs;
         return this;
     }
