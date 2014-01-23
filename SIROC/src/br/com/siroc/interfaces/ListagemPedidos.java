@@ -512,8 +512,9 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
         while (tmPedido.getRowCount() > 0) {
-            tmPedido.removeRow(0);
+            tmPedido.removeRow(0);    
         }
+        
         /* new String[]{, "Cliente", "Data", "Vencimento", "Valor Total",
          "Valor Devedor", "Fornecedor", "Pagamento", "Tipo Pedido", "Cidade", "Status"  ID}) {*/
         list = peddao.buscaAvançada(montaQuery());
@@ -565,6 +566,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                     get(tabela.getSelectedRow()), this, painel);
             ap.setVisible(true);
         }
+        
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
@@ -771,7 +773,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             query += "AND pedido.vencimento <='" + dataVencimento + "'";
         } else if (jRBData.isSelected()) {
             JOptionPane.showMessageDialog(ListagemPedidos.this,
-                    "Pesquisa efetuada sem data. \n Valor não especificado.");
+                    "Pesquisa efetuada sem dados. \n Valor não especificado.");
         }
 
         if (jRBEstado.isSelected()) {

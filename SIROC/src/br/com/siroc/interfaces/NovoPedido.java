@@ -15,12 +15,15 @@ import br.com.siroc.modelo.Item;
 import br.com.siroc.modelo.Pedido;
 import br.com.siroc.modelo.Produto;
 import java.awt.Desktop;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -29,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author matteus
  */
-public class NovoPedido extends javax.swing.JInternalFrame {
+public class NovoPedido extends JInternalFrame {
 
     /**
      * Creates new form NovoPedido
@@ -86,6 +89,7 @@ public class NovoPedido extends javax.swing.JInternalFrame {
         super("Cella - Cadastro de Pedidos");
         initComponents();
         this.painel = painel;
+        
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
@@ -133,6 +137,7 @@ public class NovoPedido extends javax.swing.JInternalFrame {
         jLTotalPeso = new javax.swing.JLabel();
 
         setClosable(true);
+        setName("jFrame"); // NOI18N
 
         jLCabecalho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLCabecalho.setText("Cadastro de Pedidos");
@@ -507,7 +512,7 @@ public class NovoPedido extends javax.swing.JInternalFrame {
         Object[] message = {
             "Quantidade: ", campo_quantidade,
             "Valor Alterado: ", campo_valor};
-
+        
         if (JOptionPane.showConfirmDialog(this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
             String[] optionpane = {campo_quantidade.getText(), campo_valor.getText()};
             return gravaResposta(optionpane);
@@ -515,7 +520,7 @@ public class NovoPedido extends javax.swing.JInternalFrame {
             return null;
         }
     }
-
+    
     public Item gravaResposta(String[] message) {
         try {
             item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
