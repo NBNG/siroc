@@ -38,8 +38,15 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
      */
     //Id, cliente, data, vencimento, valor, valor devedor, fornecedor, pagamento, tipo...
     DefaultTableModel tmPedido = new DefaultTableModel(null,
-            new String[]{"Cliente", "Data", "Vencimento", "Valor Total",
+            new String[]{"Marcação", "Cliente", "Data", "Vencimento", "Valor Total",
                 "Valor Devedor", "Fornecedor", "Pagamento", "Tipo Pedido", "Cidade", "Status", "ID"}) {
+                public Class<?> getColumnClass(int columnIndex) {
+                    if (columnIndex == 0) {
+                        return Boolean.class;
+                    } else {
+                        return super.getColumnClass(columnIndex);
+                    }
+                }
                 boolean[] canEdit = new boolean[]{
                     false, false, false, false, false, false, false, false,
                     false, false, false
@@ -86,17 +93,18 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         /* new String[]{, "Cliente", "Data", "Vencimento", "Valor Total",
          "Valor Devedor", "Fornecedor", "Pagamento", "Tipo Pedido", "Cidade", "Status"  ID}) {*/
         tabela.setAutoResizeMode(tabela.AUTO_RESIZE_OFF);
-        tabela.getColumnModel().getColumn(0).setPreferredWidth(225);
-        tabela.getColumnModel().getColumn(1).setPreferredWidth(110);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(70);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(225);
         tabela.getColumnModel().getColumn(2).setPreferredWidth(110);
         tabela.getColumnModel().getColumn(3).setPreferredWidth(110);
         tabela.getColumnModel().getColumn(4).setPreferredWidth(110);
-        tabela.getColumnModel().getColumn(5).setPreferredWidth(225);
-        tabela.getColumnModel().getColumn(6).setPreferredWidth(90);
-        tabela.getColumnModel().getColumn(7).setPreferredWidth(85);
-        tabela.getColumnModel().getColumn(8).setPreferredWidth(150);
-        tabela.getColumnModel().getColumn(9).setPreferredWidth(115);
-        tabela.getColumnModel().getColumn(10).setPreferredWidth(60);
+        tabela.getColumnModel().getColumn(5).setPreferredWidth(110);
+        tabela.getColumnModel().getColumn(6).setPreferredWidth(225);
+        tabela.getColumnModel().getColumn(7).setPreferredWidth(90);
+        tabela.getColumnModel().getColumn(8).setPreferredWidth(85);
+        tabela.getColumnModel().getColumn(9).setPreferredWidth(150);
+        tabela.getColumnModel().getColumn(10).setPreferredWidth(115);
+        tabela.getColumnModel().getColumn(11).setPreferredWidth(60);
     }
 
     /**
@@ -142,6 +150,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         jBImprimir = new javax.swing.JButton();
         jBImprimirMeia = new javax.swing.JButton();
         jBVisualizar = new javax.swing.JButton();
+        jTBMarca = new javax.swing.JToggleButton();
 
         setClosable(true);
 
@@ -287,6 +296,15 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        jTBMarca.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTBMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/editar.png"))); // NOI18N
+        jTBMarca.setText("Marcar Tudo");
+        jTBMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTBMarcaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -343,16 +361,20 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jBImprimirMeia)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jBImprimir)
-                            .addGap(62, 62, 62)
-                            .addComponent(jBPDF))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jTBSeleciona)
-                            .addGap(18, 18, 18)
-                            .addComponent(jBPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jBVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jBVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTBMarca))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBImprimir)
+                                .addGap(62, 62, 62)
+                                .addComponent(jBPDF))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTBSeleciona)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -436,11 +458,13 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                             .addComponent(jBImprimir)
                             .addComponent(jBPDF))
                         .addGap(18, 18, 18)
-                        .addComponent(jBVisualizar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBVisualizar)
+                            .addComponent(jTBMarca)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jBLimpar1)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -469,14 +493,21 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTBSelecionaActionPerformed
 
     private void jBPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPDFActionPerformed
-        int[] selecao = tabela.getSelectedRows();
-        for (int i = 0; i < tabela.getSelectedRowCount(); i++) {
-            gerarPDF((Long) tabela.getModel().getValueAt(selecao[i], 10),
-                    (String) tabela.getModel().getValueAt(selecao[i], 0));
+        Boolean aux;
+        if (tabela.getRowCount() != 0) {
+            for (int i = 0; i < tabela.getRowCount(); i++) {
+                aux = (Boolean) tabela.getValueAt(i, 0);
+                if (aux == null) {
+
+                } else if (aux == true) {
+                    gerarPDF((Long) tabela.getValueAt(i, 11),
+                            (String) tabela.getValueAt(i, 1));
+                }
+            }
+            JOptionPane.showMessageDialog(this, "PDFs criado com sucesso!",
+                    "Activity Performed Successfully",
+                    JOptionPane.WARNING_MESSAGE);
         }
-        JOptionPane.showMessageDialog(this, "PDFs criado com sucesso!",
-                "Activity Performed Successfully",
-                JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jBPDFActionPerformed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
@@ -490,30 +521,45 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             Object[] resultado = list.get(i);
             tmPedido.addRow(new String[]{null, null, null, null});
             //Posições a baixo relativos as ordem das colunas do JTABLE
-            tmPedido.setValueAt(resultado[3], i, 0); //Cliente
-            tmPedido.setValueAt(Editor.formatData((Date) resultado[0]), i, 1); //Data
+            tmPedido.setValueAt(resultado[3], i, 1); //Cliente
+            tmPedido.setValueAt(Editor.formatData((Date) resultado[0]), i, 2); //Data
             if (resultado[11] == null) {
-                tmPedido.setValueAt("", i, 2); //Vencimento    
+                tmPedido.setValueAt("", i, 3); //Vencimento    
             } else {
-                tmPedido.setValueAt(Editor.formatData((Date) resultado[11]), i, 2); //Vencimento
+                tmPedido.setValueAt(Editor.formatData((Date) resultado[11]), i, 3); //Vencimento
             }
-            tmPedido.setValueAt(Editor.format((Double) resultado[5]), i, 3); //Valor Total
+            tmPedido.setValueAt(Editor.format((Double) resultado[5]), i, 4); //Valor Total
             if (resultado[12] != null) {
                 Double valor = (Double) resultado[5] - (Double) resultado[12];
-                tmPedido.setValueAt(Editor.format(valor), i, 4);//devedor
+                tmPedido.setValueAt(Editor.format(valor), i, 5);//devedor
             } else {
-                tmPedido.setValueAt("0,00", i, 4);//devedor
+                tmPedido.setValueAt("0,00", i, 5);//devedor
             }
-            tmPedido.setValueAt(resultado[4], i, 5); //Fornecedor
-            tmPedido.setValueAt(resultado[7], i, 6); //Tipo pagamento
-            tmPedido.setValueAt(resultado[8], i, 7); //Tipo de pedido
-            tmPedido.setValueAt(resultado[1], i, 8); //Cidade
-            tmPedido.setValueAt(resultado[6], i, 9); //Status
-            tmPedido.setValueAt(resultado[10], i, 10); //ID
+            tmPedido.setValueAt(resultado[4], i, 6); //Fornecedor
+            tmPedido.setValueAt(resultado[7], i, 7); //Tipo pagamento
+            tmPedido.setValueAt(resultado[8], i, 8); //Tipo de pedido
+            tmPedido.setValueAt(resultado[1], i, 9); //Cidade
+            tmPedido.setValueAt(resultado[6], i, 10); //Status
+            tmPedido.setValueAt(resultado[10], i, 11); //ID
         }
     }//GEN-LAST:event_jBPesquisarActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        if (evt.getButton() == evt.BUTTON1) {
+            int linha = tabela.getSelectedRow();
+            int col = tabela.getSelectedColumn();
+
+            if (col == 0) {
+                Boolean aux = (Boolean) tmPedido.getValueAt(linha, col);
+                if (aux == null || aux == false) {
+                    tmPedido.setValueAt(true, linha, col);
+                } else if (aux = true) {
+                    tmPedido.setValueAt(false, linha, col);
+                }
+
+            }
+        }
+
         if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
             AtualizaPedido ap = new AtualizaPedido(list.
                     get(tabela.getSelectedRow()), this, painel);
@@ -544,37 +590,75 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimpar1ActionPerformed
 
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
-        int[] selecao = tabela.getSelectedRows();
-        for (int i = 0; i < tabela.getSelectedRowCount(); i++) {
-            imprimir((Long) tabela.getModel().getValueAt(selecao[i], 10),
-                    (String) tabela.getModel().getValueAt(selecao[i], 0));
+        Boolean aux;
+        if (tabela.getRowCount() != 0) {
+            for (int i = 0; i < tabela.getRowCount(); i++) {
+                aux = (Boolean) tabela.getValueAt(i, 0);
+                if (aux == null) {
+
+                } else if (aux == true) {
+                    imprimir((Long) tabela.getValueAt(i, 11),
+                            (String) tabela.getValueAt(i, 1));
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Impressões realizadas com sucesso!",
+                    "Activity Performed Successfully",
+                    JOptionPane.WARNING_MESSAGE);
         }
-        JOptionPane.showMessageDialog(this, "Impressões realizadas com sucesso!",
-                "Activity Performed Successfully",
-                JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jBImprimirActionPerformed
 
     private void jBImprimirMeiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirMeiaActionPerformed
-        int[] selecao = tabela.getSelectedRows();
-        for (int i = 0; i < tabela.getSelectedRowCount(); i++) {
-            imprimirMeia((Long) tabela.getModel().getValueAt(selecao[i], 10),
-                    (String) tabela.getModel().getValueAt(selecao[i], 0));
+        Boolean aux;
+        if (tabela.getRowCount() != 0) {
+            for (int i = 0; i < tabela.getRowCount(); i++) {
+                aux = (Boolean) tabela.getValueAt(i, 0);
+                if (aux == null) {
+
+                } else if (aux == true) {
+                    imprimirMeia((Long) tabela.getValueAt(i, 11),
+                            (String) tabela.getValueAt(i, 1));
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Impressões realizadas com sucesso!",
+                    "Activity Performed Successfully",
+                    JOptionPane.WARNING_MESSAGE);
         }
-        JOptionPane.showMessageDialog(this, "Impressões realizadas com sucesso!",
-                "Activity Performed Successfully",
-                JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jBImprimirMeiaActionPerformed
 
     private void jBVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVisualizarActionPerformed
-        try {
-            int selecao = tabela.getSelectedRow();
-            Relatorio rel = new Relatorio();
-            rel.gerarPedido((Long) tabela.getModel().getValueAt(selecao, 10), 2, "", 0);
+        Boolean aux;
+        if (tabela.getRowCount() != 0) {
+            for (int i = 0; i < tabela.getRowCount(); i++) {
+                aux = (Boolean) tabela.getValueAt(i, 0);
+                if (aux == null) {
 
-        } catch (IOException | JRException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
+                } else if (aux == true) {
+                    try {
+                        Relatorio rel = new Relatorio();
+                        rel.gerarPedido((Long) tabela.getValueAt(i, 11), 2, "", 0);
+
+                    } catch (IOException | JRException | SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
+                    }
+                }
+
+            }
         }
     }//GEN-LAST:event_jBVisualizarActionPerformed
+
+    private void jTBMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBMarcaActionPerformed
+        if (tabela.getRowCount() != 0) {
+            if (jTBMarca.isSelected()) {
+                for (int i = 0; i < tabela.getRowCount(); i++) {
+                    tmPedido.setValueAt(true, i, 0);
+                }
+            } else {
+                for (int i = 0; i < tabela.getRowCount(); i++) {
+                    tmPedido.setValueAt(false, i, 0);
+                }
+            }
+        }
+    }//GEN-LAST:event_jTBMarcaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBImprimir;
@@ -609,6 +693,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRBTipo_Pagamento;
     private javax.swing.JRadioButton jRBTipo_Pedido;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToggleButton jTBMarca;
     private javax.swing.JToggleButton jTBSeleciona;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
