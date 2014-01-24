@@ -4,6 +4,7 @@
  */
 package br.com.siroc.modelo;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,14 +16,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author Proclima
  */
 @Entity
-@Table(name = "PRODUTOS")
-public class Produto {
+@Table(name = "PRODUTOS", uniqueConstraints = @UniqueConstraint(columnNames = {"pro_nome", "pro_peso"}))
+public class Produto implements Serializable {
 
     private Long id;
     private String nome;

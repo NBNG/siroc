@@ -57,9 +57,9 @@ public class NovoPedido extends JInternalFrame {
             return canEdit[columnIndex];
         }
     };
-    DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Código", "Nome", "Quantidade", "Valor Alterado"}) {
+    DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Quantidade", "Valor Alterado", "Código"}) {
         boolean[] canEdit = new boolean[]{
-            false, false, false, false
+            false, false, false, false, false, false
         };
 
         @Override
@@ -96,6 +96,15 @@ public class NovoPedido extends JInternalFrame {
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
         jDCData.setDate(new Date());
+        jTProduto.setEnabled(false);
+        //"Nome", "Peso", "Fornecedor", "Quantidade", "Valor Alterado", "Código"}) {
+        TabelaProduto_Pedido.setAutoResizeMode(TabelaProduto_Pedido.AUTO_RESIZE_OFF);
+        TabelaProduto_Pedido.getColumnModel().getColumn(0).setPreferredWidth(150);
+        TabelaProduto_Pedido.getColumnModel().getColumn(1).setPreferredWidth(90);
+        TabelaProduto_Pedido.getColumnModel().getColumn(2).setPreferredWidth(150);
+        TabelaProduto_Pedido.getColumnModel().getColumn(3).setPreferredWidth(90);
+        TabelaProduto_Pedido.getColumnModel().getColumn(4).setPreferredWidth(110);
+        TabelaProduto_Pedido.getColumnModel().getColumn(5).setPreferredWidth(55);
     }
 
     /**
@@ -429,7 +438,7 @@ public class NovoPedido extends JInternalFrame {
     private void TabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaClienteMouseClicked
         //coloca o nome inteiro do fornecedor no campo, com isso o usuario confirma a "clicada" na escolha
         jTCliente.setText(listCliente.get(TabelaCliente.getSelectedRow()).getNome());
-
+        jTProduto.setEnabled(true);
     }//GEN-LAST:event_TabelaClienteMouseClicked
 
     private void jTClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyTyped
@@ -485,6 +494,8 @@ public class NovoPedido extends JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
+        valores = vdao.buscaPorNome(listCliente.get(TabelaCliente.getSelectedRow()).getEstado());
+        Double porcentagem = valores.get(0).getPorcentagem() / 100;
         while (tmProduto_Fornecedor.getRowCount() > 0) {
             tmProduto_Fornecedor.removeRow(0);
         }
@@ -494,8 +505,11 @@ public class NovoPedido extends JInternalFrame {
             tmProduto_Fornecedor.addRow(new String[]{null, null, null, null});
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getNome(), i, 0);
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getPeso() + " kg", i, 1);
-            tmProduto_Fornecedor.setValueAt(Editor.format(listProduto.get(i).getValor_saida()), i, 2);
-            tmProduto_Fornecedor.setValueAt(listProduto.get(i).getFornecedor().getNome(), i, 3);
+            tmProduto_Fornecedor.setValueAt(Editor.format(listProduto.get(i).
+                    getValor_saida() + (listProduto.get(i).getValor_saida()
+                    * porcentagem)), i, 2);
+            tmProduto_Fornecedor.setValueAt(listProduto.get(i).getFornecedor().
+                    getNome(), i, 3);
 
         }
     }//GEN-LAST:event_jTProdutoKeyTyped
@@ -552,8 +566,8 @@ public class NovoPedido extends JInternalFrame {
         JTextField campo_quantidade = new JTextField();
 
         Object[] message = {
-            "Valor alterado: ", campo_valor,
-            "Quantidade: ", campo_quantidade};
+            "Quantidade: ", campo_quantidade, "Valor alterado: ", campo_valor
+        };
 
         //campo_quantidade = JOptionPane.showInputDialog(message);
         if (JOptionPane.showConfirmDialog(this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
@@ -646,17 +660,19 @@ public class NovoPedido extends JInternalFrame {
     private javax.swing.JTextField jTProduto;
     // End of variables declaration//GEN-END:variables
     public void preencheTabela(List<Item> Itens) {
-
+//{"Nome", "Peso", "Fornecedor", "Quantidade", "Valor Alterado", "Código"}) {
         while (tmProduto_Pedido.getRowCount() > 0) {
             tmProduto_Pedido.removeRow(0);
         }
 
         for (int i = 0; i < Itens.size(); i++) {
             tmProduto_Pedido.addRow(new String[]{null, null, null, null});
-            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getId(), i, 0);
-            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getNome(), i, 1);
-            tmProduto_Pedido.setValueAt(Itens.get(i).getQuantidade(), i, 2);
-            tmProduto_Pedido.setValueAt(Editor.format(Itens.get(i).getValor_alterado()), i, 3);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getNome(), i, 0);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getPeso() + " Kg", i, 1);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getFornecedor().getNome(), i, 2);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getQuantidade(), i, 3);
+            tmProduto_Pedido.setValueAt(Editor.format(Itens.get(i).getValor_alterado()), i, 4);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getId(), i, 5);
             if (count == i) {
                 totalValor = totalValor + (Itens.get(i).getValor_alterado() * Itens.get(i).getQuantidade());
                 totalPeso = totalPeso + (Itens.get(i).getProduto().getPeso() * Itens.get(i).getQuantidade());
