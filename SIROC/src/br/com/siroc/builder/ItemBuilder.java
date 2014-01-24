@@ -53,13 +53,16 @@ public class ItemBuilder {
         return this;
     }
 
+    /**
+     * @param quantidade
+     * @return
+     */
     public ItemBuilder setQuantidade(String quantidade) {
-        
-        if (quantidade.equals("")) {
+        if (quantidade == null) {
             throw new IllegalArgumentException();
         }
 
-        if (Integer.parseInt(quantidade) < 1){
+        if (!temNumeros(quantidade)) {
             throw new IllegalArgumentException();
         } else {
             this.quantidade = Integer.parseInt(quantidade);
@@ -69,15 +72,21 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder setValor_alterado(String valor_alterado) {
+    /**
+     *
+     * @param valor_alterado
+     * @param porcentagem
+     * @return
+     */
+    public ItemBuilder setValor_alterado(String valor_alterado, Double porcentagem) {
         if (!temNumeros(valor_alterado) && !valor_alterado.equals("")) {
             throw new IllegalArgumentException();
         }
 
         if (valor_alterado.equals("")) {
-            this.valor_alterado = produto.getValor_saida();
+            this.valor_alterado = produto.getValor_saida() + (porcentagem * produto.getValor_saida());
         } else {
-            this.valor_alterado = Double.parseDouble(valor_alterado.replace(",", "."));
+            this.valor_alterado = Double.parseDouble(valor_alterado.replace(",", ".")) + (porcentagem * Double.parseDouble(valor_alterado.replace(",", ".")));
         }
 
         return this;

@@ -25,6 +25,7 @@
         <mapping class="br.com.siroc.modelo.Pedido"/>
         <mapping class="br.com.siroc.modelo.Item"/>
         <mapping class="br.com.siroc.modelo.Historico"/>
+        <mapping class="br.com.siroc.modelo.Valores"/>
 
     </session-factory>
 </hibernate-configuration>

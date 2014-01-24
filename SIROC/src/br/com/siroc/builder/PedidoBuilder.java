@@ -36,7 +36,7 @@ public class PedidoBuilder {
             throw new IllegalStateException();
         }
 
-        return new Pedido(id, data, tipo_pagamento, tipo_pedido, status, cliente, itens, vencimento,obs);
+        return new Pedido(id, data, tipo_pagamento, tipo_pedido, status, cliente, itens, vencimento, obs);
     }
 
     public PedidoBuilder setId(Long id) {

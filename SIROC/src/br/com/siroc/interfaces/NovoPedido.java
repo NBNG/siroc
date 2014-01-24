@@ -10,28 +10,22 @@ import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.builder.ItemBuilder;
 import br.com.siroc.builder.PedidoBuilder;
 import br.com.siroc.dao.DAO;
+import br.com.siroc.dao.ValorDAO;
 import br.com.siroc.modelo.Cliente;
 import br.com.siroc.modelo.Item;
 import br.com.siroc.modelo.Pedido;
 import br.com.siroc.modelo.Produto;
+import br.com.siroc.modelo.Valores;
 import java.awt.Desktop;
-import java.awt.KeyboardFocusManager;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JDesktopPane;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -90,12 +84,14 @@ public class NovoPedido extends JInternalFrame {
     Double totalValor = 0.;
     Double totalPeso = 0.;
     int count = 0;
+    List<Valores> valores;
+    ValorDAO vdao = new ValorDAO();
 
     public NovoPedido(JDesktopPane painel) {
         super("Cella - Cadastro de Pedidos");
         initComponents();
         this.painel = painel;
-        
+
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
@@ -550,32 +546,34 @@ public class NovoPedido extends JInternalFrame {
 //        frame.setVisible(true);
 //        //int selectedOption = JOptionPane.showOptionDialog(null, frame, "Informações adicionais", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options , options[0]);
 //        int selectedOption = 1;
-      
-      //String campo_quantidade;
-      JTextField campo_valor = new JTextField();
-      JTextField campo_quantidade = new JTextField();
-      
-      Object[] message = {
-          "Valor alterado: ", campo_valor,
-          "Quantidade: ", campo_quantidade};
-        
-      //campo_quantidade = JOptionPane.showInputDialog(message);
-      if (JOptionPane.showConfirmDialog(this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+
+        //String campo_quantidade;
+        JTextField campo_valor = new JTextField();
+        JTextField campo_quantidade = new JTextField();
+
+        Object[] message = {
+            "Valor alterado: ", campo_valor,
+            "Quantidade: ", campo_quantidade};
+
+        //campo_quantidade = JOptionPane.showInputDialog(message);
+        if (JOptionPane.showConfirmDialog(this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
             String[] optionpane = {campo_quantidade.getText(), campo_valor.getText()};
             return gravaResposta(optionpane);
-        
+
 //        if(selectedOption == 1){
-            
         } else {
-            
+
             return null;
         }
     }
-    
+
     public Item gravaResposta(String[] message) {
+        valores = vdao.buscaPorNome(listCliente.get(TabelaCliente.getSelectedRow()).getEstado());
+
+        Double porcentagem = valores.get(0).getPorcentagem() / 100;
         try {
             item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
-                    setQuantidade(message[0]).setValor_alterado((String) message[1])
+                    setQuantidade(message[0]).setValor_alterado(message[1], porcentagem)
                     .getItem();
 
         } catch (NullPointerException e) {
@@ -614,7 +612,6 @@ public class NovoPedido extends JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jTObsKeyTyped
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabelaCliente;

@@ -512,9 +512,9 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
         while (tmPedido.getRowCount() > 0) {
-            tmPedido.removeRow(0);    
+            tmPedido.removeRow(0);
         }
-        
+
         /* new String[]{, "Cliente", "Data", "Vencimento", "Valor Total",
          "Valor Devedor", "Fornecedor", "Pagamento", "Tipo Pedido", "Cidade", "Status"  ID}) {*/
         list = peddao.buscaAvançada(montaQuery());
@@ -566,7 +566,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                     get(tabela.getSelectedRow()), this, painel);
             ap.setVisible(true);
         }
-        
+
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked

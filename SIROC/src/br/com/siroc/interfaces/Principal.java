@@ -59,6 +59,7 @@ public class Principal extends javax.swing.JFrame {
         jMClente = new javax.swing.JMenu();
         jMICadastro_Clientes = new javax.swing.JMenuItem();
         jMIListagem_Clientes = new javax.swing.JMenuItem();
+        jMIControle = new javax.swing.JMenuItem();
         jMFornecedor = new javax.swing.JMenu();
         jMICadastro_Fornecedor = new javax.swing.JMenuItem();
         jMIListagem_Fornecedor = new javax.swing.JMenuItem();
@@ -161,6 +162,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMClente.add(jMIListagem_Clientes);
+
+        jMIControle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIControle.setText("Estados - Controle");
+        jMIControle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIControleActionPerformed(evt);
+            }
+        });
+        jMClente.add(jMIControle);
 
         jMenu.add(jMClente);
 
@@ -436,6 +446,12 @@ public class Principal extends javax.swing.JFrame {
         rnf.setVisible(true);
     }//GEN-LAST:event_jMIRomaneioNFActionPerformed
 
+    private void jMIControleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIControleActionPerformed
+        ControleValores vl = new ControleValores(jPanel);
+        jPanel.add(vl);
+        vl.setVisible(true);
+    }//GEN-LAST:event_jMIControleActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -483,6 +499,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMICadastro_Pedidos;
     private javax.swing.JMenuItem jMICadastro_Produtos;
     private javax.swing.JMenuItem jMICella;
+    private javax.swing.JMenuItem jMIControle;
     private javax.swing.JMenuItem jMIDesenvolvedores;
     private javax.swing.JMenuItem jMIGoogle;
     private javax.swing.JMenuItem jMIListagem_Clientes;

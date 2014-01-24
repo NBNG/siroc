@@ -518,7 +518,7 @@ public class CadastroPedidos extends javax.swing.JInternalFrame {
     public Item gravaResposta(String[] message) {
         try {
             item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
-                    setQuantidade(message[0]).setValor_alterado((String) message[1])
+                    setQuantidade(message[0]).setValor_alterado((String) message[1], 1.)
                     .getItem();
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(CadastroPedidos.this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);

@@ -87,7 +87,7 @@ public class Relatorio {
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
 
-            JasperPrintManager.printPage(impressao, 0, true);
+            JasperPrintManager.printPage(impressao, 0, false);
         } else if (tipo == 0) {
             caminho = caminho + "\\pedido -" + id + " - " + nome + ".pdf";
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
@@ -127,7 +127,7 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperPrintManager.printPage(impressao, 0, true);
+            JasperPrintManager.printPage(impressao, 0, false);
         } else if (tipo == 0) {
             caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
@@ -168,7 +168,7 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperPrintManager.printPage(impressao, 0, true);
+            JasperPrintManager.printPage(impressao, 0, false);
         } else if (tipo == 0) {
             caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
@@ -192,7 +192,7 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperPrintManager.printPage(impressao, 0, true);
+            JasperPrintManager.printPage(impressao, 0, false);
         } else if (tipo == 0) {
             caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
@@ -216,7 +216,7 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperPrintManager.printPage(impressao, 0, true);
+            JasperPrintManager.printPage(impressao, 0, false);
         } else if (tipo == 0) {
             caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
