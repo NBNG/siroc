@@ -54,11 +54,12 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setQuantidade(String quantidade) {
-        if (quantidade == null) {
+        
+        if (quantidade.equals("")) {
             throw new IllegalArgumentException();
         }
 
-        if (!temNumeros(quantidade)) {
+        if (Integer.parseInt(quantidade) < 1){
             throw new IllegalArgumentException();
         } else {
             this.quantidade = Integer.parseInt(quantidade);
