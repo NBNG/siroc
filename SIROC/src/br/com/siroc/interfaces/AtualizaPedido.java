@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,7 +74,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
     };
     DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Código P.", "Nome", "Quantidade", "Valor Alterado", "C. Lista"}) {
         boolean[] canEdit = new boolean[]{
-            false, false, false, false
+            false, false, false, false, false
         };
 
         @Override
@@ -139,7 +141,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
         TabelaPedido = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         TabelaFornecedor = new javax.swing.JTable();
-        jBCancelar1 = new javax.swing.JButton();
+        jBRemover = new javax.swing.JButton();
         jTProduto = new javax.swing.JTextField();
         jLProduto = new javax.swing.JLabel();
         jLTotalValor = new javax.swing.JLabel();
@@ -297,11 +299,11 @@ public class AtualizaPedido extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(TabelaFornecedor);
 
-        jBCancelar1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/excluir.gif"))); // NOI18N
-        jBCancelar1.addActionListener(new java.awt.event.ActionListener() {
+        jBRemover.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/excluir.gif"))); // NOI18N
+        jBRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCancelar1ActionPerformed(evt);
+                jBRemoverActionPerformed(evt);
             }
         });
 
@@ -404,7 +406,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBCancelar1))
+                                    .addComponent(jBRemover))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLTotalValor)
                                     .addGap(153, 153, 153)
@@ -473,7 +475,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(jBCancelar1))
+                        .addComponent(jBRemover))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -496,61 +498,53 @@ public class AtualizaPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAtualizarActionPerformed
-        if (!listItem.isEmpty()) {
-            for (int i = 0; i < listItem.size(); i++) {
-                itdao.adicionar(listItem.get(i));
+        try {
+            //adicionado produtos novos
+            if (!listItem.isEmpty()) {
+                for (int i = 0; i < listItem.size(); i++) {
+                    itdao.adicionar(listItem.get(i));
+                }
             }
+            //removendo produtos do pedido
+            if (!ids.isEmpty()) {
+                for (int i = 0; i < ids.size(); i++) {
+                    Item item = itdao.busca(ids.get(i));
+                    itdao.remover(item);
+                }
+            }
+
+            //alterando informações adicionais
+            String pago = (String) jCBPago.getSelectedItem();
+            Date data = jDCData.getDate();
+
+            if (!jTPrazo.getText().equals("")) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(data);
+                cal.add(cal.DAY_OF_MONTH, Integer.parseInt(jTPrazo.getText()));
+                data = cal.getTime();
+
+            }
+
+            pedido.setVencimento(data);
+            pedido.setData(jDCData.getDate());
+            pedido.setStatus(pago);
+            pedido.setTipo_pagamento((String) jCBPagamento.getSelectedItem());
+            pedido.setTipo_pedido((String) jCBPedido.getSelectedItem());
+
+            if (!jTValor.getText().equals("")) {
+                pedido.setObs(Double.parseDouble(jTValor.getText()));
+            }
+
+            pdao.atualiza(pedido);
+            JOptionPane.showMessageDialog(AtualizaPedido.this,
+                    "Pedido alterado com sucesso!",
+                    "Activity Performed Successfully",
+                    JOptionPane.INFORMATION_MESSAGE);
+            limpar();
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        for (int i = 0; i < ids.size(); i++) {
-            System.out.println(ids.get(i));
-        }
-
-        /*try {
-         String pago = (String) jCBPago.getSelectedItem();
-         Date data = jDCData.getDate();
-         List<Item> listItem = new ArrayList<Item>();
-         Item item;
-
-         if (!jTPrazo.getText().equals("")) {
-         Calendar cal = Calendar.getInstance();
-         cal.setTime(data);
-         cal.add(cal.DAY_OF_MONTH, Integer.parseInt(jTPrazo.getText()));
-         data = cal.getTime();
-
-         }
-
-         for (int i = 0; i < pedido.getItens().size(); i++) {
-         //Long id, Produto produto, Pedido pedido, Integer quantidade, Double valor_alterado
-         item = new Item();
-         item.setId((Long) tmProduto_Fornecedor.getValueAt(i, 0));
-         item.setPedido(pedido);
-         item.setProduto(pedido.getItens().get(i).getProduto());
-         item.setQuantidade(Integer.parseInt(tmProduto_Pedido.getValueAt(i, 2).toString()));
-         item.setValor_alterado(Double.parseDouble(tmProduto_Pedido.getValueAt(i, 3).toString()));
-         listItem.add(item);
-         }
-         pedido.setItens(listItem);
-
-         pedido.setVencimento(data);
-         pedido.setData(jDCData.getDate());
-         pedido.setStatus(pago);
-         pedido.setTipo_pagamento((String) jCBPagamento.getSelectedItem());
-         pedido.setTipo_pedido((String) jCBPedido.getSelectedItem());
-
-         if (!jTValor.getText().equals("")) {
-         pedido.setObs(Double.parseDouble(jTValor.getText()));
-         }
-
-         pdao.atualiza(pedido);
-         JOptionPane.showMessageDialog(AtualizaPedido.this,
-         "Pedido alterado com sucesso!",
-         "Activity Performed Successfully",
-         JOptionPane.INFORMATION_MESSAGE);
-         limpar();
-         } catch (ParseException ex) {
-         JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
-         "ERROR", JOptionPane.ERROR_MESSAGE);
-         }*/
     }//GEN-LAST:event_jBAtualizarActionPerformed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
@@ -722,11 +716,11 @@ public class AtualizaPedido extends javax.swing.JFrame {
         }
         return item;
     }
-    private void jBCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelar1ActionPerformed
+    private void jBRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverActionPerformed
         int index = TabelaPedido.getSelectedRow();
-        tmProduto_Pedido.removeRow(index);
         ids.add((Long) TabelaPedido.getValueAt(index, 4));
-    }//GEN-LAST:event_jBCancelar1ActionPerformed
+        tmProduto_Pedido.removeRow(index);
+    }//GEN-LAST:event_jBRemoverActionPerformed
 
     private void jTProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTProdutoActionPerformed
         // TODO add your handling code here:
@@ -753,10 +747,10 @@ public class AtualizaPedido extends javax.swing.JFrame {
     private javax.swing.JTable TabelaPedido;
     private javax.swing.JButton jBAtualizar;
     private javax.swing.JButton jBCancelar;
-    private javax.swing.JButton jBCancelar1;
     private javax.swing.JButton jBImprimir;
     private javax.swing.JButton jBImprimir1;
     private javax.swing.JButton jBImprimir2;
+    private javax.swing.JButton jBRemover;
     private javax.swing.JButton jBVisualizar;
     private javax.swing.JComboBox jCBPagamento;
     private javax.swing.JComboBox jCBPago;
@@ -847,7 +841,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
             tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getId(), i, 0);
             tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getProduto().getNome(), i, 1);
             tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getQuantidade(), i, 2);
-            tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getValor_alterado(), i, 3);
+            tmProduto_Pedido.setValueAt(Editor.format(pedido.getItens().get(i).getValor_alterado()), i, 3);
             tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getId(), TabelaPedido.getRowCount() - 1, 4);
             if (count == i) {
                 totalValor = totalValor + (pedido.getItens().get(i).getValor_alterado() * pedido.getItens().get(i).getQuantidade());
