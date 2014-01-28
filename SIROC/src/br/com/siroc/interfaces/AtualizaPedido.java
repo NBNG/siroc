@@ -63,6 +63,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
     Double totalPeso = 0.;
     int count = 0;
     int aux = 0;
+    int countUpdate = 0;
     DefaultTableModel tmProduto_Fornecedor = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Valor", "Fornecedor"}) {
         boolean[] canEdit = new boolean[]{
             false, false, false, false
@@ -646,8 +647,23 @@ public class AtualizaPedido extends javax.swing.JFrame {
             Long id = (Long) TabelaPedido.getValueAt(TabelaPedido.getSelectedRow(), 5);
             for (int i = 0; i < pedido.getItens().size(); i++) {
                 if (id == pedido.getItens().get(i).getId()) {
-                    System.out.println(pedido.getItens().get(i).getId());
-                    System.out.println(pedido.getItens().get(i).getProduto().getNome());
+                    JTextField campo_valor = new JTextField();
+                    JTextField campo_quantidade = new JTextField();
+                    Object[] message = {
+                        "Quantidade: ", campo_quantidade, "Valor alterado: ", campo_valor
+                    };
+                    if (JOptionPane.showConfirmDialog(this, message, "Informações Adicionais", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+                        if (!campo_quantidade.getText().equals("")) {
+                            pedido.getItens().get(i).setQuantidade(Integer.parseInt(campo_quantidade.getText()));
+                            TabelaPedido.setValueAt(campo_quantidade.getText(), i, 3);
+                        }
+                        if (!campo_valor.getText().equals("")) {
+                            pedido.getItens().get(i).setValor_alterado(Double.parseDouble(campo_valor.getText()));
+                            Double valor = Double.parseDouble(campo_valor.getText());
+                            TabelaPedido.setValueAt(Editor.format(valor), i, 4);
+                        }
+                        countUpdate++;
+                    }
                 }
             }
         }

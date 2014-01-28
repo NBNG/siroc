@@ -58,7 +58,7 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "pro_nome", length = 50, nullable = false)
+    @Column(name = "pro_nome", length = 100, nullable = false)
     public String getNome() {
         return nome;
     }

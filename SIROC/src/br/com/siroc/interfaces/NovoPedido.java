@@ -483,17 +483,27 @@ public class NovoPedido extends JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
+        cliente = listCliente.get(TabelaCliente.getSelectedRow());
         while (tmProduto_Fornecedor.getRowCount() > 0) {
             tmProduto_Fornecedor.removeRow(0);
         }
 
         listProduto = pdao.buscaPorNome(jTProduto.getText());
         for (int i = 0; i < listProduto.size(); i++) {
+            fornecedor = listProduto.get(i).getFornecedor();
+            Double porcentagem = 0.;
+            if (cliente.getEstado().equals("SP")) {
+                porcentagem = fornecedor.getPorcSp() / 100;
+            } else if (cliente.getEstado().equals("MG")) {
+                porcentagem = fornecedor.getPorcMg() / 100;
+            } else if (cliente.getEstado().equals("RJ")) {
+                porcentagem = fornecedor.getPorcRj() / 100;
+            }
+            Double valorProduto = listProduto.get(i).getValor_saida();
             tmProduto_Fornecedor.addRow(new String[]{null, null, null, null});
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getNome(), i, 0);
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getPeso() + " kg", i, 1);
-            tmProduto_Fornecedor.setValueAt(Editor.format(listProduto.get(i).
-                    getValor_saida()), i, 2);
+            tmProduto_Fornecedor.setValueAt(Editor.format(valorProduto + (valorProduto * porcentagem)), i, 2);
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getFornecedor().
                     getNome(), i, 3);
 
@@ -502,7 +512,7 @@ public class NovoPedido extends JInternalFrame {
 
     private void TabelaProduto_FornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaProduto_FornecedorMouseClicked
         fornecedor = listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getFornecedor();
-        cliente = listCliente.get(TabelaCliente.getSelectedRow());
+
         Item itemAux = abreOptionPane();
         if (itemAux != null) {
             listItem.add(itemAux);
