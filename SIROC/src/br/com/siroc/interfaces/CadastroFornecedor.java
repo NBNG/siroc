@@ -62,6 +62,12 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         jLAjuda = new javax.swing.JLabel();
         jTFrete = new javax.swing.JFormattedTextField();
         jLFrete = new javax.swing.JLabel();
+        jLSP = new javax.swing.JLabel();
+        jTSP = new javax.swing.JFormattedTextField();
+        jLMG = new javax.swing.JLabel();
+        jTMG = new javax.swing.JFormattedTextField();
+        jLRJ = new javax.swing.JLabel();
+        jTRJ = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -120,6 +126,36 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         jLFrete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLFrete.setText("Frete:");
 
+        jLSP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLSP.setText("SP:");
+
+        jTSP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTSP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTSPKeyTyped(evt);
+            }
+        });
+
+        jLMG.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLMG.setText("MG:");
+
+        jTMG.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTMG.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTMGKeyTyped(evt);
+            }
+        });
+
+        jLRJ.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLRJ.setText("RJ:");
+
+        jTRJ.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTRJ.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTRJKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,13 +185,27 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLTelefone))
-                .addGap(18, 18, 18)
-                .addComponent(jLFrete)
-                .addGap(18, 18, 18)
-                .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(93, 93, 93)
+                                .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLTelefone))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLFrete)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLSP)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTSP, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLMG)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTMG, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLRJ)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTRJ, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -187,7 +237,17 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLTelefone)
                         .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLSP)
+                    .addComponent(jTSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLMG)
+                        .addComponent(jTMG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLRJ)
+                            .addComponent(jTRJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar2)
                     .addComponent(jBLimpar))
@@ -199,7 +259,11 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
 
     private void jBCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrar2ActionPerformed
         try {
-            fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).setFrete(jTFrete.getText()).getFornecedor();
+            fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).
+                    setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).
+                    setFrete(jTFrete.getText()).setPorcSp(jTSP.getText()).
+                    setPorcMg(jTMG.getText()).setPorcRj(jTRJ.getText()).
+                    getFornecedor();
             dao.adicionar(fornecedor);
             JOptionPane.showMessageDialog(CadastroFornecedor.this, "Fornecedor adicionado com sucesso!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
             limpar();
@@ -240,6 +304,18 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTFreteKeyTyped
 
+    private void jTSPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSPKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTSPKeyTyped
+
+    private void jTMGKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTMGKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTMGKeyTyped
+
+    private void jTRJKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTRJKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTRJKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar2;
     private javax.swing.JButton jBLimpar;
@@ -248,11 +324,17 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLEmail;
     private javax.swing.JLabel jLFrete;
+    private javax.swing.JLabel jLMG;
     private javax.swing.JLabel jLNome;
+    private javax.swing.JLabel jLRJ;
+    private javax.swing.JLabel jLSP;
     private javax.swing.JLabel jLTelefone;
     private javax.swing.JTextField jTEmail;
     private javax.swing.JFormattedTextField jTFrete;
+    private javax.swing.JFormattedTextField jTMG;
     private javax.swing.JTextField jTNome;
+    private javax.swing.JFormattedTextField jTRJ;
+    private javax.swing.JFormattedTextField jTSP;
     // End of variables declaration//GEN-END:variables
 
     public void limpar() {

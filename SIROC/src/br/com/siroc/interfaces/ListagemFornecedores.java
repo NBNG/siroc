@@ -23,9 +23,10 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
     DAO<Fornecedor> dao = new DAO<Fornecedor>(Fornecedor.class);
     List<Fornecedor> fornecedores;
     //definição das colunas da tabela
-    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{"Nome", "Telefone", "Email", "Frete"}) {
+    DefaultTableModel tmFornecedor = new DefaultTableModel(null, new String[]{
+        "Nome", "Telefone", "Email", "Frete", "SP", "MG", "RJ"}) {
         boolean[] canEdit = new boolean[]{
-            false, false, false, false
+            false, false, false, false, false, false, false
         };
 
         @Override
@@ -117,19 +118,20 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBLimpar)
-                        .addGap(0, 31, Short.MAX_VALUE))
+                        .addComponent(jLCabecalho)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLAjuda))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBLimpar))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLNome)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTNome))
-                            .addComponent(jLCabecalho, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLAjuda)))
+                                .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 31, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -172,6 +174,9 @@ public class ListagemFornecedores extends javax.swing.JInternalFrame {
             tmFornecedor.setValueAt(fornecedores.get(i).getTelefone(), i, 1);
             tmFornecedor.setValueAt(fornecedores.get(i).getEmail(), i, 2);
             tmFornecedor.setValueAt(fornecedores.get(i).getFrete(), i, 3);
+            tmFornecedor.setValueAt(fornecedores.get(i).getPorcSp() + "%", i, 4);
+            tmFornecedor.setValueAt(fornecedores.get(i).getPorcMg() + "%", i, 5);
+            tmFornecedor.setValueAt(fornecedores.get(i).getPorcRj() + "%", i, 6);
         }
     }//GEN-LAST:event_jTNomeKeyTyped
 

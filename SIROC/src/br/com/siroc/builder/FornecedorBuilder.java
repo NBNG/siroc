@@ -19,6 +19,9 @@ public class FornecedorBuilder {
     private String telefone;
     private String email;
     private Double frete;
+    private Double porcMg;
+    private Double porcSp;
+    private Double porcRj;
     private List<Produto> produtos;
     int count;
 
@@ -72,12 +75,40 @@ public class FornecedorBuilder {
         return this;
     }
 
+    public FornecedorBuilder setPorcMg(String porc) {
+        if (porc.equals("")) {
+            this.porcMg = 0.;
+        } else {
+            this.porcMg = Double.parseDouble(porc.replace(",", "."));;
+        }
+        return this;
+    }
+
+    public FornecedorBuilder setPorcSp(String porc) {
+        if (porc.equals("")) {
+            this.porcSp = 0.;
+        } else {
+            this.porcSp = Double.parseDouble(porc.replace(",", "."));;
+        }
+        return this;
+    }
+
+    public FornecedorBuilder setPorcRj(String porc) {
+        if (porc.equals("")) {
+            this.porcRj = 0.;
+        } else {
+            this.porcRj = Double.parseDouble(porc.replace(",", "."));;
+        }
+        return this;
+    }
+
     public Fornecedor getFornecedor() {
         if (count < 1) {
             throw new IllegalArgumentException();
         }
 
-        return new Fornecedor(id, nome, telefone, email, frete, produtos);
+        return new Fornecedor(id, nome, telefone, email, frete, produtos,
+                porcMg, porcSp, porcRj);
     }
 
     private boolean isValidEmail(String email) {

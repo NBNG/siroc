@@ -10,11 +10,11 @@ import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.Jasper.Relatorio;
 import br.com.siroc.builder.ItemBuilder;
 import br.com.siroc.dao.DAO;
-import br.com.siroc.dao.ValorDAO;
+import br.com.siroc.modelo.Cliente;
+import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Item;
 import br.com.siroc.modelo.Pedido;
 import br.com.siroc.modelo.Produto;
-import br.com.siroc.modelo.Valores;
 import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.io.File;
@@ -56,15 +56,16 @@ public class AtualizaPedido extends javax.swing.JFrame {
     ListagemPedidos lista;
     List<Long> ids = new ArrayList<>();
     JDesktopPane painel;
-    List<Valores> valores;
-    ValorDAO vdao = new ValorDAO();
     Item item;
+    Fornecedor fornecedor = new Fornecedor();
+    Cliente cliente = new Cliente();
     Double totalValor = 0.;
     Double totalPeso = 0.;
     int count = 0;
+    int aux = 0;
     DefaultTableModel tmProduto_Fornecedor = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Valor", "Fornecedor"}) {
         boolean[] canEdit = new boolean[]{
-            false, false, false, false, false
+            false, false, false, false
         };
 
         @Override
@@ -72,16 +73,17 @@ public class AtualizaPedido extends javax.swing.JFrame {
             return canEdit[columnIndex];
         }
     };
-    DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null, new String[]{"Código P.", "Nome", "Quantidade", "Valor Alterado", "C. Lista"}) {
-        boolean[] canEdit = new boolean[]{
-            false, false, false, false, false
-        };
+    DefaultTableModel tmProduto_Pedido = new DefaultTableModel(null,
+            new String[]{"Nome", "Peso", "Fornecedor", "Quantidade", "Valor Alterado", "Código"}) {
+                boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false
+                };
 
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return canEdit[columnIndex];
-        }
-    };
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+            };
 
     public AtualizaPedido(Object[] resultado,
             ListagemPedidos lista, JDesktopPane painel) {
@@ -99,6 +101,14 @@ public class AtualizaPedido extends javax.swing.JFrame {
         this.addKeyListener(new LeitorTeclas());
         this.lista = lista;
         this.painel = painel;
+        TabelaPedido.setAutoResizeMode(TabelaPedido.AUTO_RESIZE_OFF);
+        //new String[]{"Nome", "Peso", "Fornecedor", "Quantidade", "Valor Alterado", "Código"}) {
+        TabelaPedido.getColumnModel().getColumn(0).setPreferredWidth(180);
+        TabelaPedido.getColumnModel().getColumn(1).setPreferredWidth(70);
+        TabelaPedido.getColumnModel().getColumn(2).setPreferredWidth(150);
+        TabelaPedido.getColumnModel().getColumn(3).setPreferredWidth(80);
+        TabelaPedido.getColumnModel().getColumn(4).setPreferredWidth(110);
+        TabelaPedido.getColumnModel().getColumn(5).setPreferredWidth(70);
     }
 
     /**
@@ -370,7 +380,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
                                         .addGap(10, 10, 10)
                                         .addComponent(jTPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLEndereco))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jBImprimir)
@@ -384,6 +394,14 @@ public class AtualizaPedido extends javax.swing.JFrame {
                                     .addComponent(jBVisualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(41, 41, 41))))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLTotalValor)
+                        .addGap(153, 153, 153)
+                        .addComponent(jLTotalPeso)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jBCancelar))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,33 +414,22 @@ public class AtualizaPedido extends javax.swing.JFrame {
                                     .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
                                 .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLTotalValor)
-                                    .addGap(153, 153, 153)
-                                    .addComponent(jLTotalPeso)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(26, 26, 26)
-                                    .addComponent(jBCancelar))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(37, 37, 37))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(3, 3, 3)
-                                            .addComponent(jLProduto)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addGap(208, 208, 208)
-                                            .addComponent(jBRemover))
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLProduto)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jBRemover))
+                                    .addComponent(jScrollPane1))))
+                        .addGap(33, 33, 33))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,10 +480,13 @@ public class AtualizaPedido extends javax.swing.JFrame {
                                     .addComponent(jCBPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLTipoPagamento)
                                     .addComponent(jCBPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(jBRemover))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(jBRemover))))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -636,8 +646,10 @@ public class AtualizaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_TabelaPedidoMouseClicked
 
     private void TabelaFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaFornecedorMouseClicked
+        fornecedor = pedido.getItens().get(0).getProduto().getFornecedor();
+        cliente = pedido.getCliente();
         Item itemAux = abreOptionPane();
-        if (!itemAux.equals(null)) {
+        if (itemAux != null) {
             listItem.add(itemAux);
             preencheTabela(listItem);
         }
@@ -686,7 +698,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
         JTextField campo_valor = new JTextField();
         JTextField campo_quantidade = new JTextField();
 
-         Object[] message = {
+        Object[] message = {
             "Quantidade: ", campo_quantidade, "Valor alterado: ", campo_valor
         };
 
@@ -703,14 +715,24 @@ public class AtualizaPedido extends javax.swing.JFrame {
     }
 
     public Item gravaResposta(String[] message) {
-        valores = vdao.buscaPorNome(pedido.getCliente().getEstado());
-
-        Double porcentagem = valores.get(0).getPorcentagem() / 100;
         try {
-            item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaFornecedor.getSelectedRow())).
-                    setQuantidade(message[0]).setValor_alterado(message[1], porcentagem)
-                    .getItem();
-
+            Double porcentagem = 0.;
+            if (cliente.getEstado().equals("SP")) {
+                porcentagem = fornecedor.getPorcSp() / 100;
+            } else if (cliente.getEstado().equals("MG")) {
+                porcentagem = fornecedor.getPorcMg() / 100;
+            } else if (cliente.getEstado().equals("RJ")) {
+                porcentagem = fornecedor.getPorcRj() / 100;
+            }
+            if (message[1].equals("")) {
+                item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaFornecedor.getSelectedRow())).
+                        setQuantidade(message[0]).setValor_alterado(String.valueOf(listProduto.get(TabelaFornecedor.getSelectedRow()).getValor_saida()), porcentagem)
+                        .getItem();
+            } else if (!message[1].equals("")) {
+                item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaFornecedor.getSelectedRow())).
+                        setQuantidade(message[0]).setValor_alterado(message[1], 0.)
+                        .getItem();
+            }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
         } catch (IllegalArgumentException e) {
@@ -720,7 +742,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
     }
     private void jBRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverActionPerformed
         int index = TabelaPedido.getSelectedRow();
-        ids.add((Long) TabelaPedido.getValueAt(index, 4));
+        ids.add((Long) TabelaPedido.getValueAt(index, 5));
         tmProduto_Pedido.removeRow(index);
     }//GEN-LAST:event_jBRemoverActionPerformed
 
@@ -783,24 +805,23 @@ public class AtualizaPedido extends javax.swing.JFrame {
     private javax.swing.JTextField jTValor;
     // End of variables declaration//GEN-END:variables
        public void preencheTabela(List<Item> Itens) {
-        for (int i = 0; i < Itens.size(); i++) {
-            System.out.println(TabelaPedido.getRowCount());
-            System.out.println(i);
-            tmProduto_Pedido.addRow(new String[]{null, null, null, null});
-            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getId(), TabelaPedido.getRowCount() - 1, 0);
-            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getNome(), TabelaPedido.getRowCount() - 1, 1);
-            tmProduto_Pedido.setValueAt(Itens.get(i).getQuantidade(), TabelaPedido.getRowCount() - 1, 2);
-            tmProduto_Pedido.setValueAt(Editor.format(Itens.get(i).getValor_alterado()), TabelaPedido.getRowCount() - 1, 3);
 
-            if (count == i) {
-                totalValor = totalValor + (Itens.get(i).getValor_alterado() * Itens.get(i).getQuantidade());
-                totalPeso = totalPeso + (Itens.get(i).getProduto().getPeso() * Itens.get(i).getQuantidade());
-            }
+        for (int i = aux; i < Itens.size(); i++) {
+            tmProduto_Pedido.addRow(new String[]{null, null, null, null});
+            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getNome(), TabelaPedido.getRowCount() - 1, 0);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getPeso() + " Kg", TabelaPedido.getRowCount() - 1, 1);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getFornecedor().getNome(), TabelaPedido.getRowCount() - 1, 2);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getQuantidade(), TabelaPedido.getRowCount() - 1, 3);
+            tmProduto_Pedido.setValueAt(Editor.format(Itens.get(i).getValor_alterado()), TabelaPedido.getRowCount() - 1, 4);
+            tmProduto_Pedido.setValueAt(Itens.get(i).getId(), TabelaPedido.getRowCount() - 1, 5);
+            totalValor = totalValor + (Itens.get(i).getValor_alterado() * Itens.get(i).getQuantidade());
+            totalPeso = totalPeso + (Itens.get(i).getProduto().getPeso() * Itens.get(i).getQuantidade());
 
         }
         jLTotalValor.setText("Valor do Pedido: " + Editor.format(totalValor));
         jLTotalPeso.setText("Peso do Pedido: " + totalPeso + " kg");
         count++;
+        aux++;
     }
 
     public void populateFields(Pedido pedido) {
@@ -840,15 +861,16 @@ public class AtualizaPedido extends javax.swing.JFrame {
 
         for (int i = 0; i < pedido.getItens().size(); i++) {
             tmProduto_Pedido.addRow(new String[]{null, null, null, null});
-            tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getId(), i, 0);
-            tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getProduto().getNome(), i, 1);
-            tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getQuantidade(), i, 2);
-            tmProduto_Pedido.setValueAt(Editor.format(pedido.getItens().get(i).getValor_alterado()), i, 3);
-            tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getId(), TabelaPedido.getRowCount() - 1, 4);
-            if (count == i) {
-                totalValor = totalValor + (pedido.getItens().get(i).getValor_alterado() * pedido.getItens().get(i).getQuantidade());
-                totalPeso = totalPeso + (pedido.getItens().get(i).getProduto().getPeso() * pedido.getItens().get(i).getQuantidade());
-            }
+            tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getProduto().getNome(), i, 0);
+            tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getProduto().getPeso() + " Kg", i, 1);
+            tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getProduto().getFornecedor().getNome(), i, 2);
+            tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getQuantidade(), i, 3);
+            tmProduto_Pedido.setValueAt(Editor.format(pedido.getItens().get(i).getValor_alterado()), i, 4);
+            tmProduto_Pedido.setValueAt(pedido.getItens().get(i).getId(), TabelaPedido.getRowCount() - 1, 5);
+
+            totalValor = totalValor + (pedido.getItens().get(i).getValor_alterado() * pedido.getItens().get(i).getQuantidade());
+            totalPeso = totalPeso + (pedido.getItens().get(i).getProduto().getPeso() * pedido.getItens().get(i).getQuantidade());
+
         }
 
         jLTotalValor.setText("Valor do Pedido: " + Editor.format(totalValor));

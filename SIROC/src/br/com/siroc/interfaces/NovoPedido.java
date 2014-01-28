@@ -10,17 +10,18 @@ import br.com.siroc.Editor.LeitorTeclas;
 import br.com.siroc.builder.ItemBuilder;
 import br.com.siroc.builder.PedidoBuilder;
 import br.com.siroc.dao.DAO;
-import br.com.siroc.dao.ValorDAO;
 import br.com.siroc.modelo.Cliente;
+import br.com.siroc.modelo.Fornecedor;
 import br.com.siroc.modelo.Item;
 import br.com.siroc.modelo.Pedido;
 import br.com.siroc.modelo.Produto;
-import br.com.siroc.modelo.Valores;
 import java.awt.Desktop;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -74,18 +75,16 @@ public class NovoPedido extends JInternalFrame {
     List<Item> listItem = new ArrayList<>();
     Pedido pedido;
     Item item;
+    Fornecedor fornecedor = new Fornecedor();
+    Cliente cliente = new Cliente();
     DAO<Produto> pdao = new DAO<>(Produto.class);
     DAO<Cliente> cdao = new DAO<>(Cliente.class);
-    Double valor;
-    Integer quantidade;
     String status;
     JDesktopPane painel;
     private String caracteres = "0987654321.,";
     Double totalValor = 0.;
     Double totalPeso = 0.;
     int count = 0;
-    List<Valores> valores;
-    ValorDAO vdao = new ValorDAO();
 
     public NovoPedido(JDesktopPane painel) {
         super("Cella - Cadastro de Pedidos");
@@ -143,8 +142,6 @@ public class NovoPedido extends JInternalFrame {
         jBExcluir = new javax.swing.JButton();
         jLTotal = new javax.swing.JLabel();
         jLAjuda = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jTObs = new javax.swing.JTextField();
         jLTotalPeso = new javax.swing.JLabel();
 
         setClosable(true);
@@ -185,6 +182,11 @@ public class NovoPedido extends JInternalFrame {
         jTPrazo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTPrazoActionPerformed(evt);
+            }
+        });
+        jTPrazo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTPrazoKeyTyped(evt);
             }
         });
 
@@ -272,21 +274,6 @@ public class NovoPedido extends JInternalFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Sinal:");
-
-        jTObs.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTObs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTObsActionPerformed(evt);
-            }
-        });
-        jTObs.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTObsKeyTyped(evt);
-            }
-        });
-
         jLTotalPeso.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLTotalPeso.setText("Peso do Pedido:");
 
@@ -332,11 +319,7 @@ public class NovoPedido extends JInternalFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLPrazo1)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTObs, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -405,11 +388,7 @@ public class NovoPedido extends JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLPrazo1)
-                                            .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jTObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel1)))
+                                            .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -429,7 +408,7 @@ public class NovoPedido extends JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLTotal)
                         .addComponent(jLTotalPeso)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -461,29 +440,33 @@ public class NovoPedido extends JInternalFrame {
     }//GEN-LAST:event_jTPrazoActionPerformed
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
-        status = (String) jCBPago.getSelectedItem();
-        Date data = jDCData.getDate();
-        if (!jTPrazo.getText().equals("")) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(data);
-            cal.add(cal.DAY_OF_MONTH, Integer.parseInt(jTPrazo.getText()));
-            data = cal.getTime();
+        if (verifica(listItem)) {
+            status = (String) jCBPago.getSelectedItem();
+            Date data = jDCData.getDate();
+            if (!jTPrazo.getText().equals("")) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(data);
+                cal.add(cal.DAY_OF_MONTH, Integer.parseInt(jTPrazo.getText()));
+                data = cal.getTime();
 
+            }
+            DAO<Pedido> pdao = new DAO<>(Pedido.class);
+
+            pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
+                    setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()))
+                    .setItens(listItem).setVencimento(data).getPedido();
+            //pedido.setItens(listItem);
+            for (int i = 0; i < listItem.size(); i++) {
+                listItem.get(i).setPedido(pedido);
+            }
+
+            pdao.adicionar(pedido);
+            JOptionPane.showMessageDialog(this, "Pedido adicionado com sucesso! \n Se deseja realizar outro pedido, clique em Limpar!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
+            //marca();
+            pedido = new Pedido();
+        } else {
+            System.out.println("Nem deu eim");
         }
-        DAO<Pedido> pdao = new DAO<>(Pedido.class);
-
-        pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
-                setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()))
-                .setItens(listItem).setVencimento(data).setObs(Double.parseDouble(jTObs.getText())).getPedido();
-        //pedido.setItens(listItem);
-        for (int i = 0; i < listItem.size(); i++) {
-            listItem.get(i).setPedido(pedido);
-        }
-
-        pdao.adicionar(pedido);
-        JOptionPane.showMessageDialog(this, "Pedido adicionado com sucesso! \n Se deseja realizar outro pedido, clique em Limpar!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
-        //marca();
-        pedido = new Pedido();
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
@@ -494,8 +477,6 @@ public class NovoPedido extends JInternalFrame {
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
-        valores = vdao.buscaPorNome(listCliente.get(TabelaCliente.getSelectedRow()).getEstado());
-        Double porcentagem = valores.get(0).getPorcentagem() / 100;
         while (tmProduto_Fornecedor.getRowCount() > 0) {
             tmProduto_Fornecedor.removeRow(0);
         }
@@ -506,8 +487,7 @@ public class NovoPedido extends JInternalFrame {
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getNome(), i, 0);
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getPeso() + " kg", i, 1);
             tmProduto_Fornecedor.setValueAt(Editor.format(listProduto.get(i).
-                    getValor_saida() + (listProduto.get(i).getValor_saida()
-                    * porcentagem)), i, 2);
+                    getValor_saida()), i, 2);
             tmProduto_Fornecedor.setValueAt(listProduto.get(i).getFornecedor().
                     getNome(), i, 3);
 
@@ -515,8 +495,10 @@ public class NovoPedido extends JInternalFrame {
     }//GEN-LAST:event_jTProdutoKeyTyped
 
     private void TabelaProduto_FornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaProduto_FornecedorMouseClicked
+        fornecedor = listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getFornecedor();
+        cliente = listCliente.get(TabelaCliente.getSelectedRow());
         Item itemAux = abreOptionPane();
-        if (!itemAux.equals(null)) {
+        if (itemAux != null) {
             listItem.add(itemAux);
             preencheTabela(listItem);
         }
@@ -582,13 +564,24 @@ public class NovoPedido extends JInternalFrame {
     }
 
     public Item gravaResposta(String[] message) {
-        valores = vdao.buscaPorNome(listCliente.get(TabelaCliente.getSelectedRow()).getEstado());
-
-        Double porcentagem = valores.get(0).getPorcentagem() / 100;
         try {
-            item = new ItemBuilder().setPedido(pedido).setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
-                    setQuantidade(message[0]).setValor_alterado(message[1], porcentagem)
-                    .getItem();
+            Double porcentagem = 0.;
+            if (cliente.getEstado().equals("SP")) {
+                porcentagem = fornecedor.getPorcSp() / 100;
+            } else if (cliente.getEstado().equals("MG")) {
+                porcentagem = fornecedor.getPorcMg() / 100;
+            } else if (cliente.getEstado().equals("RJ")) {
+                porcentagem = fornecedor.getPorcRj() / 100;
+            }
+            if (message[1].equals("")) {
+                item = new ItemBuilder().setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
+                        setQuantidade(message[0]).setValor_alterado(String.valueOf(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getValor_saida()), porcentagem)
+                        .getItem();
+            } else if (!message[1].equals("")) {
+                item = new ItemBuilder().setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
+                        setQuantidade(message[0]).setValor_alterado(message[1], 0.)
+                        .getItem();
+            }
 
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Campos obrigatórios (*) vazios e/ou Informação inválida!", "ERROR 404 - Content not found!", JOptionPane.ERROR_MESSAGE);
@@ -616,16 +609,9 @@ public class NovoPedido extends JInternalFrame {
         }
     }//GEN-LAST:event_jLAjudaMouseClicked
 
-    private void jTObsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTObsActionPerformed
+    private void jTPrazoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPrazoKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTObsActionPerformed
-
-    private void jTObsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTObsKeyTyped
-        //metodo para não aceitar letras no campo de dinheiro
-        if (!caracteres.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTObsKeyTyped
+    }//GEN-LAST:event_jTPrazoKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabelaCliente;
@@ -650,12 +636,10 @@ public class NovoPedido extends JInternalFrame {
     private javax.swing.JLabel jLTipo_Pedido;
     private javax.swing.JLabel jLTotal;
     private javax.swing.JLabel jLTotalPeso;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTCliente;
-    private javax.swing.JTextField jTObs;
     private javax.swing.JTextField jTPrazo;
     private javax.swing.JTextField jTProduto;
     // End of variables declaration//GEN-END:variables
@@ -709,5 +693,30 @@ public class NovoPedido extends JInternalFrame {
         jLTipo_Pedido.setText("Tipo de Pedido:*");
         jLTipo_Pagamento.setText("Tipo de Pagamento:*");
         jLTabela_Pedido.setText("Tabela de Produtos do Pedido:*");
+    }
+
+    public List<Long> limpaLista(List<Long> lista) {
+        HashSet listaLimpa = new HashSet();
+        listaLimpa.addAll(lista);
+        lista.clear();
+        Iterator iterator = listaLimpa.iterator();
+        while (iterator.hasNext()) {
+            lista.add((Long) iterator.next());
+        }
+        return lista;
+    }
+
+    private boolean verifica(List<Item> lista) {
+
+        for (int i = 0; i < lista.size(); i++) {
+            for (int j = 0; j < lista.size(); j++) {
+                if (lista.get(i).getProduto().getFornecedor().getId()
+                        != lista.get(j).getProduto().getFornecedor().getId()) {
+                    return false;
+                }
+            }
+
+        }
+        return true;
     }
 }

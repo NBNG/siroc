@@ -75,6 +75,12 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
         jLAjuda = new javax.swing.JLabel();
         jLFrete = new javax.swing.JLabel();
         jTFrete = new javax.swing.JFormattedTextField();
+        jTRJ = new javax.swing.JFormattedTextField();
+        jTMG = new javax.swing.JFormattedTextField();
+        jLRJ = new javax.swing.JLabel();
+        jTSP = new javax.swing.JFormattedTextField();
+        jLMG = new javax.swing.JLabel();
+        jLSP = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -129,6 +135,36 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
             }
         });
 
+        jTRJ.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTRJ.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTRJKeyTyped(evt);
+            }
+        });
+
+        jTMG.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTMG.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTMGKeyTyped(evt);
+            }
+        });
+
+        jLRJ.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLRJ.setText("RJ:");
+
+        jTSP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTSP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTSPKeyTyped(evt);
+            }
+        });
+
+        jLMG.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLMG.setText("MG:");
+
+        jLSP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLSP.setText("SP:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,8 +193,20 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(jLFrete)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 11, Short.MAX_VALUE))
+                                    .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLSP)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTSP, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLMG)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTMG, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLRJ)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTRJ, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 27, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLCabecalho)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -189,9 +237,17 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
                     .addComponent(jFTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLFrete)
                     .addComponent(jTFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLSP)
+                    .addComponent(jTSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLMG)
+                    .addComponent(jTMG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLRJ)
+                    .addComponent(jTRJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addComponent(jBCadastrar2)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -199,9 +255,10 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
 
     private void jBCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrar2ActionPerformed
         try {
-            fornecedor = new FornecedorBuilder().setEmail(jTEmail.getText()).
+            fornecedor = new FornecedorBuilder().setId(id).setEmail(jTEmail.getText()).
                     setNome(jTNome.getText()).setTelefone(jFTTelefone.getText()).
-                    setFrete(jTFrete.getText()).setId(id).
+                    setFrete(jTFrete.getText()).setPorcSp(jTSP.getText()).
+                    setPorcMg(jTMG.getText()).setPorcRj(jTRJ.getText()).
                     getFornecedor();
 
             dao.atualiza(fornecedor);
@@ -253,6 +310,18 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTNomeKeyTyped
 
+    private void jTRJKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTRJKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTRJKeyTyped
+
+    private void jTMGKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTMGKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTMGKeyTyped
+
+    private void jTSPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSPKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTSPKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar2;
     private javax.swing.JFormattedTextField jFTTelefone;
@@ -260,11 +329,17 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLCabecalho;
     private javax.swing.JLabel jLEmail;
     private javax.swing.JLabel jLFrete;
+    private javax.swing.JLabel jLMG;
     private javax.swing.JLabel jLNome;
+    private javax.swing.JLabel jLRJ;
+    private javax.swing.JLabel jLSP;
     private javax.swing.JLabel jLTelefone;
     private javax.swing.JTextField jTEmail;
     private javax.swing.JFormattedTextField jTFrete;
+    private javax.swing.JFormattedTextField jTMG;
     private javax.swing.JTextField jTNome;
+    private javax.swing.JFormattedTextField jTRJ;
+    private javax.swing.JFormattedTextField jTSP;
     // End of variables declaration//GEN-END:variables
 
     private void populateFields(Fornecedor fornecedor) {
@@ -272,6 +347,9 @@ public class AtualizaFornecedor extends javax.swing.JFrame {
         jTEmail.setText(fornecedor.getEmail());
         jFTTelefone.setText(fornecedor.getTelefone());
         jTFrete.setText(String.valueOf(fornecedor.getFrete()));
+        jTMG.setText(String.valueOf(fornecedor.getPorcMg()));
+        jTSP.setText(String.valueOf(fornecedor.getPorcSp()));
+        jTRJ.setText(String.valueOf(fornecedor.getPorcRj()));
     }
 
     private void marca() {

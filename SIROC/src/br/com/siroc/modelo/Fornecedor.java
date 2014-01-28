@@ -19,18 +19,26 @@ public class Fornecedor {
     private String telefone;
     private String email;
     private Double frete;
+    private Double porcMg;
+    private Double porcSp;
+    private Double porcRj;
     private List<Produto> produtos;
 
     public Fornecedor() {
     }
 
-    public Fornecedor(Long id, String nome, String telefone, String email, Double frete, List<Produto> produtos) {
+    public Fornecedor(Long id, String nome, String telefone, String email,
+            Double frete, List<Produto> produtos, Double porcMg, Double porcSp,
+            Double porcRj) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.frete = frete;
         this.produtos = produtos;
+        this.porcMg = porcMg;
+        this.porcSp = porcSp;
+        this.porcRj = porcRj;
     }
 
     @Id
@@ -88,4 +96,32 @@ public class Fornecedor {
     public void setFrete(Double frete) {
         this.frete = frete;
     }
+
+    @Column(name = "for_porc_mg", nullable = false)
+    public Double getPorcMg() {
+        return porcMg;
+    }
+
+    public void setPorcMg(Double porcMg) {
+        this.porcMg = porcMg;
+    }
+
+    @Column(name = "for_porc_sp", nullable = false)
+    public Double getPorcSp() {
+        return porcSp;
+    }
+
+    public void setPorcSp(Double porcSp) {
+        this.porcSp = porcSp;
+    }
+
+    @Column(name = "for_porc_rj", nullable = false)
+    public Double getPorcRj() {
+        return porcRj;
+    }
+
+    public void setPorcRj(Double porcRj) {
+        this.porcRj = porcRj;
+    }
+
 }

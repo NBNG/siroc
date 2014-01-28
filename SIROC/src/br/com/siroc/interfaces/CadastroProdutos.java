@@ -91,6 +91,7 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
 
         tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tabela.setModel(tmFornecedor);
+        tabela.setRowHeight(23);
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaMouseClicked(evt);
