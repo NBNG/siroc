@@ -31,7 +31,7 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
     DAO<Produto> pdao = new DAO<Produto>(Produto.class);
     DAO<Fornecedor> fdao = new DAO<Fornecedor>(Fornecedor.class);
     //definição das colunas da tabela
-    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída"}) {
+    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Nome", "Peso", "Fornecedor", "Valor Entrada", "Valor Saída", "SP", "MG", "RJ"}) {
         boolean[] canEdit = new boolean[]{
             false, false, false, false, false, false
         };
@@ -52,6 +52,7 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         hinter();
         this.setFocusable(true);
         this.addKeyListener(new LeitorTeclas());
+        jTNome.requestFocusInWindow();
     }
 
     /**
@@ -131,30 +132,31 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBLimpar)
-                .addGap(23, 23, 23))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLCabecalho)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLAjuda))
+                        .addComponent(jScrollPane1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBLimpar)
+                        .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLNome_Produto)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLCabecalho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLAjuda))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLNome_Produto1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTFornecedor)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLNome_Produto)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLNome_Produto1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTFornecedor)))
+                                .addGap(0, 620, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +181,7 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBLimpar)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -207,12 +209,19 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
 
         produtos = pdao.buscaPorNome(jTNome.getText());
         for (int i = 0; i < produtos.size(); i++) {
+            Double porcentagemSp = produtos.get(i).getFornecedor().getPorcSp() / 100;
+            Double porcentagemMg = produtos.get(i).getFornecedor().getPorcMg() / 100;
+            Double porcentagemRj = produtos.get(i).getFornecedor().getPorcRj() / 100;
+            Double valorSaida = produtos.get(i).getValor_saida();
             tmProduto.addRow(new String[]{null, null, null, null});
             tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
             tmProduto.setValueAt(produtos.get(i).getPeso() + " kg", i, 1);
             tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
             tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_entrada()), i, 3);
-            tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_saida()), i, 4);
+            tmProduto.setValueAt(Editor.format(valorSaida), i, 4);
+            tmProduto.setValueAt(Editor.format(valorSaida + (valorSaida * porcentagemSp)), i, 5);
+            tmProduto.setValueAt(Editor.format(valorSaida + (valorSaida * porcentagemMg)), i, 6);
+            tmProduto.setValueAt(Editor.format(valorSaida + (valorSaida * porcentagemRj)), i, 7);
         }
     }//GEN-LAST:event_jTNomeKeyTyped
 
@@ -233,12 +242,19 @@ public class ListagemProdutos extends javax.swing.JInternalFrame {
         }
 
         for (int i = 0; i < produtos.size(); i++) {
+            Double porcentagemSp = produtos.get(i).getFornecedor().getPorcSp() / 100;
+            Double porcentagemMg = produtos.get(i).getFornecedor().getPorcMg() / 100;
+            Double porcentagemRj = produtos.get(i).getFornecedor().getPorcRj() / 100;
+            Double valorSaida = produtos.get(i).getValor_saida();
             tmProduto.addRow(new String[]{null, null, null, null});
             tmProduto.setValueAt(produtos.get(i).getNome(), i, 0);
             tmProduto.setValueAt(produtos.get(i).getPeso() + " kg", i, 1);
             tmProduto.setValueAt(produtos.get(i).getFornecedor().getNome(), i, 2);
             tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_entrada()), i, 3);
-            tmProduto.setValueAt(Editor.format(produtos.get(i).getValor_saida()), i, 4);
+            tmProduto.setValueAt(Editor.format(valorSaida), i, 4);
+            tmProduto.setValueAt(Editor.format(valorSaida + (valorSaida * porcentagemSp)), i, 5);
+            tmProduto.setValueAt(Editor.format(valorSaida + (valorSaida * porcentagemMg)), i, 6);
+            tmProduto.setValueAt(Editor.format(valorSaida + (valorSaida * porcentagemRj)), i, 7);
 
         }    }//GEN-LAST:event_jTFornecedorKeyTyped
 

@@ -23,7 +23,7 @@ import javax.persistence.UniqueConstraint;
  * @author Proclima
  */
 @Entity
-@Table(name = "PRODUTOS", uniqueConstraints = @UniqueConstraint(columnNames = {"pro_nome", "pro_peso"}))
+@Table(name = "PRODUTOS", uniqueConstraints = @UniqueConstraint(columnNames = {"pro_nome", "pro_peso", "fk_fornecedor"}))
 public class Produto implements Serializable {
 
     private Long id;

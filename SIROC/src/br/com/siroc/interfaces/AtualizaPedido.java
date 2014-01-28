@@ -183,7 +183,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jDCData.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jCBPedido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCBPedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NF", "SO" }));
+        jCBPedido.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SO", "NF" }));
 
         jCBPagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCBPagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cartão", "Cheque", "Depósito", "Dinheiro" }));
@@ -642,7 +642,15 @@ public class AtualizaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPrazoActionPerformed
 
     private void TabelaPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaPedidoMouseClicked
-
+        if (evt.getButton() != evt.BUTTON3 && evt.getClickCount() == 2) {
+            Long id = (Long) TabelaPedido.getValueAt(TabelaPedido.getSelectedRow(), 5);
+            for (int i = 0; i < pedido.getItens().size(); i++) {
+                if (id == pedido.getItens().get(i).getId()) {
+                    System.out.println(pedido.getItens().get(i).getId());
+                    System.out.println(pedido.getItens().get(i).getProduto().getNome());
+                }
+            }
+        }
     }//GEN-LAST:event_TabelaPedidoMouseClicked
 
     private void TabelaFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaFornecedorMouseClicked

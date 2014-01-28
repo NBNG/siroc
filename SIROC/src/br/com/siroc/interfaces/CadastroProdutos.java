@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -288,6 +289,8 @@ public class CadastroProdutos extends javax.swing.JInternalFrame {
                 marca();
             } catch (IllegalStateException e) {
                 JOptionPane.showMessageDialog(CadastroProdutos.this, "Favor, escolher um fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
+            } catch (ConstraintViolationException b) {
+                JOptionPane.showMessageDialog(CadastroProdutos.this, "Produtos iguais não podem ser cadastrado no mesmo fornecedor!", "ERROR 404 - Supplier not found!", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBCadastrarActionPerformed
