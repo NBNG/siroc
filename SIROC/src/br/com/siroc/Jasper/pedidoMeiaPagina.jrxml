@@ -2,46 +2,68 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04e67a5f-9121-468f-a228-62c2dcf438c2">
 	<property name="ireport.zoom" value="1.6105100000000014"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="25"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Proclima\\Documents\\GitHub\\siroc\\SIROC\\src\\br\\com\\siroc\\Jasper\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[select clientes.cli_nome, to_char(produtos.pro_peso*item_quantidade,'09D90') || 'Kg' as peso_total,
-clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,clientes.cli_telefone,
-clientes.cli_cep,pedidos.ped_id, clientes.cli_cnpj_cpf, clientes.cli_inscricao_est,to_char(((select sum (itens.item_valor * itens.item_quantidade)
-from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = 19)*fornecedores.for_frete)/100 ,'R$999G990D99') as frete,
-produtos.pro_id, itens.item_quantidade, produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto,
-to_char(itens.item_valor,'R$999G990D99') as item_valor, to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial,
-to_char((select sum((itens.item_valor - produtos.pro_saida)*itens.item_quantidade) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id
-inner join produtos on itens.fk_produto = produtos.pro_id where pedidos.ped_id = 19),'L9G999G90D99')  as lucro, pedidos.ped_pagamento, pedidos.ped_pedido,
-pedidos.ped_status, to_char(pedidos.ped_data,'dd/mm/yyyy') as data, to_char((select sum (itens.item_valor * itens.item_quantidade)
-from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = 19),'R$999G990D99')  as total,to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,pedidos.ped_obs from pedidos
-inner join clientes on clientes.cli_id = pedidos.fk_cliente inner join itens on pedidos.ped_id = itens.fk_pedido inner join produtos
-on produtos.pro_id = itens.fk_produto  inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id
-group by produtos.pro_peso,pedidos.ped_vencimento,pedidos.ped_obs,produtos.pro_nome,pedidos.ped_id,clientes.cli_nome,clientes.cli_endereco,clientes.cli_bairro,clientes.cli_cidade,clientes.cli_estado,clientes.cli_telefone,
-clientes.cli_cep,clientes.cli_cnpj_cpf,clientes.cli_inscricao_est,fornecedores.for_frete,produtos.pro_id,itens.item_quantidade,itens.item_valor,
-pedidos.ped_pagamento, pedidos.ped_pedido,pedidos.ped_status,pedidos.ped_data ORDER BY ped_id]]>
+		<![CDATA[select clientes.cli_nome,
+	clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,
+	clientes.cli_cep,
+	clientes.cli_telefone,
+	clientes.cli_cnpj_cpf,
+	clientes.cli_inscricao_est,
+	pedidos.ped_id,
+	pedidos.ped_pagamento,
+	pedidos.ped_pedido,
+	to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,
+	to_char(pedidos.ped_data,'dd/mm/yyyy') as data,
+	produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90') || ' Kg' as produto,
+	itens.item_quantidade,
+	itens.item_valor,
+	to_char(produtos.pro_peso*item_quantidade,'09D90') || 'Kg' as peso_total,
+	to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial
+	from clientes inner join pedidos on clientes.cli_id = pedidos.fk_cliente
+		inner join itens on pedidos.ped_id = itens.fk_pedido
+		inner join produtos on itens.fk_produto = produtos.pro_id
+		inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id
+	group by clientes.cli_nome,
+		clientes.cli_endereco,
+		clientes.cli_bairro,
+		clientes.cli_cidade,
+		clientes.cli_estado,
+		clientes.cli_cep,
+		clientes.cli_telefone,
+		clientes.cli_cnpj_cpf,
+		clientes.cli_inscricao_est,
+		pedidos.ped_id,
+		pedidos.ped_pagamento,
+		pedidos.ped_vencimento,
+		pedidos.ped_data,
+		pedidos.ped_pedido,
+		produtos.pro_nome,
+		produtos.pro_peso,
+		itens.item_quantidade,
+		itens.item_valor,
+		fornecedores.for_frete
+	order by pedidos.ped_id;]]>
 	</queryString>
 	<field name="cli_nome" class="java.lang.String"/>
-	<field name="peso_total" class="java.lang.String"/>
 	<field name="endereco" class="java.lang.String"/>
-	<field name="cli_telefone" class="java.lang.String"/>
 	<field name="cli_cep" class="java.lang.String"/>
-	<field name="ped_id" class="java.lang.Long"/>
+	<field name="cli_telefone" class="java.lang.String"/>
 	<field name="cli_cnpj_cpf" class="java.lang.String"/>
 	<field name="cli_inscricao_est" class="java.lang.String"/>
-	<field name="frete" class="java.lang.String"/>
-	<field name="pro_id" class="java.lang.Long"/>
-	<field name="item_quantidade" class="java.lang.Integer"/>
-	<field name="produto" class="java.lang.String"/>
-	<field name="item_valor" class="java.lang.String"/>
-	<field name="total_parcial" class="java.lang.String"/>
-	<field name="lucro" class="java.lang.String"/>
+	<field name="ped_id" class="java.lang.Long"/>
 	<field name="ped_pagamento" class="java.lang.String"/>
 	<field name="ped_pedido" class="java.lang.String"/>
-	<field name="ped_status" class="java.lang.String"/>
-	<field name="data" class="java.lang.String"/>
-	<field name="total" class="java.lang.String"/>
 	<field name="vencimento" class="java.lang.String"/>
-	<field name="ped_obs" class="java.lang.String"/>
+	<field name="data" class="java.lang.String"/>
+	<field name="produto" class="java.lang.String"/>
+	<field name="item_quantidade" class="java.lang.Integer"/>
+	<field name="item_valor" class="java.lang.Double"/>
+	<field name="peso_total" class="java.lang.String"/>
+	<field name="total_parcial" class="java.lang.String"/>
 	<variable name="peso_total_1" class="java.lang.Integer" resetType="Group" resetGroup="pedidos" calculation="Count">
 		<variableExpression><![CDATA[$F{peso_total}]]></variableExpression>
 	</variable>
@@ -94,7 +116,7 @@ pedidos.ped_pagamento, pedidos.ped_pedido,pedidos.ped_status,pedidos.ped_data OR
 					<textFieldExpression><![CDATA[$F{cli_telefone}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="262" y="47" width="73" height="20" uuid="863febee-4933-403f-9779-15927ff266b5"/>
+					<reportElement x="252" y="47" width="83" height="20" uuid="863febee-4933-403f-9779-15927ff266b5"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
@@ -170,76 +192,52 @@ pedidos.ped_pagamento, pedidos.ped_pedido,pedidos.ped_status,pedidos.ped_data OR
 					<text><![CDATA[Produto]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="189" y="175" width="55" height="20" uuid="0153d5c1-8a60-444d-91bf-7751190f036d"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<reportElement x="175" y="175" width="55" height="20" uuid="0153d5c1-8a60-444d-91bf-7751190f036d"/>
+					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Qnt]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="244" y="175" width="73" height="20" uuid="5af9e9c9-815c-43eb-b301-426134a85abc"/>
+					<reportElement x="230" y="175" width="73" height="20" uuid="5af9e9c9-815c-43eb-b301-426134a85abc"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Valor]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="316" y="175" width="78" height="20" uuid="69ca5e4e-d2dd-4b09-af34-2a04ae716e16"/>
+					<reportElement x="302" y="175" width="78" height="20" uuid="69ca5e4e-d2dd-4b09-af34-2a04ae716e16"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[SubTotal]]></text>
 				</staticText>
 				<line>
-					<reportElement x="0" y="194" width="394" height="1" uuid="dc76c2bd-2f86-4323-91f4-e4eb055d8040"/>
+					<reportElement x="0" y="194" width="380" height="1" uuid="dc76c2bd-2f86-4323-91f4-e4eb055d8040"/>
 				</line>
 				<textField isBlankWhenNull="true">
 					<reportElement x="280" y="102" width="100" height="20" uuid="03fec0f2-b9e6-4b00-bf2b-5afa2ce4478a"/>
 					<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="369" y="0" width="31" height="20" forecolor="#FFFFFF" uuid="3e73ddee-56e2-4d8d-99d5-0114b198a29d"/>
+					<textFieldExpression><![CDATA[]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="43">
 				<line>
-					<reportElement x="6" y="0" width="394" height="1" uuid="82ff77bf-be41-484a-bbd5-9a16f0ef37ae"/>
+					<reportElement x="6" y="0" width="374" height="1" uuid="82ff77bf-be41-484a-bbd5-9a16f0ef37ae"/>
 				</line>
-				<staticText>
-					<reportElement x="249" y="1" width="35" height="20" uuid="c9239a24-e2c1-438d-bd3c-de79d18dc4de"/>
-					<textElement verticalAlignment="Middle">
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Total:]]></text>
-				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement x="284" y="1" width="110" height="20" uuid="2bc78c59-23f7-4761-bb16-730773ed1f1f"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="249" y="19" width="35" height="20" uuid="8ea7ce7c-e4b1-4b9f-8b7c-2b8129ddebe4"/>
-					<textElement verticalAlignment="Middle">
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Frete]]></text>
-				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement x="284" y="19" width="110" height="20" uuid="654708cc-542c-40e7-b887-e1f832394741"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{frete}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="0" y="1" width="52" height="20" uuid="01e56c2a-2a4b-4903-be22-1058ff9150a1"/>
-					<textElement verticalAlignment="Middle">
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Peso total:]]></text>
-				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement stretchType="RelativeToBandHeight" x="52" y="1" width="100" height="20" uuid="01ae0079-c0a9-4618-b059-fb25b899a4c4"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{peso_total}]]></textFieldExpression>
-				</textField>
+				<subreport>
+					<reportElement x="0" y="0" width="380" height="22" uuid="1d0fa4e3-b6f9-4a00-800c-1d22cad54f4f"/>
+					<subreportParameter name="idPedido">
+						<subreportParameterExpression><![CDATA[$F{ped_id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "pedidoMeiaPagina_TotalPesoValor.jasper"]]></subreportExpression>
+				</subreport>
 			</band>
 		</groupFooter>
 	</group>
@@ -258,19 +256,20 @@ pedidos.ped_pagamento, pedidos.ped_pedido,pedidos.ped_status,pedidos.ped_data OR
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="243" y="0" width="73" height="20" uuid="3d686442-9407-42dd-82fb-7fb16ebaa426"/>
+				<reportElement x="229" y="0" width="73" height="20" uuid="3d686442-9407-42dd-82fb-7fb16ebaa426"/>
 				<textFieldExpression><![CDATA[$F{item_valor}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="189" y="0" width="55" height="20" uuid="87661932-aba9-4646-8c93-b05e20de638a"/>
+				<reportElement x="175" y="0" width="35" height="20" uuid="87661932-aba9-4646-8c93-b05e20de638a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{item_quantidade}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="316" y="0" width="78" height="20" uuid="7b58e5fe-fc77-44b3-b828-95c0f7db8694"/>
+				<reportElement x="302" y="0" width="78" height="20" uuid="7b58e5fe-fc77-44b3-b828-95c0f7db8694"/>
 				<textFieldExpression><![CDATA[$F{total_parcial}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="184" height="20" uuid="19c6795a-459a-4893-9e06-618a8a02f708"/>
+				<reportElement x="0" y="0" width="167" height="20" uuid="19c6795a-459a-4893-9e06-618a8a02f708"/>
 				<textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -282,7 +281,7 @@ pedidos.ped_pagamento, pedidos.ped_pedido,pedidos.ped_status,pedidos.ped_data OR
 		<band height="14" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="43" splitType="Stretch">
+		<band height="44" splitType="Stretch">
 			<staticText>
 				<reportElement x="208" y="20" width="383" height="20" uuid="967d506c-c05c-4853-9ca4-91933bffcee7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
