@@ -448,7 +448,7 @@ public class RomaneioSO extends javax.swing.JFrame {
             try {
                 java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
                 java.sql.Date dataF = new java.sql.Date(jDCFinal.getDate().getTime());
-                String nome = "//Romaneio NF " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
+                String nome = "//Romaneio SO " + Editor.formatDataPasta(dataI) + " até " + Editor.formatDataPasta(dataF) + ".pdf";
                 Relatorio rel = new Relatorio();
                 rel.romaneioSO(query, 0, nome);
 
