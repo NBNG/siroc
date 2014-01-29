@@ -17,6 +17,7 @@ import br.com.siroc.modelo.Pedido;
 import br.com.siroc.modelo.Produto;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -84,7 +85,6 @@ public class NovoPedido extends JInternalFrame {
     private String caracteres = "0987654321.,";
     Double totalValor = 0.;
     Double totalPeso = 0.;
-    int count = 0;
 
     public NovoPedido(JDesktopPane painel) {
         super("Cella - Cadastro de Pedidos");
@@ -345,15 +345,14 @@ public class NovoPedido extends JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLTabela_Pedido)
-                                .addGap(188, 188, 188)
+                                .addGap(179, 179, 179)
                                 .addComponent(jBExcluir))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jBSalvar)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jBLimpar))
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(20, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBSalvar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBLimpar))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(29, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,7 +366,7 @@ public class NovoPedido extends JInternalFrame {
                             .addComponent(jLTabela_Pedido))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 2, Short.MAX_VALUE))
+                        .addGap(0, 4, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLCabecalho)
@@ -398,8 +397,7 @@ public class NovoPedido extends JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jCBPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLPrazo1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jLPrazo1))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLProduto)
@@ -414,7 +412,7 @@ public class NovoPedido extends JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jBSalvar)
                         .addComponent(jBLimpar)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -492,12 +490,16 @@ public class NovoPedido extends JInternalFrame {
         for (int i = 0; i < listProduto.size(); i++) {
             fornecedor = listProduto.get(i).getFornecedor();
             Double porcentagem = 0.;
-            if (cliente.getEstado().equals("SP")) {
-                porcentagem = fornecedor.getPorcSp() / 100;
-            } else if (cliente.getEstado().equals("MG")) {
-                porcentagem = fornecedor.getPorcMg() / 100;
-            } else if (cliente.getEstado().equals("RJ")) {
-                porcentagem = fornecedor.getPorcRj() / 100;
+            switch (cliente.getEstado()) {
+                case "SP":
+                    porcentagem = fornecedor.getPorcSp() / 100;
+                    break;
+                case "MG":
+                    porcentagem = fornecedor.getPorcMg() / 100;
+                    break;
+                case "RJ":
+                    porcentagem = fornecedor.getPorcRj() / 100;
+                    break;
             }
             Double valorProduto = listProduto.get(i).getValor_saida();
             tmProduto_Fornecedor.addRow(new String[]{null, null, null, null});
@@ -582,12 +584,16 @@ public class NovoPedido extends JInternalFrame {
     public Item gravaResposta(String[] message) {
         try {
             Double porcentagem = 0.;
-            if (cliente.getEstado().equals("SP")) {
-                porcentagem = fornecedor.getPorcSp() / 100;
-            } else if (cliente.getEstado().equals("MG")) {
-                porcentagem = fornecedor.getPorcMg() / 100;
-            } else if (cliente.getEstado().equals("RJ")) {
-                porcentagem = fornecedor.getPorcRj() / 100;
+            switch (cliente.getEstado()) {
+                case "SP":
+                    porcentagem = fornecedor.getPorcSp() / 100;
+                    break;
+                case "MG":
+                    porcentagem = fornecedor.getPorcMg() / 100;
+                    break;
+                case "RJ":
+                    porcentagem = fornecedor.getPorcRj() / 100;
+                    break;
             }
             if (message[1].equals("")) {
                 item = new ItemBuilder().setProduto(listProduto.get(TabelaProduto_Fornecedor.getSelectedRow())).
@@ -608,6 +614,14 @@ public class NovoPedido extends JInternalFrame {
     }
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
         removeItem();
+        totalValor = 0.;
+        totalPeso = 0.;
+        for (int i = 0; i < listItem.size(); i++) {
+            totalValor += listItem.get(i).getValor_alterado() * listItem.get(i).getQuantidade();
+            totalPeso += listItem.get(i).getProduto().getPeso() * listItem.get(i).getQuantidade();
+        }
+        jLTotalPeso.setText("Peso do Pedido: " + String.valueOf(totalPeso) + " Kg");
+        jLTotal.setText("Valor do Pedido: " + Editor.format(totalValor));
     }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void jLAjudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAjudaMouseClicked
@@ -618,8 +632,7 @@ public class NovoPedido extends JInternalFrame {
             File arquivo = new File(caminho);
             try {
                 Desktop.getDesktop().open(arquivo);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -664,6 +677,8 @@ public class NovoPedido extends JInternalFrame {
         while (tmProduto_Pedido.getRowCount() > 0) {
             tmProduto_Pedido.removeRow(0);
         }
+        totalValor = 0.;
+        totalPeso = 0.;
 
         for (int i = 0; i < Itens.size(); i++) {
             tmProduto_Pedido.addRow(new String[]{null, null, null, null});
@@ -673,15 +688,12 @@ public class NovoPedido extends JInternalFrame {
             tmProduto_Pedido.setValueAt(Itens.get(i).getQuantidade(), i, 3);
             tmProduto_Pedido.setValueAt(Editor.format(Itens.get(i).getValor_alterado()), i, 4);
             tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getId(), i, 5);
-            if (count == i) {
-                totalValor = totalValor + (Itens.get(i).getValor_alterado() * Itens.get(i).getQuantidade());
-                totalPeso = totalPeso + (Itens.get(i).getProduto().getPeso() * Itens.get(i).getQuantidade());
-            }
+            totalValor += listItem.get(i).getValor_alterado() * listItem.get(i).getQuantidade();
+            totalPeso += listItem.get(i).getProduto().getPeso() * listItem.get(i).getQuantidade();
 
         }
+        jLTotalPeso.setText("Peso do Pedido: " + String.valueOf(totalPeso) + " Kg");
         jLTotal.setText("Valor do Pedido: " + Editor.format(totalValor));
-        jLTotalPeso.setText("Peso do Pedido: " + totalPeso + " kg");
-        count++;
     }
 
     private void hinter() {
@@ -723,7 +735,6 @@ public class NovoPedido extends JInternalFrame {
     }
 
     private boolean verifica(List<Item> lista) {
-
         for (int i = 0; i < lista.size(); i++) {
             for (int j = 0; j < lista.size(); j++) {
                 if (lista.get(i).getProduto().getFornecedor().getId()
@@ -731,7 +742,6 @@ public class NovoPedido extends JInternalFrame {
                     return false;
                 }
             }
-
         }
         return true;
     }
