@@ -11,7 +11,7 @@
 	from pedidos inner join itens on itens.fk_pedido = pedidos.ped_id
 		inner join produtos on itens.fk_produto = produtos.pro_id
 		inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id
-        where pedidos.ped_id = $F{idPedido}
+        where pedidos.ped_id = $P{idPedido}
 	group by fornecedores.for_frete;]]>
 	</queryString>
 	<field name="peso_total" class="java.lang.Double"/>

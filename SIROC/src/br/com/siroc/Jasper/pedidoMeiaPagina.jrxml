@@ -63,7 +63,6 @@
 	<field name="item_quantidade" class="java.lang.Integer"/>
 	<field name="item_valor" class="java.lang.Double"/>
 	<field name="total_parcial" class="java.lang.String"/>
-	
 	<group name="pedidos" isStartNewColumn="true" minHeightToStartNewPage="1">
 		<groupExpression><![CDATA[$F{ped_id}]]></groupExpression>
 		<groupHeader>
