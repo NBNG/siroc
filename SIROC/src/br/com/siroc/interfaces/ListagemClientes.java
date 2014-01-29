@@ -316,6 +316,9 @@ public class ListagemClientes extends javax.swing.JInternalFrame {
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Causa: \b" + ex,
                         "ERROR", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Causa: \b" + e,
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_tabelaMouseClicked

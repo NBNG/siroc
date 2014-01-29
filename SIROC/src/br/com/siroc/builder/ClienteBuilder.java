@@ -83,8 +83,8 @@ public class ClienteBuilder {
 
     public ClienteBuilder setCnpj_cpf(String cnpj_cpf) {
         this.cnpj_cpf = cnpj_cpf;
-        if (this.cnpj_cpf.equals("   .   .   -  ") || this.cnpj_cpf.equals("  .   .   /    -  ")) {
-            this.cnpj_cpf = null;
+        if (this.cnpj_cpf.equals("   .   .   -  ") || this.cnpj_cpf.equals("  .   .   /    -  ") || this.cnpj_cpf == null) {
+            this.cnpj_cpf = "";
         }
         return this;
     }
