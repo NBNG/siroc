@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pedidoMeiaPagina_TotalPesoValor" language="groovy" pageWidth="396" pageHeight="802" columnWidth="396" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f86bfb87-c71b-4a9b-8b41-ac35f3a4f0ee">
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -67,6 +68,16 @@
 		<![CDATA[select sum(itens.item_quantidade*pro_peso) as peso_total,to_char(sum(itens.item_valor * itens.item_quantidade),'R$999G990D99') as valor_total
 	from pedidos inner join itens on itens.fk_pedido = pedidos.ped_id
 		inner join produtos on itens.fk_produto = produtos.pro_id
+=======
+    <property name="ireport.zoom" value="1.4641000000000006"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <parameter name="idPedido" class="java.lang.Long"/>
+    <queryString language="SQL">
+		<![CDATA[select sum(itens.item_quantidade*pro_peso) as peso_total,to_char(sum(itens.item_valor * itens.item_quantidade),'R$999G990D99') as valor_total
+	from pedidos inner join itens on itens.fk_pedido = pedidos.ped_id
+		inner join produtos on itens.fk_produto = produtos.pro_id
+>>>>>>> f77dba1973ec79ba64faed4ba050d6fa9eec3704
         where pedidos.ped_id = $F{idPedido}]]>
     </queryString>
     <field name="peso_total" class="java.lang.Double"/>
@@ -99,5 +110,8 @@
             </textField>
         </band>
     </detail>
+<<<<<<< HEAD
+>>>>>>> f77dba1973ec79ba64faed4ba050d6fa9eec3704
+=======
 >>>>>>> f77dba1973ec79ba64faed4ba050d6fa9eec3704
 </jasperReport>
