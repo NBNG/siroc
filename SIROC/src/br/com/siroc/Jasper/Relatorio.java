@@ -226,7 +226,7 @@ public class Relatorio {
     }
     
     public void gerarPedido(String query, int tipo, String nome) throws JRException, SQLException, IOException{
-        JasperDesign desenho = JRXmlLoader.load("C:\\Users\\Proclima\\Desktop\\Jasper\\pedidoMeiaPagina.jrxml");
+        JasperDesign desenho = JRXmlLoader.load("C:\\Users\\Proclima\\Documents\\GitHub\\siroc\\SIROC\\src\\br\\com\\siroc\\Jasper\\pedidoMeiaPagina.jrxml");
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
         
         PreparedStatement pstmt = this.conexao.prepareStatement(query);

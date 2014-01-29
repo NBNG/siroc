@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04e67a5f-9121-468f-a228-62c2dcf438c2">
 	<property name="ireport.zoom" value="1.6105100000000014"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="121"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/"]]></defaultValueExpression>
 	</parameter>
@@ -274,10 +274,7 @@
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="14" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="44" splitType="Stretch">
+		<band height="55" splitType="Stretch">
 			<staticText>
 				<reportElement x="208" y="20" width="383" height="20" uuid="967d506c-c05c-4853-9ca4-91933bffcee7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -293,5 +290,8 @@
 				<text><![CDATA[Gerado por: Cella - Sistema de Pedidos e Romaneios.]]></text>
 			</staticText>
 		</band>
+	</pageFooter>
+	<summary>
+		<band height="44" splitType="Stretch"/>
 	</summary>
 </jasperReport>
