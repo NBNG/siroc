@@ -4,16 +4,21 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="idPedido" class="java.lang.Long"/>
-	<queryString language="SQL">
-		<![CDATA[select sum(itens.item_quantidade*pro_peso) as peso_total,to_char(sum(itens.item_valor * itens.item_quantidade),'R$999G990D99') as valor_total
+	<queryString>
+		<![CDATA[select sum(itens.item_quantidade*pro_peso) as peso_total,
+	to_char(sum(itens.item_valor * itens.item_quantidade),'R$999G990D99') as valor_total,
+	to_char((sum(itens.item_valor * itens.item_quantidade)*fornecedores.for_frete)/100,'R$999G990D99') as frete
 	from pedidos inner join itens on itens.fk_pedido = pedidos.ped_id
 		inner join produtos on itens.fk_produto = produtos.pro_id
-        where pedidos.ped_id = $F{idPedido}]]>
+		inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id
+        where pedidos.ped_id = $P{idPedido}
+	group by fornecedores.for_frete;]]>
 	</queryString>
 	<field name="peso_total" class="java.lang.Double"/>
 	<field name="valor_total" class="java.lang.String"/>
+	<field name="frete" class="java.lang.String"/>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="45" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="-1" width="63" height="22" uuid="6f37a33a-c214-40c6-9c22-e20a7bdf8655"/>
 				<textElement verticalAlignment="Middle">
@@ -37,6 +42,18 @@
 				<reportElement x="270" y="-1" width="126" height="22" uuid="1b888508-032f-416e-b0a8-cb146b32d98e"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="213" y="25" width="36" height="20" uuid="d1df3978-ef47-4c77-ba0f-558a5e92cdfe"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Frete:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="249" y="25" width="147" height="20" uuid="22ab8b1f-ada2-426c-bcad-15d0ce86e4c2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{frete}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
