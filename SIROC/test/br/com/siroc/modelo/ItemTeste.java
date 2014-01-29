@@ -30,27 +30,25 @@ public class ItemTeste {
     public void testaQuantidadeComString() {
         new ItemBuilder().setQuantidade("asd21a2");
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
-    public void testaQuantidadecom0(){
+    public void testaQuantidadecom0() {
         new ItemBuilder().setQuantidade("0");
     }
-    
+
     //@Test(expected = IllegalArgumentException.class)
     @Test
-    public void testaQuantidadeCerto(){
+    public void testaQuantidadeCerto() {
         new ItemBuilder().setQuantidade("1");
     }
-    
-    
-    public void testaValorNulo(){
+
+    public void testaValorNulo() {
         new ItemBuilder().setValor_alterado("", 2.5);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
-    public void testaValorComCaracter(){
+    public void testaValorComCaracter() {
         new ItemBuilder().setValor_alterado("1as1", 2.5);
     }
-    
-    
+
 }

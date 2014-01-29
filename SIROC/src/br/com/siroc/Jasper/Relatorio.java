@@ -48,7 +48,7 @@ public class Relatorio {
             throw new RuntimeException(ex);
         }
     }
-    
+
     public void gerarPedido(Long id, int tipo, String nome, int pagina) throws JRException, SQLException, IOException {
         if (pagina == 0) {
             xml += "\\pedido.jrxml";
