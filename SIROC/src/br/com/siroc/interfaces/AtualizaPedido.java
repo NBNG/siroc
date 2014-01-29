@@ -747,6 +747,9 @@ public class AtualizaPedido extends javax.swing.JFrame {
             itdao.remover(item);
             listItem.remove(linha);
             preencheTabela(listItem);
+        } else {
+            listItem.remove(linha);
+            preencheTabela(listItem);
         }
     }//GEN-LAST:event_jBRemoverActionPerformed
 
