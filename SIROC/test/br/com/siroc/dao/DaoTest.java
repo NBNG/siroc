@@ -17,7 +17,6 @@ public class DaoTest {
     @Test
     public void testaConexoes() {
         for (int i = 0; i < 1000; i++) {
-            System.out.println(i);
             DAO<Cliente> dao = new DAO<>(Cliente.class);
             dao.close();
         }

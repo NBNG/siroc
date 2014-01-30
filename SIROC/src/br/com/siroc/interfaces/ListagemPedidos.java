@@ -22,8 +22,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -517,6 +515,25 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTBSelecionaActionPerformed
 
     private void jBPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPDFActionPerformed
+        String query = "select clientes.cli_nome,\n"
+                + " clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_pedido,\n"
+                + " to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,\n"
+                + " to_char(pedidos.ped_data,'dd/mm/yyyy') as data,\n"
+                + " produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90') || ' Kg' as produto,\n"
+                + " itens.item_quantidade,\n"
+                + " to_char((itens.item_valor) ,'R$999G990D99') as item_valor,\n"
+                + " to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial\n"
+                + " from clientes inner join pedidos on clientes.cli_id = pedidos.fk_cliente\n"
+                + " 	inner join itens on pedidos.ped_id = itens.fk_pedido\n"
+                + " 	inner join produtos on itens.fk_produto = produtos.pro_id\n"
+                + " 	inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id WHERE 1=1 AND \n";
         Boolean aux;
         if (tabela.getRowCount() != 0) {
             for (int i = 0; i < tabela.getRowCount(); i++) {
@@ -524,13 +541,46 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 if (aux == null) {
 
                 } else if (aux == true) {
-                    gerarPDF((Long) tabela.getValueAt(i, 11),
-                            (String) tabela.getValueAt(i, 1));
+                    query += " pedidos.ped_id = " + tabela.getValueAt(i, 11) + " OR";
                 }
             }
-            JOptionPane.showMessageDialog(this, "PDFs criado com sucesso!",
+        }
+
+        query = query.substring(0, query.length() - 3);
+
+        query += " group by clientes.cli_nome,\n"
+                + " clientes.cli_endereco,\n"
+                + " clientes.cli_bairro,\n"
+                + " clientes.cli_cidade,\n"
+                + " clientes.cli_estado,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_vencimento,\n"
+                + " pedidos.ped_data,\n"
+                + " pedidos.ped_pedido,\n"
+                + " produtos.pro_nome,\n"
+                + " produtos.pro_peso,\n"
+                + " itens.item_quantidade,\n"
+                + " itens.item_valor\n"
+                + " order by pedidos.ped_id;";
+
+        Relatorio rel = new Relatorio();
+        try {
+            int horas = new Date().getHours();
+            int minutos = new Date().getMinutes();
+            String hora = String.valueOf(horas) + "h" + String.valueOf(minutos) + "m";
+            java.sql.Date data = new java.sql.Date(new Date().getTime());
+            String nome = "\\" + Editor.formatDataPasta(data) + " - " + hora + ".pdf";
+            rel.gerarPedido(query, 0, nome);
+            JOptionPane.showMessageDialog(this, "PDF gerado com sucesso!",
                     "Activity Performed Successfully",
                     JOptionPane.WARNING_MESSAGE);
+        } catch (JRException | SQLException | IOException ex) {
+            JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBPDFActionPerformed
 
@@ -602,7 +652,6 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             try {
                 Desktop.getDesktop().open(arquivo);
             } catch (Exception ex) {
-                ex.printStackTrace();
                 JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -616,6 +665,25 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBLimpar1ActionPerformed
 
     private void jBImprimirMeiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirMeiaActionPerformed
+        String query = "select clientes.cli_nome,\n"
+                + " clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_pedido,\n"
+                + " to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,\n"
+                + " to_char(pedidos.ped_data,'dd/mm/yyyy') as data,\n"
+                + " produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90') || ' Kg' as produto,\n"
+                + " itens.item_quantidade,\n"
+                + " to_char((itens.item_valor) ,'R$999G990D99') as item_valor,\n"
+                + " to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial\n"
+                + " from clientes inner join pedidos on clientes.cli_id = pedidos.fk_cliente\n"
+                + " 	inner join itens on pedidos.ped_id = itens.fk_pedido\n"
+                + " 	inner join produtos on itens.fk_produto = produtos.pro_id\n"
+                + " 	inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id WHERE 1=1 AND \n";
         Boolean aux;
         if (tabela.getRowCount() != 0) {
             for (int i = 0; i < tabela.getRowCount(); i++) {
@@ -623,55 +691,64 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 if (aux == null) {
 
                 } else if (aux == true) {
-                    imprimirMeia((Long) tabela.getValueAt(i, 11),
-                            (String) tabela.getValueAt(i, 1));
+                    query += " pedidos.ped_id = " + tabela.getValueAt(i, 11) + " OR";
                 }
             }
-            JOptionPane.showMessageDialog(this, "Impressões realizadas com sucesso!",
+        }
+
+        query = query.substring(0, query.length() - 3);
+        query += " group by clientes.cli_nome,\n"
+                + " clientes.cli_endereco,\n"
+                + " clientes.cli_bairro,\n"
+                + " clientes.cli_cidade,\n"
+                + " clientes.cli_estado,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_vencimento,\n"
+                + " pedidos.ped_data,\n"
+                + " pedidos.ped_pedido,\n"
+                + " produtos.pro_nome,\n"
+                + " produtos.pro_peso,\n"
+                + " itens.item_quantidade,\n"
+                + " itens.item_valor\n"
+                + " order by pedidos.ped_id;";
+
+        Relatorio rel = new Relatorio();
+
+        try {
+            rel.gerarPedido(query, 1, "");
+            JOptionPane.showMessageDialog(this, "Impressão efetuada sucesso!",
                     "Activity Performed Successfully",
                     JOptionPane.WARNING_MESSAGE);
+        } catch (JRException | SQLException | IOException ex) {
+            JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBImprimirMeiaActionPerformed
 
     private void jBVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVisualizarActionPerformed
-//        Boolean aux;
-//        if (tabela.getRowCount() != 0) {
-//            for (int i = 0; i < tabela.getRowCount(); i++) {
-//                aux = (Boolean) tabela.getValueAt(i, 0);
-//                if (aux == null) {
-//
-//                } else if (aux == true) {
-//                    try {
-//                        Relatorio rel = new Relatorio();
-//                        rel.gerarPedido((Long) tabela.getValueAt(i, 11), 2, "", 0);
-//
-//                    } catch (IOException | JRException | SQLException ex) {
-//                        JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
-//                    }
-//                }
-//
-//            }
-//        }
-        
-        String query = "select clientes.cli_nome,\n" +
-        " clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,\n" +
-        " clientes.cli_cep,\n" +
-        " clientes.cli_telefone,\n" +
-        " clientes.cli_cnpj_cpf,\n" +
-        " clientes.cli_inscricao_est,\n" +
-        " pedidos.ped_id,\n" +
-        " pedidos.ped_pagamento,\n" +
-        " pedidos.ped_pedido,\n" +
-        " to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,\n" +
-        " to_char(pedidos.ped_data,'dd/mm/yyyy') as data,\n" +
-        " produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90') || ' Kg' as produto,\n" +
-        " itens.item_quantidade,\n" +
-        " itens.item_valor,\n" +
-        " to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial\n" +
-        " from clientes inner join pedidos on clientes.cli_id = pedidos.fk_cliente\n" +
-        " 	inner join itens on pedidos.ped_id = itens.fk_pedido\n" +
-        " 	inner join produtos on itens.fk_produto = produtos.pro_id\n" +
-        " 	inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id WHERE 1=1 AND \n";
+        String query = "select clientes.cli_nome,\n"
+                + " clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_pedido,\n"
+                + " to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,\n"
+                + " to_char(pedidos.ped_data,'dd/mm/yyyy') as data,\n"
+                + " produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90') || ' Kg' as produto,\n"
+                + " itens.item_quantidade,\n"
+                + " to_char((itens.item_valor) ,'R$999G990D99') as item_valor,\n"
+                + " to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial\n"
+                + " from clientes inner join pedidos on clientes.cli_id = pedidos.fk_cliente\n"
+                + " 	inner join itens on pedidos.ped_id = itens.fk_pedido\n"
+                + " 	inner join produtos on itens.fk_produto = produtos.pro_id\n"
+                + " 	inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id WHERE 1=1 AND \n";
         Boolean aux;
         if (tabela.getRowCount() != 0) {
             for (int i = 0; i < tabela.getRowCount(); i++) {
@@ -679,44 +756,39 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 if (aux == null) {
 
                 } else if (aux == true) {
-                    query += " pedidos.ped_id = "+tabela.getValueAt(i,11)+" OR";
+                    query += " pedidos.ped_id = " + tabela.getValueAt(i, 11) + " OR";
                 }
             }
-        }     
-        
-        System.out.print("saiu do for"+query);
-        query = query.substring(0,query.length()-3);
-        System.out.println("passou pelo substring"+ query);
-        query +=" group by clientes.cli_nome,\n" +
-" clientes.cli_endereco,\n" +
-" clientes.cli_bairro,\n" +
-" clientes.cli_cidade,\n" +
-" clientes.cli_estado,\n" +
-" clientes.cli_cep,\n" +
-" clientes.cli_telefone,\n" +
-" clientes.cli_cnpj_cpf,\n" +
-" clientes.cli_inscricao_est,\n" +
-" pedidos.ped_id,\n" +
-" pedidos.ped_pagamento,\n" +
-" pedidos.ped_vencimento,\n" +
-" pedidos.ped_data,\n" +
-" pedidos.ped_pedido,\n" +
-" produtos.pro_nome,\n" +
-" produtos.pro_peso,\n" +
-" itens.item_quantidade,\n" +
-" itens.item_valor\n" +
-" order by pedidos.ped_id;";
-        
+        }
+
+        query = query.substring(0, query.length() - 3);
+
+        query += " group by clientes.cli_nome,\n"
+                + " clientes.cli_endereco,\n"
+                + " clientes.cli_bairro,\n"
+                + " clientes.cli_cidade,\n"
+                + " clientes.cli_estado,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_vencimento,\n"
+                + " pedidos.ped_data,\n"
+                + " pedidos.ped_pedido,\n"
+                + " produtos.pro_nome,\n"
+                + " produtos.pro_peso,\n"
+                + " itens.item_quantidade,\n"
+                + " itens.item_valor\n"
+                + " order by pedidos.ped_id;";
+
         Relatorio rel = new Relatorio();
-        System.out.println("final" + query);
+
         try {
             rel.gerarPedido(query, 2, "");
-        } catch (JRException ex) {
-            Logger.getLogger(ListagemPedidos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(ListagemPedidos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ListagemPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException | SQLException | IOException ex) {
+            JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBVisualizarActionPerformed
 
@@ -792,8 +864,8 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
             }
         }
 
-        clientes = new ArrayList<Cliente>(cCliente);
-        fornecedores = new ArrayList<Fornecedor>(cFornecedor);
+        clientes = new ArrayList<>(cCliente);
+        fornecedores = new ArrayList<>(cFornecedor);
 
         Iterator i = cCliente.iterator();
         while (i.hasNext()) {
@@ -875,16 +947,16 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
         }
         query += "GROUP BY pedido.data,cliente.cidade,cliente.estado,cliente.nome, fornecedor.nome, fornecedor.frete, pedido.status,"
                 + "pedido.tipo_pagamento,pedido.tipo_pedido,pedido.id,pedido.vencimento,pedido.obs ";
-        
-        if(jRBData.isSelected() && jDCDataInicial.getDate() != null && jDCDataFinal.getDate() != null){
+
+        if (jRBData.isSelected() && jDCDataInicial.getDate() != null && jDCDataFinal.getDate() != null) {
             dataInicial = jDCDataInicial.getDate();
             dataFinal = jDCDataFinal.getDate();
-            query += "HAVING pedido.data BETWEEN '"+dataInicial+"' AND '"+ dataFinal+"'";
-        }else if (jRBData.isSelected()){
+            query += "HAVING pedido.data BETWEEN '" + dataInicial + "' AND '" + dataFinal + "'";
+        } else if (jRBData.isSelected()) {
             JOptionPane.showMessageDialog(ListagemPedidos.this,
                     "Pesquisa efetuada sem dados. \n Preencha os dois campos de data para realizar a pesquisa.");
         }
-        return query;     
+        return query + " order by pedido.data,cliente.nome";
     }
 
     private void hinter() {
@@ -894,38 +966,5 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 + "1. O botão \"Selecionar Tudo\" facilita o preenchimento dos campos escolhidos.<br>"
                 + "2. O botão limpar reinicia a tela limpando os campos.<br>"
                 + "3. Para consultar o Manual do Proprietário, basta dar um duplo clique em \"Ajuda\" ou tecle F1.</html>");
-    }
-
-    private void imprimir(Long valueAt, String nome) {
-        try {
-            Relatorio rel = new Relatorio();
-            rel.gerarPedido(valueAt, 1, nome, 0);
-
-        } catch (IOException | JRException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo."
-                    + " Contate o administrador do sistema!\n" + ex);
-        }
-    }
-
-    private void imprimirMeia(Long valueAt, String nome) {
-        try {
-            Relatorio rel = new Relatorio();
-            rel.gerarPedido(valueAt, 1, nome, 1);
-
-        } catch (IOException | JRException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo."
-                    + " Contate o administrador do sistema!\n" + ex);
-        }
-    }
-
-    private void gerarPDF(Long valueAt, String nome) {
-        try {
-            Relatorio rel = new Relatorio();
-            rel.gerarPedido(valueAt, 0, nome, 0);
-
-        } catch (IOException | JRException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo."
-                    + " Contate o administrador do sistema!\n" + ex);
-        }
     }
 }

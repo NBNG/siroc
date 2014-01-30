@@ -1,4 +1,4 @@
-/*
+/*ESSE É DO GIT HUB
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -74,12 +74,14 @@ public class NovoPedido extends JInternalFrame {
     List<Produto> listProduto;
     List<Cliente> listCliente;
     List<Item> listItem = new ArrayList<>();
-    Pedido pedido;
+    List<Item> ItensFornecedor = new ArrayList<>();
+    List<Long> idFornecedor = new ArrayList<>();
     Item item;
     Fornecedor fornecedor = new Fornecedor();
     Cliente cliente = new Cliente();
     DAO<Produto> pdao = new DAO<>(Produto.class);
     DAO<Cliente> cdao = new DAO<>(Cliente.class);
+    DAO<Fornecedor> fdao = new DAO<>(Fornecedor.class);
     String status;
     JDesktopPane painel;
     private String caracteres = "0987654321.,";
@@ -445,33 +447,35 @@ public class NovoPedido extends JInternalFrame {
     }//GEN-LAST:event_jTPrazoActionPerformed
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
-        if (verifica(listItem)) {
-            status = (String) jCBPago.getSelectedItem();
-            Date data = jDCData.getDate();
-            if (!jTPrazo.getText().equals("")) {
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(data);
-                cal.add(cal.DAY_OF_MONTH, Integer.parseInt(jTPrazo.getText()));
-                data = cal.getTime();
-
-            }
-            DAO<Pedido> pdao = new DAO<>(Pedido.class);
-
-            pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
-                    setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()))
-                    .setItens(listItem).setVencimento(data).getPedido();
-            //pedido.setItens(listItem);
-            for (int i = 0; i < listItem.size(); i++) {
-                listItem.get(i).setPedido(pedido);
-            }
-
-            pdao.adicionar(pedido);
-            JOptionPane.showMessageDialog(this, "Pedido adicionado com sucesso! \n Se deseja realizar outro pedido, clique em Limpar!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
-            //marca();
-            pedido = new Pedido();
-        } else {
-            System.out.println("Nem deu eim");
+        idFornecedor = limpaId(idFornecedor);
+        //inserir pedido dentro desse for
+        status = (String) jCBPago.getSelectedItem();
+        Date data = jDCData.getDate();
+        if (!jTPrazo.getText().equals("")) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(data);
+            cal.add(cal.DAY_OF_MONTH, Integer.parseInt(jTPrazo.getText()));
+            data = cal.getTime();
         }
+        DAO<Pedido> pdao = new DAO<>(Pedido.class);
+        for (int i = 0; i < idFornecedor.size(); i++) {
+            fornecedor = fdao.busca(idFornecedor.get(i));
+            for (int j = 0; j < listItem.size(); j++) {
+                if (fornecedor.getId().equals(listItem.get(j).getProduto().getFornecedor().getId())) {
+                    ItensFornecedor.add(listItem.get(i));
+                }
+            }
+            //dados do pedido
+            Pedido pedido = new PedidoBuilder().setCliente(listCliente.get(TabelaCliente.getSelectedRow())).setData(jDCData.getDate()).setStatus(status).
+                    setTipo_pagamento(String.valueOf(jCBTipo_Pagamento.getSelectedItem())).setTipo_pedido(String.valueOf(jCBTipo_Pedido.getSelectedItem()))
+                    .setItens(ItensFornecedor).setVencimento(data).getPedido();
+            for (int k = 0; k < ItensFornecedor.size(); k++) {
+                ItensFornecedor.get(k).setPedido(pedido);
+            }
+            pdao.adicionar(pedido);
+            ItensFornecedor.clear();
+        }
+        JOptionPane.showMessageDialog(this, "Pedido adicionado com sucesso! \n Se deseja realizar outro pedido, clique em Limpar!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
@@ -515,7 +519,7 @@ public class NovoPedido extends JInternalFrame {
 
     private void TabelaProduto_FornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaProduto_FornecedorMouseClicked
         fornecedor = listProduto.get(TabelaProduto_Fornecedor.getSelectedRow()).getFornecedor();
-
+        idFornecedor.add(fornecedor.getId());
         Item itemAux = abreOptionPane();
         if (itemAux != null) {
             listItem.add(itemAux);
@@ -735,15 +739,16 @@ public class NovoPedido extends JInternalFrame {
         return lista;
     }
 
-    private boolean verifica(List<Item> lista) {
-        for (int i = 0; i < lista.size(); i++) {
-            for (int j = 0; j < lista.size(); j++) {
-                if (lista.get(i).getProduto().getFornecedor().getId()
-                        != lista.get(j).getProduto().getFornecedor().getId()) {
-                    return false;
-                }
-            }
+    private List<Long> limpaId(List<Long> idFornecedor) {
+        HashSet forn = new HashSet();
+        for (int i = 0; i < idFornecedor.size(); i++) {
+            forn.add(idFornecedor.get(i));
         }
-        return true;
+        Iterator i = forn.iterator();
+        idFornecedor.clear();
+        while (i.hasNext()) {
+            idFornecedor.add((Long) i.next());
+        }
+        return idFornecedor;
     }
 }

@@ -364,7 +364,6 @@ public class RomaneioNF extends javax.swing.JFrame {
                     + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id "
                     + "inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
                     + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "' group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso,fornecedores.for_nome";
-            System.out.println(query);
             try {
                 java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
                 java.sql.Date dataF = new java.sql.Date(jDCFinal.getDate().getTime());
@@ -406,7 +405,7 @@ public class RomaneioNF extends javax.swing.JFrame {
                     + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id "
                     + "inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
                     + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "' group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso,fornecedores.for_nome";
-            System.out.println(query);
+
             try {
                 java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
                 java.sql.Date dataF = new java.sql.Date(jDCFinal.getDate().getTime());
@@ -448,7 +447,7 @@ public class RomaneioNF extends javax.swing.JFrame {
                     + "produtos.pro_id = itens.fk_produto inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id inner join pedidos on itens.fk_pedido = pedidos.ped_id "
                     + "inner join clientes on pedidos.fk_cliente = clientes.cli_id where "
                     + parte + " AND clientes.cli_estado = '" + (String) jCBEstado.getSelectedItem() + "' group by itens.fk_produto,produtos.pro_nome,produtos.pro_peso,fornecedores.for_nome";
-            System.out.println(query);
+
             try {
                 java.sql.Date dataI = new java.sql.Date(jDCInicial.getDate().getTime());
                 java.sql.Date dataF = new java.sql.Date(jDCFinal.getDate().getTime());

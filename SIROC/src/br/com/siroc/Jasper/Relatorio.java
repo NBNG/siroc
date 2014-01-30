@@ -42,58 +42,10 @@ public class Relatorio {
     public static Connection getConexao() {
 
         try {
-            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/siroc", "postgres", "agreste03");
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/siroc", "postgres", "senha");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro:\n" + ex);
             throw new RuntimeException(ex);
-        }
-    }
-
-    public void gerarPedido(Long id, int tipo, String nome, int pagina) throws JRException, SQLException, IOException {
-        if (pagina == 0) {
-            xml += "\\pedido.jrxml";
-        } else {
-            xml += "\\pedidomeiapagina.jrxml";
-        }
-
-        JasperDesign desenho = JRXmlLoader.load(xml);
-        JasperReport relatorio = JasperCompileManager.compileReport(desenho);
-        String query = "select clientes.cli_nome,\n"
-                + "clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,clientes.cli_telefone,\n"
-                + "clientes.cli_cep, clientes.cli_cnpj_cpf, clientes.cli_inscricao_est,to_char(((select sum (itens.item_valor * itens.item_quantidade) \n"
-                + "from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = " + id + ")*fornecedores.for_frete)/100 ,'R$999G990D99') as frete,\n"
-                + "produtos.pro_id, itens.item_quantidade, produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90')|| ' Kg' as produto, \n"
-                + "to_char(itens.item_valor,'R$999G990D99') as item_valor, to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial,\n"
-                + "to_char((select sum((itens.item_valor - produtos.pro_saida)*itens.item_quantidade) from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id \n"
-                + "inner join produtos on itens.fk_produto = produtos.pro_id where pedidos.ped_id = " + id + "),'L9G999G90D99')  as lucro, pedidos.ped_pagamento, pedidos.ped_pedido,\n"
-                + "pedidos.ped_status, to_char(pedidos.ped_data,'dd/mm/yyyy') as data, to_char((select sum (itens.item_valor * itens.item_quantidade) \n"
-                + "from itens inner join pedidos on itens.fk_pedido = pedidos.ped_id where pedidos.ped_id = " + id + "),'R$999G990D99')  as total,to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,pedidos.ped_obs from pedidos\n"
-                + "inner join clientes on clientes.cli_id = pedidos.fk_cliente inner join itens on pedidos.ped_id = itens.fk_pedido inner join produtos\n"
-                + "on produtos.pro_id = itens.fk_produto "
-                + " inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id"
-                + " where pedidos.ped_id = " + id + " \n"
-                + "group by pedidos.ped_id,clientes.cli_nome,clientes.cli_endereco,clientes.cli_bairro,clientes.cli_cidade,clientes.cli_estado,clientes.cli_telefone,\n"
-                + "clientes.cli_cep,clientes.cli_cnpj_cpf,clientes.cli_inscricao_est,fornecedores.for_frete,produtos.pro_id,itens.item_quantidade,itens.item_valor,\n"
-                + "pedidos.ped_pagamento, pedidos.ped_pedido,pedidos.ped_status,pedidos.ped_data";
-
-        PreparedStatement pstmt = this.conexao.prepareStatement(query);
-        ResultSet rs = pstmt.executeQuery();
-
-        JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
-
-        HashMap parametros = new HashMap();
-        parametros.put("termo", new Double(10));
-
-        JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
-        if (tipo == 1) {
-
-            JasperPrintManager.printPage(impressao, 0, false);
-        } else if (tipo == 0) {
-            caminho = caminho + "\\pedido -" + id + " - " + nome + ".pdf";
-            JasperExportManager.exportReportToPdfFile(impressao, caminho);
-
-        } else if (tipo == 2) {
-            JasperViewer.viewReport(impressao, false);
         }
     }
 
@@ -127,7 +79,7 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperPrintManager.printPage(impressao, 0, false);
+            JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
             caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
@@ -168,7 +120,7 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperPrintManager.printPage(impressao, 0, false);
+            JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
             caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
@@ -192,7 +144,7 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperPrintManager.printPage(impressao, 0, false);
+            JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
             caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
@@ -216,7 +168,7 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperPrintManager.printPage(impressao, 0, false);
+            JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
             caminho = caminho + nome;
             JasperExportManager.exportReportToPdfFile(impressao, caminho);
@@ -224,14 +176,15 @@ public class Relatorio {
             JasperViewer.viewReport(impressao, false);
         }
     }
-    
-    public void gerarPedido(String query, int tipo, String nome) throws JRException, SQLException, IOException{
-        JasperDesign desenho = JRXmlLoader.load("C:\\Users\\Proclima\\Documents\\GitHub\\siroc\\SIROC\\src\\br\\com\\siroc\\Jasper\\pedidoMeiaPagina.jrxml");
+
+    public void gerarPedido(String query, int tipo, String nome) throws JRException, SQLException, IOException {
+        xml += "\\pedidoMeiaPagina.jrxml";
+        JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
-        
+
         PreparedStatement pstmt = this.conexao.prepareStatement(query);
         ResultSet rs = pstmt.executeQuery();
-        
+
         JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
 
         HashMap parametros = new HashMap();
@@ -239,10 +192,10 @@ public class Relatorio {
 
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
-            JasperPrintManager.printPage(impressao, 0, false);
+            JasperPrintManager.printPage(impressao, 0, true);
         } else if (tipo == 0) {
-            caminho = caminho + "\\pedido.pdf";
-            JasperExportManager.exportReportToPdfFile(impressao, "C:\\Users\\Proclima\\Desktop\\Jasper");
+            caminho += nome;
+            JasperExportManager.exportReportToPdfFile(impressao, caminho);
 
         } else if (tipo == 2) {
             JasperViewer.viewReport(impressao, false);

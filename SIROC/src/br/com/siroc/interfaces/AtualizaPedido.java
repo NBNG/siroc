@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -139,7 +137,6 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jBImprimir = new javax.swing.JButton();
         jTValor = new javax.swing.JTextField();
         jBVisualizar = new javax.swing.JButton();
-        jBImprimir2 = new javax.swing.JButton();
         jLRestante = new javax.swing.JLabel();
         jCBPago = new javax.swing.JComboBox();
         jLPrazo = new javax.swing.JLabel();
@@ -251,15 +248,6 @@ public class AtualizaPedido extends javax.swing.JFrame {
         jBVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBVisualizarActionPerformed(evt);
-            }
-        });
-
-        jBImprimir2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jBImprimir2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/siroc/Imagens/imprimir.png"))); // NOI18N
-        jBImprimir2.setText("Imprimir ½ Página");
-        jBImprimir2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBImprimir2ActionPerformed(evt);
             }
         });
 
@@ -376,19 +364,12 @@ public class AtualizaPedido extends javax.swing.JFrame {
                                         .addGap(10, 10, 10)
                                         .addComponent(jTPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLEndereco))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jBImprimir)
-                                .addGap(76, 76, 76))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jBImprimir2)
-                                .addGap(33, 33, 33))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jBImprimir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBVisualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(41, 41, 41))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jBImprimir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBVisualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(41, 41, 41))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -420,7 +401,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
                                 .addGap(3, 3, 3)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
-                                .addComponent(jScrollPane1)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)))
                         .addGap(33, 33, 33))))
         );
         layout.setVerticalGroup(
@@ -434,11 +415,9 @@ public class AtualizaPedido extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBVisualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jBImprimir1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBImprimir2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jBImprimir))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLCliente)
@@ -563,23 +542,104 @@ public class AtualizaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimir1ActionPerformed
+        String query = "select clientes.cli_nome,\n"
+                + " clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_pedido,\n"
+                + " to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,\n"
+                + " to_char(pedidos.ped_data,'dd/mm/yyyy') as data,\n"
+                + " produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90') || ' Kg' as produto,\n"
+                + " itens.item_quantidade,\n"
+                + " to_char((itens.item_valor) ,'R$999G990D99') as item_valor,\n"
+                + " to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial\n"
+                + " from clientes inner join pedidos on clientes.cli_id = pedidos.fk_cliente\n"
+                + " 	inner join itens on pedidos.ped_id = itens.fk_pedido\n"
+                + " 	inner join produtos on itens.fk_produto = produtos.pro_id\n"
+                + " 	inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id "
+                + "where pedidos.ped_id = " + resultado[10]
+                + " group by clientes.cli_nome,\n"
+                + " clientes.cli_endereco,\n"
+                + " clientes.cli_bairro,\n"
+                + " clientes.cli_cidade,\n"
+                + " clientes.cli_estado,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_vencimento,\n"
+                + " pedidos.ped_data,\n"
+                + " pedidos.ped_pedido,\n"
+                + " produtos.pro_nome,\n"
+                + " produtos.pro_peso,\n"
+                + " itens.item_quantidade,\n"
+                + " itens.item_valor\n"
+                + " order by pedidos.ped_id;";
+
+        Relatorio rel = new Relatorio();
         try {
-            Relatorio rel = new Relatorio();
-            rel.gerarPedido((Long) resultado[10], 0, (String) resultado[3], 0);
-            JOptionPane.showMessageDialog(AtualizaPedido.this, "PDF criado com sucesso!", "Activity Performed Successfully", JOptionPane.WARNING_MESSAGE);
-        } catch (IOException | JRException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
+            String nome = "\\pedido - " + resultado[10] + ".pdf";
+            rel.gerarPedido(query, 0, nome);
+        } catch (JRException | SQLException | IOException ex) {
+            JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBImprimir1ActionPerformed
 
     private void jBImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirActionPerformed
+        String query = "select clientes.cli_nome,\n"
+                + " clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_pedido,\n"
+                + " to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,\n"
+                + " to_char(pedidos.ped_data,'dd/mm/yyyy') as data,\n"
+                + " produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90') || ' Kg' as produto,\n"
+                + " itens.item_quantidade,\n"
+                + " to_char((itens.item_valor) ,'R$999G990D99') as item_valor,\n"
+                + " to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial\n"
+                + " from clientes inner join pedidos on clientes.cli_id = pedidos.fk_cliente\n"
+                + " 	inner join itens on pedidos.ped_id = itens.fk_pedido\n"
+                + " 	inner join produtos on itens.fk_produto = produtos.pro_id\n"
+                + " 	inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id "
+                + "where pedidos.ped_id = " + resultado[10]
+                + " group by clientes.cli_nome,\n"
+                + " clientes.cli_endereco,\n"
+                + " clientes.cli_bairro,\n"
+                + " clientes.cli_cidade,\n"
+                + " clientes.cli_estado,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_vencimento,\n"
+                + " pedidos.ped_data,\n"
+                + " pedidos.ped_pedido,\n"
+                + " produtos.pro_nome,\n"
+                + " produtos.pro_peso,\n"
+                + " itens.item_quantidade,\n"
+                + " itens.item_valor\n"
+                + " order by pedidos.ped_id;";
+
+        Relatorio rel = new Relatorio();
         try {
-            Relatorio rel = new Relatorio();
-            rel.gerarPedido((Long) resultado[10], 1, (String) resultado[3], 0);
-        } catch (IOException ex) {
-            Logger.getLogger(AtualizaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JRException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
+            rel.gerarPedido(query, 1, "");
+            JOptionPane.showMessageDialog(this, "Impressão efetuada sucesso!",
+                    "Activity Performed Successfully",
+                    JOptionPane.WARNING_MESSAGE);
+        } catch (JRException | SQLException | IOException ex) {
+            JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBImprimirActionPerformed
 
@@ -598,25 +658,53 @@ public class AtualizaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jLAjudaMouseClicked
 
     private void jBVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVisualizarActionPerformed
-        try {
-            Relatorio rel = new Relatorio();
-            rel.gerarPedido((Long) resultado[10], 2, (String) resultado[3], 0);
+        String query = "select clientes.cli_nome,\n"
+                + " clientes.cli_endereco ||', ' ||clientes.cli_bairro || '. ' || clientes.cli_cidade || '-' || clientes.cli_estado as endereco,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_pedido,\n"
+                + " to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,\n"
+                + " to_char(pedidos.ped_data,'dd/mm/yyyy') as data,\n"
+                + " produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90') || ' Kg' as produto,\n"
+                + " itens.item_quantidade,\n"
+                + " to_char((itens.item_valor) ,'R$999G990D99') as item_valor,\n"
+                + " to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial\n"
+                + " from clientes inner join pedidos on clientes.cli_id = pedidos.fk_cliente\n"
+                + " 	inner join itens on pedidos.ped_id = itens.fk_pedido\n"
+                + " 	inner join produtos on itens.fk_produto = produtos.pro_id\n"
+                + " 	inner join fornecedores on produtos.fk_fornecedor = fornecedores.for_id "
+                + "where pedidos.ped_id = " + resultado[10]
+                + " group by clientes.cli_nome,\n"
+                + " clientes.cli_endereco,\n"
+                + " clientes.cli_bairro,\n"
+                + " clientes.cli_cidade,\n"
+                + " clientes.cli_estado,\n"
+                + " clientes.cli_cep,\n"
+                + " clientes.cli_telefone,\n"
+                + " clientes.cli_cnpj_cpf,\n"
+                + " clientes.cli_inscricao_est,\n"
+                + " pedidos.ped_id,\n"
+                + " pedidos.ped_pagamento,\n"
+                + " pedidos.ped_vencimento,\n"
+                + " pedidos.ped_data,\n"
+                + " pedidos.ped_pedido,\n"
+                + " produtos.pro_nome,\n"
+                + " produtos.pro_peso,\n"
+                + " itens.item_quantidade,\n"
+                + " itens.item_valor\n"
+                + " order by pedidos.ped_id;";
 
-        } catch (IOException | JRException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
+        Relatorio rel = new Relatorio();
+        try {
+            rel.gerarPedido(query, 2, "");
+        } catch (JRException | SQLException | IOException ex) {
+            JOptionPane.showMessageDialog(null, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBVisualizarActionPerformed
-
-    private void jBImprimir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimir2ActionPerformed
-        try {
-            Relatorio rel = new Relatorio();
-            rel.gerarPedido((Long) resultado[10], 1, (String) resultado[3], 1);
-        } catch (IOException ex) {
-            Logger.getLogger(AtualizaPedido.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JRException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro em procurar arquivo. Contate o administrador do sistema!\n" + ex);
-        }
-    }//GEN-LAST:event_jBImprimir2ActionPerformed
 
     private void jTValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTValorKeyTyped
         //metodo para não aceitar letras no campo de dinheiro
@@ -626,7 +714,7 @@ public class AtualizaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jTValorKeyTyped
 
     private void jTPrazoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPrazoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTPrazoActionPerformed
 
     private void TabelaPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaPedidoMouseClicked
@@ -765,7 +853,6 @@ public class AtualizaPedido extends javax.swing.JFrame {
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBImprimir;
     private javax.swing.JButton jBImprimir1;
-    private javax.swing.JButton jBImprimir2;
     private javax.swing.JButton jBRemover;
     private javax.swing.JButton jBVisualizar;
     private javax.swing.JComboBox jCBPagamento;
