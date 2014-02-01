@@ -520,6 +520,7 @@ public class RomaneioSO extends javax.swing.JFrame {
                 + "INNER JOIN item.produto as produto "
                 + "INNER JOIN produto.fornecedor as fornecedor "
                 + "WHERE pedido.tipo_pedido = 'SO' AND "
+                + "lower(fornecedor.nome) like lower('%" + jCBFornecedor.getSelectedItem().toString() + "%') AND "
                 + "pedido.data between '" + jDCInicial.getDate() + "' AND '" + jDCFinal.getDate() + "'"
                 + "GROUP BY pedido.data,cliente.cidade,cliente.estado,cliente.nome,"
                 + " fornecedor.nome, fornecedor.frete, pedido.status,"

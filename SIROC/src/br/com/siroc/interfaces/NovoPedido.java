@@ -475,6 +475,7 @@ public class NovoPedido extends JInternalFrame {
             pdao.adicionar(pedido);
             ItensFornecedor.clear();
         }
+        showFornecedor(idFornecedor);
         JOptionPane.showMessageDialog(this, "Pedido adicionado com sucesso! \n Se deseja realizar outro pedido, clique em Limpar!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jBSalvarActionPerformed
 
@@ -525,6 +526,7 @@ public class NovoPedido extends JInternalFrame {
             listItem.add(itemAux);
             preencheTabela(listItem);
         }
+
     }//GEN-LAST:event_TabelaProduto_FornecedorMouseClicked
     public Item abreOptionPane() {
 //        String[] options = {"OK"};
@@ -695,7 +697,6 @@ public class NovoPedido extends JInternalFrame {
             tmProduto_Pedido.setValueAt(Itens.get(i).getProduto().getId(), i, 5);
             totalValor += listItem.get(i).getValor_alterado() * listItem.get(i).getQuantidade();
             totalPeso += listItem.get(i).getProduto().getPeso() * listItem.get(i).getQuantidade();
-
         }
         jLTotalPeso.setText("Peso do Pedido: " + String.valueOf(totalPeso) + " Kg");
         jLTotal.setText("Valor do Pedido: " + Editor.format(totalValor));
@@ -750,5 +751,21 @@ public class NovoPedido extends JInternalFrame {
             idFornecedor.add((Long) i.next());
         }
         return idFornecedor;
+    }
+
+    private void showFornecedor(List<Long> ListId) {
+        ListId = limpaId(ListId);
+        List<Fornecedor> fornecedores = new ArrayList<>();
+        for (int i = 0; i < ListId.size(); i++) {
+            Fornecedor fornecedor = fdao.busca(ListId.get(i));
+            fornecedores.add(fornecedor);
+        }
+        String mensagem = "";
+        for (int i = 0; i < fornecedores.size(); i++) {
+            mensagem += fornecedores.get(i).getNome() + "\n";
+        }
+        JOptionPane.showMessageDialog(this, "Este Pedido será separado em "
+                + fornecedores.size() + " com os respectivos fornecedores: \n" + mensagem + "",
+                "Fornecedores do Pedido", JOptionPane.INFORMATION_MESSAGE);
     }
 }
