@@ -33,7 +33,7 @@ public class Relatorio {
 
     private Connection conexao;
     private String caminho = System.getenv("USERPROFILE") + "\\meus documentos\\NBNG\\siroc\\pdfs";
-    private String xml = System.getenv("USERPROFILE") + "\\meus documentos\\NBNG\\siroc\\xml";
+    private String xml = System.getenv("USERPROFILE") + "\\Meus Documentos\\NBNG\\SIROC\\xml";
 
     public Relatorio() {
         this.conexao = getConexao();
@@ -42,7 +42,7 @@ public class Relatorio {
     public static Connection getConexao() {
 
         try {
-            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/siroc", "postgres", "senha");
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/siroc", "postgres", "agreste03");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro:\n" + ex);
             throw new RuntimeException(ex);
@@ -179,6 +179,7 @@ public class Relatorio {
 
     public void gerarPedido(String query, int tipo, String nome) throws JRException, SQLException, IOException {
         xml += "\\pedidoMeiaPagina.jrxml";
+        System.out.println(xml);
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
 
@@ -188,8 +189,7 @@ public class Relatorio {
         JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
 
         HashMap parametros = new HashMap();
-        parametros.put("termo", new Double(10));
-
+        parametros.put("REPORT_CONNECTION", conexao);
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);
