@@ -475,7 +475,7 @@ public class NovoPedido extends JInternalFrame {
             pdao.adicionar(pedido);
             ItensFornecedor.clear();
         }
-        showFornecedor(idFornecedor);
+        //showFornecedor(idFornecedor);
         JOptionPane.showMessageDialog(this, "Pedido adicionado com sucesso! \n Se deseja realizar outro pedido, clique em Limpar!", "Activity Performed Successfully", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jBSalvarActionPerformed
 
