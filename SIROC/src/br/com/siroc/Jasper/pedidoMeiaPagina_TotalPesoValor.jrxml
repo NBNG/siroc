@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pedidoMeiaPagina_TotalPesoValor" pageWidth="360" pageHeight="802" whenNoDataType="NoDataSection" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f86bfb87-c71b-4a9b-8b41-ac35f3a4f0ee">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pedidoMeiaPagina_TotalPesoValor" language="groovy" pageWidth="360" pageHeight="802" whenNoDataType="NoDataSection" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f86bfb87-c71b-4a9b-8b41-ac35f3a4f0ee">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -20,38 +20,38 @@
 	<detail>
 		<band height="45" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="-1" width="63" height="22" uuid="6f37a33a-c214-40c6-9c22-e20a7bdf8655"/>
+				<reportElement uuid="6f37a33a-c214-40c6-9c22-e20a7bdf8655" x="0" y="-1" width="63" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Peso Total:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="63" y="-1" width="129" height="22" uuid="411627a7-389a-41ab-80d3-2bcda481d700"/>
+				<reportElement uuid="411627a7-389a-41ab-80d3-2bcda481d700" x="63" y="-1" width="129" height="22"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{peso_total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="192" y="0" width="57" height="21" uuid="679d42ae-f743-4e55-83c3-02d3037b2d83"/>
+				<reportElement uuid="679d42ae-f743-4e55-83c3-02d3037b2d83" x="192" y="0" width="57" height="21"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor Total:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="249" y="-1" width="111" height="22" uuid="1b888508-032f-416e-b0a8-cb146b32d98e"/>
+				<reportElement uuid="1b888508-032f-416e-b0a8-cb146b32d98e" x="249" y="-1" width="111" height="22"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="213" y="25" width="36" height="20" uuid="d1df3978-ef47-4c77-ba0f-558a5e92cdfe"/>
+				<reportElement uuid="d1df3978-ef47-4c77-ba0f-558a5e92cdfe" x="213" y="25" width="36" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Frete:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="249" y="25" width="111" height="20" uuid="22ab8b1f-ada2-426c-bcad-15d0ce86e4c2"/>
+				<reportElement uuid="22ab8b1f-ada2-426c-bcad-15d0ce86e4c2" x="249" y="25" width="111" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{frete}]]></textFieldExpression>
 			</textField>
