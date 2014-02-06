@@ -49,7 +49,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 }
                 boolean[] canEdit = new boolean[]{
                     false, false, false, false, false, false, false, false,
-                    false, false, false
+                    false, false, false, false
                 };
 
                 @Override
@@ -744,7 +744,7 @@ public class ListagemPedidos extends javax.swing.JInternalFrame {
                 + " to_char(pedidos.ped_vencimento,'dd/mm/yyyy') as vencimento,\n"
                 + " to_char(pedidos.ped_data,'dd/mm/yyyy') as data,\n"
                 + " produtos.pro_nome || ' - ' || to_char(produtos.pro_peso,'09D90') || ' Kg' as produto,\n"
-                + " itens.item_quantidade,\n"
+                + " (count(itens.item_quantidade)*itens.item_quantidade) as item_quantidade,\n"
                 + " to_char((itens.item_valor) ,'R$999G990D99') as item_valor,\n"
                 + " to_char((itens.item_valor * itens.item_quantidade) ,'R$999G990D99') as total_parcial\n"
                 + " from clientes inner join pedidos on clientes.cli_id = pedidos.fk_cliente\n"

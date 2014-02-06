@@ -34,6 +34,7 @@ public class Relatorio {
     private Connection conexao;
     private String caminho = System.getenv("USERPROFILE") + "\\meus documentos\\NBNG\\siroc\\pdfs";
     private String xml = System.getenv("USERPROFILE") + "\\Meus Documentos\\NBNG\\SIROC\\xml";
+    private String sub = System.getenv("USERPROFILE") + "\\Meus Documentos\\NBNG\\SIROC\\xml\\";
 
     public Relatorio() {
         this.conexao = getConexao();
@@ -179,7 +180,6 @@ public class Relatorio {
 
     public void gerarPedido(String query, int tipo, String nome) throws JRException, SQLException, IOException {
         xml += "\\pedidoMeiaPagina.jrxml";
-        System.out.println(xml);
         JasperDesign desenho = JRXmlLoader.load(xml);
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
 
@@ -190,6 +190,7 @@ public class Relatorio {
 
         HashMap parametros = new HashMap();
         parametros.put("REPORT_CONNECTION", conexao);
+        parametros.put("SUBREPORT_DIR", sub);
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         if (tipo == 1) {
             JasperPrintManager.printPage(impressao, 0, true);

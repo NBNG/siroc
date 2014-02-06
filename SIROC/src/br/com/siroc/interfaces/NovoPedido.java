@@ -462,7 +462,7 @@ public class NovoPedido extends JInternalFrame {
             fornecedor = fdao.busca(idFornecedor.get(i));
             for (int j = 0; j < listItem.size(); j++) {
                 if (fornecedor.getId().equals(listItem.get(j).getProduto().getFornecedor().getId())) {
-                    ItensFornecedor.add(listItem.get(i));
+                    ItensFornecedor.add(listItem.get(j));
                 }
             }
             //dados do pedido
