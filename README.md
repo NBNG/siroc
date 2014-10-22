@@ -1,4 +1,4 @@
-SIROC - Sistema de Pedido e Romaneio de Caminhıes
+CELLA - Sistema de Pedidos e Romaneios de Caminh√µes
 
 Criado e desenvolvido por NBNG sob a plataforma Java com base de dados PostgreSQL para cliente particular.
 
@@ -6,9 +6,9 @@ Criado e desenvolvido por NBNG sob a plataforma Java com base de dados PostgreSQ
 
 Desenvolvedores e colaboradores:
 
-Lucas Garofolo Lopes (lucas.garofolo@gmail.com) - Graduado em Tecnologia da InformaÁ„o com enf‚se em Banco de dados - FATEC Prof. Waldomiro May
+Lucas Garofolo Lopes (lucas.garofolo@gmail.com) - Graduado em Tecnologia da Informa√ß√£o com enf√¢se em Banco de dados - FATEC Prof. Waldomiro May
 
-Matteus Carvalho (matteusc.barbosa@hotmail.com) - Graduado em Tecnologia da InformaÁ„o com enf‚se em Banco de dados - FATEC Prof. Waldomiro May
+Matteus Carvalho (matteusc.barbosa@hotmail.com) - Graduado em Tecnologia da Informa√ß√£o com enf√¢se em Banco de dados - FATEC Prof. Waldomiro May
 
 
 
