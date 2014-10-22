@@ -43,7 +43,7 @@ public class Relatorio {
     public static Connection getConexao() {
 
         try {
-            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/siroc", "postgres", "senha");
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/siroc", "postgres", "agreste03");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro:\n" + ex);
             throw new RuntimeException(ex);
